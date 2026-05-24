@@ -8,13 +8,14 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import CursorFollower from "../shared/CursorFollower";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import * as THREE from "three";
 
 
-
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    FLOATING CARD
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function FloatingCard({
   children,
   className,
@@ -36,9 +37,9 @@ function FloatingCard({
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    COUNTER ANIMATION
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [val, setVal] = useState(0);
   useEffect(() => {
@@ -54,9 +55,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   return <>{val.toLocaleString()}{suffix}</>;
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    LIVE TIMER
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function LiveTimer() {
   const [secs, setSecs] = useState(2535);
   useEffect(() => {
@@ -69,9 +70,9 @@ function LiveTimer() {
   return <span className="font-mono">{h}:{m}:{s}</span>;
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    OVERVIEW VISUAL
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function OverviewVisual() {
   const stats = [
     { label: "Students", value: 1842, gradient: "from-blue-500/10 to-brand/10" },
@@ -156,9 +157,9 @@ function OverviewVisual() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    COMMUNICATION VISUAL
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function CommunicationVisual() {
   const messages = [
     { text: "Physics notes for Chapter 12 have been uploaded.", delay: 0.2 },
@@ -248,9 +249,9 @@ function CommunicationVisual() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    ONLINE CLASSES VISUAL
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function ClassesVisual() {
   const participants = [
     { name: "Aditi R.", mic: true },
@@ -358,9 +359,9 @@ function ClassesVisual() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    MEETINGS VISUAL
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function MeetingsVisual() {
   const meetings = [
     { title: "Staff Sync", time: "10:30 AM", type: "Internal" },
@@ -458,9 +459,9 @@ function MeetingsVisual() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    WEBINARS VISUAL
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function WebinarsVisual() {
   const statBars = [
     { label: "Students", val: 840, max: 1200, color: "bg-brand" },
@@ -573,9 +574,9 @@ function WebinarsVisual() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    INSTITUTION VISUAL
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function InstitutionVisual() {
   const departments = ["Administration", "Teaching Staff", "Medical Wing", "Transport"];
   return (
@@ -673,9 +674,9 @@ function InstitutionVisual() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    EVENTS VISUAL
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function EventsVisual() {
   const eventDays = [12, 15, 24, 28];
   const today = 24;
@@ -771,9 +772,9 @@ function EventsVisual() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    NOTICES VISUAL
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function NoticesVisual() {
   const notices = [
     { title: "Winter Break Schedule Released", date: "Oct 24", urgency: "High", color: "#EF4444" },
@@ -847,9 +848,9 @@ function NoticesVisual() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    DASHBOARD MOCK
-───────────────────────────────────────────── */
+--------------------------------------------- */
 function DashboardMock() {
   const [activeSection, setActiveSection] = useState("Overview");
   const [prevSection, setPrevSection] = useState<string | null>(null);
@@ -952,49 +953,135 @@ function DashboardMock() {
   );
 }
 
-/* ─────────────────────────────────────────────
+/* ---------------------------------------------
    HERO SECTION — ROOT
-───────────────────────────────────────────── */
+--------------------------------------------- */
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const init = async () => {
-      const gsap = (await import("gsap")).default;
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      gsap.registerPlugin(ScrollTrigger);
-
-      if (!sectionRef.current) return;
-
-      // Parallax scroll on dashboard
-      gsap.to(".hero-visual", {
-        y: 90,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.2,
-        },
+  const router = useRouter();
+    const sectionRef = useRef<HTMLElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+  
+    const words = ["Connect", "Collaborate", "Coordinate"];
+  
+    const [wordIndex, setWordIndex] = useState(0);
+  
+    useEffect(() => {
+      const id = setInterval(() => {
+        setWordIndex((v) => (v + 1) % words.length);
+      }, 2800);
+  
+      return () => clearInterval(id);
+    }, []);
+  
+    // Three.js particles
+    useEffect(() => {
+      if (!canvasRef.current) return;
+  
+      const canvas = canvasRef.current;
+  
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true,
       });
+  
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  
+      renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+  
+      const scene = new THREE.Scene();
+  
+      const camera = new THREE.PerspectiveCamera(
+        60,
+        canvas.offsetWidth / canvas.offsetHeight,
+        0.1,
+        100
+      );
+  
+      camera.position.z = 5;
+  
+      // particles
+      const count = 120;
+  
+      const positions = new Float32Array(count * 3);
+  
+      for (let i = 0; i < count; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 14;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+      }
+  
+      const geo = new THREE.BufferGeometry();
+  
+      geo.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      );
+  
+      // ONLY particles are red
+      const mat = new THREE.PointsMaterial({
+        color: 0x6063ee,
+        size: 0.032,
+        opacity: 0.37,
+        transparent: true,
 
-      // Floating cards independent motion
-      gsap.to(".float-card", {
-        y: "random(-18, 18)",
-        x: "random(-10, 10)",
-        rotation: "random(-3, 3)",
-        duration: "random(3, 6)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: { each: 0.6, from: "random" },
       });
+  
+      const points = new THREE.Points(geo, mat);
+  
+      scene.add(points);
+  
+      // grid
+      const gridHelper = new THREE.GridHelper(
+        20,
+        20,
+        0x1f2235,
+        0x1f2235
+      );
+  
+      (gridHelper.material as THREE.LineBasicMaterial).transparent = true;
+      (gridHelper.material as THREE.LineBasicMaterial).opacity = 0.035;
+  
+      gridHelper.rotation.x = Math.PI / 2;
+  
+      gridHelper.position.z = -2;
+  
+      scene.add(gridHelper);
+  
+      let raf: number;
+  
+      const animate = () => {
+        raf = requestAnimationFrame(animate);
+  
+        points.rotation.z += 0.00018;
+        points.rotation.y += 0.00008;
+  
+        renderer.render(scene, camera);
+      };
+  
+      animate();
+  
+      const handleResize = () => {
+        if (!canvas.parentElement) return;
+  
+        const w = canvas.parentElement.offsetWidth;
+        const h = canvas.parentElement.offsetHeight;
+  
+        renderer.setSize(w, h);
+  
+        camera.aspect = w / h;
+  
+        camera.updateProjectionMatrix();
+      };
+  
+      window.addEventListener("resize", handleResize);
 
-      ScrollTrigger.refresh();
-    };
-    const timer = setTimeout(init, 150);
-    return () => clearTimeout(timer);
-  }, []);
+      return () => {
+        cancelAnimationFrame(raf);
+        window.removeEventListener("resize", handleResize);
+        renderer.dispose();
+      };
+    }, []);
 
   const schoolLogos = ["CBSE", "ICSE", "Cambridge", "IB", "State Board", "NIOS"];
 
@@ -1004,10 +1091,14 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-36 pb-20"
       style={{ background: "var(--bg)" }}
     >
-      <CursorFollower />
+      <canvas
+    ref={canvasRef}
+    className="absolute inset-0 w-full h-full z-[1] pointer-events-none"
+  />
+
       {/* Ultra-lightweight CSS grid mesh and soft ambient radial glows (Zero CPU/GPU overhead) */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.25]"
+        className="absolute inset-0 pointer-events-none opacity-[0.25] z-[2]"
         style={{
           backgroundImage: `
             radial-gradient(circle at 50% -20%, rgba(90,95,232,0.15) 0%, transparent 50%),
@@ -1021,7 +1112,7 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Hero copy ── */}
+      {/* -- Hero copy -- */}
       <div className="container-page relative z-10 flex flex-col items-center text-center">
 
         {/* Eyebrow */}
@@ -1071,12 +1162,32 @@ export default function Hero() {
           className="mt-9 flex flex-wrap items-center justify-center gap-3"
         >
           <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-            <Button variant="default" size="lg" className="gap-2 shadow-[0_4px_24px_rgba(96,99,238,0.35)] hover:shadow-[0_8px_36px_rgba(96,99,238,0.45)]">
-              Request Live Demo <ArrowRight className="w-4 h-4" />
-            </Button>
+           <Link href="/contact?scroll=inquiry">
+  <Button
+    variant="default"
+    size="lg"
+    className="gap-2 shadow-[0_4px_24px_rgba(96,99,238,0.35)] hover:shadow-[0_8px_36px_rgba(96,99,238,0.45)]"
+  >
+    Request Live Demo
+    <ArrowRight className="w-4 h-4" />
+  </Button>
+</Link>
           </motion.div>
           <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-            <Button variant="outline" size="lg" className="gap-2">
+            <Button 
+            onClick={() => {
+              const target = document.getElementById("features");
+              if (target) {
+                const headerOffset = 60;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth"
+                });
+              }
+            }}
+            variant="outline" size="lg" className="gap-2">
               <Video className="w-4 h-4 text-brand" /> Explore Platform
             </Button>
           </motion.div>
@@ -1105,7 +1216,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* ── Dashboard mock ── */}
+      {/* -- Dashboard mock -- */}
       <motion.div
         initial={{ opacity: 0, y: 70, scale: 0.93, rotateX: 12 }}
         animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
@@ -1177,7 +1288,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* ── Marquee ── */}
+      {/* -- Marquee -- */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

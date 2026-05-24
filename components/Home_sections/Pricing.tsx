@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ThreePricingBackground from "./ThreePricingBackground";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,7 +75,7 @@ export default function Pricing() {
         y: 24,
         duration: 0.75,
         ease: "power2.out",
-        scrollTrigger: { trigger: "#pricing", start: "top 80%" },
+        scrollTrigger: { trigger: ref.current || undefined, start: "top 80%" },
       });
 
       // Cards stagger animation
@@ -84,7 +85,7 @@ export default function Pricing() {
         duration: 0.75,
         stagger: 0.12,
         ease: "power2.out",
-        scrollTrigger: { trigger: "#pricing", start: "top 70%" },
+        scrollTrigger: { trigger: ref.current || undefined, start: "top 70%" },
       });
 
       // Feature items and badge stagger per card
@@ -100,7 +101,7 @@ export default function Pricing() {
             duration: 0.6,
             delay: index * 0.12 + 0.1, // Pop up right as the card starts sliding in
             ease: "back.out(1.5)",
-            scrollTrigger: { trigger: "#pricing", start: "top 70%" },
+            scrollTrigger: { trigger: ref.current || undefined, start: "top 70%" },
           });
         }
 
@@ -111,7 +112,7 @@ export default function Pricing() {
           stagger: 0.05,
           delay: index * 0.12 + 0.3,
           ease: "power2.out",
-          scrollTrigger: { trigger: "#pricing", start: "top 70%" },
+          scrollTrigger: { trigger: ref.current || undefined, start: "top 70%" },
         });
       });
     }, ref);
@@ -182,17 +183,20 @@ export default function Pricing() {
               </div>
 
               <Button
+                asChild
                 variant={tier.featured ? "outline" : "default"}
                 className={`w-full justify-center gap-2 mb-6 group/btn transition-transform active:scale-[0.98] ${
                   tier.featured
                     ? "bg-white text-brand-ink hover:bg-white/90"
-                    : tier.name === "Enterprise"
+                    : tier.name === "Olympus"
                     ? "bg-transparent border border-black/10 text-brand-ink hover:bg-black/[0.03]"
                     : ""
                 }`}
               >
-                {tier.cta}{" "}
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                <Link href="/contact?scroll=inquiry">
+                  {tier.cta}{" "}
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                </Link>
               </Button>
 
               <div

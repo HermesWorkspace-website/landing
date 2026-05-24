@@ -11,9 +11,9 @@ import {
   ArrowRight, Sparkles, Zap, Globe,
 } from "lucide-react";
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    THREE.JS PARTICLE BACKGROUND
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 function ParticleBackground() {
   const mountRef = useRef<HTMLDivElement>(null);
 
@@ -98,9 +98,9 @@ function ParticleBackground() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    GSAP MAGNETIC BUTTON
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 function MagneticButton({ children, className }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLButtonElement>(null);
   const xTo = useRef<gsap.QuickToFunc | null>(null);
@@ -137,9 +137,9 @@ function MagneticButton({ children, className }: { children: React.ReactNode; cl
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    GSAP TEXT SCRAMBLE
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 function ScrambleText({ text, trigger }: { text: string; trigger: boolean }) {
   const ref = useRef<HTMLSpanElement>(null);
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -166,9 +166,9 @@ function ScrambleText({ text, trigger }: { text: string; trigger: boolean }) {
   return <span ref={ref}>{text}</span>;
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    CURSOR GLOW
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 function CursorGlow() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -197,9 +197,9 @@ function CursorGlow() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    SHARED HELPERS
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 const Avatar = ({ color = "mock-avatar", size = "w-7 h-7" }: { color?: string; size?: string }) => (
   <div className={`${size} rounded-full ${color} shrink-0`} />
 );
@@ -221,9 +221,9 @@ const fadeIn = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    ANIMATED FEATURE CARD WRAPPER
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 function FeatureCard({
   children,
   label,
@@ -300,9 +300,9 @@ function FeatureCard({
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    FLOATING BADGE (micro-animation)
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 function FloatingBadge({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
     <motion.div
@@ -314,9 +314,9 @@ function FloatingBadge({ children, delay = 0 }: { children: React.ReactNode; del
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    1. MESSAGES MOCK (animated)
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 export function MessagesMock() {
   const workspaces = [{ name: "X" }, { name: "XI" }, { name: "OPS" }, { name: "Nova" }];
 
@@ -720,9 +720,9 @@ export function MessagesMock() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    2. CLASSES MOCK (animated)
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 export function ClassesMock() {
   return (
     <div className="rounded-xl border border-white/[0.06] overflow-hidden bg-[#1A1C1D] shadow-[0_1px_4px_rgba(0,0,0,0.4)] relative">
@@ -839,9 +839,9 @@ export function ClassesMock() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    3. MEETINGS MOCK
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 export function MeetingsMock() {
   const participants = [
     { name: "Mr. Sharma", role: "Teacher", speaking: true },
@@ -917,9 +917,9 @@ export function MeetingsMock() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    4. WEBINARS MOCK
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 export function WebinarsMock() {
   return (
     <div className="rounded-xl border border-black/[0.06] overflow-hidden bg-white shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
@@ -987,9 +987,9 @@ export function WebinarsMock() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    5. MEMBERS MOCK
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 export function MembersMock() {
   const tabConfig = [
     { label: "Students", icon: <GraduationCap className="w-2.5 h-2.5" />, count: 1842 },
@@ -1084,9 +1084,9 @@ export function MembersMock() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    6. NOTICE MOCK
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 export function NoticeMock() {
   const notices = [
     { title: "Annual Sports Day – Nov 28", priority: "Important", pinned: true, time: "2h ago", color: "text-red-500 bg-red-50" },
@@ -1143,9 +1143,9 @@ export function NoticeMock() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    7. ACTIVITY MOCK
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 export function ActivityMock() {
   const activities = [
     { action: "Assignment submitted", user: "Aarav Patel", detail: "Mathematics – Ch.7", time: "2 min", icon: <Activity className="w-2.5 h-2.5" />, color: "bg-green-500/10 text-green-600" },
@@ -1189,9 +1189,9 @@ export function ActivityMock() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    FEATURES SECTION DATA
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 const features = [
   {
     id: "messages",
@@ -1265,9 +1265,9 @@ const features = [
   },
 ];
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    SECTION HEADER with scroll parallax
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 function SectionHeader() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -1335,9 +1335,9 @@ function SectionHeader() {
   );
 }
 
-/* ─────────────────────────────────────────────────────
+/* -----------------------------------------------------
    MAIN FEATURES SECTION
-───────────────────────────────────────────────────── */
+----------------------------------------------------- */
 export function FeaturesSection() {
   return (
     <section className="relative py-24 px-4 overflow-hidden">

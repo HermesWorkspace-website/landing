@@ -1,8 +1,29 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/shared/SmoothScroll";
-
+import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import { Geist, Bebas_Neue, DM_Sans, Cormorant_Garamond } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+
+const bebas = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-display",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+});
+
+const cormorant = Cormorant_Garamond({
+  weight: ["300", "400", "600"],
+  subsets: ["latin"],
+  variable: "--font-serif",
+});
 
 export const metadata: Metadata = {
   title: "HermesWorkspace — Every school. One platform.",
@@ -26,13 +47,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={cn(
+        "font-sans",
+        geist.variable,
+        bebas.variable,
+        dmSans.variable,
+        cormorant.variable
+      )}
+    >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased font-body">
-        
+        <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
         <Footer />
       </body>

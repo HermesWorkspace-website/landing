@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Users, Handshake, Newspaper, Sparkles, ArrowRight } from "lucide-react";
+import { Users, Handshake, Newspaper, Sparkles } from "lucide-react";
 
 interface FeatureCard {
   icon: React.ReactNode;
@@ -9,7 +9,6 @@ interface FeatureCard {
   colorTo: string;
   title: string;
   desc: string;
-  link: string;
 }
 
 const featureCards: FeatureCard[] = [
@@ -19,7 +18,6 @@ const featureCards: FeatureCard[] = [
     colorTo: "#7B7FF0",
     title: "Structured School Communication",
     desc: "Role-based communication channels for administrators, teachers, students, and parents across classes, sections, and departments.",
-    link: "Explore communication",
   },
   {
     icon: <Handshake className="w-5 h-5" />,
@@ -27,7 +25,6 @@ const featureCards: FeatureCard[] = [
     colorTo: "#c084fc",
     title: "Academic Operations",
     desc: "Manage meetings, notices, events, announcements, resources, and institutional coordination from one centralized platform.",
-    link: "View operations",
   },
   {
     icon: <Newspaper className="w-5 h-5" />,
@@ -35,7 +32,6 @@ const featureCards: FeatureCard[] = [
     colorTo: "#34d399",
     title: "Secure Digital Infrastructure",
     desc: "Built for institutional reliability with verified notice delivery, secure access control, and scalable cloud infrastructure.",
-    link: "Learn about security",
   },
 ];
 
@@ -141,15 +137,6 @@ export default function Features() {
                   {card.desc}
                 </p>
 
-                <motion.a
-                  href="#"
-                  className="inline-flex items-center gap-1.5 text-[12px] font-bold font-body"
-                  style={{ color: card.colorFrom }}
-                  whileHover={{ gap: "8px" } as any}
-                >
-                  {card.link}
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </motion.a>
               </div>
             </motion.div>
           ))}

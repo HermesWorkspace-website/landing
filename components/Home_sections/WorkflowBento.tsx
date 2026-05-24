@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-
+import Link from "next/link";
 
 const steps = [
   {
@@ -125,9 +125,9 @@ export default function WorkflowBento() {
           transition={{ duration: 0.5, delay: 0.55 }}
           className="text-center mt-14"
         >
-          <a className="btn btn-dark inline-flex gap-2 text-sm">
+          <Link href="/contact?scroll=inquiry" className="btn btn-dark inline-flex gap-2 text-sm">
             Schedule a School Demo <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -4,11 +4,12 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import useMagnetic from "@/components/contactpage/useMagnetic";
 
 export default function CTA() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: false, margin: "-60px" });
-
+  const { ref: btn2Ref, x: x2, y: y2 } = useMagnetic();
   return (
     <section ref={ref} id="contact" className="py-section">
       <div className="container-page">
@@ -74,12 +75,24 @@ export default function CTA() {
               <Button
                 variant="brand"
                 size="xl"
-                className="shadow-[0_8px_32px_rgba(96,99,238,0.5)] gap-2"
+                className="shadow-[0_8px_32px_rgba(96,99,238,0.5)] gap-1 "
               >
-                Schedule Demonstration <ArrowRight className="w-4 h-4" />
+                <Link href="/contact?scroll=inquiry" className="flex justify-center items-center gap-1">
+                  Schedule Demonstration  <ArrowRight className="w-4 h-4" />
+                </Link>
               </Button>
-              <Link href="/contact" className="nav-item text-sm">
-                Contact
+              <Link href="/contact">
+                <motion.button
+                  ref={btn2Ref as any}
+                  style={{ x: x2, y: y2 }}
+                  whileHover={{ scale: 1.04, background: "rgba(255,255,255,0.08)" }}
+                  whileTap={{ scale: 0.97 }}
+                  className="px-8 py-3.5 rounded-xl text-[13px] font-bold font-body text-white transition-colors"
+                >
+                  <span style={{ border: "1px solid rgba(255,255,255,0.2)", padding: "0", display: "contents" }}>
+                    Contact Us
+                  </span>
+                </motion.button>
               </Link>
             </motion.div>
 

@@ -1,13 +1,12 @@
 "use client";
 import React, { useEffect } from "react";
-import CursorFollower from "../shared/CursorFollower";
 import Hero from "./Hero";
 import Features from "./Features";
 import Inquiry from "./Inquiry";
 import Realtime from "./Realtime";
 import FAQ from "./FAQ";
 import CTA from "./CTA";
-import Navbar from "./Navbar";
+
 export default function ContactPage() {
   useEffect(() => {
     (async () => {
@@ -46,9 +45,8 @@ export default function ContactPage() {
 
   return (
     <>
-      <CursorFollower />
       <div className="min-h-screen bg-white overflow-x-hidden contact-page">
-        <Navbar />
+        
         <Hero />
         <Features />
         <Inquiry />

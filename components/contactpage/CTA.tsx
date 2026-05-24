@@ -3,8 +3,10 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import useMagnetic from "./useMagnetic";
+import { useRouter } from "next/navigation";
 
 export default function CTA() {
+  const router = useRouter();
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const { ref: btn1Ref, x: x1, y: y1 } = useMagnetic();
@@ -90,6 +92,18 @@ export default function CTA() {
             style={{ x: x1, y: y1, background: "#fff" }}
             whileHover={{ scale: 1.04, boxShadow: "0 12px 40px rgba(255,255,255,0.2)" }}
             whileTap={{ scale: 0.97 }}
+            onClick={() => {
+              const target = document.getElementById("inquiry");
+              if (target) {
+                const headerOffset = 60;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth"
+                });
+              }
+            }}
             className="px-8 py-3.5 rounded-xl text-[13px] font-bold font-body"
           >
             <span style={{ color: "var(--ink)" }}>Schedule Consultation</span>
@@ -100,6 +114,7 @@ export default function CTA() {
             style={{ x: x2, y: y2 }}
             whileHover={{ scale: 1.04, background: "rgba(255,255,255,0.08)" }}
             whileTap={{ scale: 0.97 }}
+            onClick={() => router.push("/?scroll=pricing")}
             className="px-8 py-3.5 rounded-xl text-[13px] font-bold font-body text-white transition-colors"
           >
             <span style={{ border: "1px solid rgba(255,255,255,0.2)", padding: "0", display: "contents" }}>

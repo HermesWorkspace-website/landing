@@ -109,7 +109,7 @@ export default function Inquiry() {
                   {...field("type")}
                   style={{ ...field("type").style, appearance: "none", paddingRight: 36, cursor: "pointer" }}
                 >
-                  {["General Inquiry", "Partnership", "Technical Support", "Onboarding", "Demo Request"].map((v) => (
+                  {["Demo Request","General Inquiry", "Partnership", "Technical Support", "Onboarding", "Others"].map((v) => (
                     <option key={v}>{v}</option>
                   ))}
                 </select>
@@ -210,11 +210,11 @@ export default function Inquiry() {
               {
                 icon: <Mail className="w-4 h-4" />,
                 title: "Email",
-                body: "apurav@hermesworkspace.com\nhello@hermesworkspace.com",
+                body: "apurav@hermesworkspace.com\nconnect@hermesworkspace.com\nsupport@hermesworkspace.com",
               },
               {
                 icon: <Zap className="w-4 h-4" />,
-                title: "Response SLA",
+                title: "Response Time",
                 body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours.",
               },
             ].map((item, i) => (

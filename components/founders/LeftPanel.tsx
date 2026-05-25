@@ -33,7 +33,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
         initial="hidden"
         animate="show"
         exit="exit"
-        className="flex flex-col justify-between h-full py-8 pl-9 pr-4"
+        className="flex flex-col justify-between h-full py-8 pl-6 lg:pl-9 pr-4"
       >
         {/* Top meta row */}
         <motion.div variants={itemVariants} className="flex pt-5 items-center gap-3">
@@ -46,7 +46,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
           >
             {founder.role}
           </span>
-          <span className="text-[10px] tracking-[2px] uppercase text-[#9896A4]">
+          <span className="text-[10px] tracking-[2px] uppercase text-[#9896A4] hidden lg:inline">
             HermesWorkspace
           </span>
         </motion.div>
@@ -66,7 +66,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
               className="block text-[#0D0D0F] leading-[0.86]"
               style={{
                 fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: "clamp(56px, 8vw, 82px)",
+                fontSize: "clamp(40px, 6vw, 82px)",
               }}
             >
               {founder.firstName}
@@ -80,7 +80,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
                 className="block leading-[0.86]"
                 style={{
                   fontFamily: "'Bebas Neue', sans-serif",
-                  fontSize: "clamp(56px, 8vw, 82px)",
+                  fontSize: "clamp(40px, 6vw, 82px)",
                   color: founder.accentColor,
                 }}
               >

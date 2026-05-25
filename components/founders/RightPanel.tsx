@@ -36,7 +36,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
         initial="hidden"
         animate="show"
         exit="exit"
-        className="flex flex-col justify-between h-full py-8 pr-9 pl-4 text-right"
+        className="flex flex-col justify-between h-full py-8 pr-6 lg:pr-9 pl-4 text-right"
       >
         {/* Top header */}
         <motion.div variants={itemVariants}>
@@ -44,7 +44,11 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
             Every school. One platform.
           </p>
           <div
-            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(38px, 5vw, 52px)", lineHeight: "0.9" }}
+            style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: "clamp(28px, 4vw, 52px)",
+              lineHeight: "0.9",
+            }}
             className="text-[#0D0D0F]"
           >
             MEET THE
@@ -56,10 +60,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
 
         {/* Quote */}
         <div className="my-auto">
-          <motion.div
-            variants={itemVariants}
-            className="flex justify-end"
-          >
+          <motion.div variants={itemVariants} className="flex justify-end">
             <span
               className="text-[80px] leading-none"
               style={{
@@ -153,7 +154,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
               <ArrowLeft size={14} />
             </motion.button>
             <motion.button
-              whileHover={{ scale: 1.08, backgroundColor: founder.accentColor, borderColor: founder.accentColor }}
+              whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.93 }}
               onClick={onNext}
               className="w-9 h-9 rounded-full border flex items-center justify-center text-white"

@@ -13,7 +13,8 @@ const mainLinks =[
   { label: "About Us", href: "/about" },
   { label: "Socials", href: "/socials" },
   { label: "Contact", href: "/contact" },
-  { label: "Founders", href: "/founder"}
+  { label: "Founders", href: "/founder"},
+  { label: "Product", href: "/product"}
 ];
 
 
@@ -31,7 +32,9 @@ const sectionLinks =
     : pathname === "/contact"
     ? navbarSections.contact
     : pathname === "/founder"
-    ? navbarSections.founder  
+    ? navbarSections.founder 
+    : pathname === "/product"
+    ? navbarSections.product 
     : [];
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);

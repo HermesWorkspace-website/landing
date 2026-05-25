@@ -9,13 +9,17 @@ function OrbCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    let active = true;
     let animId: number;
+    let renderer: any = null;
+
     (async () => {
       const THREE = await import("three");
+      if (!active) return;
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -36,6 +40,7 @@ function OrbCanvas() {
 
       let t = 0;
       const animate = () => {
+        if (!active) return;
         t += 0.003;
         mesh.rotation.x = t * 0.4;
         mesh.rotation.y = t * 0.6;
@@ -44,7 +49,14 @@ function OrbCanvas() {
       };
       animate();
     })();
-    return () => cancelAnimationFrame(animId);
+
+    return () => {
+      active = false;
+      cancelAnimationFrame(animId);
+      if (renderer) {
+        renderer.dispose();
+      }
+    };
   }, []);
 
   return (

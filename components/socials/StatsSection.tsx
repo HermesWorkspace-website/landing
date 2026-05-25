@@ -9,13 +9,17 @@ function DarkCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    let active = true;
     let animId: number;
+    let renderer: any = null;
+
     (async () => {
       const THREE = await import("three");
+      if (!active) return;
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -43,6 +47,7 @@ function DarkCanvas() {
 
       let t = 0;
       const animate = () => {
+        if (!active) return;
         t += 0.004;
         torus.rotation.x = t * 0.3;
         torus.rotation.y = t * 0.5;
@@ -51,7 +56,14 @@ function DarkCanvas() {
       };
       animate();
     })();
-    return () => cancelAnimationFrame(animId);
+
+    return () => {
+      active = false;
+      cancelAnimationFrame(animId);
+      if (renderer) {
+        renderer.dispose();
+      }
+    };
   }, []);
 
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;

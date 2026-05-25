@@ -11,16 +11,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
-import { Linkedin, Github, Instagram, ArrowRight } from "lucide-react";
-
-// X (formerly Twitter) brand icon — lucide doesn't have the updated logo
-function XIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
-    </svg>
-  );
-}
+import { IconBrandInstagram, IconBrandLinkedin, IconBrandGithub, IconBrandX, IconArrowRight } from "@tabler/icons-react";
 
 const FOUNDERS = [
   {
@@ -37,9 +28,9 @@ const FOUNDERS = [
     portraitBg: "linear-gradient(160deg, #e8e6f8 0%, #c7c3ef 40%, #9d96e0 100%)",
     initials: "AA",
     socials: [
-      { icon: XIcon, label: "X (Twitter)" },
-      { icon: Linkedin, label: "LinkedIn" },
-      { icon: Github, label: "GitHub" },
+      { icon: IconBrandX, label: "X (Twitter)" },
+      { icon: IconBrandLinkedin, label: "LinkedIn" },
+      { icon: IconBrandGithub, label: "GitHub" },
     ],
   },
   {
@@ -56,9 +47,9 @@ const FOUNDERS = [
     portraitBg: "linear-gradient(160deg, #ede9f8 0%, #c4b8f0 40%, #8b7fd4 100%)",
     initials: "LK",
     socials: [
-      { icon: XIcon, label: "X (Twitter)" },
-      { icon: Linkedin, label: "LinkedIn" },
-      { icon: Github, label: "GitHub" },
+      { icon: IconBrandX, label: "X (Twitter)" },
+      { icon: IconBrandLinkedin, label: "LinkedIn" },
+      { icon: IconBrandGithub, label: "GitHub" },
     ],
   },
 ] as const;
@@ -132,7 +123,7 @@ export default function MobileFoundersShowcase() {
       {/* Wordmark */}
       <div className="absolute left-5 top-5 z-30 flex items-center gap-2">
         <div className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
-        <span className="font-mono text-[10px] font-bold tracking-[0.2em] text-zinc-800 uppercase">HermesWorkspace</span>
+        <span className="font-logo text-[10px] font-bold tracking-[0.2em] text-zinc-800 uppercase">HermesWorkspace</span>
       </div>
 
       <AnimatePresence mode="wait" custom={direction}>
@@ -218,7 +209,7 @@ export default function MobileFoundersShowcase() {
           <div className="mt-5 flex gap-3">
             {founder.socials.map(({ icon: Icon, label }) => (
               <button key={label} aria-label={label} className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-200 text-zinc-400">
-                <Icon className="h-3.5 w-3.5" />
+                <Icon size={14} />
               </button>
             ))}
           </div>
@@ -238,7 +229,7 @@ export default function MobileFoundersShowcase() {
           onClick={() => advance(1)}
           className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-zinc-500 uppercase"
         >
-          Next founder <ArrowRight className="h-3 w-3" style={{ color: founder.accent }} />
+          Next founder <IconArrowRight className="h-3 w-3" style={{ color: founder.accent }} />
         </button>
       </div>
     </section>

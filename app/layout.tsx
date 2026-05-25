@@ -49,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={cn(
         "font-sans",
         geist.variable,
@@ -61,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="antialiased font-body">
+      <body className="antialiased font-body" suppressHydrationWarning>
         <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
         <Footer />

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { IconMenu2, IconX, IconArrowRight } from "@tabler/icons-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
@@ -16,23 +16,21 @@ const mainLinks =[
   { label: "Founders", href: "/founder"}
 ];
 
-
-
 export default function Navbar() {
   const pathname = usePathname();
 
-const sectionLinks =
-  pathname === "/"
-    ? navbarSections.home
-    : pathname === "/about"
-    ? navbarSections.about
-    : pathname === "/socials"
-    ? navbarSections.socials
-    : pathname === "/contact"
-    ? navbarSections.contact
-    : pathname === "/founder"
-    ? navbarSections.founder  
-    : [];
+  const sectionLinks =
+    pathname === "/"
+      ? navbarSections.home
+      : pathname === "/about"
+      ? navbarSections.about
+      : pathname === "/socials"
+      ? navbarSections.socials
+      : pathname === "/contact"
+      ? navbarSections.contact
+      : pathname === "/founder"
+      ? navbarSections.founder  
+      : [];
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -76,7 +74,7 @@ const sectionLinks =
           <div className="w-8 h-8 rounded-lg overflow-hidden bg-brand-ink flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
             <Image src="/logo.png" alt="HermesWorkspace logo" width={32} height={32} className="w-full h-full object-cover" />
           </div>
-          <span className="font-display font-700 text-[15px] text-brand-ink tracking-[-0.02em]">
+          <span className="font-logo font-700 text-[15px] text-brand-ink tracking-[-0.02em]">
             HermesWorkspace
           </span>
         </Link>
@@ -96,7 +94,7 @@ const sectionLinks =
         {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
           <Button variant="default" size="sm" className="gap-1.5">
-            Get Early Access <ArrowRight className="w-3.5 h-3.5" />
+            Get Early Access <IconArrowRight className="w-3.5 h-3.5" />
           </Button>
         </div>
 
@@ -107,7 +105,7 @@ const sectionLinks =
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
-          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {open ? <IconX className="w-5 h-5" /> : <IconMenu2 className="w-5 h-5" />}
         </button>
       </div>
 
@@ -155,7 +153,7 @@ const sectionLinks =
                 </motion.div>
               ))}
               <Button variant="default" size="default" className="mt-2 gap-2 w-full justify-center">
-                Get Early Access <ArrowRight className="w-4 h-4" />
+                Get Early Access <IconArrowRight className="w-4 h-4" />
               </Button>
             </div>
           </motion.div>

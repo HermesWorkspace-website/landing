@@ -2,12 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, Linkedin, Instagram, Twitter, Youtube } from "lucide-react";
+import { IconArrowRight, IconBrandLinkedin, IconBrandInstagram, IconBrandYoutube, IconBrandX } from "@tabler/icons-react";
 import { staggerContainer, fadeUp, scaleIn } from "@/components/socials/motion-variants";
 
 const CHANNELS = [
   {
-    icon: Linkedin,
+    icon: IconBrandLinkedin,
     name: "LinkedIn",
     tag: "Institutional Insights",
     tagColor: "#0077B5",
@@ -20,7 +20,7 @@ const CHANNELS = [
   },
 
   {
-    icon: Instagram,
+    icon: IconBrandInstagram,
     name: "Instagram",
     tag: "Visual Storytelling",
     tagColor: "#E1306C",
@@ -33,7 +33,7 @@ const CHANNELS = [
   },
 
   {
-    icon: Twitter,
+    icon: IconBrandX,
     name: "X Platform",
     tag: "Real-Time Thinking",
     tagColor: "#0D0D0F",
@@ -46,7 +46,7 @@ const CHANNELS = [
   },
 
   {
-    icon: Youtube,
+    icon: IconBrandYoutube,
     name: "YouTube",
     tag: "Platform Narratives",
     tagColor: "#FF0000",
@@ -67,6 +67,21 @@ function ChannelCard({
   index: number;
 }) {
   const Icon = channel.icon;
+
+  // Render description with HermesWorkspace styled in custom font if it contains the word
+  const renderDescription = (text: string) => {
+    if (text.includes("HermesWorkspace")) {
+      const parts = text.split("HermesWorkspace");
+      return (
+        <>
+          {parts[0]}
+          <span className="font-logo font-semibold text-[#0D0D0F]">HermesWorkspace</span>
+          {parts[1]}
+        </>
+      );
+    }
+    return text;
+  };
 
   return (
     <motion.a
@@ -104,7 +119,9 @@ function ChannelCard({
       </div>
 
       {/* Description */}
-      <p className="text-[12.5px] leading-[1.7] text-[#666] flex-1">{channel.description}</p>
+      <p className="text-[12.5px] leading-[1.7] text-[#666] flex-1">
+        {renderDescription(channel.description)}
+      </p>
 
       {/* CTA */}
       <motion.div
@@ -114,7 +131,7 @@ function ChannelCard({
         transition={{ type: "spring", stiffness: 400 }}
       >
         {channel.cta}
-        <ArrowRight size={12} />
+        <IconArrowRight size={12} />
       </motion.div>
 
       {/* Bottom line accent */}
@@ -147,7 +164,7 @@ export function EcosystemSection() {
             Digital Ecosystem
           </motion.h2>
           <motion.p variants={fadeUp} className="text-[14px] text-[#888] max-w-md">
-            How HermesWorkspace communicates product vision, institutional thinking, and operational innovation across modern digital platforms.
+            How <span className="font-logo font-semibold text-[#0D0D0F]">HermesWorkspace</span> communicates product vision, institutional thinking, and operational innovation across modern digital platforms.
           </motion.p>
         </motion.div>
 

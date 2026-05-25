@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Linkedin, Instagram } from "lucide-react";
+import { IconArrowRight, IconArrowLeft, IconBrandLinkedin, IconBrandInstagram, IconBrandX } from "@tabler/icons-react";
 import { Founder } from "@/types/founder";
 
 interface RightPanelProps {
@@ -94,7 +94,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 className="w-7 h-7 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
-                <Linkedin size={12} />
+                <IconBrandLinkedin size={12} />
               </motion.a>
             )}
             {founder.socialLinks.twitter && (
@@ -107,9 +107,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 className="w-7 h-7 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
-                <svg viewBox="0 0 24 24" fill="currentColor" width={12} height={12} aria-hidden="true">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
-                </svg>
+                <IconBrandX size={12} />
               </motion.a>
             )}
             {founder.socialLinks.instagram && (
@@ -122,7 +120,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 className="w-7 h-7 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
-                <Instagram size={12} />
+                <IconBrandInstagram size={12} />
               </motion.a>
             )}
           </motion.div>
@@ -150,7 +148,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
               style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               aria-label="Previous founder"
             >
-              <ArrowLeft size={14} />
+              <IconArrowLeft size={14} />
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.08, backgroundColor: founder.accentColor, borderColor: founder.accentColor }}
@@ -160,7 +158,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
               style={{ background: founder.accentColor, borderColor: founder.accentColor }}
               aria-label="Next founder"
             >
-              <ArrowRight size={14} />
+              <IconArrowRight size={14} />
             </motion.button>
           </motion.div>
         </div>

@@ -10,13 +10,18 @@ function ThreeCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    let active = true;
     let animId: number;
+    let renderer: any = null;
+    let onResize: (() => void) | null = null;
+
     (async () => {
       const THREE = await import("three");
+      if (!active) return;
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
 
@@ -65,6 +70,7 @@ function ThreeCanvas() {
 
       let t = 0;
       const animate = () => {
+        if (!active) return;
         t += 0.004;
         points.rotation.y = t * 0.15;
         points.rotation.x = Math.sin(t * 0.3) * 0.08;
@@ -73,20 +79,25 @@ function ThreeCanvas() {
       };
       animate();
 
-      const onResize = () => {
-        if (!canvas) return;
+      onResize = () => {
+        if (!canvas || !renderer) return;
         renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
         camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
         camera.updateProjectionMatrix();
       };
       window.addEventListener("resize", onResize);
-      return () => {
-        window.removeEventListener("resize", onResize);
-        cancelAnimationFrame(animId);
-        renderer.dispose();
-      };
     })();
-    return () => cancelAnimationFrame(animId);
+
+    return () => {
+      active = false;
+      cancelAnimationFrame(animId);
+      if (onResize) {
+        window.removeEventListener("resize", onResize);
+      }
+      if (renderer) {
+        renderer.dispose();
+      }
+    };
   }, []);
 
   return (

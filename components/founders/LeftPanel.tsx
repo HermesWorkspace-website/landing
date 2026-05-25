@@ -46,7 +46,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
           >
             {founder.role}
           </span>
-          <span className="text-[10px] tracking-[2px] uppercase text-[#9896A4]">
+          <span className="font-logo text-[10px] tracking-[2px] uppercase text-[#9896A4]">
             HermesWorkspace
           </span>
         </motion.div>

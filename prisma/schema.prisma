@@ -10,6 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum InquiryStatus {
+  OPEN
+  CLOSED
+}
+
 model Inquiry {
   id          String   @id @default(cuid())
   fullName    String
@@ -20,6 +25,9 @@ model Inquiry {
   message     String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  status    InquiryStatus @default(OPEN)
+  closedAt  DateTime?
+  closedBy  String?
 
   @@map("inquiries")
 }

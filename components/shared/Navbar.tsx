@@ -13,24 +13,27 @@ const mainLinks =[
   { label: "About Us", href: "/about" },
   { label: "Socials", href: "/socials" },
   { label: "Contact", href: "/contact" },
-  { label: "Founders", href: "/founder"}
+  { label: "Founders", href: "/founder"},
+  { label: "Product", href: "/product"}
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
 
-  const sectionLinks =
-    pathname === "/"
-      ? navbarSections.home
-      : pathname === "/about"
-      ? navbarSections.about
-      : pathname === "/socials"
-      ? navbarSections.socials
-      : pathname === "/contact"
-      ? navbarSections.contact
-      : pathname === "/founder"
-      ? navbarSections.founder  
-      : [];
+const sectionLinks =
+  pathname === "/"
+    ? navbarSections.home
+    : pathname === "/about"
+    ? navbarSections.about
+    : pathname === "/socials"
+    ? navbarSections.socials
+    : pathname === "/contact"
+    ? navbarSections.contact
+    : pathname === "/founder"
+    ? navbarSections.founder 
+    : pathname === "/product"
+    ? navbarSections.product 
+    : [];
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 

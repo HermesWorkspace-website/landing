@@ -4,6 +4,9 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, slideRight } from "@/components/socials/motion-variants";
 import { ArrowRight, TrendingUp, Globe } from "lucide-react";
+import Link from "next/link";
+
+const MotionLink = motion(Link);
 
 // Three.js floating particles background
 function ThreeCanvas() {
@@ -257,23 +260,35 @@ export function HeroSection() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex items-center gap-3 flex-wrap">
-            <motion.a
-              href="#platform"
+            <motion.button
               whileHover={{ scale: 1.04, boxShadow: "0 8px 30px rgba(107,92,231,0.35)" }}
               whileTap={{ scale: 0.97 }}
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.getElementById("ecosystem");
+                if (target) {
+                  const headerOffset = 60;
+                  const elementPosition = target.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth",
+                  });
+                }
+              }}
               className="flex items-center gap-2 bg-[#6B5CE7] text-white text-[13px] font-medium px-5 py-3 rounded-[5px] transition-all"
             >
               Explore Platforms
               <ArrowRight size={14} />
-            </motion.a>
-            <motion.a
+            </motion.button>
+            <MotionLink
               href="/contact"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               className="flex items-center gap-2 text-[#0D0D0F] text-[13px] font-medium px-5 py-3 rounded-[5px] border border-[#D8D4CC] hover:border-[#6B5CE7] transition-all"
             >
               Contact Media Team
-            </motion.a>
+            </MotionLink>
           </motion.div>
         </motion.div>
 

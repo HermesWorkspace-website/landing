@@ -1,66 +1,218 @@
 "use client";
 import React, { useState, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ChevronDown, CheckCircle, Send, MapPin, Clock, Mail, Zap } from "lucide-react";
+import {
+  IconChevronDown,
+  IconCircleCheck,
+  IconSend,
+  IconMapPin,
+  IconClock,
+  IconMail,
+  IconBolt,
+  IconAlertCircle,
+} from "@tabler/icons-react";
+import { InquirySchema, INQUIRY_TYPES, type InquiryFieldErrors } from "@/lib/validations/inquiry";
 import AnimatedCounter from "./AnimatedCounter";
 
+// ── Types ─────────────────────────────────────────────────────────────────────
+type FormState = {
+  fullName: string;
+  institution: string;
+  email: string;
+  phone: string;
+  inquiryType: string;
+  message: string;
+};
+
+type FieldKey = keyof FormState;
+
+const INITIAL_FORM: FormState = {
+  fullName: "",
+  institution: "",
+  email: "",
+  phone: "",
+  inquiryType: "Demo Request",
+  message: "",
+};
+
+// ── Component ─────────────────────────────────────────────────────────────────
 export default function Inquiry() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [focused, setFocused] = useState<string | null>(null);
+
+  const [focused, setFocused] = useState<FieldKey | null>(null);
+  const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
+  const [form, setForm] = useState<FormState>(INITIAL_FORM);
+  const [fieldErrors, setFieldErrors] = useState<InquiryFieldErrors>({});
+  const [globalError, setGlobalError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleSend = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSent(true);
-      setTimeout(() => setSent(false), 3000);
-    }, 1500);
+  // ── Client-side validation helpers ───────────────────────────────────────
+  /** Run full schema and return a flat map of first error per field */
+  const validateAll = (data: FormState): InquiryFieldErrors => {
+    const result = InquirySchema.safeParse(data);
+    if (result.success) return {};
+    const flat = result.error.flatten().fieldErrors;
+    const out: InquiryFieldErrors = {};
+    (Object.keys(flat) as FieldKey[]).forEach((k) => {
+      const msgs = flat[k as keyof typeof flat];
+      if (msgs && msgs.length > 0) out[k] = msgs[0];
+    });
+    return out;
   };
 
-  const field = (name: string) => ({
-    onFocus: () => setFocused(name),
-    onBlur: () => setFocused(null),
-    style: {
-      width: "100%",
-      border: `1px solid ${focused === name ? "var(--brand)" : "var(--ink-12)"}`,
-      boxShadow: focused === name ? "0 0 0 3px rgba(90,95,232,0.12)" : "none",
-      borderRadius: 12,
-      padding: "10px 14px",
-      fontSize: 12,
-      fontFamily: "Instrument Sans, sans-serif",
-      fontWeight: 500,
-      color: "var(--ink)",
-      background: "#fff",
-      transition: "all 0.2s",
-      outline: "none",
-    } as React.CSSProperties,
+  /** Validate a single field against the full schema */
+  const validateSingle = (key: FieldKey, nextForm: FormState) => {
+    const result = InquirySchema.safeParse(nextForm);
+    if (result.success) {
+      setFieldErrors((prev) => ({ ...prev, [key]: undefined }));
+    } else {
+      const flat = result.error.flatten().fieldErrors;
+      const msgs = flat[key as keyof typeof flat];
+      setFieldErrors((prev) => ({
+        ...prev,
+        [key]: msgs && msgs.length > 0 ? msgs[0] : undefined,
+      }));
+    }
+  };
+
+  const handleChange = (key: FieldKey, value: string) => {
+    const next = { ...form, [key]: value };
+    setForm(next);
+    // Only show live errors once the field has been blurred at least once
+    if (touched[key]) validateSingle(key, next);
+  };
+
+  const handleBlur = (key: FieldKey) => {
+    setFocused(null);
+    setTouched((prev) => ({ ...prev, [key]: true }));
+    validateSingle(key, form);
+  };
+
+  // ── Submit ────────────────────────────────────────────────────────────────
+  const handleSend = async () => {
+    // Touch everything and run client validation before hitting the network
+    const allTouched = Object.fromEntries(
+      (Object.keys(form) as FieldKey[]).map((k) => [k, true])
+    ) as Partial<Record<FieldKey, boolean>>;
+    setTouched(allTouched);
+
+    const clientErrors = validateAll(form);
+    if (Object.keys(clientErrors).length > 0) {
+      setFieldErrors(clientErrors);
+      setGlobalError("Please fix the highlighted errors before submitting.");
+      return;
+    }
+
+    setLoading(true);
+    setFieldErrors({});
+    setGlobalError(null);
+
+    try {
+      const res = await fetch("/api/send_inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 422) {
+        // Map server field errors (arrays) to single strings
+        const serverErrors: InquiryFieldErrors = {};
+        if (data.errors) {
+          (Object.keys(data.errors) as FieldKey[]).forEach((k) => {
+            const msgs = data.errors[k];
+            if (Array.isArray(msgs) && msgs.length > 0) serverErrors[k] = msgs[0];
+          });
+        }
+        setFieldErrors(serverErrors);
+        setGlobalError(data.message ?? "Please fix the errors above.");
+      } else if (!res.ok || !data.success) {
+        setGlobalError(data.message ?? "Something went wrong. Please try again.");
+      } else {
+        setSent(true);
+        setForm(INITIAL_FORM);
+        setTouched({});
+        setTimeout(() => setSent(false), 4500);
+      }
+    } catch {
+      setGlobalError("Network error — check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ── Style helpers ─────────────────────────────────────────────────────────
+  const inputStyle = (name: FieldKey): React.CSSProperties => ({
+    width: "100%",
+    border: `1px solid ${
+      fieldErrors[name]
+        ? "#EF4444"
+        : focused === name
+        ? "var(--brand)"
+        : "var(--ink-12)"
+    }`,
+    boxShadow: fieldErrors[name]
+      ? "0 0 0 3px rgba(239,68,68,0.10)"
+      : focused === name
+      ? "0 0 0 3px rgba(90,95,232,0.12)"
+      : "none",
+    borderRadius: 12,
+    padding: "10px 14px",
+    fontSize: 12,
+    fontFamily: "Instrument Sans, sans-serif",
+    fontWeight: 500,
+    color: "var(--ink)",
+    background: "#fff",
+    transition: "all 0.2s",
+    outline: "none",
   });
 
-  const label = (text: string) => (
+  const label = (text: string, required = true) => (
     <span
       className="block mb-1.5 uppercase tracking-widest font-syne font-bold"
       style={{ fontSize: 8, color: "var(--ink-35)" }}
     >
       {text}
+      {required && (
+        <span style={{ color: "#EF4444", marginLeft: 2 }}>*</span>
+      )}
     </span>
   );
 
+  const errMsg = (name: FieldKey) =>
+    fieldErrors[name] ? (
+      <motion.p
+        key={fieldErrors[name]}
+        initial={{ opacity: 0, y: -4 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-1 flex items-center gap-1 text-[10px] font-medium"
+        style={{ color: "#EF4444" }}
+      >
+        <IconAlertCircle size={10} />
+        {fieldErrors[name]}
+      </motion.p>
+    ) : null;
+
+  // ── Render ────────────────────────────────────────────────────────────────
   return (
     <section
-      ref={ref} id="inquiry"
+      ref={ref}
+      id="inquiry"
       className="py-20 relative overflow-hidden"
       style={{ background: "linear-gradient(180deg, #fff 0%, rgba(90,95,232,0.02) 100%)" }}
     >
-      {/* BG decoration */}
       <div
         className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(90,95,232,0.04) 0%, transparent 70%)" }}
+        style={{
+          background: "radial-gradient(ellipse, rgba(90,95,232,0.04) 0%, transparent 70%)",
+        }}
       />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 font-inter">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -68,86 +220,186 @@ export default function Inquiry() {
         >
           <div className="flex items-center gap-2 mb-3">
             <div className="h-px w-8" style={{ background: "var(--brand)" }} />
-            <span className="text-[9px] font-bold font-syne uppercase tracking-widest" style={{ color: "var(--brand)" }}>
+            <span
+              className="text-[9px] font-bold font-syne uppercase tracking-widest"
+              style={{ color: "var(--brand)" }}
+            >
               Direct Channel
             </span>
           </div>
-          <h2 className="text-[2.5rem] font-black font-display tracking-tight" style={{ color: "var(--ink)" }}>
+          <h2
+            className="text-[2.5rem] font-black font-display tracking-tight"
+            style={{ color: "var(--ink)" }}
+          >
             Send an Inquiry
           </h2>
         </motion.div>
 
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-14 items-start">
-          {/* Form */}
+          {/* ── Form ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
+            {/* Name + Institution */}
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 {label("Full Name")}
-                <input placeholder="John Doe" {...field("name")} />
+                <input
+                  placeholder="John Doe"
+                  value={form.fullName}
+                  onChange={(e) => handleChange("fullName", e.target.value)}
+                  onFocus={() => setFocused("fullName")}
+                  onBlur={() => handleBlur("fullName")}
+                  style={inputStyle("fullName")}
+                />
+                {errMsg("fullName")}
               </div>
               <div>
                 {label("Institution")}
-                <input placeholder="Global Tech University" {...field("inst")} />
+                <input
+                  placeholder="Global Tech University"
+                  value={form.institution}
+                  onChange={(e) => handleChange("institution", e.target.value)}
+                  onFocus={() => setFocused("institution")}
+                  onBlur={() => handleBlur("institution")}
+                  style={inputStyle("institution")}
+                />
+                {errMsg("institution")}
               </div>
             </div>
+
+            {/* Email */}
             <div className="mb-4">
               {label("Email Address")}
-              <input type="email" placeholder="john@institution.edu" {...field("email")} />
+              <input
+                type="email"
+                placeholder="john@institution.edu"
+                value={form.email}
+                onChange={(e) => handleChange("email", e.target.value)}
+                onFocus={() => setFocused("email")}
+                onBlur={() => handleBlur("email")}
+                style={inputStyle("email")}
+              />
+              {errMsg("email")}
             </div>
+
+            {/* Phone (optional) */}
             <div className="mb-4">
-              {label("Phone Number")}
-              <input placeholder="+91 98765 43210" {...field("phone")} />
+              {label("Phone Number", false)}
+              <input
+                placeholder="+91 98765 43210"
+                value={form.phone}
+                onChange={(e) => handleChange("phone", e.target.value)}
+                onFocus={() => setFocused("phone")}
+                onBlur={() => handleBlur("phone")}
+                style={inputStyle("phone")}
+              />
+              {errMsg("phone")}
             </div>
+
+            {/* Inquiry Type */}
             <div className="mb-4">
               {label("Inquiry Type")}
               <div className="relative">
                 <select
-                  {...field("type")}
-                  style={{ ...field("type").style, appearance: "none", paddingRight: 36, cursor: "pointer" }}
+                  value={form.inquiryType}
+                  onChange={(e) => handleChange("inquiryType", e.target.value)}
+                  onFocus={() => setFocused("inquiryType")}
+                  onBlur={() => handleBlur("inquiryType")}
+                  style={{
+                    ...inputStyle("inquiryType"),
+                    appearance: "none",
+                    paddingRight: 36,
+                    cursor: "pointer",
+                  }}
                 >
-                  {["Demo Request","General Inquiry", "Partnership", "Technical Support", "Onboarding", "Others"].map((v) => (
+                  {INQUIRY_TYPES.map((v) => (
                     <option key={v}>{v}</option>
                   ))}
                 </select>
-                <ChevronDown
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none"
+                <IconChevronDown
+                  className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                  size={14}
                   style={{ color: "var(--ink-35)" }}
                 />
               </div>
+              {errMsg("inquiryType")}
             </div>
-            <div className="mb-6">
+
+            {/* Message */}
+            <div className="mb-4">
               {label("Message")}
               <textarea
                 rows={4}
                 placeholder="How can we assist your institution?"
-                {...field("msg")}
-                style={{ ...field("msg").style, resize: "none" }}
+                value={form.message}
+                onChange={(e) => handleChange("message", e.target.value)}
+                onFocus={() => setFocused("message")}
+                onBlur={() => handleBlur("message")}
+                style={{ ...inputStyle("message"), resize: "none" }}
               />
+              <div className="flex justify-between items-start mt-1">
+                <div>{errMsg("message")}</div>
+                <span
+                  className="text-[9px] font-mono shrink-0 ml-2"
+                  style={{
+                    color: form.message.length > 1900 ? "#EF4444" : "var(--ink-35)",
+                  }}
+                >
+                  {form.message.length}/2000
+                </span>
+              </div>
             </div>
 
+            {/* Global error banner */}
+            <AnimatePresence>
+              {globalError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  className="mb-4 px-4 py-3 rounded-xl flex items-start gap-2.5 text-[11px] font-medium"
+                  style={{
+                    background: "rgba(239,68,68,0.07)",
+                    color: "#EF4444",
+                    border: "1px solid rgba(239,68,68,0.18)",
+                  }}
+                >
+                  <IconAlertCircle size={14} className="shrink-0 mt-px" />
+                  {globalError}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Submit */}
             <motion.button
               onClick={handleSend}
               disabled={loading || sent}
-              whileHover={!loading && !sent ? { scale: 1.02, boxShadow: "0 12px 36px rgba(90,95,232,0.35)" } : {}}
+              whileHover={
+                !loading && !sent
+                  ? { scale: 1.02, boxShadow: "0 12px 36px rgba(90,95,232,0.35)" }
+                  : {}
+              }
               whileTap={{ scale: 0.98 }}
               className="w-full py-3.5 rounded-xl text-[13px] font-bold font-body text-white flex items-center justify-center gap-2.5 relative overflow-hidden"
-              style={{ background: sent ? "#22C55E" : "var(--brand)", transition: "background 0.5s" }}
+              style={{
+                background: sent ? "#22C55E" : "var(--brand)",
+                transition: "background 0.5s",
+              }}
             >
-              {/* Shimmer sweep on hover */}
+              {/* Shimmer */}
               <motion.div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                  background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)",
+                  background:
+                    "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)",
                 }}
                 initial={{ x: "-100%" }}
                 whileHover={{ x: "100%" }}
                 transition={{ duration: 0.6 }}
               />
-
               <AnimatePresence mode="wait">
                 {loading ? (
                   <motion.div
@@ -172,7 +424,7 @@ export default function Inquiry() {
                     exit={{ opacity: 0 }}
                     className="flex items-center gap-2"
                   >
-                    <CheckCircle className="w-4 h-4" /> Inquiry Dispatched!
+                    <IconCircleCheck size={16} /> Inquiry Dispatched!
                   </motion.div>
                 ) : (
                   <motion.div
@@ -182,38 +434,38 @@ export default function Inquiry() {
                     exit={{ opacity: 0 }}
                     className="flex items-center gap-2"
                   >
-                    Dispatch Inquiry <Send className="w-4 h-4" />
+                    Dispatch Inquiry <IconSend size={16} />
                   </motion.div>
                 )}
               </AnimatePresence>
             </motion.button>
           </motion.div>
 
-          {/* Info */}
+          {/* ── Info Panel ── */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-6 font-inter"
           >
             {[
               {
-                icon: <MapPin className="w-4 h-4" />,
+                icon: <IconMapPin size={16} />,
                 title: "Headquarters",
                 body: "HermesWorkspace, Ranchi\nJharkhand, India",
               },
               {
-                icon: <Clock className="w-4 h-4" />,
+                icon: <IconClock size={16} />,
                 title: "Support Hours",
                 body: "Mon – Fri, 9:00 AM – 8:00 PM IST\n24/7 Priority Support for Enterprise",
               },
               {
-                icon: <Mail className="w-4 h-4" />,
+                icon: <IconMail size={16} />,
                 title: "Email",
-                body: "apurav@hermesworkspace.com\nconnect@hermesworkspace.com\nsupport@hermesworkspace.com",
+                body: "support@hermesworkspace.com",
               },
               {
-                icon: <Zap className="w-4 h-4" />,
+                icon: <IconBolt size={16} />,
                 title: "Response Time",
                 body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours.",
               },
@@ -233,10 +485,16 @@ export default function Inquiry() {
                   {item.icon}
                 </motion.div>
                 <div>
-                  <div className="text-[12px] font-bold font-syne mb-0.5" style={{ color: "var(--ink)" }}>
+                  <div
+                    className="text-[12px] font-bold mb-0.5"
+                    style={{ color: "var(--ink)" }}
+                  >
                     {item.title}
                   </div>
-                  <div className="text-[11px] font-body leading-[1.65] whitespace-pre-line" style={{ color: "var(--ink-60)" }}>
+                  <div
+                    className="text-[11px] font-body leading-[1.65] whitespace-pre-line"
+                    style={{ color: "var(--ink-60)" }}
+                  >
                     {item.body}
                   </div>
                 </div>
@@ -244,7 +502,10 @@ export default function Inquiry() {
             ))}
 
             {/* Live stats */}
-            <div className="mt-6 pt-6 grid grid-cols-2 gap-4" style={{ borderTop: "1px solid var(--ink-06)" }}>
+            <div
+              className="mt-6 pt-6 grid grid-cols-2 gap-4"
+              style={{ borderTop: "1px solid var(--ink-06)" }}
+            >
               {[
                 { val: 128, label: "Active Nodes", suffix: "" },
                 { val: 0.4, label: "System Latency", suffix: "ms", decimals: 1 },
@@ -255,10 +516,21 @@ export default function Inquiry() {
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.5, delay: 0.75 + i * 0.1 }}
                 >
-                  <div className="text-[2rem] font-black font-display leading-none" style={{ color: "var(--ink)" }}>
-                    <AnimatedCounter target={s.val} suffix={s.suffix} decimals={s.decimals ?? 0} delay={800 + i * 100} />
+                  <div
+                    className="text-[2rem] font-black font-display leading-none"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    <AnimatedCounter
+                      target={s.val}
+                      suffix={s.suffix}
+                      decimals={s.decimals ?? 0}
+                      delay={800 + i * 100}
+                    />
                   </div>
-                  <div className="text-[8px] uppercase tracking-widest font-syne mt-1" style={{ color: "var(--ink-35)" }}>
+                  <div
+                    className="text-[8px] uppercase tracking-widest font-syne mt-1"
+                    style={{ color: "var(--ink-35)" }}
+                  >
                     {s.label}
                   </div>
                 </motion.div>

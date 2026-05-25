@@ -33,5 +33,12 @@ export const navbarSections = {
     { label: "Mission", href: "#mission" },
     { label: "FAQ", href: "#faqs" },
     { label: "Contact", href: "#cta" }
+  ],
+   product: [
+    { label: "Preview", href: "#inmotion" },
+    { label: "Core Features", href: "#features" },
+    { label: "Why HermesWorkspace", href: "#why" },
+    { label: "Roles", href: "#roles" },
+    { label: "Contact", href: "#cta"}
   ]
 };

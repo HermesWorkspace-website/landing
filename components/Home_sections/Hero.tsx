@@ -1121,7 +1121,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Badge variant="brand" className="mb-6 gap-2 py-1.5 px-4">
+          <Badge variant="brand" className="mb-3 gap-2 py-1 px-4">
             <Zap className="w-3 h-3 fill-brand text-brand" />
             v1.0.1 Live Now
           </Badge>
@@ -1148,7 +1148,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 max-w-[560px] text-[1.0625rem] text-brand-muted leading-[1.75] font-body"
+          className="mt-3 max-w-[560px] text-[1.0625rem] text-brand-muted leading-[1.75] font-body"
         >
           HermesWorkspace centralizes communication, notices, online classes, meetings, 
           events, and academic coordination — built for the way Indian schools actually work.
@@ -1198,7 +1198,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.35 }}
-          className="mt-8 flex items-center gap-2.5 text-sm text-brand-muted font-body"
+          className="my-5 flex items-center gap-2.5 text-sm text-brand-muted font-body"
         >
           <div className="flex -space-x-2">
             {["#6063EE", "#A855F7", "#22C55E", "#F59E0B"].map((c, i) => (

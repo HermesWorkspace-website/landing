@@ -182,14 +182,14 @@ function MobileHero() {
 
         {/* CTAs */}
         <div className="flex flex-col gap-3">
-          <button
+          <button type="button"
             onClick={scrollToFeatures}
             className="flex items-center justify-center gap-2 text-white text-[13px] font-bold px-6 py-3.5 rounded-xl active:scale-95 transition-transform"
             style={{ background: "linear-gradient(135deg, #4338ca, #6366f1)", boxShadow: "0 4px 20px rgba(99,102,241,0.28)" }}
           >
             Explore Platform
           </button>
-          <button
+          <button type="button"
             onClick={() => router.push("/contact?scroll=inquiry")}
             className="text-[13px] font-semibold px-6 py-3.5 rounded-xl border active:scale-95 transition-transform"
             style={{ backgroundColor: "rgba(255,255,255,0.6)", borderColor: "rgba(99,102,241,0.25)", color: "#4338ca" }}
@@ -201,8 +201,8 @@ function MobileHero() {
         {/* Trust dots */}
         <div className="flex flex-col gap-2">
           {["Built for Educational Institutions", "Designed for Academic Coordination", "Accessible Across Web & Mobile"].map((t, i) => (
-            <span key={i} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#8b8fbd" }}>
-              <span className="w-1 h-1 rounded-full inline-block shrink-0" style={{ backgroundColor: "#6366f1" }} />
+            <span key={`item-${i}`} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#8b8fbd" }}>
+              <span className="size-1 rounded-full inline-block shrink-0" style={{ backgroundColor: "#6366f1" }} />
               {t}
             </span>
           ))}
@@ -248,9 +248,9 @@ function HeroVideoPlayer() {
         style={{ backgroundColor: "#071221", borderColor: "rgba(255,255,255,0.05)" }}
       >
         <div className="flex gap-1.5">
-          <div className="w-2 h-2 rounded-full bg-red-400/50" />
-          <div className="w-2 h-2 rounded-full bg-yellow-400/50" />
-          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "rgba(99,102,241,0.5)" }} />
+          <div className="size-2 rounded-full bg-red-400/50" />
+          <div className="size-2 rounded-full bg-yellow-400/50" />
+          <div className="size-2 rounded-full" style={{ backgroundColor: "rgba(99,102,241,0.5)" }} />
         </div>
         <div className="flex-1 h-3.5 rounded-md ml-1" style={{ backgroundColor: "rgba(255,255,255,0.05)" }} />
       </div>
@@ -265,7 +265,7 @@ function HeroVideoPlayer() {
           onEnded={() => setPlaying(false)}
           onPause={() => setPlaying(false)}
           onPlay={() => setPlaying(true)}
-          src="/hermes-launch.mp4"
+          src="https://ik.imagekit.io/hermesworkspace/Landing/assets/hermes-launch.mp4"
         />
 
         {/* Play overlay */}
@@ -282,7 +282,7 @@ function HeroVideoPlayer() {
             >
               <motion.div
                 whileTap={{ scale: 0.93 }}
-                className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-2xl"
+                className="size-12 bg-white rounded-full flex items-center justify-center shadow-2xl"
               >
                 <Play size={16} className="ml-0.5" style={{ color: "#0A1628" }} />
               </motion.div>
@@ -296,7 +296,7 @@ function HeroVideoPlayer() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             onClick={handlePlay}
-            className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center"
+            className="absolute top-2 right-2 size-7 rounded-full flex items-center justify-center"
             style={{ backgroundColor: "rgba(0,0,0,0.55)", backdropFilter: "blur(6px)" }}
           >
             <svg width="10" height="10" viewBox="0 0 10 10" fill="white">
@@ -349,7 +349,7 @@ function MobileProblemSolution() {
       <FadeUp delay={60}>
         <div className="flex rounded-xl overflow-hidden border border-gray-100 mb-5">
           {(["before", "after"] as const).map((t) => (
-            <button
+            <button type="button"
               key={t}
               onClick={() => setTab(t)}
               className="flex-1 py-2.5 text-[12px] font-bold transition-colors active:scale-95"
@@ -374,7 +374,7 @@ function MobileProblemSolution() {
           >
             {(tab === "before" ? PROBLEMS : SOLUTIONS).map((item, i) => (
               <div
-                key={i}
+                key={`item-${i}`}
                 className="flex items-start gap-3 p-3.5 rounded-xl"
                 style={{
                   border: tab === "before" ? "1px solid #FEE2E2" : "1px solid rgba(34,197,94,0.15)",
@@ -382,7 +382,7 @@ function MobileProblemSolution() {
                 }}
               >
                 <div
-                  className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5"
+                  className="size-1.5 rounded-full shrink-0 mt-1.5"
                   style={{ backgroundColor: tab === "before" ? "#FCA5A5" : "#22C55E" }}
                 />
                 <span className="text-[13px] leading-relaxed" style={{ color: tab === "before" ? "#4B5563" : "#0A1628", fontWeight: tab === "after" ? 500 : 400 }}>
@@ -429,7 +429,7 @@ function MobileCoreModules() {
                 style={{ borderColor: "#F3F4F6" }}
               >
                 <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                  className="size-9 rounded-xl flex items-center justify-center shrink-0"
                   style={{ backgroundColor: `${mod.color}15`, border: `1px solid ${mod.color}25` }}
                 >
                   <Icon size={16} style={{ color: mod.color }} />
@@ -471,11 +471,11 @@ function ClarityPhone() {
           <div className="absolute inset-0 p-3 pt-9 flex flex-col gap-2">
             <div className="flex items-center justify-between mb-1">
               <div className="h-2 w-16 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
-              <div className="w-4 h-4 rounded-full" style={{ backgroundColor: "rgba(34,197,94,0.3)" }} />
+              <div className="size-4 rounded-full" style={{ backgroundColor: "rgba(34,197,94,0.3)" }} />
             </div>
             <div className="bg-[#22C55E]/10 border border-[#22C55E]/20 rounded-xl p-2">
               <div className="flex items-center gap-1 mb-1">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#22C55E]" />
+                <div className="size-1.5 rounded-full bg-[#22C55E]" />
                 <div className="h-1.5 w-10 rounded-full bg-[#22C55E]/60" />
               </div>
               <div className="space-y-1">
@@ -484,19 +484,19 @@ function ClarityPhone() {
               </div>
             </div>
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="flex items-center gap-2 p-1.5 rounded-lg" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
-                <div className="w-5 h-5 rounded-md shrink-0" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
+              <div key={`item-${i}`} className="flex items-center gap-2 p-1.5 rounded-lg" style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
+                <div className="size-5 rounded-md shrink-0" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
                 <div className="flex-1">
                   <div className="h-1.5 w-12 rounded-full mb-1" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
                   <div className="h-1 w-8 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
                 </div>
-                <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: "rgba(34,197,94,0.3)" }} />
+                <div className="size-3 rounded-full shrink-0" style={{ backgroundColor: "rgba(34,197,94,0.3)" }} />
               </div>
             ))}
             <div className="mt-auto flex justify-around pt-1 border-t" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex flex-col items-center gap-1">
-                  <div className="w-3.5 h-3.5 rounded-md" style={{ backgroundColor: i === 0 ? "rgba(34,197,94,0.4)" : "rgba(255,255,255,0.1)" }} />
+                <div key={`item-${i}`} className="flex flex-col items-center gap-1">
+                  <div className="size-3.5 rounded-md" style={{ backgroundColor: i === 0 ? "rgba(34,197,94,0.4)" : "rgba(255,255,255,0.1)" }} />
                   <div className="w-2 h-1 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
                 </div>
               ))}
@@ -528,7 +528,7 @@ function MobileDesignedForClarity() {
 
       <div className="flex flex-col gap-2.5">
         {CLARITY_FEATURES.map((f, i) => (
-          <FadeUp key={i} delay={i * 70}>
+          <FadeUp key={`item-${i}`} delay={i * 70}>
             <div
               className="flex items-start gap-3 p-3.5 rounded-xl border"
               style={{ borderColor: "rgba(255,255,255,0.06)", backgroundColor: "rgba(255,255,255,0.03)" }}
@@ -589,7 +589,7 @@ function MobileCommunity() {
                 style={{ borderColor: "#F3F4F6" }}
               >
                 <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center"
+                  className="size-9 rounded-xl flex items-center justify-center"
                   style={{ backgroundColor: `${role.color}12`, border: `1px solid ${role.color}22` }}
                 >
                   <Icon size={16} style={{ color: role.color }} />
@@ -715,7 +715,7 @@ function MobileCTA() {
             style={{ background: "linear-gradient(90deg, transparent, rgba(34,197,94,0.5), transparent)" }}
           />
           {/* Ambient blob */}
-          <div className="absolute top-0 left-1/4 w-40 h-40 rounded-full blur-3xl pointer-events-none" style={{ backgroundColor: "rgba(34,197,94,0.06)" }} />
+          <div className="absolute top-0 left-1/4 size-40 rounded-full blur-3xl pointer-events-none" style={{ backgroundColor: "rgba(34,197,94,0.06)" }} />
 
           <p className="text-[11px] font-bold text-[#22C55E] tracking-widest uppercase mb-4">Get Started</p>
           <h2 className="text-[1.6rem] font-bold text-white tracking-tight leading-tight mb-4">
@@ -728,7 +728,7 @@ function MobileCTA() {
           </p>
 
           <div className="flex flex-col gap-3">
-            <button
+            <button type="button"
               onClick={() => router.push("/contact?scroll=inquiry")}
               className="flex items-center justify-center gap-2.5 text-white text-[13px] font-bold py-3.5 rounded-xl active:scale-95 transition-transform"
               style={{ backgroundColor: "#22C55E" }}
@@ -736,7 +736,7 @@ function MobileCTA() {
               Request a Demo
               <ArrowRight size={15} />
             </button>
-            <button
+            <button type="button"
               onClick={() => router.push("/?scroll=pricing")}
               className="text-white text-[13px] font-medium py-3.5 rounded-xl border active:scale-95 transition-transform"
               style={{ borderColor: "rgba(255,255,255,0.2)" }}

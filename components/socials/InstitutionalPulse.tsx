@@ -19,7 +19,7 @@ function FeaturedCard() {
       {/* Grid lines overlay */}
       <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 400 400">
         {Array.from({ length: 8 }).map((_, i) => (
-          <g key={i}>
+          <g key={`item-${i}`}>
             <line x1={i * 50} y1="0" x2={i * 50} y2="400" stroke="white" strokeWidth="0.5" />
             <line x1="0" y1={i * 50} x2="400" y2={i * 50} stroke="white" strokeWidth="0.5" />
           </g>
@@ -27,7 +27,7 @@ function FeaturedCard() {
       </svg>
 
       {/* Glowing orb */}
-      <div className="absolute top-8 right-8 w-32 h-32 rounded-full bg-[#6B5CE7]/20 blur-2xl" />
+      <div className="absolute top-8 right-8 size-32 rounded-full bg-[#6B5CE7]/20 blur-2xl" />
 
       {/* Content */}
       <div className="absolute inset-0 p-7 flex flex-col justify-end">
@@ -63,7 +63,7 @@ function ArticleCard() {
       className="bg-white rounded-2xl border border-[#E8E5F0] p-6 group cursor-pointer"
     >
       <div className="flex items-center justify-between mb-3">
-        <div className="w-8 h-8 rounded-lg bg-[#EAE8FF] flex items-center justify-center">
+        <div className="size-8 rounded-lg bg-[#EAE8FF] flex items-center justify-center">
           <Cpu size={14} className="text-[#6B5CE7]" />
         </div>
         <span className="text-[9px] tracking-[2px] uppercase text-[#9896A4]">Founder Notes</span>
@@ -85,16 +85,13 @@ and designing operational systems for modern institutions.
   );
 }
 
-// Metrics mini cards
-function MetricsMiniCards() {
-  const cards = [
+const METRICS_CARDS = [
   {
     label: "Platform Focus",
     value: "Institutional Infrastructure",
     icon: Layers,
     color: "#6B5CE7",
   },
-
   {
     label: "Communication Systems",
     value: "Unified Workflows",
@@ -103,9 +100,10 @@ function MetricsMiniCards() {
   },
 ];
 
+function MetricsMiniCards() {
   return (
     <div className="grid grid-cols-2 gap-3">
-      {cards.map((card) => {
+      {METRICS_CARDS.map((card) => {
         const Icon = card.icon;
         return (
           <motion.div
@@ -115,7 +113,7 @@ function MetricsMiniCards() {
             className="bg-[#F9F8FF] border border-[#E8E5F0] rounded-xl p-4 cursor-pointer"
           >
             <div
-              className="w-7 h-7 rounded-lg flex items-center justify-center mb-3"
+              className="size-7 rounded-lg flex items-center justify-center mb-3"
               style={{ background: `${card.color}18` }}
             >
               <Icon size={13} style={{ color: card.color }} />
@@ -149,13 +147,13 @@ function SmallCard() {
       className="bg-white rounded-2xl border border-[#E8E5F0] p-5 flex items-center gap-5 group cursor-pointer"
     >
       {/* Thumb */}
-      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#1a1a2e] to-[#0D0D0F] flex items-center justify-center shrink-0 overflow-hidden">
+      <div className="size-16 rounded-xl bg-gradient-to-br from-[#1a1a2e] to-[#0D0D0F] flex items-center justify-center shrink-0 overflow-hidden">
         <svg viewBox="0 0 64 64" className="w-full h-full opacity-60">
           {Array.from({ length: 5 }).map((_, i) => (
-            <line key={i} x1={i * 12 + 8} y1="8" x2={i * 12 + 8} y2="56" stroke="#6B5CE7" strokeWidth="1.5" />
+            <line key={`item-${i}`} x1={i * 12 + 8} y1="8" x2={i * 12 + 8} y2="56" stroke="#6B5CE7" strokeWidth="1.5" />
           ))}
           {Array.from({ length: 5 }).map((_, i) => (
-            <line key={i} x1="8" y1={i * 12 + 8} x2="56" y2={i * 12 + 8} stroke="#6B5CE7" strokeWidth="1.5" />
+            <line key={`item-${i}`} x1="8" y1={i * 12 + 8} x2="56" y2={i * 12 + 8} stroke="#6B5CE7" strokeWidth="1.5" />
           ))}
         </svg>
       </div>

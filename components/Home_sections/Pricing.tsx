@@ -142,7 +142,7 @@ export default function Pricing() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch pt-4 pb-8">
           {tiers.map((tier, i) => (
             <div
-              key={i}
+              key={`item-${i}`}
               className={`pricing-card-gsap pricing-card relative h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${
                 tier.featured ? "featured md:-mt-4" : "md:mt-4"
               }`}
@@ -151,7 +151,7 @@ export default function Pricing() {
                 <div className="absolute -top-3 left-0 w-full flex justify-center z-10 pointer-events-none">
                   <div className="pricing-badge pointer-events-auto">
                     <span className="inline-flex items-center gap-1 bg-brand text-white text-[10px] font-semibold px-3 py-1 rounded-full shadow-glow font-body">
-                      <Sparkles className="w-3 h-3 text-yellow-300" />
+                      <Sparkles className="size-3 text-yellow-300" />
                       Most Popular
                     </span>
                   </div>
@@ -195,7 +195,7 @@ export default function Pricing() {
               >
                 <Link href="/contact?scroll=inquiry">
                   {tier.cta}{" "}
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </Link>
               </Button>
 
@@ -218,7 +218,7 @@ export default function Pricing() {
                       className="shrink-0"
                     >
                       <Check
-                        className={`w-4 h-4 mt-0.5 ${
+                        className={`size-4 mt-0.5 ${
                           tier.featured ? "text-green-400" : "text-green-600"
                         }`}
                       />

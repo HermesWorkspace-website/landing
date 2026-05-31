@@ -410,7 +410,7 @@ export default function Inquiry() {
                     className="flex items-center gap-2"
                   >
                     <motion.div
-                      className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white"
+                      className="size-4 rounded-full border-2 border-white/30 border-t-white"
                       animate={{ rotate: 360 }}
                       transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
                     />
@@ -471,14 +471,14 @@ export default function Inquiry() {
               },
             ].map((item, i) => (
               <motion.div
-                key={i}
+                key={`item-${i}`}
                 className="flex gap-4 group"
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.35 + i * 0.1 }}
               >
                 <motion.div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+                  className="size-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
                   style={{ background: "rgba(90,95,232,0.08)", color: "var(--brand)" }}
                   whileHover={{ scale: 1.1, background: "rgba(90,95,232,0.14)" }}
                 >
@@ -511,7 +511,7 @@ export default function Inquiry() {
   { val: 3, label: "Connected Experiences", suffix: "" },
               ].map((s: { val: number; label: string; suffix: string; decimals?: number }, i) => (
                 <motion.div
-                  key={i}
+                  key={`item-${i}`}
                   initial={{ opacity: 0, scale: 0.85 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.5, delay: 0.75 + i * 0.1 }}

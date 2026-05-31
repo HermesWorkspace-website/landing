@@ -45,10 +45,10 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
         <h4 className="font-body font-medium text-[0.9375rem] text-brand-ink group-hover:text-brand transition-colors pr-4">
           {q}
         </h4>
-        <div className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${
+        <div className={`size-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${
           open ? "border-brand bg-brand/10 text-brand rotate-45" : "border-black/10 text-brand-muted"
         }`}>
-          {open ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
+          {open ? <Minus className="size-3" /> : <Plus className="size-3" />}
         </div>
       </div>
       <AnimatePresence>
@@ -95,7 +95,7 @@ export default function FAQ() {
         >
           {faqs.map((f, i) => (
             <FAQItem
-              key={i}
+              key={`item-${i}`}
               q={f.q}
               a={f.a}
               open={openIdx === i}

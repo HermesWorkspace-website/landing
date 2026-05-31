@@ -96,7 +96,7 @@ export default function MobileFoundersShowcase() {
       {/* Wordmark */}
       <div className="absolute left-5 top-5 z-30 flex items-center gap-2">
         <div
-          className="h-1.5 w-1.5 rounded-full"
+          className="size-1.5 rounded-full"
           style={{ backgroundColor: founder.accentColor }}
         />
         <span
@@ -289,7 +289,7 @@ export default function MobileFoundersShowcase() {
                 href={founder.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border flex items-center justify-center"
+                className="size-8 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
                 aria-label="LinkedIn"
               >
@@ -301,11 +301,11 @@ export default function MobileFoundersShowcase() {
                 href={founder.socialLinks.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border flex items-center justify-center"
+                className="size-8 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
                 aria-label="X (Twitter)"
               >
-                <XIcon className="w-3 h-3" />
+                <XIcon className="size-3" />
               </a>
             )}
             {founder.socialLinks.instagram && (
@@ -313,7 +313,7 @@ export default function MobileFoundersShowcase() {
                 href={founder.socialLinks.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full border flex items-center justify-center"
+                className="size-8 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
                 aria-label="Instagram"
               >
@@ -333,6 +333,7 @@ export default function MobileFoundersShowcase() {
         <div className="flex gap-3 mb-4">
           {FOUNDERS.map((f, i) => (
             <button
+              type="button"
               key={f.id}
               onClick={() => {
                 const dir = i > activeIndex ? 1 : -1;
@@ -390,20 +391,22 @@ export default function MobileFoundersShowcase() {
         {/* Prev / Next nav */}
         <div className="flex items-center justify-between">
           <button
+            type="button"
             onClick={() => advance(-1)}
             className="flex items-center gap-1.5 text-[10px] tracking-[2px] uppercase"
             style={{ color: "#9896A4" }}
           >
-            <ArrowLeft className="w-3 h-3" />
+            <ArrowLeft className="size-3" />
             Prev
           </button>
           <button
+            type="button"
             onClick={() => advance(1)}
             className="flex items-center gap-1.5 text-[10px] tracking-[2px] uppercase"
             style={{ color: founder.accentColor }}
           >
             Next founder
-            <ArrowRight className="w-3 h-3" />
+            <ArrowRight className="size-3" />
           </button>
         </div>
       </div>

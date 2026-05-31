@@ -22,8 +22,8 @@ export default function CTA() {
       <motion.div initial={{ opacity: 0, y: 30, scale: 0.98 }} animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-7xl mx-auto rounded-2xl sm:rounded-3xl overflow-hidden relative">
         <div ref={bgRef} className="absolute inset-0" style={{ background: "linear-gradient(135deg, #060E1A 0%, #0A1628 40%, #0f2d4a 70%, #060E1A 100%)", backgroundSize: "200% 200%" }} />
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-[#22C55E]/6 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-[#22C55E]/4 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 size-64 bg-[#22C55E]/6 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 size-48 bg-[#22C55E]/4 rounded-full blur-3xl" />
         <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 px-6 sm:px-12 py-12 sm:py-16 items-center">

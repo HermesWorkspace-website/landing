@@ -113,7 +113,7 @@ export default function Hero() {
             ref={badgeRef}
             className="opacity-0 inline-flex w-fit items-center gap-2 border border-[#22C55E]/30 bg-[#22C55E]/5 rounded-full px-3 py-1"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
+            <span className="size-1.5 rounded-full bg-[#22C55E] animate-pulse" />
             <span className="text-[11px] font-semibold text-[#22C55E] tracking-widest uppercase">
               Transforming Education
             </span>
@@ -122,7 +122,7 @@ export default function Hero() {
           {/* Headline */}
           <h1 ref={titleRef} className="font-display text-[2.6rem] lg:text-[3.4rem] font-bold text-[#0A1628] leading-[1.1] tracking-tight">
             {["Building", "Modern", "Infrastructure", "For", "Educational", "Institutions"].map((w, i) => (
-              <span key={i} className="word inline-block mr-[0.28em] opacity-0">{w}</span>
+              <span key={`item-${i}`} className="word inline-block mr-[0.28em] opacity-0">{w}</span>
             ))}
           </h1>
 
@@ -193,13 +193,13 @@ function WorkspaceHealthCard() {
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-[#0A1628] rounded-md flex items-center justify-center">
-            <div className="w-3 h-3 bg-[#22C55E] rounded-[2px]" />
+          <div className="size-6 bg-[#0A1628] rounded-md flex items-center justify-center">
+            <div className="size-3 bg-[#22C55E] rounded-[2px]" />
           </div>
           <span className="text-[12px] font-semibold text-[#0A1628]">Platform Status</span>
         </div>
         <span className="text-[10px] text-[#22C55E] font-medium flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse inline-block" />
+          <span className="size-1.5 rounded-full bg-[#22C55E] animate-pulse inline-block" />
           Live Infrastructure
         </span>
       </div>
@@ -219,8 +219,9 @@ function WorkspaceHealthCard() {
   );
 }
 
+const RESOURCE_BARS = [65, 82, 48, 91, 73, 55, 88];
+
 function ResourceAllocationCard() {
-  const bars = [65, 82, 48, 91, 73, 55, 88];
   return (
     <motion.div
       whileHover={{ y: -3, boxShadow: "0 20px 40px rgba(10,22,40,0.1)" }}
@@ -228,12 +229,12 @@ function ResourceAllocationCard() {
       className="bg-[#0A1628] rounded-xl p-4 shadow-sm w-[80%] ml-auto overflow-hidden relative"
     >
       {/* Subtle glow */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-[#22C55E]/10 rounded-full blur-2xl" />
+      <div className="absolute top-0 right-0 size-24 bg-[#22C55E]/10 rounded-full blur-2xl" />
       <div className="relative z-10">
         <div className="flex items-end gap-1 h-14 mb-3">
-          {bars.map((h, i) => (
+          {RESOURCE_BARS.map((h, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               initial={{ height: 0 }}
               animate={{ height: `${h}%` }}
               transition={{ delay: 1.2 + i * 0.08, duration: 0.6, ease: "easeOut" }}

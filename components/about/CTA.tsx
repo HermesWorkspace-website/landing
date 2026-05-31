@@ -66,7 +66,7 @@ export default function CTA() {
             className="inline-flex items-center relative z-10 gap-2 mb-6 px-4 py-2 rounded-full"
             style={{ border: "1px solid rgba(255, 255, 255, 1)" }}
           >
-            <Sparkles className="w-3 h-3" style={{ color: "var(--brand-light)" }} />
+            <Sparkles className="size-3" style={{ color: "var(--brand-light)" }} />
             <span className="text-[9px] font-bold font-syne uppercase tracking-widest" style={{ color: "white" }}>
               Every School. One Platform.
             </span>

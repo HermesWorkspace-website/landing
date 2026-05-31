@@ -80,7 +80,7 @@ function Column({
           {title}
         </span>
         <IconChevronDown
-          className={`w-4 h-4 text-white/25 transition-transform duration-200 ${
+          className={`size-4 text-white/25 transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
         />
@@ -145,7 +145,7 @@ export default function Footer() {
       {/* ─── Mobile brand block (outside grid) ───────────── */}
       <div className="md:hidden px-5 pt-10 pb-6 flex flex-col gap-4">
         <Link href="/" className="flex items-center gap-2.5 w-fit">
-          <div className="w-8 h-8 rounded-xl overflow-hidden bg-white/10 ring-1 ring-white/10 flex items-center justify-center">
+          <div className="size-8 rounded-xl overflow-hidden bg-white/10 ring-1 ring-white/10 flex items-center justify-center">
             <Image src="/logo.png" alt="HermesWorkspace" width={32} height={32} className="w-full h-full object-cover" />
           </div>
           <span className="font-logo font-bold text-[15px] text-white tracking-[-0.02em]">HermesWorkspace</span>
@@ -156,7 +156,7 @@ export default function Footer() {
         <div className="flex items-center gap-2.5">
           {socials.map((s) => (
             <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
-              className="w-9 h-9 rounded-full ring-1 ring-white/10 flex items-center justify-center text-white/40 hover:text-white hover:ring-white/25 transition-all">
+              className="size-9 rounded-full ring-1 ring-white/10 flex items-center justify-center text-white/40 hover:text-white hover:ring-white/25 transition-all">
               {s.icon}
             </a>
           ))}
@@ -171,7 +171,7 @@ export default function Footer() {
           {/* Brand col */}
           <div className="col-span-4 xl:col-span-4 flex flex-col gap-5">
             <Link href="/" className="flex items-center gap-3 group w-fit">
-              <div className="w-9 h-9 rounded-xl overflow-hidden bg-white/10 ring-1 ring-white/10 flex items-center justify-center group-hover:ring-white/25 transition-all">
+              <div className="size-9 rounded-xl overflow-hidden bg-white/10 ring-1 ring-white/10 flex items-center justify-center group-hover:ring-white/25 transition-all">
                 <Image src="/logo.png" alt="HermesWorkspace" width={36} height={36} className="w-full h-full object-cover" />
               </div>
               <span className="font-logo font-bold text-[16px] text-white tracking-[-0.02em]">HermesWorkspace</span>
@@ -182,7 +182,7 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mt-1">
               {socials.map((s) => (
                 <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
-                  className="w-9 h-9 rounded-full ring-1 ring-white/10 flex items-center justify-center text-white/40 hover:text-white hover:ring-white/30 hover:bg-white/[0.06] transition-all duration-200">
+                  className="size-9 rounded-full ring-1 ring-white/10 flex items-center justify-center text-white/40 hover:text-white hover:ring-white/30 hover:bg-white/[0.06] transition-all duration-200">
                   {s.icon}
                 </a>
               ))}

@@ -92,7 +92,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-7 h-7 rounded-full border flex items-center justify-center"
+                className="size-7 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
                 <IconBrandLinkedin size={12} />
@@ -105,7 +105,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-7 h-7 rounded-full border flex items-center justify-center"
+                className="size-7 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
                 <IconBrandX size={12} />
@@ -118,7 +118,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-7 h-7 rounded-full border flex items-center justify-center"
+                className="size-7 rounded-full border flex items-center justify-center"
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
                 <IconBrandInstagram size={12} />
@@ -145,7 +145,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.93 }}
               onClick={onPrev}
-              className="w-9 h-9 rounded-full border flex items-center justify-center"
+              className="size-9 rounded-full border flex items-center justify-center"
               style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               aria-label="Previous founder"
             >
@@ -155,7 +155,7 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.93 }}
               onClick={onNext}
-              className="w-9 h-9 rounded-full border flex items-center justify-center text-white"
+              className="size-9 rounded-full border flex items-center justify-center text-white"
               style={{ background: founder.accentColor, borderColor: founder.accentColor }}
               aria-label="Next founder"
             >

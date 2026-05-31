@@ -5,14 +5,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Mail, Shield, Globe, Zap, MessageSquare, Phone, Clock, CheckCircle } from "lucide-react";
 import * as THREE from "three";
 
+const WORDS = ["Connect", "Collaborate", "Coordinate"];
+
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const words = ["Connect", "Collaborate", "Coordinate"];
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setWordIndex((v) => (v + 1) % words.length), 2800);
+    const id = setInterval(() => setWordIndex((v) => (v + 1) % WORDS.length), 2800);
     return () => clearInterval(id);
   }, []);
 
@@ -112,7 +113,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full"
               style={{ background: "rgba(90,95,232,0.08)", border: "1px solid rgba(90,95,232,0.2)" }}
             >
-              <motion.span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--brand)" }} animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, repeat: Infinity }} />
+              <motion.span className="size-1.5 rounded-full" style={{ background: "var(--brand)" }} animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, repeat: Infinity }} />
               <span className="text-[10px] font-bold font-syne tracking-[0.18em] uppercase" style={{ color: "var(--brand)" }}>Contact Support</span>
             </motion.div>
 
@@ -122,7 +123,7 @@ export default function Hero() {
                 <motion.span className="block" style={{ color: "var(--ink)" }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
                   <AnimatePresence mode="wait">
                     <motion.span key={wordIndex} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }} className="inline-block" style={{ color: "var(--brand)" }}>
-                      {words[wordIndex]}
+                      {WORDS[wordIndex]}
                     </motion.span>
                   </AnimatePresence>
                 </motion.span>
@@ -150,12 +151,12 @@ export default function Hero() {
               >
                 Request Demo
                 <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="size-4" />
                 </motion.div>
               </motion.button>
               <a href="mailto:support@hermesworkspace.com">
                 <motion.button whileHover={{ scale: 1.02, x: 2 }} whileTap={{ scale: 0.98 }} className="flex items-center gap-2 text-[13px] font-semibold font-body" style={{ color: "var(--ink-60)" }}>
-                  <Mail className="w-4 h-4" style={{ color: "var(--brand)" }} />
+                  <Mail className="size-4" style={{ color: "var(--brand)" }} />
                   Contact Support
                 </motion.button>
               </a>
@@ -164,11 +165,11 @@ export default function Hero() {
             {/* Trust bar */}
             <motion.div className="flex flex-wrap items-center gap-6 mt-6 pt-8" style={{ borderTop: "1px solid var(--ink-06)" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
               {[
-                { icon: <Shield className="w-3.5 h-3.5" />, label: "Secure Institutional Access" },
-                { icon: <Globe className="w-3.5 h-3.5" />, label: "Web & Mobile Accessibility" },
-                { icon: <Zap className="w-3.5 h-3.5" />, label: "Built for Academic Coordination" },
-              ].map((item, i) => (
-                <motion.div key={i} className="flex items-center gap-1.5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + i * 0.1 }}>
+                { icon: <Shield className="size-3.5" />, label: "Secure Institutional Access" },
+                { icon: <Globe className="size-3.5" />, label: "Web & Mobile Accessibility" },
+                { icon: <Zap className="size-3.5" />, label: "Built for Academic Coordination" },
+              ].map((item) => (
+                <motion.div key={item.label} className="flex items-center gap-1.5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
                   <span style={{ color: "var(--brand)" }}>{item.icon}</span>
                   <span className="text-[11px] font-semibold font-body" style={{ color: "var(--ink-60)" }}>{item.label}</span>
                 </motion.div>
@@ -191,14 +192,14 @@ export default function Hero() {
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
-                  <Globe className="w-5 h-5" style={{ color: "var(--brand)" }} />
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                  <Globe className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
                     <p className="text-[13px] font-bold" style={{ color: "var(--ink)" }}>Institutional Partnerships</p>
                     <span className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-500">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       Online Now
                     </span>
                   </div>
@@ -222,8 +223,8 @@ export default function Hero() {
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
-                  <Mail className="w-5 h-5" style={{ color: "var(--brand)" }} />
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                  <Mail className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div>
                   <p className="text-[13px] font-bold mb-1" style={{ color: "var(--ink)" }}>Institutional Inquiries</p>
@@ -243,8 +244,8 @@ export default function Hero() {
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
-                  <Clock className="w-5 h-5" style={{ color: "var(--brand)" }} />
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                  <Clock className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div className="flex-1">
                   <p className="text-[13px] font-bold mb-1" style={{ color: "var(--ink)" }}>Response Time</p>
@@ -276,15 +277,15 @@ export default function Hero() {
                 "No sales pressure — just honest answers",
                 "Supporting modern institutional operations",
                 "Free Demo available for qualifing institutions",
-              ].map((text, i) => (
+              ].map((text) => (
                 <motion.div
-                  key={i}
+                  key={text}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1 + i * 0.1 }}
+                  transition={{ delay: 1 }}
                   className="flex items-center gap-2"
                 >
-                  <CheckCircle className="w-3.5 h-3.5 flex-shrink-0 text-emerald-500" />
+                  <CheckCircle className="size-3.5 flex-shrink-0 text-emerald-500" />
                   <span className="text-[12px]" style={{ color: "var(--ink-60)" }}>{text}</span>
                 </motion.div>
               ))}

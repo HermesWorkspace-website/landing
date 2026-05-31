@@ -107,7 +107,7 @@ function MobileHero() {
     <section className="relative bg-[#F9F8FF] pt-24 pb-14 px-5 overflow-hidden">
       {/* Subtle static background blob — no Three.js */}
       <div
-        className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none"
+        className="absolute top-0 right-0 size-64 rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(107,92,231,0.07) 0%, transparent 70%)" }}
       />
 
@@ -141,7 +141,7 @@ function MobileHero() {
 
       {/* CTAs */}
       <div className="flex flex-col gap-3">
-        <button
+        <button type="button"
           onClick={scrollToEcosystem}
           className="flex items-center justify-center gap-2 bg-[#6B5CE7] text-white text-[13px] font-semibold px-5 py-3.5 rounded-[5px] active:scale-95 transition-transform"
         >
@@ -162,7 +162,7 @@ function MobileHero() {
           <span className="text-[10px] tracking-[2px] uppercase text-[#9896A4] font-medium">
             Live Analytics View
           </span>
-          <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
+          <span className="size-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-4">
@@ -199,7 +199,7 @@ function MobileHero() {
         </svg>
 
         <div className="flex items-center gap-2 bg-[#EAE8FF] rounded-xl px-3 py-2.5">
-          <div className="w-7 h-7 rounded-lg bg-[#6B5CE7] flex items-center justify-center shrink-0">
+          <div className="size-7 rounded-lg bg-[#6B5CE7] flex items-center justify-center shrink-0">
             <TrendingUp size={13} className="text-white" />
           </div>
           <div className="flex-1 h-1.5 bg-[#6B5CE7]/25 rounded-full overflow-hidden">
@@ -353,7 +353,7 @@ function MobileEcosystem() {
                 className="flex flex-col gap-3 bg-white rounded-2xl border border-[#E8E5F0] p-4 active:scale-95 transition-transform h-full"
               >
                 <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                  className="size-9 rounded-xl flex items-center justify-center shrink-0"
                   style={{ background: ch.bg }}
                 >
                   <Icon size={16} style={{ color: ch.accentColor }} />
@@ -387,13 +387,13 @@ function MobileEcosystem() {
 /* ══════════════════════════════════════════════
    4. TRUST — mobile (quote card only, no OrbCanvas)
    ══════════════════════════════════════════════ */
-function MobileTrust() {
-  const PILLARS = [
-    "Institutional Communication",
-    "Operational Coordination",
-    "Modern Educational Infrastructure",
-  ];
+const TRUST_PILLARS = [
+  "Institutional Communication",
+  "Operational Coordination",
+  "Modern Educational Infrastructure",
+];
 
+function MobileTrust() {
   return (
     <section className="py-16 px-5 bg-[#F9F8FF]">
       <FadeUp>
@@ -408,7 +408,7 @@ function MobileTrust() {
         </p>
 
         <ul className="space-y-2 mb-8">
-          {PILLARS.map((p) => (
+          {TRUST_PILLARS.map((p) => (
             <li key={p} className="flex items-center gap-3 text-[#0D0D0F]">
               <span className="block w-3 h-px bg-[#6B5CE7] shrink-0" />
               <span className="text-[10px] tracking-[2px] uppercase font-medium">{p}</span>
@@ -435,7 +435,7 @@ function MobileTrust() {
             communication, and long-term growth.
           </blockquote>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#EAE8FF] flex items-center justify-center shrink-0">
+            <div className="size-9 rounded-full bg-[#EAE8FF] flex items-center justify-center shrink-0">
               <span className="text-[10px] font-black text-[#6B5CE7]">HW</span>
             </div>
             <div>
@@ -452,31 +452,31 @@ function MobileTrust() {
 /* ══════════════════════════════════════════════
    5. INSIDE HERMES — minimal card (replaces bento)
    ══════════════════════════════════════════════ */
-function MobilePulse() {
-  const CARDS = [
-    {
-      icon: Cpu,
-      label: "Founder Notes",
-      title: "Building systems that reduce operational complexity.",
-      color: "#6B5CE7",
-      bg: "#EAE8FF",
-    },
-    {
-      icon: Layers,
-      label: "Platform Focus",
-      title: "Unified infrastructure designed for modern academic workflows.",
-      color: "#1A3FBE",
-      bg: "#E8EDFF",
-    },
-    {
-      icon: BarChart3,
-      label: "Communication Systems",
-      title: "Unified workflows replacing fragmented, generic institutional tools.",
-      color: "#6B5CE7",
-      bg: "#EAE8FF",
-    },
-  ];
+const PULSE_CARDS = [
+  {
+    icon: Cpu,
+    label: "Founder Notes",
+    title: "Building systems that reduce operational complexity.",
+    color: "#6B5CE7",
+    bg: "#EAE8FF",
+  },
+  {
+    icon: Layers,
+    label: "Platform Focus",
+    title: "Unified infrastructure designed for modern academic workflows.",
+    color: "#1A3FBE",
+    bg: "#E8EDFF",
+  },
+  {
+    icon: BarChart3,
+    label: "Communication Systems",
+    title: "Unified workflows replacing fragmented, generic institutional tools.",
+    color: "#6B5CE7",
+    bg: "#EAE8FF",
+  },
+];
 
+function MobilePulse() {
   return (
     <section className="py-16 px-5 bg-white">
       <FadeUp>
@@ -500,7 +500,7 @@ function MobilePulse() {
               <line key={`h${i}`} x1="0" y1={i*45} x2="300" y2={i*45} stroke="white" strokeWidth="0.4" />
             ))}
           </svg>
-          <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-[#6B5CE7]/15 blur-2xl pointer-events-none" />
+          <div className="absolute top-4 right-4 size-20 rounded-full bg-[#6B5CE7]/15 blur-2xl pointer-events-none" />
 
           <span className="self-start text-[8px] tracking-[2px] uppercase text-[#6B5CE7] bg-[#6B5CE7]/20 px-2 py-1 rounded-[2px] mb-2 font-medium">
             Product Insight
@@ -512,13 +512,13 @@ function MobilePulse() {
       </FadeUp>
 
       <div className="flex flex-col gap-3">
-        {CARDS.map((card, i) => {
+        {PULSE_CARDS.map((card, i) => {
           const Icon = card.icon;
           return (
             <FadeUp key={card.label} delay={i * 60}>
               <div className="bg-[#F9F8FF] border border-[#E8E5F0] rounded-2xl p-4 flex items-start gap-4">
                 <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
+                  className="size-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
                   style={{ background: card.bg }}
                 >
                   <Icon size={14} style={{ color: card.color }} />
@@ -548,7 +548,7 @@ function MobileCta() {
     <section id="m-contact" className="py-16 px-5 bg-[#F9F8FF]">
       {/* Soft blob */}
       <div
-        className="absolute left-1/2 -translate-x-1/2 w-72 h-72 rounded-full pointer-events-none"
+        className="absolute left-1/2 -translate-x-1/2 size-72 rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(107,92,231,0.06) 0%, transparent 70%)" }}
       />
       <FadeUp>

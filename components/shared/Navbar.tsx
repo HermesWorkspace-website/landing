@@ -83,7 +83,7 @@ export default function Navbar() {
             aria-label="HermesWorkspace home"
             onClick={() => setOpen(false)}
           >
-            <div className="w-8 h-8 rounded-lg overflow-hidden bg-brand-ink flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+            <div className="size-8 rounded-lg overflow-hidden bg-brand-ink flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
               <Image
                 src="/logo.png"
                 alt="HermesWorkspace logo"
@@ -114,21 +114,22 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <NavHashLink href="/contact#inquiry">
               <Button variant="default" size="sm" className="gap-1.5">
-                Get Early Access <IconArrowRight className="w-3.5 h-3.5" />
+                Get Early Access <IconArrowRight className="size-3.5" />
               </Button>
             </NavHashLink>
           </div>
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-black/[0.05] active:bg-black/10 transition-colors"
+            type="button"
+            className="md:hidden size-9 flex items-center justify-center rounded-lg hover:bg-black/[0.05] active:bg-black/10 transition-colors"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
             aria-expanded={open}
           >
             {open
-              ? <IconX className="w-5 h-5 text-brand-ink" />
-              : <IconMenu2 className="w-5 h-5 text-brand-ink" />
+              ? <IconX className="size-5 text-brand-ink" />
+              : <IconMenu2 className="size-5 text-brand-ink" />
             }
           </button>
         </div>
@@ -182,11 +183,12 @@ export default function Navbar() {
                   Menu
                 </span>
                 <button
+                  type="button"
                   onClick={() => setOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/[0.06] transition-colors"
+                  className="size-8 flex items-center justify-center rounded-lg hover:bg-black/[0.06] transition-colors"
                   aria-label="Close menu"
                 >
-                  <IconX className="w-4 h-4 text-brand-ink" />
+                  <IconX className="size-4 text-brand-ink" />
                 </button>
               </div>
 
@@ -221,7 +223,7 @@ export default function Navbar() {
               <div className="p-5 border-t border-black/[0.06]">
                 <NavHashLink href="/contact#inquiry" onClick={() => setOpen(false)}>
                   <Button variant="default" size="default" className="w-full gap-2 justify-center">
-                    Get Early Access <IconArrowRight className="w-4 h-4" />
+                    Get Early Access <IconArrowRight className="size-4" />
                   </Button>
                 </NavHashLink>
               </div>

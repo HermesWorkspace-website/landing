@@ -127,6 +127,7 @@ function MagneticButton({ children, className }: { children: React.ReactNode; cl
 
   return (
     <button
+      type="button"
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -200,7 +201,7 @@ function CursorGlow() {
 /* -----------------------------------------------------
    SHARED HELPERS
 ----------------------------------------------------- */
-const Avatar = ({ color = "mock-avatar", size = "w-7 h-7" }: { color?: string; size?: string }) => (
+const Avatar = ({ color = "mock-avatar", size = "size-7" }: { color?: string; size?: string }) => (
   <div className={`${size} rounded-full ${color} shrink-0`} />
 );
 const MockBar = ({ w = "w-full" }: { w?: string }) => (
@@ -291,7 +292,7 @@ function FeatureCard({
         animate={{ y: hovered ? -2 : 0 }}
         transition={{ duration: 0.3 }}
       >
-        <Icon className="w-3 h-3" style={{ color: accent }} />
+        <Icon className="size-3" style={{ color: accent }} />
         <span className="text-[9px] font-bold text-brand-ink tracking-wide font-body">{label}</span>
       </motion.div>
 
@@ -317,21 +318,22 @@ function FloatingBadge({ children, delay = 0 }: { children: React.ReactNode; del
 /* -----------------------------------------------------
    1. MESSAGES MOCK (animated)
 ----------------------------------------------------- */
+const WORKSPACES = [{ name: "X" }, { name: "XI" }, { name: "OPS" }, { name: "Nova" }];
+
+const SCHOOL_NOTICES = [
+  { title: "Board Examination Schedule Released", priority: "Important", time: "2h ago" },
+  { title: "PTM Scheduled For Senior Wing", priority: "Update", time: "1d ago" },
+  { title: "Winter Break Begins From Dec 24", priority: "General", time: "3d ago" },
+];
+
+type Message = { sender: string; role: string; text: string; time: string; teacher?: boolean };
+type Member = { name: string; role: string; online: boolean };
+type ChannelData = { resources: string[]; members: Member[]; messages: Message[] };
+type Channel = { type: "chat" | "notice"; data: ChannelData };
+type Workspace = { channels: Record<string, Channel> };
+type WorkspaceData = Record<string, Workspace>;
+
 export function MessagesMock() {
-  const workspaces = [{ name: "X" }, { name: "XI" }, { name: "OPS" }, { name: "Nova" }];
-
-  type Message = { sender: string; role: string; text: string; time: string; teacher?: boolean };
-  type Member = { name: string; role: string; online: boolean };
-  type ChannelData = { resources: string[]; members: Member[]; messages: Message[] };
-  type Channel = { type: "chat" | "notice"; data: ChannelData };
-  type Workspace = { channels: Record<string, Channel> };
-  type WorkspaceData = Record<string, Workspace>;
-
-  const schoolNotices = [
-    { title: "Board Examination Schedule Released", priority: "Important", time: "2h ago" },
-    { title: "PTM Scheduled For Senior Wing", priority: "Update", time: "1d ago" },
-    { title: "Winter Break Begins From Dec 24", priority: "General", time: "3d ago" },
-  ];
 
   const workspaceData: WorkspaceData = {
     X: {
@@ -468,13 +470,13 @@ export function MessagesMock() {
         <div className="w-[52px] bg-[#FAFAFA] border-r border-black/[0.05] flex flex-col items-center py-2 gap-2">
           <motion.div
             whileHover={{ scale: 1.08 }}
-            className="w-8 h-8 rounded-2xl bg-brand flex items-center justify-center text-white text-[10px] font-bold cursor-pointer"
+            className="size-8 rounded-2xl bg-brand flex items-center justify-center text-white text-[10px] font-bold cursor-pointer"
           >
             HW
           </motion.div>
-          {workspaces.map((w, i) => (
+          {WORKSPACES.map((w, i) => (
             <motion.div
-              key={i}
+              key={w.name}
               whileHover={{ scale: 1.1, rotate: 3 }}
               whileTap={{ scale: 0.92 }}
               onClick={() => {
@@ -482,7 +484,7 @@ export function MessagesMock() {
                 const firstChannel = Object.keys(workspaceData[w.name].channels)[0];
                 setActiveChannel(firstChannel);
               }}
-              className={`w-9 h-9 rounded-xl flex items-center justify-center text-[10px] font-semibold transition-colors cursor-pointer
+              className={`size-9 rounded-xl flex items-center justify-center text-[10px] font-semibold transition-colors cursor-pointer
                 ${activeWorkspace === w.name ? "bg-brand text-white" : "bg-black/[0.04] text-brand-ink/50 hover:bg-brand/[0.08]"}`}
             >
               {w.name}
@@ -490,7 +492,7 @@ export function MessagesMock() {
           ))}
           <motion.div
             whileHover={{ scale: 1.15, borderColor: "rgba(99,102,241,0.4)" }}
-            className="mt-auto w-8 h-8 rounded-xl border border-dashed border-black/[0.08] flex items-center justify-center text-brand-ink/30 text-xs cursor-pointer"
+            className="mt-auto size-8 rounded-xl border border-dashed border-black/[0.08] flex items-center justify-center text-brand-ink/30 text-xs cursor-pointer"
           >
             +
           </motion.div>
@@ -505,13 +507,13 @@ export function MessagesMock() {
           <div className="mt-3 rounded-lg bg-black/[0.04] px-2.5 py-2 text-[8px] text-brand-ink/30 font-body">Search channels...</div>
           <div className="mt-3">
             <div className="flex items-center gap-2 text-[8px] text-brand-ink/70 font-body mb-2">
-              <Bell className="w-3 h-3 text-brand/70" />
+              <Bell className="size-3 text-brand/70" />
               Notices
             </div>
             <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="space-y-1.5">
-              {schoolNotices.map((notice, i) => (
+              {SCHOOL_NOTICES.map((notice, i) => (
                 <motion.div
-                  key={i}
+                  key={notice.title}
                   variants={fadeUp}
                   whileHover={{ x: 2, scale: 1.01 }}
                   className="rounded-lg bg-brand/[0.04] border border-brand/[0.06] px-2 py-1.5 cursor-pointer"
@@ -530,7 +532,7 @@ export function MessagesMock() {
             <div className="space-y-1">
               {Object.keys(currentWorkspace.channels).map((channel, i) => (
                 <motion.div
-                  key={i}
+                  key={`item-${i}`}
                   whileHover={{ x: 3 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setActiveChannel(channel)}
@@ -548,11 +550,11 @@ export function MessagesMock() {
             <div className="space-y-1.5">
               {channelData.resources.map((r, i) => (
                 <motion.div
-                  key={i}
+                  key={`item-${i}`}
                   whileHover={{ x: 2 }}
                   className="flex items-center gap-2 text-[8px] text-brand-ink/50 px-2 py-1 rounded-lg hover:bg-black/[0.03] cursor-pointer"
                 >
-                  <FileText className="w-2.5 h-2.5" />
+                  <FileText className="size-2.5" />
                   {r}
                 </motion.div>
               ))}
@@ -561,7 +563,7 @@ export function MessagesMock() {
           <div className="mt-auto pt-3 border-t border-black/[0.05] flex items-center gap-2">
             <motion.div
               whileHover={{ scale: 1.1 }}
-              className="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center text-[8px] font-semibold"
+              className="size-6 rounded-full bg-brand text-white flex items-center justify-center text-[8px] font-semibold"
             >
               AK
             </motion.div>
@@ -595,7 +597,7 @@ export function MessagesMock() {
                 >
                   <motion.div
                     whileHover={{ scale: 1.1 }}
-                    className={`w-7 h-7 rounded-full flex items-center justify-center text-[8px] font-semibold shrink-0
+                    className={`size-7 rounded-full flex items-center justify-center text-[8px] font-semibold shrink-0
                       ${m.teacher ? "bg-amber-100 text-amber-700" : "bg-brand/[0.08] text-brand"}`}
                   >
                     {m.sender.charAt(0)}
@@ -626,7 +628,7 @@ export function MessagesMock() {
               className="rounded-xl border border-brand/[0.08] bg-brand/[0.04] p-3 flex items-start gap-2 max-w-[320px]"
             >
               <motion.div animate={{ rotate: [0, -10, 10, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: 2 }}>
-                <Bell className="w-3 h-3 text-brand mt-0.5 shrink-0" />
+                <Bell className="size-3 text-brand mt-0.5 shrink-0" />
               </motion.div>
               <div>
                 <div className="text-[8px] font-semibold text-brand font-body">Homework Reminder</div>
@@ -643,9 +645,9 @@ export function MessagesMock() {
             <motion.div
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.92 }}
-              className="w-7 h-7 rounded-lg bg-brand text-white flex items-center justify-center cursor-pointer"
+              className="size-7 rounded-lg bg-brand text-white flex items-center justify-center cursor-pointer"
             >
-              <MessageSquare className="w-3 h-3" />
+              <MessageSquare className="size-3" />
             </motion.div>
           </div>
         </div>
@@ -678,7 +680,7 @@ export function MessagesMock() {
             <div className="space-y-2">
               {channelData.members.slice(0, 2).map((m, i) => (
                 <motion.div
-                  key={i}
+                  key={`item-${i}`}
                   initial={{ opacity: 0, x: 6 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -686,12 +688,12 @@ export function MessagesMock() {
                   className="flex items-center gap-2"
                 >
                   <div className="relative shrink-0">
-                    <div className="w-6 h-6 rounded-full bg-black/[0.05]" />
+                    <div className="size-6 rounded-full bg-black/[0.05]" />
                     {m.online && (
                       <motion.span
                         animate={{ scale: [1, 1.3, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
-                        className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-green-500 border border-white"
+                        className="absolute bottom-0 right-0 size-2 rounded-full bg-green-500 border border-white"
                       />
                     )}
                   </div>
@@ -729,7 +731,7 @@ export function ClassesMock() {
       <div className="flex flex-col p-3 md:p-5 h-[400px] md:h-[480px]">
         <div className="flex items-center justify-between mb-3 px-1">
           <div className="flex items-start gap-2">
-            <div className="mt-1 w-3.5 h-3.5 rounded-full border border-white/20 flex items-center bg-gradient-to-br from-brand/30 to-purple-500/30 justify-center text-[7px] text-white/50 font-bold">i</div>
+            <div className="mt-1 size-3.5 rounded-full border border-white/20 flex items-center bg-gradient-to-br from-brand/30 to-purple-500/30 justify-center text-[7px] text-white/50 font-bold">i</div>
             <div>
               <div className="text-[8px] uppercase tracking-[0.15em] text-white/40 font-semibold mb-0.5">Class Mode</div>
               <div className="text-[14px] font-bold text-white font-body leading-tight">Physics — Class X</div>
@@ -741,7 +743,7 @@ export function ClassesMock() {
               transition={{ duration: 1.5, repeat: Infinity }}
               className="flex items-center gap-1.5 rounded-full bg-green-500/10 px-2 py-1"
             >
-              <span className="w-1 h-1 rounded-full bg-green-500" />
+              <span className="size-1 rounded-full bg-green-500" />
               <span className="text-[8px] font-bold text-green-500 uppercase">Live</span>
             </motion.div>
           </div>
@@ -770,11 +772,11 @@ export function ClassesMock() {
                 <div className="text-[8px] text-white/50 mt-0.5">You · HOST</div>
               </div>
               <div className="absolute bottom-2.5 right-2.5 flex gap-1.5 z-10">
-                {[<MicOff key="micoff" className="w-3 h-3" />, <VideoOff key="videooff" className="w-3 h-3" />].map((ic, i) => (
+                {[<MicOff key="micoff" className="size-3" />, <VideoOff key="videooff" className="size-3" />].map((ic, i) => (
                   <motion.div
-                    key={i}
+                    key={`item-${i}`}
                     whileHover={{ scale: 1.15 }}
-                    className="w-6 h-6 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white cursor-pointer"
+                    className="size-6 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white cursor-pointer"
                   >
                     {ic}
                   </motion.div>
@@ -794,11 +796,11 @@ export function ClassesMock() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent z-0" />
               <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1E3A8A] text-white text-[13px] font-bold flex items-center justify-center shadow-md" />
+                <div className="size-10 rounded-full bg-gradient-to-br from-[#1E3A8A] text-white text-[13px] font-bold flex items-center justify-center shadow-md" />
               </div>
               <div className="absolute bottom-2 left-2 text-[8px] font-semibold text-white z-20">Arpit Kumar</div>
-              <div className="absolute bottom-1.5 right-1.5 w-5 h-5 rounded-full bg-red-500 flex items-center justify-center text-white shadow-lg z-20">
-                <MicOff className="w-2.5 h-2.5" />
+              <div className="absolute bottom-1.5 right-1.5 size-5 rounded-full bg-red-500 flex items-center justify-center text-white shadow-lg z-20">
+                <MicOff className="size-2.5" />
               </div>
             </motion.div>
           </div>
@@ -815,11 +817,11 @@ export function ClassesMock() {
           >
             {["🎤", "📹", "🖥️", "✋", "⛶", "⋯"].map((icon, i) => (
               <motion.button
-                key={i}
+                key={`item-${i}`}
                 whileHover={{ scale: 1.18, backgroundColor: "rgba(255,255,255,0.1)" }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ duration: 0.15 }}
-                className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-[10px] text-white/70"
+                className="size-7 rounded-full bg-white/5 flex items-center justify-center text-[10px] text-white/70"
               >
                 {icon}
               </motion.button>
@@ -842,14 +844,14 @@ export function ClassesMock() {
 /* -----------------------------------------------------
    3. MEETINGS MOCK
 ----------------------------------------------------- */
-export function MeetingsMock() {
-  const participants = [
-    { name: "Mr. Sharma", role: "Teacher", speaking: true },
-    { name: "Aarav P.", role: "Student", speaking: false },
-    { name: "Priya K.", role: "Student", speaking: false },
-    { name: "Rohan S.", role: "Student", speaking: false },
-  ];
+const MEETING_PARTICIPANTS = [
+  { name: "Mr. Sharma", role: "Teacher", speaking: true },
+  { name: "Aarav P.", role: "Student", speaking: false },
+  { name: "Priya K.", role: "Student", speaking: false },
+  { name: "Rohan S.", role: "Student", speaking: false },
+];
 
+export function MeetingsMock() {
   return (
     <div className="rounded-xl border border-black/[0.06] overflow-hidden bg-[#1a1c1d] shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
       <div className="p-2.5">
@@ -858,7 +860,7 @@ export function MeetingsMock() {
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 1.2, repeat: Infinity }}
-              className="w-1.5 h-1.5 rounded-full bg-red-500"
+              className="size-1.5 rounded-full bg-red-500"
             />
             <span className="text-[8px] font-semibold text-red-400 font-body">LIVE</span>
             <span className="text-[8px] text-white/40 font-body ml-1">Class X – Physics</span>
@@ -866,9 +868,9 @@ export function MeetingsMock() {
           <span className="text-[7px] text-white/30 font-body">34 students</span>
         </div>
         <div className="grid grid-cols-2 gap-1.5">
-          {participants.map((p, i) => (
+          {MEETING_PARTICIPANTS.map((p, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -876,30 +878,30 @@ export function MeetingsMock() {
               whileHover={{ scale: 1.03, zIndex: 10 }}
               className={`rounded-lg overflow-hidden relative ${i === 0 ? "bg-gradient-to-br from-brand/30 to-purple-500/30" : "bg-white/[0.06]"} aspect-[4/3] flex items-center justify-center`}
             >
-              <Avatar size="w-8 h-8" color={i === 0 ? "bg-gradient-to-br from-brand to-purple-500" : "bg-white/10"} />
+              <Avatar size="size-8" color={i === 0 ? "bg-gradient-to-br from-brand to-purple-500" : "bg-white/10"} />
               <div className="absolute bottom-1 left-1.5 flex items-center gap-1">
                 <span className="text-[7px] text-white/80 font-body">{p.name}</span>
                 {p.speaking && (
                   <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 0.8, repeat: Infinity }}>
-                    <Mic className="w-2 h-2 text-green-400" />
+                    <Mic className="size-2 text-green-400" />
                   </motion.div>
                 )}
               </div>
-              {i > 0 && <MicOff className="absolute top-1 right-1 w-2 h-2 text-white/30" />}
+              {i > 0 && <MicOff className="absolute top-1 right-1 size-2 text-white/30" />}
             </motion.div>
           ))}
         </div>
         <div className="flex items-center justify-center gap-3 mt-2.5 pt-2 border-t border-white/[0.06]">
           {[
-            { icon: <Mic className="w-3 h-3" />, active: true },
-            { icon: <Video className="w-3 h-3" />, active: true },
-            { icon: <Monitor className="w-3 h-3" />, active: false },
+            { icon: <Mic className="size-3" />, active: true },
+            { icon: <Video className="size-3" />, active: true },
+            { icon: <Monitor className="size-3" />, active: false },
           ].map((c, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               whileHover={{ scale: 1.15 }}
               whileTap={{ scale: 0.9 }}
-              className={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer ${c.active ? "bg-white/10 text-white" : "bg-white/[0.06] text-white/30"}`}
+              className={`size-6 rounded-full flex items-center justify-center cursor-pointer ${c.active ? "bg-white/10 text-white" : "bg-white/[0.06] text-white/30"}`}
             >
               {c.icon}
             </motion.div>
@@ -907,9 +909,9 @@ export function MeetingsMock() {
           <motion.div
             whileHover={{ scale: 1.12, backgroundColor: "#e02020" }}
             whileTap={{ scale: 0.9 }}
-            className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center cursor-pointer"
+            className="size-6 rounded-full bg-red-500 flex items-center justify-center cursor-pointer"
           >
-            <VideoOff className="w-3 h-3 text-white" />
+            <VideoOff className="size-3 text-white" />
           </motion.div>
         </div>
       </div>
@@ -925,13 +927,13 @@ export function WebinarsMock() {
     <div className="rounded-xl border border-black/[0.06] overflow-hidden bg-white shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
       <div className="bg-gradient-to-br from-[#1a1c1d] to-[#2d2f30] p-3 relative">
         <div className="flex items-center gap-1.5 mb-2">
-          <Presentation className="w-3 h-3 text-brand" />
+          <Presentation className="size-3 text-brand" />
           <span className="text-[8px] font-semibold text-white/80 font-body">Career Guidance Webinar</span>
           <span className="ml-auto flex items-center gap-1 text-[7px] text-red-400 font-body">
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
-              className="w-1.5 h-1.5 rounded-full bg-red-500"
+              className="size-1.5 rounded-full bg-red-500"
             />
             LIVE
           </span>
@@ -944,11 +946,11 @@ export function WebinarsMock() {
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Avatar size="w-10 h-10" color="bg-gradient-to-br from-brand to-purple-500" />
+            <Avatar size="size-10" color="bg-gradient-to-br from-brand to-purple-500" />
           </motion.div>
           <div className="absolute bottom-1.5 left-2 text-[7px] text-white/60 font-body">Dr. Priya Mehta – IIT Delhi</div>
           <div className="absolute top-1.5 right-2 flex items-center gap-1 bg-black/40 rounded-full px-2 py-0.5">
-            <Users className="w-2 h-2 text-white/60" />
+            <Users className="size-2 text-white/60" />
             <span className="text-[7px] text-white/70 font-body">342 watching</span>
           </div>
         </motion.div>
@@ -960,7 +962,7 @@ export function WebinarsMock() {
           { title: "Digital Literacy Workshop", date: "Dec 12", speakers: 1 },
         ].map((w, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, x: -10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -968,7 +970,7 @@ export function WebinarsMock() {
             whileHover={{ x: 2 }}
             className="flex items-center gap-2 p-1.5 rounded-lg bg-black/[0.02] cursor-pointer"
           >
-            <Calendar className="w-3 h-3 text-brand/50" />
+            <Calendar className="size-3 text-brand/50" />
             <div className="flex-1">
               <div className="text-[7px] font-semibold text-brand-ink font-body">{w.title}</div>
               <div className="text-[6px] text-brand-ink/40 font-body">{w.date} · {w.speakers} speaker{w.speakers > 1 ? "s" : ""}</div>
@@ -992,10 +994,10 @@ export function WebinarsMock() {
 ----------------------------------------------------- */
 export function MembersMock() {
   const tabConfig = [
-    { label: "Students", icon: <GraduationCap className="w-2.5 h-2.5" />, count: 1842 },
-    { label: "Teachers", icon: <BookOpen className="w-2.5 h-2.5" />, count: 86 },
-    { label: "Admin", icon: <Shield className="w-2.5 h-2.5" />, count: 12 },
-    { label: "Alumni", icon: <UserCheck className="w-2.5 h-2.5" />, count: 340 },
+    { label: "Students", icon: <GraduationCap className="size-2.5" />, count: 1842 },
+    { label: "Teachers", icon: <BookOpen className="size-2.5" />, count: 86 },
+    { label: "Admin", icon: <Shield className="size-2.5" />, count: 12 },
+    { label: "Alumni", icon: <UserCheck className="size-2.5" />, count: 340 },
   ];
 
   const memberData: Record<string, { name: string; role: string; status: string; color: string }[]> = {
@@ -1055,7 +1057,7 @@ export function MembersMock() {
         >
           {members.map((m, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               initial={{ opacity: 0, x: -8 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -1063,7 +1065,7 @@ export function MembersMock() {
               whileHover={{ x: 3, backgroundColor: "rgba(0,0,0,0.015)" }}
               className="flex items-center gap-2 rounded-lg p-1.5 transition-colors cursor-pointer"
             >
-              <Avatar size="w-5 h-5" />
+              <Avatar size="size-5" />
               <div className="flex-1 min-w-0">
                 <div className="text-[8px] font-semibold text-brand-ink font-body">{m.name}</div>
                 <div className="text-[7px] text-brand-ink/40 font-body">{m.role}</div>
@@ -1072,7 +1074,7 @@ export function MembersMock() {
                 <motion.span
                   animate={{ scale: [1, 1.15, 1] }}
                   transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                  className={`w-1.5 h-1.5 rounded-full ${m.color}`}
+                  className={`size-1.5 rounded-full ${m.color}`}
                 />
                 <span className="text-[7px] text-brand-ink/40 font-body">{m.status}</span>
               </div>
@@ -1102,7 +1104,7 @@ export function NoticeMock() {
             animate={{ rotate: [0, -15, 15, -8, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
           >
-            <Bell className="w-3 h-3 text-brand" />
+            <Bell className="size-3 text-brand" />
           </motion.div>
           <span className="text-[9px] font-semibold text-brand-ink font-body">Notice Board</span>
         </div>
@@ -1117,7 +1119,7 @@ export function NoticeMock() {
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="space-y-2">
         {notices.map((n, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             variants={fadeUp}
             whileHover={{ x: 3, scale: 1.01 }}
             className="rounded-lg p-2 bg-black/[0.015] border border-black/[0.04] cursor-pointer"
@@ -1125,7 +1127,7 @@ export function NoticeMock() {
             <div className="flex items-start gap-2">
               {n.pinned && (
                 <motion.div animate={{ rotate: [0, -5, 5, 0] }} transition={{ duration: 3, repeat: Infinity, delay: i }}>
-                  <Pin className="w-2.5 h-2.5 text-brand/50 mt-0.5 shrink-0" />
+                  <Pin className="size-2.5 text-brand/50 mt-0.5 shrink-0" />
                 </motion.div>
               )}
               <div className="flex-1 min-w-0">
@@ -1148,11 +1150,11 @@ export function NoticeMock() {
 ----------------------------------------------------- */
 export function ActivityMock() {
   const activities = [
-    { action: "Assignment submitted", user: "Aarav Patel", detail: "Mathematics – Ch.7", time: "2 min", icon: <Activity className="w-2.5 h-2.5" />, color: "bg-green-500/10 text-green-600" },
-    { action: "Attendance marked", user: "Mrs. Gupta", detail: "Class X-A – 94%", time: "15 min", icon: <UserCheck className="w-2.5 h-2.5" />, color: "bg-brand/10 text-brand" },
-    { action: "Notice published", user: "Admin", detail: "Annual Sports Day", time: "1 hr", icon: <Bell className="w-2.5 h-2.5" />, color: "bg-amber-500/10 text-amber-600" },
-    { action: "Meeting scheduled", user: "Principal", detail: "PTA – Dec 5", time: "2 hr", icon: <Calendar className="w-2.5 h-2.5" />, color: "bg-purple-500/10 text-purple-600" },
-    { action: "New student added", user: "Admin", detail: "Rohan Joshi – IX-A", time: "3 hr", icon: <Users className="w-2.5 h-2.5" />, color: "bg-blue-500/10 text-blue-600" },
+    { action: "Assignment submitted", user: "Aarav Patel", detail: "Mathematics – Ch.7", time: "2 min", icon: <Activity className="size-2.5" />, color: "bg-green-500/10 text-green-600" },
+    { action: "Attendance marked", user: "Mrs. Gupta", detail: "Class X-A – 94%", time: "15 min", icon: <UserCheck className="size-2.5" />, color: "bg-brand/10 text-brand" },
+    { action: "Notice published", user: "Admin", detail: "Annual Sports Day", time: "1 hr", icon: <Bell className="size-2.5" />, color: "bg-amber-500/10 text-amber-600" },
+    { action: "Meeting scheduled", user: "Principal", detail: "PTA – Dec 5", time: "2 hr", icon: <Calendar className="size-2.5" />, color: "bg-purple-500/10 text-purple-600" },
+    { action: "New student added", user: "Admin", detail: "Rohan Joshi – IX-A", time: "3 hr", icon: <Users className="size-2.5" />, color: "bg-blue-500/10 text-blue-600" },
   ];
 
   return (
@@ -1161,7 +1163,7 @@ export function ActivityMock() {
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="space-y-0.5">
         {activities.map((a, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             variants={fadeUp}
             whileHover={{ x: 4 }}
             className="flex items-start gap-2 py-1.5 relative cursor-pointer"
@@ -1290,7 +1292,7 @@ function SectionHeader() {
         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/[0.08] border border-brand/[0.12] mb-6"
       >
         <motion.div animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }}>
-          <Sparkles className="w-3.5 h-3.5 text-brand" />
+          <Sparkles className="size-3.5 text-brand" />
         </motion.div>
         <span className="text-[11px] font-bold text-brand tracking-widest uppercase">Platform Features</span>
       </motion.div>
@@ -1327,7 +1329,7 @@ function SectionHeader() {
           { value: "30", label: "Concurrent meetings" },
           { value: "360p", label: "SFU video quality" },
         ].map((s, i) => (
-          <FloatingBadge key={i} delay={i * 0.3}>
+          <FloatingBadge key={`item-${i}`} delay={i * 0.3}>
             <div className="text-center">
               <div className="text-2xl font-bold text-brand-ink font-display">{s.value}</div>
               <div className="text-[11px] text-brand-ink/40 font-body">{s.label}</div>
@@ -1403,7 +1405,7 @@ export function FeaturesSection() {
                       animate={{ x: [0, 3, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <ArrowRight className="w-3 h-3" />
+                      <ArrowRight className="size-3" />
                     </motion.div>
                   </motion.div>
                 </motion.div>
@@ -1421,10 +1423,10 @@ export function FeaturesSection() {
           className="text-center mt-20"
         >
           <MagneticButton className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-brand text-white font-bold text-sm shadow-lg hover:shadow-brand/30 transition-shadow">
-            <Zap className="w-4 h-4" />
+            <Zap className="size-4" />
             Get early access
             <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="size-4" />
             </motion.div>
           </MagneticButton>
           <p className="text-[11px] text-brand-ink/30 mt-3 font-body">Now onboarding CBSE schools in Ranchi</p>

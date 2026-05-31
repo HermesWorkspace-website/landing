@@ -11,7 +11,7 @@
 /* --- Motivate (Logo Font) ----------------------------------- */
 @font-face {
   font-family: 'Motivate';
-  src: url('/fonts/Motivate.otf') format('opentype');
+  src: url('https://ik.imagekit.io/hermesworkspace/Landing/fonts/Motivate.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -20,7 +20,7 @@
 /* --- SF Pro Display (Logo Font) ----------------------------- */
 @font-face {
   font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYREGULAR.woff2') format('woff2');
+  src: url('https://ik.imagekit.io/hermesworkspace/Landing/fonts/SFPRODISPLAYREGULAR.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -28,7 +28,7 @@
 
 @font-face {
   font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYMEDIUM.woff2') format('woff2');
+  src: url('https://ik.imagekit.io/hermesworkspace/Landing/fonts/SFPRODISPLAYMEDIUM.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -36,7 +36,7 @@
 
 @font-face {
   font-family: 'SF Pro Display';
-  src: url('/fonts/SFPRODISPLAYBOLD.woff2') format('woff2');
+  src: url('https://ik.imagekit.io/hermesworkspace/Landing/fonts/SFPRODISPLAYBOLD.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

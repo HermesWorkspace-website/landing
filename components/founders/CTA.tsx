@@ -69,7 +69,7 @@ export default function CTASection() {
               transition={{ delay: 0.1 }}
               className="mb-8 flex items-center gap-3"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulse" />
+              <span className="size-1.5 rounded-full bg-brand animate-pulse" />
 
               <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-brand/80">
                 Building Modern Educational Infrastructure
@@ -118,7 +118,7 @@ export default function CTASection() {
                 >
                   Partner With HermesWorkspace
 
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </Button>
 
@@ -129,7 +129,7 @@ export default function CTASection() {
                 className="border border-white/[0.08] bg-white/[0.03] text-white/70 backdrop-blur-xl hover:bg-white/[0.06] hover:text-white"
               >
                 <a href="mailto:connect@hermesworkspace.com">
-                  <Mail className="mr-2 h-4 w-4" />
+                  <Mail className="mr-2 size-4" />
                   Contact Leadership
                 </a>
               </Button>
@@ -144,11 +144,11 @@ export default function CTASection() {
             >
               <span>Institutional Communication</span>
 
-              <span className="h-1 w-1 rounded-full bg-white/20" />
+              <span className="size-1 rounded-full bg-white/20" />
 
               <span>Academic Operations</span>
 
-              <span className="h-1 w-1 rounded-full bg-white/20" />
+              <span className="size-1 rounded-full bg-white/20" />
 
               <span>Scalable Infrastructure</span>
             </motion.div>

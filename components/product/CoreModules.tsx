@@ -90,7 +90,7 @@ function ModuleCard({ icon: Icon, title, desc, color, index, isInView, total }: 
       <motion.div
         whileHover={{ scale: 1.08, rotate: 3 }}
         transition={{ type: "spring", stiffness: 350 }}
-        className="w-10 h-10 rounded-xl flex items-center justify-center"
+        className="size-10 rounded-xl flex items-center justify-center"
         style={{ backgroundColor: `${color}15`, border: `1px solid ${color}25` }}
       >
         <Icon size={18} style={{ color }} />

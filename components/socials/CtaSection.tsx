@@ -16,7 +16,7 @@ export function CtaSection() {
         <svg className="absolute bottom-0 left-0 w-full opacity-[0.03]" viewBox="0 0 1440 300">
           {Array.from({ length: 12 }).map((_, i) => (
             <line
-              key={i}
+              key={`item-${i}`}
               x1={i * 120}
               y1="0"
               x2={i * 120}
@@ -27,7 +27,7 @@ export function CtaSection() {
           ))}
           {Array.from({ length: 6 }).map((_, i) => (
             <line
-              key={i}
+              key={`item-${i}`}
               x1="0"
               y1={i * 50}
               x2="1440"

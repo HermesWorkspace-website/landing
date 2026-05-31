@@ -100,7 +100,7 @@ function PhilosophyCard({
       <motion.div
         whileHover={{ scale: 1.08, backgroundColor: "#0A1628" }}
         transition={{ type: "spring", stiffness: 350 }}
-        className="w-9 h-9 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center group-hover:bg-[#0A1628] transition-colors"
+        className="size-9 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center group-hover:bg-[#0A1628] transition-colors"
       >
         <Icon
           size={16}

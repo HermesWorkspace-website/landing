@@ -17,6 +17,7 @@ export function ProgressBar({ founders, activeIndex, progress, onDotClick }: Pro
       <div className="flex items-center gap-4">
         {founders.map((founder, i) => (
           <button
+            type="button"
             key={founder.id}
             onClick={() => onDotClick(i)}
             className="flex-1 group flex flex-col gap-1.5 cursor-pointer bg-transparent border-none p-0"

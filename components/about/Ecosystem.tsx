@@ -53,8 +53,8 @@ export default function Ecosystem() {
       className="bg-[#0A1628] py-20 px-6 overflow-hidden relative"
     >
       {/* Background particles/glow */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-[#22C55E]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#22C55E]/3 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 size-72 bg-[#22C55E]/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 size-96 bg-[#22C55E]/3 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
         {/* Left text */}
@@ -96,9 +96,9 @@ export default function Ecosystem() {
             {/* Fake dashboard header */}
             <div className="bg-[#071221] px-4 py-3 flex items-center gap-2 border-b border-white/5">
               <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[#22C55E]/60" />
+                <div className="size-2.5 rounded-full bg-red-400/60" />
+                <div className="size-2.5 rounded-full bg-yellow-400/60" />
+                <div className="size-2.5 rounded-full bg-[#22C55E]/60" />
               </div>
               <div className="mx-auto flex-1 mx-8 h-5 bg-white/5 rounded-md" />
             </div>
@@ -111,7 +111,7 @@ export default function Ecosystem() {
                 <div className="flex items-end gap-2 h-20">
                   {[45, 70, 55, 90, 65, 80, 72, 88, 60, 95].map((h, i) => (
                     <motion.div
-                      key={i}
+                      key={`item-${i}`}
                       initial={{ height: 0 }}
                       animate={isInView ? { height: `${h}%` } : {}}
                       transition={{ delay: 0.8 + i * 0.06, duration: 0.5, ease: "easeOut" }}
@@ -141,8 +141,8 @@ export default function Ecosystem() {
 
               {/* List rows */}
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-7 bg-[#071221] rounded-lg border border-white/5 flex items-center px-3 gap-2">
-                  <div className="w-3 h-3 rounded-sm bg-[#22C55E]/30" />
+                <div key={`item-${i}`} className="h-7 bg-[#071221] rounded-lg border border-white/5 flex items-center px-3 gap-2">
+                  <div className="size-3 rounded-sm bg-[#22C55E]/30" />
                   <div className="flex-1 h-2 bg-white/5 rounded-full" />
                   <div className="w-10 h-2 bg-white/10 rounded-full" />
                 </div>

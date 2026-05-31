@@ -13,21 +13,21 @@ interface FeatureCard {
 
 const featureCards: FeatureCard[] = [
   {
-    icon: <Users className="w-5 h-5" />,
+    icon: <Users className="size-5" />,
     colorFrom: "#5A5FE8",
     colorTo: "#7B7FF0",
     title: "Structured School Communication",
     desc: "Role-based communication channels for administrators, teachers, students, and parents across classes, sections, and departments.",
   },
   {
-    icon: <Handshake className="w-5 h-5" />,
+    icon: <Handshake className="size-5" />,
     colorFrom: "#a855f7",
     colorTo: "#c084fc",
     title: "Academic Operations",
     desc: "Manage meetings, notices, events, announcements, resources, and institutional coordination from one centralized platform.",
   },
   {
-    icon: <Newspaper className="w-5 h-5" />,
+    icon: <Newspaper className="size-5" />,
     colorFrom: "#10b981",
     colorTo: "#34d399",
     title: "Secure Digital Infrastructure",
@@ -51,7 +51,7 @@ export default function Features() {
           transition={{ duration: 0.6 }}
         >
           <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full" style={{ background: "rgba(90,95,232,0.07)", border: "1px solid rgba(90,95,232,0.15)" }}>
-            <Sparkles className="w-3 h-3" style={{ color: "var(--brand)" }} />
+            <Sparkles className="size-3" style={{ color: "var(--brand)" }} />
             <span className="text-[9px] font-bold font-syne uppercase tracking-[0.18em]" style={{ color: "var(--brand)" }}>
               What we offer
             </span>
@@ -64,7 +64,7 @@ export default function Features() {
         <div className="grid md:grid-cols-3 gap-6">
           {featureCards.map((card, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.14, ease: [0.22, 1, 0.36, 1] }}
@@ -93,7 +93,7 @@ export default function Features() {
 
               <div className="p-7 relative">
                 <motion.div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                  className="size-11 rounded-xl flex items-center justify-center mb-5"
                   style={{ background: `${card.colorFrom}12`, color: card.colorFrom }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 400 }}

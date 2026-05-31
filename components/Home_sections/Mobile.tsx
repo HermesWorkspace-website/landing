@@ -75,7 +75,7 @@ function MobileHero() {
         {/* Badge */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/[0.08] border border-brand/[0.12] text-[11px] font-semibold text-brand font-body">
-            <Zap className="w-3 h-3 fill-brand" />
+            <Zap className="size-3 fill-brand" />
             v1.0.1 Live Now
           </span>
         </motion.div>
@@ -111,13 +111,14 @@ function MobileHero() {
         >
           <Link href="/contact?scroll=inquiry"
             className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-brand text-white font-bold text-sm font-body shadow-[0_4px_20px_rgba(96,99,238,0.35)] active:scale-[0.97] transition-transform">
-            Request Live Demo <ArrowRight className="w-4 h-4" />
+            Request Live Demo <ArrowRight className="size-4" />
           </Link>
           <button
+            type="button"
             onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
             className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-black/[0.08] text-brand-ink font-semibold text-sm font-body active:scale-[0.97] transition-transform bg-white"
           >
-            <Video className="w-4 h-4 text-brand" /> Explore Platform
+            <Video className="size-4 text-brand" /> Explore Platform
           </button>
         </motion.div>
 
@@ -130,7 +131,7 @@ function MobileHero() {
         >
           <div className="flex -space-x-1.5">
             {["#6063EE", "#A855F7", "#22C55E", "#F59E0B"].map((c, i) => (
-              <div key={i} className="w-5 h-5 rounded-full border-2 border-white" style={{ background: c }} />
+              <div key={`item-${i}`} className="size-5 rounded-full border-2 border-white" style={{ background: c }} />
             ))}
           </div>
           <span>Built for Indian schools</span>
@@ -145,7 +146,7 @@ function MobileHero() {
         >
           {/* Fake browser bar */}
           <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-black/[0.05] bg-[#FAFAFA]">
-            {["#ff5f57","#febc2e","#28c840"].map(c => <div key={c} className="w-2 h-2 rounded-full" style={{ background: c }} />)}
+            {["#ff5f57","#febc2e","#28c840"].map(c => <div key={c} className="size-2 rounded-full" style={{ background: c }} />)}
             <div className="ml-2 flex-1 h-4 rounded bg-black/[0.04]" />
           </div>
           {/* Stats row */}
@@ -169,7 +170,7 @@ function MobileHero() {
             ].map(item => (
               <div key={item.label} className={`flex items-center gap-2 rounded-xl px-3 py-2 border ${item.color}`}>
                 <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.4, repeat: Infinity }}
-                  className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.dot}`} />
+                  className={`size-1.5 rounded-full shrink-0 ${item.dot}`} />
                 <span className={`text-[10px] font-bold font-body ${item.text}`}>{item.label}</span>
               </div>
             ))}
@@ -183,18 +184,19 @@ function MobileHero() {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 2. STATS — simple, no counter animation overhead
 // ═══════════════════════════════════════════════════════════════════════════════
+const MOBILE_STATS_ITEMS = [
+  { val: "1 Platform", label: "Centralized Communication" },
+  { val: "24/7", label: "Institution Connectivity" },
+  { val: "100%", label: "Administrative Visibility" },
+  { val: "0 WhatsApp", label: "Structured Workflow" },
+];
+
 function MobileStats() {
-  const items = [
-    { val: "1 Platform", label: "Centralized Communication" },
-    { val: "24/7", label: "Institution Connectivity" },
-    { val: "100%", label: "Administrative Visibility" },
-    { val: "0 WhatsApp", label: "Structured Workflow" },
-  ];
   return (
     <section className="py-10 border-y border-black/[0.05] bg-white">
       <div className="container-page grid grid-cols-2 gap-5">
-        {items.map((s, i) => (
-          <FadeUp key={i} delay={i * 0.07}>
+        {MOBILE_STATS_ITEMS.map((s, i) => (
+          <FadeUp key={`item-${i}`} delay={i * 0.07}>
             <div className="font-display font-extrabold text-brand-ink text-[1.6rem] tracking-tight leading-tight">{s.val}</div>
             <div className="text-xs text-brand-muted font-body mt-1">{s.label}</div>
           </FadeUp>
@@ -236,8 +238,8 @@ function MobileFeatures() {
           {FEATURES.map((f, i) => (
             <FadeUp key={f.label} delay={i * 0.06}>
               <div className="flex items-start gap-4 bg-white rounded-2xl border border-black/[0.05] px-4 py-4 shadow-sm">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${f.color}`}>
-                  <f.icon className="w-4 h-4" />
+                <div className={`size-9 rounded-xl flex items-center justify-center shrink-0 ${f.color}`}>
+                  <f.icon className="size-4" />
                 </div>
                 <div>
                   <div className="font-display font-bold text-brand-ink text-[0.9375rem] mb-0.5">{f.label}</div>
@@ -256,7 +258,7 @@ function MobileFeatures() {
             { icon: BookOpen, label: "CBSE / ICSE Ready", color: "text-purple-600" },
           ].map(t => (
             <div key={t.label} className="flex items-center gap-1.5 text-xs text-brand-muted font-body">
-              <t.icon className={`w-3.5 h-3.5 ${t.color}`} />
+              <t.icon className={`size-3.5 ${t.color}`} />
               {t.label}
             </div>
           ))}
@@ -305,7 +307,7 @@ function MobileWorkflow() {
               <FadeUp key={s.num} delay={i * 0.08}>
                 <div className="flex gap-4">
                   {/* Step dot */}
-                  <div className="relative z-10 w-9 h-9 rounded-full bg-brand/[0.08] border border-brand/[0.15] flex items-center justify-center shrink-0">
+                  <div className="relative z-10 size-9 rounded-full bg-brand/[0.08] border border-brand/[0.15] flex items-center justify-center shrink-0">
                     <span className="font-mono text-[10px] font-bold text-brand">{s.num}</span>
                   </div>
                   {/* Content */}
@@ -325,7 +327,7 @@ function MobileWorkflow() {
         <FadeUp delay={0.35} className="mt-8">
           <Link href="/contact?scroll=inquiry"
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-black/[0.08] text-brand-ink font-semibold text-sm font-body bg-white active:scale-[0.97] transition-transform">
-            Schedule a School Demo <ArrowRight className="w-4 h-4" />
+            Schedule a School Demo <ArrowRight className="size-4" />
           </Link>
         </FadeUp>
       </div>
@@ -398,7 +400,7 @@ function MobilePricing() {
                 <ul className="space-y-2 mb-5">
                   {t.features.map(f => (
                     <li key={f} className={`flex items-center gap-2 text-sm font-body ${t.featured ? "text-white/80" : "text-brand-ink/75"}`}>
-                      <Check className={`w-3.5 h-3.5 shrink-0 ${t.featured ? "text-green-400" : "text-green-600"}`} />
+                      <Check className={`size-3.5 shrink-0 ${t.featured ? "text-green-400" : "text-green-600"}`} />
                       {f}
                     </li>
                   ))}
@@ -408,7 +410,7 @@ function MobilePricing() {
                   className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-bold font-body active:scale-[0.97] transition-transform ${t.featured
                     ? "bg-white text-brand-ink hover:bg-white/90"
                     : "border border-black/[0.10] text-brand-ink"}`}>
-                  {t.cta} <ArrowRight className="w-3.5 h-3.5" />
+                  {t.cta} <ArrowRight className="size-3.5" />
                 </Link>
               </div>
             </FadeUp>
@@ -450,14 +452,14 @@ function MobileFAQ() {
 
         <div className="divide-y divide-black/[0.06]">
           {FAQS.map((f, i) => (
-            <FadeUp key={i} delay={i * 0.05}>
+            <FadeUp key={f.q} delay={i * 0.05}>
               <div className="cursor-pointer" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
                 <div className="py-4 flex items-start justify-between gap-3">
                   <span className={`font-body font-medium text-[0.9rem] transition-colors ${openIdx === i ? "text-brand" : "text-brand-ink"}`}>
                     {f.q}
                   </span>
-                  <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${openIdx === i ? "border-brand bg-brand/10 text-brand" : "border-black/10 text-brand-muted"}`}>
-                    {openIdx === i ? <Minus className="w-2.5 h-2.5" /> : <Plus className="w-2.5 h-2.5" />}
+                  <div className={`size-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${openIdx === i ? "border-brand bg-brand/10 text-brand" : "border-black/10 text-brand-muted"}`}>
+                    {openIdx === i ? <Minus className="size-2.5" /> : <Plus className="size-2.5" />}
                   </div>
                 </div>
                 <AnimatePresence initial={false}>
@@ -502,7 +504,7 @@ function MobileCTA() {
 
             <div className="relative z-10">
               <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-brand/70 uppercase tracking-widest font-body mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
+                <span className="size-1.5 rounded-full bg-brand animate-pulse" />
                 Demonstrations Open
               </span>
 
@@ -517,7 +519,7 @@ function MobileCTA() {
               <div className="flex flex-col gap-3">
                 <Link href="/contact?scroll=inquiry"
                   className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-brand text-white font-bold text-sm font-body shadow-[0_4px_20px_rgba(96,99,238,0.5)] active:scale-[0.97] transition-transform">
-                  Schedule Demonstration <ArrowRight className="w-4 h-4" />
+                  Schedule Demonstration <ArrowRight className="size-4" />
                 </Link>
                 <Link href="/contact"
                   className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-white/[0.12] text-white font-semibold text-sm font-body active:scale-[0.97] transition-transform">
@@ -527,7 +529,7 @@ function MobileCTA() {
 
               <a href="mailto:connect@hermesworkspace.com"
                 className="flex items-center justify-center gap-2 mt-6 text-xs text-white/40 font-body hover:text-white/60 transition-colors">
-                <Mail className="w-3.5 h-3.5" />
+                <Mail className="size-3.5" />
                 connect@hermesworkspace.com
               </a>
             </div>

@@ -57,7 +57,7 @@ function MobileHero() {
     >
       {/* Ambient blobs */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-16 top-[15%] h-72 w-72 rounded-full bg-indigo-100/70 blur-3xl" />
+        <div className="absolute -left-16 top-[15%] size-72 rounded-full bg-indigo-100/70 blur-3xl" />
         <div className="absolute -right-12 bottom-[8%] h-60 w-60 rounded-full bg-violet-100/60 blur-3xl" />
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -90,7 +90,7 @@ function MobileHero() {
           transition={{ delay: 0.1, duration: 0.6 }}
           className="mb-8 flex items-center gap-2"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+          <span className="size-1.5 rounded-full bg-indigo-500" />
           <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-indigo-500">
             Leadership &amp; Vision
           </span>
@@ -102,7 +102,7 @@ function MobileHero() {
           style={{ fontSize: "clamp(2.6rem, 11vw, 4rem)" }}
         >
           {["Building The Future", "Of Institutional", "Communication."].map((line, i) => (
-            <span key={i} className="block overflow-hidden">
+            <span key={`item-${i}`} className="block overflow-hidden">
               <motion.span
                 className={`inline-block ${i >= 1 ? "bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent" : ""}`}
                 initial={{ y: 56, opacity: 0 }}
@@ -140,7 +140,7 @@ function MobileHero() {
             style={{ background: "linear-gradient(135deg, #6063EE 0%, #8B5CF6 100%)" }}
           >
             Meet our Founders
-            <ArrowDown className="h-3.5 w-3.5" />
+            <ArrowDown className="size-3.5" />
           </motion.button>
         </motion.div>
       </div>
@@ -344,21 +344,21 @@ function MobileFoundersShowcase() {
             >
               {founder.socialLinks.linkedin && (
                 <a href={founder.socialLinks.linkedin} target="_blank" rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border"
+                  className="flex size-9 items-center justify-center rounded-full border"
                   style={{ borderColor: "#D8D4CC", color: "#9896A4" }} aria-label="LinkedIn">
                   <Linkedin size={14} />
                 </a>
               )}
               {founder.socialLinks.twitter && (
                 <a href={founder.socialLinks.twitter} target="_blank" rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border"
+                  className="flex size-9 items-center justify-center rounded-full border"
                   style={{ borderColor: "#D8D4CC", color: "#9896A4" }} aria-label="X">
-                  <XIcon className="h-3.5 w-3.5" />
+                  <XIcon className="size-3.5" />
                 </a>
               )}
               {founder.socialLinks.instagram && (
                 <a href={founder.socialLinks.instagram} target="_blank" rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border"
+                  className="flex size-9 items-center justify-center rounded-full border"
                   style={{ borderColor: "#D8D4CC", color: "#9896A4" }} aria-label="Instagram">
                   <Instagram size={14} />
                 </a>
@@ -389,7 +389,7 @@ function MobileMission() {
       {/* Ambient */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-12 top-[10%] h-52 w-52 rounded-full bg-indigo-100/40 blur-3xl" />
-        <div className="absolute -right-10 bottom-0 h-44 w-44 rounded-full bg-violet-100/30 blur-3xl" />
+        <div className="absolute -right-10 bottom-0 size-44 rounded-full bg-violet-100/30 blur-3xl" />
       </div>
 
       <div className="relative z-10 px-6">
@@ -467,11 +467,11 @@ function MobileFAQ() {
           transition={{ duration: 0.5, delay: 0.15 }}
         >
           {FAQS.map((f, i) => (
-            <div key={i} className="cursor-pointer border-b border-black/[0.06]" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
+            <div key={`item-${i}`} className="cursor-pointer border-b border-black/[0.06]" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
               <div className="flex items-start justify-between gap-4 py-4">
                 <h4 className="text-[0.875rem] font-medium text-[#0D0D0F]">{f.q}</h4>
-                <div className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all ${openIdx === i ? "border-indigo-500 bg-indigo-500/10 text-indigo-500" : "border-black/10 text-[#9896A4]"}`}>
-                  {openIdx === i ? <Minus className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
+                <div className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border transition-all ${openIdx === i ? "border-indigo-500 bg-indigo-500/10 text-indigo-500" : "border-black/10 text-[#9896A4]"}`}>
+                  {openIdx === i ? <Minus className="size-3" /> : <Plus className="size-3" />}
                 </div>
               </div>
               <AnimatePresence>
@@ -520,7 +520,7 @@ function MobileCTA() {
 
         <div className="relative z-10">
           <div className="mb-5 flex items-center gap-2">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-400" />
+            <span className="size-1.5 animate-pulse rounded-full bg-indigo-400" />
             <span className="text-[10px] font-medium uppercase tracking-[0.26em] text-indigo-400/80">
               Modern Educational Infrastructure
             </span>
@@ -541,22 +541,22 @@ function MobileCTA() {
               style={{ background: "linear-gradient(135deg, #6063EE 0%, #8B5CF6 100%)" }}
             >
               Partner With HermesWorkspace
-              <ArrowRight className="h-3.5 w-3.5" />
+              <ArrowRight className="size-3.5" />
             </a>
             <a
               href="mailto:connect@hermesworkspace.com"
               className="flex items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] py-3.5 text-[0.85rem] font-medium text-white/70"
             >
-              <Mail className="h-3.5 w-3.5" />
+              <Mail className="size-3.5" />
               Contact Leadership
             </a>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3 border-t border-white/[0.06] pt-6 text-[9px] uppercase tracking-[0.22em] text-white/30">
             <span>Institutional Communication</span>
-            <span className="h-1 w-1 self-center rounded-full bg-white/20" />
+            <span className="size-1 self-center rounded-full bg-white/20" />
             <span>Academic Operations</span>
-            <span className="h-1 w-1 self-center rounded-full bg-white/20" />
+            <span className="size-1 self-center rounded-full bg-white/20" />
             <span>Scalable Infrastructure</span>
           </div>
         </div>

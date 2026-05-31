@@ -59,7 +59,7 @@ export default function DesignedForClarity() {
 
           <div className="flex flex-col gap-3 mt-2">
             {features.map((f, i) => (
-              <motion.div key={i} initial={{ opacity: 0, x: -16 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+              <motion.div key={`item-${i}`} initial={{ opacity: 0, x: -16 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
                 className="flex items-start gap-3 p-3.5 rounded-xl border border-white/6 bg-white/3 hover:bg-white/6 transition-colors cursor-default">
                 <CheckCircle size={14} className="text-[#22C55E] flex-shrink-0 mt-0.5" />
                 <span className="text-[13px] text-white/70 leading-relaxed">{f}</span>
@@ -82,13 +82,13 @@ function ClarityPhoneMockup() {
         <div className="absolute inset-0 p-3 pt-10 flex flex-col gap-2">
           {/* Header */}
           <div className="flex items-center justify-between mb-1">
-            <div className="h-2 w-20 bg-white/20 rounded-full" />
-            <div className="w-5 h-5 rounded-full bg-[#22C55E]/30" />
+            <div className="size-20 bg-white/20 rounded-full" />
+            <div className="size-5 rounded-full bg-[#22C55E]/30" />
           </div>
           {/* Notice card */}
           <div className="bg-[#22C55E]/10 border border-[#22C55E]/20 rounded-xl p-2.5">
             <div className="flex items-center gap-1.5 mb-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#22C55E]" />
+              <div className="size-1.5 rounded-full bg-[#22C55E]" />
               <div className="h-1.5 w-12 bg-[#22C55E]/60 rounded-full" />
             </div>
             <div className="space-y-1">
@@ -98,20 +98,20 @@ function ClarityPhoneMockup() {
           </div>
           {/* Channel list */}
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-white/4">
-              <div className="w-6 h-6 rounded-lg bg-white/10 flex-shrink-0" />
+            <div key={`item-${i}`} className="flex items-center gap-2 p-2 rounded-lg bg-white/4">
+              <div className="size-6 rounded-lg bg-white/10 flex-shrink-0" />
               <div className="flex-1">
                 <div className="h-1.5 w-16 bg-white/20 rounded-full mb-1" />
-                <div className="h-1 w-10 bg-white/10 rounded-full" />
+                <div className="size-10 bg-white/10 rounded-full" />
               </div>
-              <div className="w-4 h-4 rounded-full bg-[#22C55E]/30 flex-shrink-0" />
+              <div className="size-4 rounded-full bg-[#22C55E]/30 flex-shrink-0" />
             </div>
           ))}
           {/* Bottom nav */}
           <div className="mt-auto flex justify-around pt-1 border-t border-white/5">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex flex-col items-center gap-1">
-                <div className={`w-4 h-4 rounded-md ${i === 0 ? "bg-[#22C55E]/40" : "bg-white/10"}`} />
+              <div key={`item-${i}`} className="flex flex-col items-center gap-1">
+                <div className={`size-4 rounded-md ${i === 0 ? "bg-[#22C55E]/40" : "bg-white/10"}`} />
                 <div className="w-3 h-1 bg-white/10 rounded-full" />
               </div>
             ))}

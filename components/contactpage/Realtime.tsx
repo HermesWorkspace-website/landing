@@ -70,7 +70,7 @@ export default function Realtime() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
           >
             <motion.span
-              className="w-2 h-2 rounded-full"
+              className="size-2 rounded-full"
               style={{ background: "var(--green)" }}
               animate={{ scale: [1, 1.6, 1] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -105,12 +105,12 @@ through a secure and structured institutional platform.
 
           <div className="space-y-3.5">
             {[
-              { icon: <CheckCircle className="w-4 h-4" />, label: "Centralized School Announcements", color: "#22C55E" },
-              { icon: <Lock className="w-4 h-4" />, label: "Secure Role-Based Access Control", color: "var(--brand-light)" },
-              { icon: <Server className="w-4 h-4" />, label: "Scalable Cloud Infrastructure", color: "#a855f7" },
+              { icon: <CheckCircle className="size-4" />, label: "Centralized School Announcements", color: "#22C55E" },
+              { icon: <Lock className="size-4" />, label: "Secure Role-Based Access Control", color: "var(--brand-light)" },
+              { icon: <Server className="size-4" />, label: "Scalable Cloud Infrastructure", color: "#a855f7" },
             ].map((item, i) => (
               <motion.div
-                key={i}
+                key={item.label}
                 className="flex items-center gap-3"
                 initial={{ opacity: 0, x: -20 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -149,8 +149,8 @@ through a secure and structured institutional platform.
             <div className="flex items-center gap-1.5 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => (
                 <motion.div
-                  key={i}
-                  className="w-2.5 h-2.5 rounded-full cursor-pointer"
+                  key={c}
+                  className="size-2.5 rounded-full cursor-pointer"
                   style={{ background: c }}
                   whileHover={{ scale: 1.3 }}
                 />
@@ -163,7 +163,7 @@ through a secure and structured institutional platform.
             <div className="p-4 space-y-2.5">
               {alerts.map((a, i) => (
                 <motion.div
-                  key={i}
+                  key={a.text}
                   initial={{ opacity: 0, x: 30 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.55 + i * 0.13 }}
@@ -192,7 +192,7 @@ through a secure and structured institutional platform.
                     />
                   )}
                   <motion.div
-                    className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
+                    className="size-1.5 rounded-full mt-1.5 shrink-0"
                     style={{
                       background:
                         a.type === "critical" ? "#fff" : a.type === "alert" ? "#F59E0B" : "rgba(255,255,255,0.3)",
@@ -224,7 +224,7 @@ through a secure and structured institutional platform.
               style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
             >
               <motion.div
-                className="w-1.5 h-1.5 rounded-full"
+                className="size-1.5 rounded-full"
                 style={{ background: "#22C55E" }}
                 animate={{ opacity: [1, 0.4, 1] }}
                 transition={{ duration: 1.2, repeat: Infinity }}
@@ -237,7 +237,7 @@ through a secure and structured institutional platform.
 
           {/* Glow */}
           <div
-            className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full pointer-events-none"
+            className="absolute -bottom-10 -right-10 size-40 rounded-full pointer-events-none"
             style={{ background: "radial-gradient(ellipse, rgba(90,95,232,0.35) 0%, transparent 70%)" }}
           />
         </motion.div>

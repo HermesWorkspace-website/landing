@@ -66,7 +66,7 @@ export default function OurStory() {
             Founded in 2026, HermesWorkspace was created after recognizing how fragmented institutional
             communication and academic coordination had become across modern educational
             environments. Most institutions still depend on disconnected tools for
-            notices, meetings, communication, scheduling, and operational management —
+            notices, meetings, communication, scheduling, and operational management &mdash;
             creating inefficiencies across administrators, teachers, students, and
             families.
           </motion.p>

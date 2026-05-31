@@ -69,9 +69,9 @@ export default function InMotion() {
               style={{ backgroundColor: "#071221", borderColor: "rgba(255,255,255,0.05)" }}
             >
               <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-400/50" />
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/50" />
-                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "rgba(99,102,241,0.5)" }} />
+                <div className="size-2.5 rounded-full bg-red-400/50" />
+                <div className="size-2.5 rounded-full bg-yellow-400/50" />
+                <div className="size-2.5 rounded-full" style={{ backgroundColor: "rgba(99,102,241,0.5)" }} />
               </div>
               <div
                 className="flex-1 h-5 rounded-md mx-4"
@@ -89,7 +89,7 @@ export default function InMotion() {
                 onEnded={() => setPlaying(false)}
                 onPause={() => setPlaying(false)}
                 onPlay={() => setPlaying(true)}
-                src="/hermes-launch.mp4"
+                src="https://ik.imagekit.io/hermesworkspace/Landing/assets/hermes-launch.mp4"
               />
 
               {/* Overlay with play button — fades away when playing */}
@@ -107,7 +107,7 @@ export default function InMotion() {
                 <motion.div
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.94 }}
-                  className="w-14 h-14 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-2xl"
+                  className="size-14 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-2xl"
                 >
                   <Play size={20} className="ml-1" style={{ color: "#0A1628" }} />
                 </motion.div>
@@ -121,7 +121,7 @@ export default function InMotion() {
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.94 }}
                   onClick={handlePlay}
-                  className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center"
+                  className="absolute top-3 right-3 size-8 rounded-full flex items-center justify-center"
                   style={{ backgroundColor: "rgba(0,0,0,0.55)", backdropFilter: "blur(6px)" }}
                 >
                   <Pause size={13} className="text-white" />

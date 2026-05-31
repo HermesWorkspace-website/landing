@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SmoothScroll from "@/components/shared/SmoothScroll";
-import ScrollOnNavigate from "@/components/shared/ScrollOnNavigate";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
 import JsonLd from "@/components/shared/JsonLd";
 import { Geist, Bebas_Neue, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -253,15 +249,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="antialiased font-body" suppressHydrationWarning>
-        {/* Global structured data — injected once at root */}
+        {/* Global structured data — injected once at root for all pages */}
         <JsonLd data={[organizationSchema, websiteSchema, softwareApplicationSchema]} />
-        <Navbar />
-        <SmoothScroll>
-          <ScrollOnNavigate />
-          {children}
-        </SmoothScroll>
-        <Footer />
+        {children}
       </body>
     </html>
   );
 }
+

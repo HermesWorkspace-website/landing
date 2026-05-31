@@ -259,10 +259,18 @@ export default function Footer() {
             © {year} HermesWorkspace Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            {["Privacy", "Terms", "Security"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="text-[12px] text-white/30 hover:text-white/60 transition-colors font-body">
-                {item}
-              </a>
+            {[
+              { label: 'Privacy', href: '/legal/privacy' },
+              { label: 'Terms', href: '/legal/terms' },
+              { label: 'Parental Control', href: '/legal/parental-control' },
+            ].map((item) => (
+              <NavHashLink
+                key={item.label}
+                href={item.href}
+                className="text-[12px] text-white/30 hover:text-white/60 transition-colors font-body"
+              >
+                {item.label}
+              </NavHashLink>
             ))}
           </div>
         </div>

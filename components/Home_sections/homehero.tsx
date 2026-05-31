@@ -136,11 +136,10 @@ function OverviewVisual() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.7 + i * 0.12 }}
-            className={`flex items-center gap-2 rounded-xl px-3 py-2 mb-2 ${
-              item.color === "red"
-                ? "bg-red-500/[0.05] border border-red-500/10"
-                : "bg-brand/[0.05] border border-brand/10"
-            }`}
+            className={`flex items-center gap-2 rounded-xl px-3 py-2 mb-2 ${item.color === "red"
+              ? "bg-red-500/[0.05] border border-red-500/10"
+              : "bg-brand/[0.05] border border-brand/10"
+              }`}
           >
             <motion.span
               animate={{ opacity: [1, 0.3, 1] }}
@@ -180,9 +179,8 @@ function CommunicationVisual() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.08 }}
             whileHover={{ scale: 1.1 }}
-            className={`size-9 rounded-xl flex items-center justify-center text-[10px] font-bold cursor-pointer transition-all ${
-              i === 0 ? "bg-brand text-white shadow-lg shadow-brand/30" : "bg-black/[0.05] text-brand-ink/40 hover:bg-black/10"
-            }`}
+            className={`size-9 rounded-xl flex items-center justify-center text-[10px] font-bold cursor-pointer transition-all ${i === 0 ? "bg-brand text-white shadow-lg shadow-brand/30" : "bg-black/[0.05] text-brand-ink/40 hover:bg-black/10"
+              }`}
           >
             {w}
           </motion.div>
@@ -197,9 +195,8 @@ function CommunicationVisual() {
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 + i * 0.07 }}
-            className={`px-2 py-1.5 rounded-lg text-xs mb-1 cursor-pointer transition-all ${
-              i === 0 ? "bg-brand/[0.09] text-brand font-semibold" : "text-brand-ink/50 hover:bg-black/[0.03] hover:text-brand-ink/70"
-            }`}
+            className={`px-2 py-1.5 rounded-lg text-xs mb-1 cursor-pointer transition-all ${i === 0 ? "bg-brand/[0.09] text-brand font-semibold" : "text-brand-ink/50 hover:bg-black/[0.03] hover:text-brand-ink/70"
+              }`}
           >
             # {c}
           </motion.div>
@@ -596,11 +593,10 @@ function InstitutionVisual() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.09 }}
             whileHover={i !== 0 ? { x: 4, color: "var(--brand)" } : {}}
-            className={`px-3 py-2 rounded-xl text-[11px] font-medium mb-1 cursor-pointer transition-all ${
-              i === 0
-                ? "bg-brand text-white shadow-lg shadow-brand/25"
-                : "text-brand-muted hover:bg-black/[0.03]"
-            }`}
+            className={`px-3 py-2 rounded-xl text-[11px] font-medium mb-1 cursor-pointer transition-all ${i === 0
+              ? "bg-brand text-white shadow-lg shadow-brand/25"
+              : "text-brand-muted hover:bg-black/[0.03]"
+              }`}
           >
             {d}
           </motion.div>
@@ -716,13 +712,12 @@ function EventsVisual() {
               <motion.div
                 key={d}
                 whileHover={{ scale: 1.12 }}
-                className={`aspect-square rounded-lg flex flex-col items-center justify-center text-[10px] relative cursor-pointer transition-all ${
-                  d === today
-                    ? "bg-brand text-white font-bold shadow-md shadow-brand/30"
-                    : EVENT_DAYS.includes(d) && d !== today
+                className={`aspect-square rounded-lg flex flex-col items-center justify-center text-[10px] relative cursor-pointer transition-all ${d === today
+                  ? "bg-brand text-white font-bold shadow-md shadow-brand/30"
+                  : EVENT_DAYS.includes(d) && d !== today
                     ? "text-brand font-bold bg-brand/[0.04]"
                     : "text-brand-ink/35 hover:bg-black/[0.04]"
-                }`}
+                  }`}
               >
                 {d}
                 {EVENT_DAYS.includes(d) && d !== today && (
@@ -921,11 +916,10 @@ function DashboardMock() {
                 onClick={() => handleNav(item.label)}
                 whileHover={{ x: 2 }}
                 whileTap={{ scale: 0.97 }}
-                className={`flex items-center gap-2.5 rounded-xl px-2 py-2 transition-all duration-200 w-full text-left ${
-                  isActive
-                    ? "bg-brand/[0.09] text-brand"
-                    : "text-brand-ink/35 hover:text-brand-ink/60 hover:bg-black/[0.03]"
-                }`}
+                className={`flex items-center gap-2.5 rounded-xl px-2 py-2 transition-all duration-200 w-full text-left ${isActive
+                  ? "bg-brand/[0.09] text-brand"
+                  : "text-brand-ink/35 hover:text-brand-ink/60 hover:bg-black/[0.03]"
+                  }`}
               >
                 <span className="flex-shrink-0">{item.icon}</span>
                 <motion.span
@@ -968,128 +962,128 @@ const HERO_WORDS = ["Connect", "Collaborate", "Coordinate"];
 
 export default function Hero() {
   const router = useRouter();
-    const sectionRef = useRef<HTMLElement>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-    const [wordIndex, setWordIndex] = useState(0);
-  
-    useEffect(() => {
-      const id = setInterval(() => {
-        setWordIndex((v) => (v + 1) % HERO_WORDS.length);
-      }, 2800);
-  
-      return () => clearInterval(id);
-    }, []);
-  
-    // Three.js particles
-    useEffect(() => {
-      if (!canvasRef.current) return;
-  
-      const canvas = canvasRef.current;
-  
-      const renderer = new THREE.WebGLRenderer({
-        canvas,
-        alpha: true,
-        antialias: true,
-      });
-  
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  
-      renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-  
-      const scene = new THREE.Scene();
-  
-      const camera = new THREE.PerspectiveCamera(
-        60,
-        canvas.offsetWidth / canvas.offsetHeight,
-        0.1,
-        100
-      );
-  
-      camera.position.z = 5;
-  
-      // particles
-      const count = 120;
-  
-      const positions = new Float32Array(count * 3);
-  
-      for (let i = 0; i < count; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * 14;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
-      }
-  
-      const geo = new THREE.BufferGeometry();
-  
-      geo.setAttribute(
-        "position",
-        new THREE.BufferAttribute(positions, 3)
-      );
-  
-      // ONLY particles are red
-      const mat = new THREE.PointsMaterial({
-        color: 0x6063ee,
-        size: 0.032,
-        opacity: 0.37,
-        transparent: true,
+  const sectionRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-      });
-  
-      const points = new THREE.Points(geo, mat);
-  
-      scene.add(points);
-  
-      // grid
-      const gridHelper = new THREE.GridHelper(
-        20,
-        20,
-        0x1f2235,
-        0x1f2235
-      );
-  
-      (gridHelper.material as THREE.LineBasicMaterial).transparent = true;
-      (gridHelper.material as THREE.LineBasicMaterial).opacity = 0.035;
-  
-      gridHelper.rotation.x = Math.PI / 2;
-  
-      gridHelper.position.z = -2;
-  
-      scene.add(gridHelper);
-  
-      let raf: number;
-  
-      const animate = () => {
-        raf = requestAnimationFrame(animate);
-  
-        points.rotation.z += 0.00018;
-        points.rotation.y += 0.00008;
-  
-        renderer.render(scene, camera);
-      };
-  
-      animate();
-  
-      const handleResize = () => {
-        if (!canvas.parentElement) return;
-  
-        const w = canvas.parentElement.offsetWidth;
-        const h = canvas.parentElement.offsetHeight;
-  
-        renderer.setSize(w, h);
-  
-        camera.aspect = w / h;
-  
-        camera.updateProjectionMatrix();
-      };
-  
-      window.addEventListener("resize", handleResize);
+  const [wordIndex, setWordIndex] = useState(0);
 
-      return () => {
-        cancelAnimationFrame(raf);
-        window.removeEventListener("resize", handleResize);
-        renderer.dispose();
-      };
-    }, []);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setWordIndex((v) => (v + 1) % HERO_WORDS.length);
+    }, 2800);
+
+    return () => clearInterval(id);
+  }, []);
+
+  // Three.js particles
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+    });
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+
+    const scene = new THREE.Scene();
+
+    const camera = new THREE.PerspectiveCamera(
+      60,
+      canvas.offsetWidth / canvas.offsetHeight,
+      0.1,
+      100
+    );
+
+    camera.position.z = 5;
+
+    // particles
+    const count = 120;
+
+    const positions = new Float32Array(count * 3);
+
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 14;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+    }
+
+    const geo = new THREE.BufferGeometry();
+
+    geo.setAttribute(
+      "position",
+      new THREE.BufferAttribute(positions, 3)
+    );
+
+    // ONLY particles are red
+    const mat = new THREE.PointsMaterial({
+      color: 0x6063ee,
+      size: 0.032,
+      opacity: 0.37,
+      transparent: true,
+
+    });
+
+    const points = new THREE.Points(geo, mat);
+
+    scene.add(points);
+
+    // grid
+    const gridHelper = new THREE.GridHelper(
+      20,
+      20,
+      0x1f2235,
+      0x1f2235
+    );
+
+    (gridHelper.material as THREE.LineBasicMaterial).transparent = true;
+    (gridHelper.material as THREE.LineBasicMaterial).opacity = 0.035;
+
+    gridHelper.rotation.x = Math.PI / 2;
+
+    gridHelper.position.z = -2;
+
+    scene.add(gridHelper);
+
+    let raf: number;
+
+    const animate = () => {
+      raf = requestAnimationFrame(animate);
+
+      points.rotation.z += 0.00018;
+      points.rotation.y += 0.00008;
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
+    const handleResize = () => {
+      if (!canvas.parentElement) return;
+
+      const w = canvas.parentElement.offsetWidth;
+      const h = canvas.parentElement.offsetHeight;
+
+      renderer.setSize(w, h);
+
+      camera.aspect = w / h;
+
+      camera.updateProjectionMatrix();
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", handleResize);
+      renderer.dispose();
+    };
+  }, []);
 
 
   return (
@@ -1099,12 +1093,12 @@ export default function Hero() {
       style={{ background: "var(--bg)" }}
     >
       <canvas
-    ref={canvasRef}
-    className="absolute inset-0 w-full h-full z-[1] pointer-events-none"
-  />
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full z-[1] pointer-events-none"
+      />
 
       {/* Ultra-lightweight CSS grid mesh and soft ambient radial glows (Zero CPU/GPU overhead) */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none opacity-[0.25] z-[2]"
         style={{
           backgroundImage: `
@@ -1121,108 +1115,109 @@ export default function Hero() {
 
       {/* -- Hero copy (one full screen) -- */}
       <div className="hero-intro-screen relative z-10">
-      <div className="container-page flex flex-col items-center text-center">
+        <div className="container-page flex flex-col items-center text-center">
 
-        {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <Badge variant="brand" className="mb-3 gap-2 py-1 px-4">
-            <Zap className="size-3 fill-brand text-brand" />
-            v1.0.1 Live Now
-          </Badge>
-        </motion.div>
-
-        {/* Headline */}
-        <h1 className="font-display text-[clamp(2.6rem,6vw,5.2rem)] font-extrabold leading-[1.04] tracking-[-0.04em] text-brand-ink max-w-[900px]">
-          {["Every school.", "Connected Through", "One Platform."].map((word, i) => (
-            <span key={`item-${i}`} className="inline-block overflow-hidden mr-3">
-              <motion.span
-                className={`inline-block ${i >= 1 ? "gradient-text-brand" : ""}`}
-                initial={{ y: 56, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 + i * 0.18, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {word}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
-
-        {/* Sub */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-3 max-w-[560px] text-[1.0625rem] text-brand-muted leading-[1.75] font-body"
-        >
-          HermesWorkspace centralizes communication, notices, online classes, meetings, 
-          events, and academic coordination — built for the way Indian schools actually work.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05, duration: 0.7 }}
-          className="mt-9 flex flex-wrap items-center justify-center gap-3"
-        >
-          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-           <Link href="/contact?scroll=inquiry">
-  <Button
-    variant="default"
-    size="lg"
-    className="gap-2 shadow-[0_4px_24px_rgba(96,99,238,0.35)] hover:shadow-[0_8px_36px_rgba(96,99,238,0.45)]"
-  >
-    Request Live Demo
-    <ArrowRight className="size-4" />
-  </Button>
-</Link>
+          {/* Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Badge variant="brand" className="mb-3 gap-2 py-1 px-4">
+              <Zap className="size-3 fill-brand text-brand" />
+              v1.0.1 Live Now
+            </Badge>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-            <Button 
-            onClick={() => {
-              const target = document.getElementById("features");
-              if (target) {
-                const headerOffset = 60;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
-                window.scrollTo({
-                  top: offsetPosition,
-                  behavior: "smooth"
-                });
-              }
-            }}
-            variant="outline" size="lg" className="gap-2">
-              <Video className="size-4 text-brand" /> Explore Platform
-            </Button>
-          </motion.div>
-        </motion.div>
 
-        {/* Social proof */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.35 }}
-          className="my-5 flex items-center gap-2.5 text-sm text-brand-muted font-body"
-        >
-          <div className="flex -space-x-2">
-            {["#6063EE", "#A855F7", "#22C55E", "#F59E0B"].map((c, i) => (
-              <motion.div
-                key={`item-${i}`}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.4 + i * 0.07 }}
-                className="size-7 rounded-full border-2 border-white"
-                style={{ background: c }}
-              />
+          {/* Headline */}
+          <h1 className="font-display text-[clamp(2.6rem,6vw,5.2rem)] font-extrabold leading-[1.04] tracking-[-0.04em] text-brand-ink max-w-[900px]">
+            {["Every school.", "Connected Through", "One Platform."].map((word, i) => (
+              <span key={`item-${i}`} className="inline-block overflow-hidden mr-3">
+                <motion.span
+                  className={`inline-block ${i >= 1 ? "gradient-text-brand" : ""}`}
+                  initial={{ y: 56, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 + i * 0.18, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {word}
+                </motion.span>
+              </span>
             ))}
-          </div>
-          <span>Built around real workflows used by Indian schools</span>
-        </motion.div>
-      </div>
+          </h1>
+
+          {/* Sub */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-3 max-w-[560px] text-[1.0625rem] text-brand-muted leading-[1.75] font-body"
+          >
+            HermesWorkspace centralizes communication, notices, online classes, meetings,
+            events, and academic coordination — built for the way Indian schools actually work.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.05, duration: 0.7 }}
+            className="mt-9 flex flex-wrap items-center justify-center gap-3"
+          >
+            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+              <Link href="/contact?scroll=inquiry">
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="gap-2 shadow-[0_4px_24px_rgba(96,99,238,0.35)] hover:shadow-[0_8px_36px_rgba(96,99,238,0.45)]"
+                >
+                  Request Live Demo
+                  <ArrowRight className="size-4" />
+                </Button>
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+              <Button
+                onClick={() => {
+                  const target = document.getElementById("features");
+                  if (target) {
+                    const headerOffset = 60;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: "smooth"
+                    });
+                  }
+                }}
+                variant="outline" size="lg" className="gap-2">
+                <Video className="size-4 text-brand" /> Explore Platform
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Social proof */}
+          {/* Uncomment Later */}
+          {/* <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.35 }}
+            className="my-5 flex items-center gap-2.5 text-sm text-brand-muted font-body"
+          >
+            <div className="flex -space-x-2">
+              {["#6063EE", "#A855F7", "#22C55E", "#F59E0B"].map((c, i) => (
+                <motion.div
+                  key={`item-${i}`}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.4 + i * 0.07 }}
+                  className="size-7 rounded-full border-2 border-white"
+                  style={{ background: c }}
+                />
+              ))}
+            </div>
+            <span>Built around real workflows used by Indian schools</span>
+          </motion.div> */}
+        </div>
       </div>
 
       {/* -- Dashboard mock (revealed on scroll) -- */}

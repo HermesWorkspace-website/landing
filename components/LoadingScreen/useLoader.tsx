@@ -22,38 +22,39 @@ interface WithLoaderProps {
 }
 
 export function WithLoader({ children, alwaysShow = false }: WithLoaderProps) {
-  const [showLoader, setShowLoader]       = useState(true);
-  const [contentVisible, setContentVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
+    setMounted(true);
     if (!alwaysShow && sessionStorage.getItem(SESSION_KEY)) {
-      // Already shown this session — skip straight to content
       setShowLoader(false);
-      setContentVisible(true);
     }
   }, [alwaysShow]);
 
   const handleComplete = () => {
     if (!alwaysShow) sessionStorage.setItem(SESSION_KEY, "1");
     setShowLoader(false);
-    setTimeout(() => setContentVisible(true), 60);
   };
+
+  // On the server, we want to render the markup with the loader visible initially
+  const isLoaderActive = !mounted || showLoader;
 
   return (
     <>
-      {showLoader && <LoadingScreen onComplete={handleComplete} />}
-
-      <AnimatePresence>
-        {contentVisible && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
-          >
-            {children}
-          </motion.div>
+      <AnimatePresence mode="wait">
+        {isLoaderActive && (
+          <LoadingScreen onComplete={handleComplete} />
         )}
       </AnimatePresence>
+
+      <motion.div
+        initial={isLoaderActive ? { opacity: 0 } : { opacity: 1 }}
+        animate={isLoaderActive ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
+      >
+        {children}
+      </motion.div>
     </>
   );
 }

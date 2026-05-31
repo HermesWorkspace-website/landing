@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import JsonLd from "@/components/shared/JsonLd";
-import { WithLoader } from "@/components/LoadingScreen/useLoader";
 import { Geist, Bebas_Neue, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import { cn } from "@/lib/utils";
 
@@ -108,20 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased font-body" suppressHydrationWarning>
         <JsonLd data={[organizationSchema, websiteSchema, softwareApplicationSchema]} />
-
-        {/* ── WithLoader wraps Navbar + content + Footer ────────────────────
-            The loader renders on top (fixed z-[9999]).
-            After it exits, the page fades in smoothly.
-            sessionStorage ensures it only shows once per tab session.
-        ──────────────────────────────────────────────────────────────────── */}
-        <WithLoader>
-          <Navbar />
-          <SmoothScroll>
-            <ScrollOnNavigate />
-            {children}
-          </SmoothScroll>
-          <Footer />
-        </WithLoader>
+        {children}
       </body>
     </html>
   );

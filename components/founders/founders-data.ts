@@ -18,7 +18,7 @@ export const FOUNDERS: Founder[] = [
     ],
     accentColor: "#6B5CE7",
     avatarInitials: "AA",
-    photo: "/apurav.png",
+    photo: "https://ik.imagekit.io/hermesworkspace/Landing/assets/apurav.png",
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/apurav-agarwal",
       instagram: "https://www.instagram.com/apurav_agarwal",
@@ -30,7 +30,7 @@ export const FOUNDERS: Founder[] = [
     firstName: "Lakshya",
     lastName: "Kumar",
     role: "Co-Founder",
-    title: "CTO",
+    title: "Director & CTO",
     bio: "Architecting the infrastructure, scalability, backend systems, and platform security powering HermesWorkspace’s institutional communication platform.",
     quote:
       "Modern institutional platforms should feel seamless, scalable, and operationally intelligent.",
@@ -42,7 +42,7 @@ export const FOUNDERS: Founder[] = [
     ],
     accentColor: "#1A3FBE",
     avatarInitials: "LK",
-    photo: "/lakshya.png",
+    photo: "https://ik.imagekit.io/hermesworkspace/Landing/assets/lakshya.png",
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/lakshyakumar266/",
       instagram: "https://www.instagram.com/codingprogamer",

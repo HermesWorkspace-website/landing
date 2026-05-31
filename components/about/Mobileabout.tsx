@@ -506,7 +506,7 @@ const TEAM = [
     name: "Apurav Agarwal",
     role: "Co-Founder & CEO",
     initials: "AA",
-    photo: "/apurav.png",
+    photo: "https://ik.imagekit.io/hermesworkspace/Landing/assets/apurav.png",
     bg: "#0f1f30",
     accentColor: "#6B5CE7",
     bio: "Leads HermesWorkspace's institutional strategy, partnerships, operational growth, and platform direction. His work focuses on building infrastructure that simplifies how schools communicate and coordinate on a daily basis.",
@@ -521,7 +521,7 @@ const TEAM = [
     name: "Lakshya Kumar",
     role: "Co-Founder & CTO",
     initials: "LK",
-    photo: "/lakshya.png",
+    photo: "https://ik.imagekit.io/hermesworkspace/Landing/assets/lakshya.png",
     bg: "#0f2318",
     accentColor: "#1A3FBE",
     bio: "Architects HermesWorkspace's backend infrastructure, real-time communication systems, and platform scalability. His engineering philosophy centers around building systems that remain operationally invisible while maintaining high performance.",
@@ -569,15 +569,15 @@ function MobileLeadershipTeam() {
                 <svg className="absolute inset-0 w-full h-full" viewBox="0 0 360 280" preserveAspectRatio="xMidYMid slice">
                   {(i === 0
                     ? [
-                        { cx: "50%", cy: "38%", r: 120, fill: "#EAE8FF" },
-                        { cx: "62%", cy: "65%", r: 85,  fill: "#D5D0FF" },
-                        { cx: "28%", cy: "58%", r: 65,  fill: "#F0EEFF" },
-                      ]
+                      { cx: "50%", cy: "38%", r: 120, fill: "#EAE8FF" },
+                      { cx: "62%", cy: "65%", r: 85, fill: "#D5D0FF" },
+                      { cx: "28%", cy: "58%", r: 65, fill: "#F0EEFF" },
+                    ]
                     : [
-                        { cx: "50%", cy: "38%", r: 120, fill: "#E6EDFF" },
-                        { cx: "38%", cy: "68%", r: 85,  fill: "#C9D7FF" },
-                        { cx: "72%", cy: "52%", r: 65,  fill: "#EEF2FF" },
-                      ]
+                      { cx: "50%", cy: "38%", r: 120, fill: "#E6EDFF" },
+                      { cx: "38%", cy: "68%", r: 85, fill: "#C9D7FF" },
+                      { cx: "72%", cy: "52%", r: 65, fill: "#EEF2FF" },
+                    ]
                   ).map((s, si) => (
                     <motion.circle
                       key={`circle-${si}`}

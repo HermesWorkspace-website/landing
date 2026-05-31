@@ -21,7 +21,7 @@ const team = [
     name: "Apurav Agarwal",
     role: "Co-Founder & CEO",
     initials: "AP",
-    photo: "/apurav.png",
+    photo: "https://ik.imagekit.io/hermesworkspace/Landing/assets/apurav.png",
     bg: "#0f1f30",
 
     bio: `Apurav Agarwal is the Co-Founder and Chief Executive Officer of HermesWorkspace, leading the company’s long-term product vision, institutional strategy, operational growth, and platform direction. His work focuses on building modern infrastructure systems that simplify how educational institutions communicate, coordinate, and operate on a daily basis.
@@ -48,7 +48,7 @@ He believes the future of educational technology is not built around feature ove
     name: "Lakshya Kumar",
     role: "Co-Founder & CTO",
     initials: "LK",
-    photo: "/lakshya.png",
+    photo: "https://ik.imagekit.io/hermesworkspace/Landing/assets/lakshya.png",
     bg: "#0f2318",
 
     bio: `Lakshya Kumar is the Co-Founder and Chief Technology Officer of HermesWorkspace, responsible for the technical architecture, infrastructure engineering, and scalability systems powering the platform. His work focuses on building resilient backend systems and real-time communication infrastructure capable of supporting modern educational operations at institutional scale.
@@ -150,9 +150,8 @@ function EditorialEntry({
       className="border-t border-gray-100 py-16"
     >
       <div
-        className={`flex flex-col md:flex-row gap-10 items-start ${
-          !isEven ? "md:flex-row-reverse" : ""
-        }`}
+        className={`flex flex-col md:flex-row gap-10 items-start ${!isEven ? "md:flex-row-reverse" : ""
+          }`}
       >
         {/* ── Photo block ── */}
         <motion.div
@@ -268,7 +267,7 @@ function EditorialEntry({
           </motion.blockquote>
 
           {/* Social links */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.85 }}

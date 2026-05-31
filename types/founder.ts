@@ -9,6 +9,7 @@ export interface Founder {
   focusAreas: string[];
   accentColor: string;
   avatarInitials: string;
+  photo: string;
   socialLinks: {
     linkedin?: string;
     twitter?: string;

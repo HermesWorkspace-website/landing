@@ -8,7 +8,7 @@ import useMagnetic from "@/components/contactpage/useMagnetic";
 
 export default function CTA() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: false, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   const { ref: btn2Ref, x: x2, y: y2 } = useMagnetic();
   return (
     <section ref={ref} id="contact" className="py-section">

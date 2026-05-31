@@ -129,7 +129,7 @@ export function StatsSection() {
       {/* Gradient vignette */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0D0D0F]/80 via-transparent to-[#0D0D0F]/80 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative container-page">
         <motion.div
           variants={staggerContainer}
           initial="hidden"

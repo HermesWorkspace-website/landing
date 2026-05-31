@@ -1,39 +1,58 @@
 "use client";
 
-import Hero from "@/components/Home_sections/Hero";
+import dynamic from "next/dynamic";
+import Hero from "@/components/Home_sections/homehero";
 import Stats from "@/components/Home_sections/Stats";
-import Features from "@/components/Home_sections/Features";
-import WorkflowBento from "@/components/Home_sections/WorkflowBento";
-import Pricing from "@/components/Home_sections/Pricing";
-import FAQ from "@/components/Home_sections/FAQ";
-import CTA from "@/components/Home_sections/CTA";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+// Below-fold sections are lazy-loaded so they don't block the initial paint.
+// FeatureMocks.tsx alone is 62KB — splitting it into a separate chunk is a major win.
+const Features = dynamic(() => import("@/components/Home_sections/Features"), {
+  ssr: false,
+  loading: () => <div className="py-section" />,
+});
+const WorkflowBento = dynamic(
+  () => import("@/components/Home_sections/WorkflowBento"),
+  { ssr: false, loading: () => <div className="py-section" /> }
+);
+const Pricing = dynamic(() => import("@/components/Home_sections/Pricing"), {
+  ssr: false,
+  loading: () => <div className="py-section" />,
+});
+const FAQ = dynamic(() => import("@/components/Home_sections/FAQ"), {
+  ssr: false,
+  loading: () => <div className="py-section" />,
+});
+const CTA = dynamic(() => import("@/components/Home_sections/CTA"), {
+  ssr: false,
+  loading: () => <div className="py-section" />,
+});
+const MobilePage = dynamic(
+  () => import("@/components/Home_sections/Mobile"),
+  { ssr: false }
+);
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [ready, setReady] = useState(false);
+
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const scrollParam = urlParams.get("scroll");
-
-    if (scrollParam === "pricing") {
-      setTimeout(() => {
-        const pricingSection = document.getElementById("pricing");
-
-        if (pricingSection) {
-          const headerOffset = 60;
-          const elementPosition = pricingSection.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-
-          // clean URL
-          window.history.replaceState({}, "", "/");
-        }
-      }, 500);
-    }
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    setReady(true);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
+
+  if (!ready) return null;
+
+  if (isMobile) {
+    return (
+      <main className="relative overflow-x-hidden">
+        <MobilePage />
+      </main>
+    );
+  }
 
   return (
     <main className="relative overflow-x-hidden">

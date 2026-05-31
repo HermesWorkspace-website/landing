@@ -1,5 +1,5 @@
+"use client";
 import {
-  
   HeroSection,
   EcosystemSection,
   TrustSection,
@@ -8,17 +8,23 @@ import {
   ImageGallery,
   CtaSection,
 } from "@/components/socials";
+import { MobileSocialsPage } from "@/components/socials/Mobilepage";
 
 export default function HomePage() {
   return (
-    <main className="relative">
-      <HeroSection />
-      <EcosystemSection />
+    <>
+  <div className="hidden md:block">
+    <HeroSection />
+    <EcosystemSection />
       <TrustSection />
       <InstitutionalPulse />
       <StatsSection />
       <ImageGallery />
       <CtaSection />
-    </main>
+      </div>
+  <div className="block md:hidden">
+    <MobileSocialsPage />
+  </div>
+</>
   );
 }

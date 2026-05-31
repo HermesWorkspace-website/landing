@@ -88,7 +88,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden pt-14 flex flex-col items-start justify-center"
+      className="relative min-h-screen overflow-hidden pt-[96px] md:pt-[120px] pb-16 md:pb-24 flex flex-col items-start justify-center"
       style={{ backgroundColor: "#eef0f8" }}
     >
       {/* Three.js canvas */}
@@ -118,7 +118,7 @@ export default function Hero() {
       {/* ── Content — LEFT aligned like original ── */}
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full"
+        className="relative z-10 container-page grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full"
       >
         {/* Left */}
         <div className="flex flex-col gap-6">
@@ -145,7 +145,7 @@ export default function Hero() {
           {/* Title — original words, new colors */}
           <h1
             ref={titleRef}
-            className="font-bold leading-[1.08] tracking-tight"
+            className="font-display font-bold leading-[1.08] tracking-tight"
             style={{ fontSize: "clamp(2.4rem, 5vw, 3.8rem)" }}
           >
             {titleWords.map((w, i) => {

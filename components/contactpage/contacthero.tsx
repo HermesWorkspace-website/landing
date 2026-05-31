@@ -83,7 +83,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-16">
+    <section ref={sectionRef} id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-[96px] md:pt-[120px] pb-16 md:pb-24">
 
       {/* Canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" style={{ opacity: 0.7 }} />
@@ -98,7 +98,7 @@ export default function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-[2]" />
 
       {/* ── Split layout ── */}
-      <div className="contact-hero-content relative z-10 w-full max-w-7xl mx-auto px-6 py-24">
+      <div className="contact-hero-content relative z-10 w-full container-page">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* ── LEFT — content (unchanged, just left-aligned now) ── */}
@@ -162,7 +162,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Trust bar */}
-            <motion.div className="flex flex-wrap items-center gap-6 mt-10 pt-8" style={{ borderTop: "1px solid var(--ink-06)" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
+            <motion.div className="flex flex-wrap items-center gap-6 mt-6 pt-8" style={{ borderTop: "1px solid var(--ink-06)" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
               {[
                 { icon: <Shield className="w-3.5 h-3.5" />, label: "Secure Institutional Access" },
                 { icon: <Globe className="w-3.5 h-3.5" />, label: "Web & Mobile Accessibility" },
@@ -293,12 +293,6 @@ export default function Hero() {
 
         </div>
       </div>
-
-      {/* Scroll indicator — unchanged */}
-      <motion.div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
-        <span className="text-[9px] uppercase tracking-widest font-syne" style={{ color: "var(--ink-35)" }}>Scroll</span>
-        <motion.div className="w-px h-8 rounded-full" style={{ background: "linear-gradient(180deg, var(--brand), transparent)", transformOrigin: "top" }} animate={{ scaleY: [0, 1, 0] }} transition={{ duration: 1.5, repeat: Infinity }} />
-      </motion.div>
     </section>
   );
 }

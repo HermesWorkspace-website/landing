@@ -10,7 +10,7 @@ interface CenterPortraitProps {
 
 export function CenterPortrait({ founder }: CenterPortraitProps) {
   return (
-    <div className="relative h-full w-full overflow-visible z-10">
+    <div className="relative h-full w-full overflow-hidden z-10">
       {/* Vertical rule lines */}
       <div
         className="absolute top-0 bottom-0 left-0 w-px"

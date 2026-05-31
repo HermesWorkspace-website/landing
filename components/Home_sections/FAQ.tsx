@@ -70,7 +70,7 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
 
 export default function FAQ() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: false, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (

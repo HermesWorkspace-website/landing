@@ -91,7 +91,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-white overflow-hidden pt-14">
+    <section ref={sectionRef} className="relative min-h-screen bg-white overflow-hidden pt-[96px] md:pt-[120px] pb-16 md:pb-24 flex items-center">
       {/* Three.js canvas background */}
       <canvas
         ref={canvasRef}
@@ -104,7 +104,7 @@ export default function Hero() {
 
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
+        className="relative z-10 container-page grid grid-cols-1 lg:grid-cols-2 gap-12 items-start w-full"
       >
         {/* Left */}
         <div className="flex flex-col gap-6">
@@ -120,7 +120,7 @@ export default function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 ref={titleRef} className="text-[2.6rem] lg:text-[3.4rem] font-bold text-[#0A1628] leading-[1.1] tracking-tight">
+          <h1 ref={titleRef} className="font-display text-[2.6rem] lg:text-[3.4rem] font-bold text-[#0A1628] leading-[1.1] tracking-tight">
             {["Building", "Modern", "Infrastructure", "For", "Educational", "Institutions"].map((w, i) => (
               <span key={i} className="word inline-block mr-[0.28em] opacity-0">{w}</span>
             ))}

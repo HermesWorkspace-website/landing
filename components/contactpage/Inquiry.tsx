@@ -162,7 +162,7 @@ export default function Inquiry() {
     borderRadius: 12,
     padding: "10px 14px",
     fontSize: 12,
-    fontFamily: "Instrument Sans, sans-serif",
+    fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)",
     fontWeight: 500,
     color: "var(--ink)",
     background: "#fff",
@@ -172,8 +172,8 @@ export default function Inquiry() {
 
   const label = (text: string, required = true) => (
     <span
-      className="block mb-1.5 uppercase tracking-widest font-syne font-bold"
-      style={{ fontSize: 8, color: "var(--ink-35)" }}
+      className="block mb-1.5 uppercase tracking-widest font-body font-bold"
+      style={{ fontSize: 9.5, color: "var(--ink-35)" }}
     >
       {text}
       {required && (
@@ -221,7 +221,7 @@ export default function Inquiry() {
           <div className="flex items-center gap-2 mb-3">
             <div className="h-px w-8" style={{ background: "var(--brand)" }} />
             <span
-              className="text-[9px] font-bold font-syne uppercase tracking-widest"
+              className="text-[9px] font-bold font-body uppercase tracking-widest"
               style={{ color: "var(--brand)" }}
             >
               Direct Channel
@@ -528,7 +528,7 @@ export default function Inquiry() {
                     />
                   </div>
                   <div
-                    className="text-[8px] uppercase tracking-widest font-syne mt-1"
+                    className="text-[9px] uppercase tracking-widest font-body mt-1"
                     style={{ color: "var(--ink-35)" }}
                   >
                     {s.label}

@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+import Image from "next/image";
+import { FOUNDER_PHOTO_QUALITY, FOUNDER_PHOTO_SIZES } from "@/components/founders/FounderPhoto";
 import { motion, useInView } from "framer-motion";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
@@ -9,7 +11,6 @@ import {
   IconBrandInstagram,
   IconBrandX
 } from "@tabler/icons-react";
-import { useEffect } from "react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -20,6 +21,7 @@ const team = [
     name: "Apurav Agarwal",
     role: "Co-Founder & CEO",
     initials: "AP",
+    photo: "/apurav.png",
     bg: "#0f1f30",
 
     bio: `Apurav Agarwal is the Co-Founder and Chief Executive Officer of HermesWorkspace, leading the company’s long-term product vision, institutional strategy, operational growth, and platform direction. His work focuses on building modern infrastructure systems that simplify how educational institutions communicate, coordinate, and operate on a daily basis.
@@ -46,6 +48,7 @@ He believes the future of educational technology is not built around feature ove
     name: "Lakshya Kumar",
     role: "Co-Founder & CTO",
     initials: "LK",
+    photo: "/lakshya.png",
     bg: "#0f2318",
 
     bio: `Lakshya Kumar is the Co-Founder and Chief Technology Officer of HermesWorkspace, responsible for the technical architecture, infrastructure engineering, and scalability systems powering the platform. His work focuses on building resilient backend systems and real-time communication infrastructure capable of supporting modern educational operations at institutional scale.
@@ -181,12 +184,17 @@ function EditorialEntry({
             {/* Subtle gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
 
-            {/* Big initials watermark — inside card only */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="text-[5.5rem] font-black text-white/[0.07] tracking-widest select-none leading-none">
-                {member.initials}
-              </span>
-            </div>
+            <Image
+              src={member.photo}
+              alt={member.name}
+              fill
+              sizes={FOUNDER_PHOTO_SIZES}
+              quality={FOUNDER_PHOTO_QUALITY}
+              className="object-cover object-top"
+            />
+
+            {/* Bottom gradient for name readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
 
             {/* Green accent bar */}
             <motion.div
@@ -197,7 +205,7 @@ function EditorialEntry({
             />
 
             {/* Name overlay at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+            <div className="absolute bottom-0 left-0 right-0 z-10 p-4">
               <p className="text-[15px] font-bold text-white leading-tight">{member.name}</p>
               <p className="text-[11px] text-[#22C55E] font-medium mt-0.5">{member.role}</p>
             </div>

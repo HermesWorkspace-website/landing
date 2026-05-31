@@ -27,6 +27,7 @@ export const navbarSections = {
     { label: "Features", href: "#features" },
     { label: "Inquiry", href: "#inquiry" },
     { label: "FAQ", href: "#faqs" },
+    { label: "Contact", href: "#cta"}
   ],
   founder: [
     { label: "Founders", href: "#founders" },

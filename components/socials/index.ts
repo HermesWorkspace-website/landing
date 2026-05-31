@@ -1,5 +1,5 @@
 
-export { HeroSection } from "./HeroSection";
+export { HeroSection } from "./socialhero";
 export { EcosystemSection } from "./EcosystemSection";
 export { TrustSection } from "./TrustSection";
 export { InstitutionalPulse } from "./InstitutionalPulse";

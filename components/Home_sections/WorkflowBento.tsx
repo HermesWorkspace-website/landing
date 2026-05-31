@@ -36,7 +36,7 @@ const steps = [
 
 export default function WorkflowBento() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: false, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section ref={ref} id="workflow" className="relative py-section bg-[#F8F9FA]">

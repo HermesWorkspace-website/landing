@@ -13,7 +13,7 @@ export default function CTA() {
   const { ref: btn2Ref, x: x2, y: y2 } = useMagnetic();
 
   return (
-    <section ref={ref} className="max-w-7xl mx-auto px-6 py-20 pb-28">
+    <section id="cta" ref={ref} className="max-w-7xl mx-auto px-6 py-20 pb-28">
       <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.96 }}
         animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}

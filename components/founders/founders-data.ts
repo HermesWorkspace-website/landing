@@ -18,6 +18,7 @@ export const FOUNDERS: Founder[] = [
     ],
     accentColor: "#6B5CE7",
     avatarInitials: "AA",
+    photo: "/apurav.png",
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/apurav-agarwal",
       instagram: "https://www.instagram.com/apurav_agarwal",
@@ -27,7 +28,7 @@ export const FOUNDERS: Founder[] = [
   {
     id: 2,
     firstName: "Lakshya",
-    lastName: "",
+    lastName: "Kumar",
     role: "Co-Founder",
     title: "CTO",
     bio: "Architecting the infrastructure, scalability, backend systems, and platform security powering HermesWorkspace’s institutional communication platform.",
@@ -41,6 +42,7 @@ export const FOUNDERS: Founder[] = [
     ],
     accentColor: "#1A3FBE",
     avatarInitials: "LK",
+    photo: "/lakshya.png",
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/lakshyakumar266/",
       instagram: "https://www.instagram.com/codingprogamer",

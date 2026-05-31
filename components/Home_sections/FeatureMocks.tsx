@@ -238,7 +238,7 @@ function FeatureCard({
   delay?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: false, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-80px" });
   const [hovered, setHovered] = useState(false);
 
   // Mouse tilt
@@ -508,7 +508,7 @@ export function MessagesMock() {
               <Bell className="w-3 h-3 text-brand/70" />
               Notices
             </div>
-            <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-50px" }} className="space-y-1.5">
+            <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="space-y-1.5">
               {schoolNotices.map((notice, i) => (
                 <motion.div
                   key={i}
@@ -589,7 +589,7 @@ export function MessagesMock() {
                   initial={{ opacity: 0, x: -16, y: 8 }}
                   whileInView={{ opacity: 1, x: 0, y: 0 }}
                   exit={{ opacity: 0, x: 8 }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   transition={{ delay: i * 0.08, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="flex gap-2"
                 >
@@ -621,7 +621,7 @@ export function MessagesMock() {
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ delay: 0.3 }}
               className="rounded-xl border border-brand/[0.08] bg-brand/[0.04] p-3 flex items-start gap-2 max-w-[320px]"
             >
@@ -657,14 +657,14 @@ export function MessagesMock() {
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="mt-3 rounded-xl bg-white border border-black/[0.05] p-3 shadow-sm"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="text-[16px] font-bold text-brand font-display leading-none"
             >
@@ -681,7 +681,7 @@ export function MessagesMock() {
                   key={i}
                   initial={{ opacity: 0, x: 6 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.1 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-center gap-2"
                 >
@@ -707,7 +707,7 @@ export function MessagesMock() {
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="mt-3 rounded-xl bg-brand/[0.06] border border-brand/[0.08] p-3"
           >
@@ -809,7 +809,7 @@ export function ClassesMock() {
           <motion.div
             initial={{ y: 12, opacity: 0, scale: 0.95 }}
             whileInView={{ y: 0, opacity: 1, scale: 1 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ delay: 0.3, type: "spring", stiffness: 240, damping: 24 }}
             className="rounded-full bg-[#2A2D31] px-2 py-1.5 flex items-center gap-1 shadow-[0_4px_20px_rgba(0,0,0,0.35)] border border-white/[0.06]"
           >
@@ -871,7 +871,7 @@ export function MeetingsMock() {
               key={i}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ delay: i * 0.07 }}
               whileHover={{ scale: 1.03, zIndex: 10 }}
               className={`rounded-lg overflow-hidden relative ${i === 0 ? "bg-gradient-to-br from-brand/30 to-purple-500/30" : "bg-white/[0.06]"} aspect-[4/3] flex items-center justify-center`}
@@ -963,7 +963,7 @@ export function WebinarsMock() {
             key={i}
             initial={{ opacity: 0, x: -10 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
             whileHover={{ x: 2 }}
             className="flex items-center gap-2 p-1.5 rounded-lg bg-black/[0.02] cursor-pointer"
@@ -1058,7 +1058,7 @@ export function MembersMock() {
               key={i}
               initial={{ opacity: 0, x: -8 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
               whileHover={{ x: 3, backgroundColor: "rgba(0,0,0,0.015)" }}
               className="flex items-center gap-2 rounded-lg p-1.5 transition-colors cursor-pointer"
@@ -1114,7 +1114,7 @@ export function NoticeMock() {
           3 New
         </motion.span>
       </div>
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-50px" }} className="space-y-2">
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="space-y-2">
         {notices.map((n, i) => (
           <motion.div
             key={i}
@@ -1158,7 +1158,7 @@ export function ActivityMock() {
   return (
     <div className="rounded-xl border border-black/[0.06] overflow-hidden bg-white shadow-[0_1px_4px_rgba(0,0,0,0.04)] p-3">
       <div className="text-[9px] font-semibold text-brand-ink font-body mb-2.5">Recent Activity</div>
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: false, margin: "-50px" }} className="space-y-0.5">
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="space-y-0.5">
         {activities.map((a, i) => (
           <motion.div
             key={i}
@@ -1273,7 +1273,7 @@ function SectionHeader() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
   const [scramble, setScramble] = useState(false);
-  const inView = useInView(ref, { once: false });
+  const inView = useInView(ref, { once: true });
 
   useEffect(() => { if (inView) { setTimeout(() => setScramble(true), 200); } }, [inView]);
 
@@ -1412,7 +1412,7 @@ export function FeaturesSection() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mt-20"
         >

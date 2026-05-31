@@ -149,7 +149,7 @@ export function EcosystemSection() {
 
   return (
     <section id="ecosystem" className="py-24 bg-white" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="container-page">
         {/* Header */}
         <motion.div
           variants={staggerContainer}

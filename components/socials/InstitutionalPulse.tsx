@@ -176,7 +176,7 @@ export function InstitutionalPulse() {
 
   return (
     <section id="News" className="py-24 bg-[#F9F8FF]" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="container-page">
         {/* Header */}
         <motion.div
           variants={staggerContainer}

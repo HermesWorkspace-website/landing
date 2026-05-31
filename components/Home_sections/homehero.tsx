@@ -1083,12 +1083,11 @@ export default function Hero() {
       };
     }, []);
 
-  const schoolLogos = ["CBSE", "ICSE", "Cambridge", "IB", "State Board", "NIOS"];
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-36 pb-20"
+      className="relative overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
       <canvas
@@ -1112,8 +1111,9 @@ export default function Hero() {
         }}
       />
 
-      {/* -- Hero copy -- */}
-      <div className="container-page relative z-10 flex flex-col items-center text-center">
+      {/* -- Hero copy (one full screen) -- */}
+      <div className="hero-intro-screen relative z-10">
+      <div className="container-page flex flex-col items-center text-center">
 
         {/* Eyebrow */}
         <motion.div
@@ -1215,14 +1215,15 @@ export default function Hero() {
           <span>Built around real workflows used by Indian schools</span>
         </motion.div>
       </div>
+      </div>
 
-      {/* -- Dashboard mock -- */}
+      {/* -- Dashboard mock (revealed on scroll) -- */}
       <motion.div
         initial={{ opacity: 0, y: 70, scale: 0.93, rotateX: 12 }}
         animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
         transition={{ delay: 1.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         style={{ perspective: 1200 }}
-        className="hero-visual container-page relative z-10 mt-16 pb-8 w-full"
+        className="hero-visual container-page relative z-10 mt-16 pb-20 w-full"
       >
         <div className="relative">
           <DashboardMock />
@@ -1285,36 +1286,6 @@ export default function Hero() {
               </div>
             </FloatingCard>
           </div>
-        </div>
-      </motion.div>
-
-      {/* -- Marquee -- */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.8 }}
-        className="relative z-20 w-full mt-24 overflow-hidden"
-      >
-        <div className="flex items-center gap-3 justify-center mb-3">
-          <div className="h-px w-12 bg-black/10" />
-          <span className="text-xs text-brand-muted font-body">Designed for modern school coordination</span>
-          <div className="h-px w-12 bg-black/10" />
-        </div>
-        <div className="flex gap-16 overflow-hidden">
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-            className="flex gap-16 flex-shrink-0"
-          >
-            {[...schoolLogos, ...schoolLogos, ...schoolLogos, ...schoolLogos].map((s, i) => (
-              <span
-                key={i}
-                className="text-sm font-display font-bold text-brand-ink/20 whitespace-nowrap tracking-tight"
-              >
-                {s}
-              </span>
-            ))}
-          </motion.div>
         </div>
       </motion.div>
     </section>

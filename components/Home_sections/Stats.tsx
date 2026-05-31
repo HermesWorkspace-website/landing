@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string; prefix?: string }) {
   const [val, setVal] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: false });
+  const inView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (!inView) return;
@@ -55,7 +55,7 @@ const stats = [
 
 export default function Stats() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: false, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section ref={ref} className="py-16 border-y border-black/[0.05]">

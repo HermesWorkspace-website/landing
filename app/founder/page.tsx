@@ -4,37 +4,22 @@ import HeroSection from "@/components/founders/founderHero";
 import MissionSection from "@/components/founders/mission";
 import FAQItem from "@/components/founders/FAQ"
 import CTASection from "@/components/founders/CTA"; 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import MobilePage from "@/components/founders/Mobile"
 
 export default function Page() {
-  useEffect(() => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const scrollParam = urlParams.get("scroll");
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+   useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    setMounted(true);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  if (!mounted) return null;
 
-  if (scrollParam === "founders") {
-    setTimeout(() => {
-      const inquirySection = document.getElementById("founders");
-
-      if (inquirySection) {
-        const headerOffset = 60;
-
-        const elementPosition =
-          inquirySection.getBoundingClientRect().top;
-
-        const offsetPosition =
-          elementPosition + window.scrollY - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-
-        // clean URL
-        window.history.replaceState({}, "", "/founder");
-      }
-    }, 500);
-  }
-}, []);
+  if (isMobile) return <MobilePage />;
 return (
   <>
   <HeroSection/>

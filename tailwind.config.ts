@@ -21,7 +21,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ["'Syne'", "sans-serif"],
-        body: ["'DM Sans'", "sans-serif"],
+        body: ["'Plus Jakarta Sans'", "sans-serif"],
         mono: ["'JetBrains Mono'", "monospace"],
       },
       fontSize: {

@@ -1,14 +1,28 @@
 "use client";
-import React, { useEffect } from "react";
-import Hero from "./Hero";
+import React, { useEffect, useState } from "react";
+import Hero from "./contacthero";
 import Features from "./Features";
 import Inquiry from "./Inquiry";
 import Realtime from "./Realtime";
 import FAQ from "./FAQ";
 import CTA from "./CTA";
+import { MobileContactPage } from "./Mobilecontactpage";
 
 export default function ContactPage() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [ready, setReady] = useState(false);
+
   useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    setReady(true);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // Only run GSAP on desktop
+  useEffect(() => {
+    if (!ready || isMobile) return;
     (async () => {
       try {
         const gsap = (await import("gsap")).default;
@@ -29,7 +43,6 @@ export default function ContactPage() {
           );
         });
 
-        // Horizontal parallax for section headings
         document.querySelectorAll<HTMLElement>(".gsap-parallax").forEach((el) => {
           gsap.to(el, {
             x: -40,
@@ -41,19 +54,19 @@ export default function ContactPage() {
         // GSAP not available
       }
     })();
-  }, []);
+  }, [ready, isMobile]);
+
+  if (!ready) return null;
+  if (isMobile) return <MobileContactPage />;
 
   return (
-    <>
-      <div className="min-h-screen bg-white overflow-x-hidden contact-page">
-        
-        <Hero />
-        <Features />
-        <Inquiry />
-        <Realtime />
-        <FAQ />
-        <CTA />
-      </div>
-    </>
+    <div className="min-h-screen bg-white overflow-x-hidden contact-page">
+      <Hero />
+      <Features />
+      <Inquiry />
+      <Realtime />
+      <FAQ />
+      <CTA />
+    </div>
   );
 }

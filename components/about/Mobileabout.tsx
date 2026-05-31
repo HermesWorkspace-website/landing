@@ -139,7 +139,7 @@ function FAQItem({
           {q}
         </h4>
         <div
-          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all"
+          className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border transition-all"
           style={{
             borderColor: open ? `${GREEN}50` : "#E5E7EB",
             background: open ? `${GREEN}12` : "transparent",
@@ -189,8 +189,8 @@ function MobileHero() {
     <section className="relative overflow-x-hidden bg-white pt-[96px] pb-10 px-5">
       {/* CSS ambient */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-20%] top-[5%] h-80 w-80 rounded-full bg-green-100/70 blur-3xl" />
-        <div className="absolute right-[-15%] bottom-[8%] h-72 w-72 rounded-full bg-emerald-50/90 blur-3xl" />
+        <div className="absolute left-[-20%] top-[5%] size-80 rounded-full bg-green-100/70 blur-3xl" />
+        <div className="absolute right-[-15%] bottom-[8%] size-72 rounded-full bg-emerald-50/90 blur-3xl" />
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -215,7 +215,7 @@ function MobileHero() {
             style={{ borderColor: `${GREEN}40`, background: `${GREEN}0D` }}
           >
             <motion.span
-              className="h-1.5 w-1.5 rounded-full"
+              className="size-1.5 rounded-full"
               style={{ background: GREEN }}
               animate={{ scale: [1, 1.5, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -238,7 +238,7 @@ function MobileHero() {
                 { text: "Institutions", accent: null },
               ].map((line, i) => (
                 <motion.span
-                  key={i}
+                  key={`item-${i}`}
                   className="block"
                   style={{ color: INK }}
                   initial={{ opacity: 0, y: 28 }}
@@ -283,7 +283,7 @@ function MobileHero() {
               style={{ background: INK }}
             >
               Explore Mission
-              <ArrowRight className="h-4 w-4 shrink-0" style={{ color: GREEN }} />
+              <ArrowRight className="size-4 shrink-0" style={{ color: GREEN }} />
             </motion.button>
             <motion.button
               whileTap={{ scale: 0.98 }}
@@ -295,7 +295,7 @@ function MobileHero() {
                 color: INK,
               }}
             >
-              <Globe className="h-4 w-4 shrink-0" style={{ color: GREEN }} />
+              <Globe className="size-4 shrink-0" style={{ color: GREEN }} />
               Meet the Founders
             </motion.button>
           </motion.div>
@@ -308,9 +308,9 @@ function MobileHero() {
             className="mt-6 flex flex-col gap-3 border-t border-black/[0.06] pt-6"
           >
             {[
-              { icon: <MessageSquare className="h-3.5 w-3.5" />, label: "Institutional Communication" },
-              { icon: <Server className="h-3.5 w-3.5" />, label: "Scalable Academic Infrastructure" },
-              { icon: <Zap className="h-3.5 w-3.5" />, label: "Built for Modern Institutions" },
+              { icon: <MessageSquare className="size-3.5" />, label: "Institutional Communication" },
+              { icon: <Server className="size-3.5" />, label: "Scalable Academic Infrastructure" },
+              { icon: <Zap className="size-3.5" />, label: "Built for Modern Institutions" },
             ].map((item, i) => (
               <motion.div
                 key={item.label}
@@ -434,7 +434,7 @@ function MobilePhilosophy() {
                 style={i === 4 ? { gridColumn: "1 / -1" } : {}}
               >
                 <div
-                  className="flex h-8 w-8 items-center justify-center rounded-lg"
+                  className="flex size-8 items-center justify-center rounded-lg"
                   style={{ background: `${GREEN}12`, border: `1px solid ${GREEN}30` }}
                 >
                   <Icon size={15} style={{ color: GREEN }} />
@@ -458,7 +458,7 @@ function MobileEcosystem() {
     <section className="relative py-16 px-5" style={{ background: INK }}>
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-10 -left-10 h-48 w-48 rounded-full opacity-10 blur-3xl" style={{ background: GREEN }} />
+        <div className="absolute -top-10 -left-10 size-48 rounded-full opacity-10 blur-3xl" style={{ background: GREEN }} />
       </div>
 
       <FadeUp>
@@ -488,7 +488,7 @@ function MobileEcosystem() {
               className="flex items-center gap-3 rounded-xl border px-4 py-3"
               style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)" }}
             >
-              <div className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: GREEN }} />
+              <div className="size-1.5 shrink-0 rounded-full" style={{ background: GREEN }} />
               <p className="text-[12.5px] font-medium text-white">{f}</p>
             </div>
           ))}
@@ -580,7 +580,7 @@ function MobileLeadershipTeam() {
                       ]
                   ).map((s, si) => (
                     <motion.circle
-                      key={si}
+                      key={`circle-${si}`}
                       cx={s.cx} cy={s.cy} r={s.r} fill={s.fill}
                       initial={{ scale: 0.7, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -636,7 +636,7 @@ function MobileLeadershipTeam() {
                     className="mb-2 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5"
                     style={{ borderColor: `${GREEN}30`, background: `${GREEN}0D` }}
                   >
-                    <div className="h-1 w-1 rounded-full" style={{ background: GREEN }} />
+                    <div className="size-1 rounded-full" style={{ background: GREEN }} />
                     <span className="text-[9px] font-semibold tracking-wider uppercase" style={{ color: GREEN }}>
                       {member.role}
                     </span>
@@ -661,15 +661,15 @@ function MobileLeadershipTeam() {
                 {/* Socials */}
                 <div className="flex items-center gap-2.5">
                   <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200" aria-label="LinkedIn">
+                    className="flex size-9 items-center justify-center rounded-full border border-gray-200" aria-label="LinkedIn">
                     <Linkedin size={14} style={{ color: INK }} />
                   </a>
                   <a href={member.socials.instagram} target="_blank" rel="noopener noreferrer"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200" aria-label="Instagram">
+                    className="flex size-9 items-center justify-center rounded-full border border-gray-200" aria-label="Instagram">
                     <Instagram size={14} style={{ color: INK }} />
                   </a>
                   <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer"
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200" aria-label="X">
+                    className="flex size-9 items-center justify-center rounded-full border border-gray-200" aria-label="X">
                     <XIcon size={14} />
                   </a>
                 </div>
@@ -699,7 +699,7 @@ function MobileFAQ() {
       <FadeUp delay={0.1}>
         {FAQS.map((f, i) => (
           <FAQItem
-            key={i}
+            key={`item-${i}`}
             q={f.q}
             a={f.a}
             open={openIdx === i}
@@ -772,14 +772,14 @@ function MobileCTA() {
 
           {/* Buttons */}
           <div className="flex flex-col w-full gap-3 mt-2">
-            <button
+            <button type="button"
               onClick={() => router.push("/contact?scroll=inquiry")}
               className="w-full rounded-xl py-3.5 text-[13px] font-bold"
               style={{ background: "#fff", color: INK }}
             >
               Schedule Consultation
             </button>
-            <button
+            <button type="button"
               onClick={() => router.push("/?scroll=pricing")}
               className="w-full rounded-xl border py-3.5 text-[13px] font-bold text-white"
               style={{ borderColor: "rgba(255,255,255,0.2)" }}

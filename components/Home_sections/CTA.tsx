@@ -43,7 +43,7 @@ export default function CTA() {
               transition={{ delay: 0.15 }}
             >
               <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-brand/70 uppercase tracking-widest font-body mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
+                <span className="size-1.5 rounded-full bg-brand animate-pulse" />
                 Institutional Demonstrations Open
               </span>
             </motion.div>
@@ -78,7 +78,7 @@ export default function CTA() {
                 className="shadow-[0_8px_32px_rgba(96,99,238,0.5)] gap-1 "
               >
                 <Link href="/contact?scroll=inquiry" className="flex justify-center items-center gap-1">
-                  Schedule Demonstration  <ArrowRight className="w-4 h-4" />
+                  Schedule Demonstration  <ArrowRight className="size-4" />
                 </Link>
               </Button>
               <Link href="/contact">
@@ -104,7 +104,7 @@ export default function CTA() {
               className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/40 font-body"
             >
               <a href="mailto:connect@hermesworkspace.com" className="flex items-center gap-2 hover:text-white/70 transition-colors">
-                <Mail className="w-4 h-4" />
+                <Mail className="size-4" />
                 connect@hermesworkspace.com
               </a>
             </motion.div>

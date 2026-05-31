@@ -134,7 +134,7 @@ function MobileHero() {
     <section className="relative overflow-x-hidden bg-white px-5 pt-[96px] pb-10">
       {/* Static gradient blob — replaces Three.js canvas */}
       <div
-        className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full"
+        className="pointer-events-none absolute right-0 top-0 size-72 rounded-full"
         style={{ background: "radial-gradient(circle, rgba(90,95,232,0.06) 0%, transparent 70%)" }}
       />
       {/* Faint grid */}
@@ -154,7 +154,7 @@ function MobileHero() {
             style={{ background: "rgba(90,95,232,0.08)", border: "1px solid rgba(90,95,232,0.2)" }}
           >
             <span
-              className="h-1.5 w-1.5 animate-pulse rounded-full"
+              className="size-1.5 animate-pulse rounded-full"
               style={{ background: "var(--brand)" }}
             />
             <span
@@ -191,13 +191,13 @@ function MobileHero() {
 
           {/* CTAs */}
           <div className="mb-8 flex w-full flex-col gap-3">
-            <button
+            <button type="button"
               onClick={scrollToInquiry}
               className="inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-xl text-[13px] font-bold font-body text-white active:scale-[0.98] transition-transform"
               style={{ background: "var(--brand)" }}
             >
               Request Demo
-              <ArrowRight className="h-4 w-4 shrink-0" />
+              <ArrowRight className="size-4 shrink-0" />
             </button>
             <a
               href="mailto:support@hermesworkspace.com"
@@ -208,7 +208,7 @@ function MobileHero() {
                 color: "var(--ink)",
               }}
             >
-              <Mail className="h-4 w-4 shrink-0" style={{ color: "var(--brand)" }} />
+              <Mail className="size-4 shrink-0" style={{ color: "var(--brand)" }} />
               Contact Support
             </a>
           </div>
@@ -219,11 +219,11 @@ function MobileHero() {
             style={{ borderColor: "var(--ink-06)" }}
           >
             {[
-              { icon: <Shield className="h-3.5 w-3.5 shrink-0" />, label: "Secure Institutional Access" },
-              { icon: <Globe className="h-3.5 w-3.5 shrink-0" />, label: "Web & Mobile Accessibility" },
-              { icon: <Zap className="h-3.5 w-3.5 shrink-0" />, label: "Built for Academic Coordination" },
+              { icon: <Shield className="size-3.5 shrink-0" />, label: "Secure Institutional Access" },
+              { icon: <Globe className="size-3.5 shrink-0" />, label: "Web & Mobile Accessibility" },
+              { icon: <Zap className="size-3.5 shrink-0" />, label: "Built for Academic Coordination" },
             ].map((item, i) => (
-              <div key={i} className="flex w-full min-w-0 max-w-full items-start gap-1.5">
+              <div key={`item-${i}`} className="flex w-full min-w-0 max-w-full items-start gap-1.5">
                 <span className="mt-0.5 shrink-0" style={{ color: "var(--brand)" }}>{item.icon}</span>
                 <span className="min-w-0 text-[11px] font-semibold font-body leading-snug" style={{ color: "var(--ink-60)" }}>
                   {item.label}
@@ -241,10 +241,10 @@ function MobileHero() {
         >
           <div className="flex items-start gap-3">
             <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+              className="size-9 rounded-xl flex items-center justify-center shrink-0"
               style={{ background: "rgba(90,95,232,0.08)" }}
             >
-              <Globe className="w-4 h-4" style={{ color: "var(--brand)" }} />
+              <Globe className="size-4" style={{ color: "var(--brand)" }} />
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1">
@@ -252,7 +252,7 @@ function MobileHero() {
                   Institutional Partnerships
                 </p>
                 <span className="flex items-center gap-1 text-[10px] font-semibold text-emerald-500">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   Online
                 </span>
               </div>
@@ -281,10 +281,10 @@ function MobileHero() {
         >
           <div className="flex items-start gap-3">
             <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+              className="size-9 rounded-xl flex items-center justify-center shrink-0"
               style={{ background: "rgba(90,95,232,0.08)" }}
             >
-              <Mail className="w-4 h-4" style={{ color: "var(--brand)" }} />
+              <Mail className="size-4" style={{ color: "var(--brand)" }} />
             </div>
             <div>
               <p className="text-[13px] font-bold mb-1" style={{ color: "var(--ink)" }}>
@@ -311,10 +311,10 @@ function MobileHero() {
         >
           <div className="flex items-start gap-3">
             <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+              className="size-9 rounded-xl flex items-center justify-center shrink-0"
               style={{ background: "rgba(90,95,232,0.08)" }}
             >
-              <Clock className="w-4 h-4" style={{ color: "var(--brand)" }} />
+              <Clock className="size-4" style={{ color: "var(--brand)" }} />
             </div>
             <div className="flex-1">
               <p className="text-[13px] font-bold mb-1" style={{ color: "var(--ink)" }}>
@@ -351,8 +351,8 @@ function MobileHero() {
             "Supporting modern institutional operations",
             "Free Demo available for qualifying institutions",
           ].map((text, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <CheckCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
+            <div key={`item-${i}`} className="flex items-center gap-2">
+              <CheckCircle className="size-3.5 shrink-0 text-emerald-500" />
               <span className="text-[12px]" style={{ color: "var(--ink-60)" }}>
                 {text}
               </span>
@@ -371,19 +371,19 @@ function MobileHero() {
    ══════════════════════════════════════════════ */
 const FEATURES = [
   {
-    icon: <Users className="w-4 h-4" />,
+    icon: <Users className="size-4" />,
     color: "#5A5FE8",
     title: "Structured School Communication",
     desc: "Role-based channels for administrators, teachers, students, and parents across classes and departments.",
   },
   {
-    icon: <Handshake className="w-4 h-4" />,
+    icon: <Handshake className="size-4" />,
     color: "#a855f7",
     title: "Academic Operations",
     desc: "Manage meetings, notices, events, and institutional coordination from one centralized platform.",
   },
   {
-    icon: <Newspaper className="w-4 h-4" />,
+    icon: <Newspaper className="size-4" />,
     color: "#10b981",
     title: "Secure Digital Infrastructure",
     desc: "Verified notice delivery, secure access control, and scalable cloud infrastructure.",
@@ -398,7 +398,7 @@ function MobileFeatures() {
           className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full"
           style={{ background: "rgba(90,95,232,0.07)", border: "1px solid rgba(90,95,232,0.15)" }}
         >
-          <Sparkles className="w-3 h-3" style={{ color: "var(--brand)" }} />
+          <Sparkles className="size-3" style={{ color: "var(--brand)" }} />
           <span
             className="text-[9px] font-bold font-syne uppercase tracking-[0.18em]"
             style={{ color: "var(--brand)" }}
@@ -416,13 +416,13 @@ function MobileFeatures() {
 
       <div className="flex flex-col gap-4">
         {FEATURES.map((card, i) => (
-          <FadeUp key={i} delay={i * 70}>
+          <FadeUp key={`item-${i}`} delay={i * 70}>
             <div
               className="rounded-2xl p-5 bg-white"
               style={{ border: "1px solid var(--ink-06)", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
             >
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                className="size-10 rounded-xl flex items-center justify-center mb-4"
                 style={{ background: `${card.color}12`, color: card.color }}
               >
                 {card.icon}
@@ -753,7 +753,7 @@ function MobileInquiry() {
           </AnimatePresence>
 
           {/* Submit */}
-          <button
+          <button type="button"
             onClick={handleSend}
             disabled={loading || sent}
             className="w-full py-3.5 rounded-xl text-[13px] font-bold font-body text-white flex items-center justify-center gap-2.5 active:scale-95 transition-transform"
@@ -766,7 +766,7 @@ function MobileInquiry() {
               {loading ? (
                 <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
                   <motion.div
-                    className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white"
+                    className="size-4 rounded-full border-2 border-white/30 border-t-white"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
                   />
@@ -798,9 +798,9 @@ function MobileInquiry() {
             { icon: <IconMail size={15} />, title: "Email", body: "support@hermesworkspace.com" },
             { icon: <IconBolt size={15} />, title: "Response Time", body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours." },
           ].map((item, i) => (
-            <div key={i} className="flex gap-3">
+            <div key={`item-${i}`} className="flex gap-3">
               <div
-                className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+                className="size-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
                 style={{ background: "rgba(90,95,232,0.08)", color: "var(--brand)" }}
               >
                 {item.icon}
@@ -863,7 +863,7 @@ function MobileRealtime() {
         style={{ opacity: visible ? 1 : 0, transition: "opacity 0.5s" }}
       >
         <span
-          className="w-2 h-2 rounded-full animate-pulse"
+          className="size-2 rounded-full animate-pulse"
           style={{ background: "#22C55E" }}
         />
         <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest font-syne">
@@ -898,11 +898,11 @@ function MobileRealtime() {
       {/* Feature bullets */}
       <div className="space-y-3 mb-8">
         {[
-          { icon: <CheckCircle className="w-4 h-4" />, label: "Centralized School Announcements", color: "#22C55E" },
-          { icon: <Lock className="w-4 h-4" />, label: "Secure Role-Based Access Control", color: "var(--brand-light)" },
-          { icon: <Server className="w-4 h-4" />, label: "Scalable Cloud Infrastructure", color: "#a855f7" },
+          { icon: <CheckCircle className="size-4" />, label: "Centralized School Announcements", color: "#22C55E" },
+          { icon: <Lock className="size-4" />, label: "Secure Role-Based Access Control", color: "var(--brand-light)" },
+          { icon: <Server className="size-4" />, label: "Scalable Cloud Infrastructure", color: "#a855f7" },
         ].map((item, i) => (
-          <div key={i} className="flex items-center gap-3">
+          <div key={`item-${i}`} className="flex items-center gap-3">
             <span style={{ color: item.color }}>{item.icon}</span>
             <span className="text-[12px] font-semibold font-body" style={{ color: item.color }}>
               {item.label}
@@ -926,7 +926,7 @@ function MobileRealtime() {
           style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
         >
           {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => (
-            <div key={i} className="w-2.5 h-2.5 rounded-full" style={{ background: c }} />
+            <div key={`item-${i}`} className="size-2.5 rounded-full" style={{ background: c }} />
           ))}
           <span className="text-[8px] font-body ml-2" style={{ color: "rgba(255,255,255,0.2)" }}>
             LIVE · CAMPUS-WIDE COORDINATION ACTIVE
@@ -936,7 +936,7 @@ function MobileRealtime() {
         <div className="p-3 space-y-2">
           {ALERTS.map((a, i) => (
             <div
-              key={i}
+              key={`item-${i}`}
               className="flex items-start gap-2.5 p-3 rounded-xl"
               style={{
                 background:
@@ -954,7 +954,7 @@ function MobileRealtime() {
               }}
             >
               <div
-                className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
+                className="size-1.5 rounded-full mt-1.5 shrink-0"
                 style={{
                   background:
                     a.type === "critical" ? "#fff" : a.type === "alert" ? "#F59E0B" : "rgba(255,255,255,0.3)",
@@ -983,7 +983,7 @@ function MobileRealtime() {
           style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
         >
           <span
-            className="w-1.5 h-1.5 rounded-full animate-pulse"
+            className="size-1.5 rounded-full animate-pulse"
             style={{ background: "#22C55E" }}
           />
           <span className="text-[8px] font-syne" style={{ color: "rgba(255,255,255,0.3)" }}>
@@ -1013,7 +1013,7 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
       <div className="py-4 flex items-start justify-between gap-3">
         <h4 className="font-body font-medium text-[14px] pr-3" style={{ color: "var(--ink)" }}>{q}</h4>
         <div
-          className="w-6 h-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all"
+          className="size-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all"
           style={{
             borderColor: open ? "var(--brand)" : "var(--ink-12)",
             background: open ? "rgba(90,95,232,0.1)" : "transparent",
@@ -1021,7 +1021,7 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
             transform: open ? "rotate(45deg)" : "none",
           }}
         >
-          {open ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}
+          {open ? <Minus className="size-3" /> : <Plus className="size-3" />}
         </div>
       </div>
       <AnimatePresence>
@@ -1064,7 +1064,7 @@ function MobileFAQ() {
       <FadeUp delay={80}>
         {FAQS.map((f, i) => (
           <FAQItem
-            key={i}
+            key={`item-${i}`}
             q={f.q}
             a={f.a}
             open={openIdx === i}
@@ -1113,7 +1113,7 @@ function MobileCTA() {
             className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full"
             style={{ background: "rgba(90,95,232,0.15)", border: "1px solid rgba(90,95,232,0.3)" }}
           >
-            <Sparkles className="w-3 h-3" style={{ color: "var(--brand-light)" }} />
+            <Sparkles className="size-3" style={{ color: "var(--brand-light)" }} />
             <span
               className="text-[9px] font-bold font-syne uppercase tracking-widest"
               style={{ color: "var(--brand-light)" }}
@@ -1139,14 +1139,14 @@ function MobileCTA() {
           </p>
 
           <div className="flex flex-col gap-3">
-            <button
+            <button type="button"
               onClick={scrollToInquiry}
               className="w-full py-3.5 rounded-xl text-[13px] font-bold font-body active:scale-95 transition-transform"
               style={{ background: "#fff", color: "var(--ink)" }}
             >
               Schedule Consultation
             </button>
-            <button
+            <button type="button"
               onClick={() => router.push("/?scroll=pricing")}
               className="w-full py-3.5 rounded-xl text-[13px] font-bold font-body text-white active:scale-95 transition-transform"
               style={{ border: "1px solid rgba(255,255,255,0.2)" }}

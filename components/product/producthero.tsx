@@ -153,7 +153,7 @@ export default function Hero() {
               const isGradient = i >= 3;
               return (
                 <span
-                  key={i}
+                  key={`item-${i}`}
                   className="word inline-block mr-[0.25em] opacity-0"
                   style={isGradient ? {
                     background: "linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #a78bfa 100%)",
@@ -239,8 +239,8 @@ export default function Hero() {
               "Designed for Academic Coordination",
               "Accessible Across Web & Mobile"
             ].map((t, i) => (
-              <span key={i} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#8b8fbd" }}>
-                <span className="w-1 h-1 rounded-full inline-block" style={{ backgroundColor: "#6366f1" }} />
+              <span key={`item-${i}`} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#8b8fbd" }}>
+                <span className="size-1 rounded-full inline-block" style={{ backgroundColor: "#6366f1" }} />
                 {t}
               </span>
             ))}
@@ -284,7 +284,7 @@ function PhoneMockup() {
               <div className="h-2 w-16 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
               <div className="h-1.5 w-10 rounded-full mt-1.5" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
             </div>
-            <div className="w-6 h-6 rounded-full border" style={{ backgroundColor: "rgba(99,102,241,0.2)", borderColor: "rgba(99,102,241,0.35)" }} />
+            <div className="size-6 rounded-full border" style={{ backgroundColor: "rgba(99,102,241,0.2)", borderColor: "rgba(99,102,241,0.35)" }} />
           </div>
 
           {/* Chart */}
@@ -293,7 +293,7 @@ function PhoneMockup() {
             <div className="flex items-end gap-1 h-12">
               {bars.map((h, i) => (
                 <motion.div
-                  key={i}
+                  key={`item-${i}`}
                   initial={{ height: 0 }}
                   animate={{ height: `${h}%` }}
                   transition={{ delay: 1.2 + i * 0.07, duration: 0.5, ease: "easeOut" }}
@@ -311,14 +311,14 @@ function PhoneMockup() {
             { dot: "#818cf8" },
           ].map((n, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.5 + i * 0.1 }}
               className="flex items-center gap-2.5 rounded-xl p-2.5 border"
               style={{ backgroundColor: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.06)" }}
             >
-              <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: n.dot }} />
+              <div className="size-2 rounded-full flex-shrink-0" style={{ backgroundColor: n.dot }} />
               <div>
                 <div className="h-1.5 w-20 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.25)" }} />
                 <div className="h-1.5 w-14 rounded-full mt-1" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
@@ -329,8 +329,8 @@ function PhoneMockup() {
           {/* Bottom bar */}
           <div className="mt-auto flex justify-around pt-1">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex flex-col items-center gap-1">
-                <div className="w-5 h-5 rounded-md" style={{ backgroundColor: i === 0 ? "rgba(99,102,241,0.4)" : "rgba(255,255,255,0.1)" }} />
+              <div key={`item-${i}`} className="flex flex-col items-center gap-1">
+                <div className="size-5 rounded-md" style={{ backgroundColor: i === 0 ? "rgba(99,102,241,0.4)" : "rgba(255,255,255,0.1)" }} />
                 <div className="w-3 h-1 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
               </div>
             ))}

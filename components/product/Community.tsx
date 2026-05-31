@@ -108,7 +108,7 @@ function RoleCard({ icon: Icon, label, desc, color, features, index, isInView }:
     >
       {/* Icon */}
       <motion.div whileHover={{ scale: 1.1, rotate: 4 }} transition={{ type: "spring", stiffness: 350 }}
-        className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${color}12`, border: `1px solid ${color}22` }}>
+        className="size-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: `${color}12`, border: `1px solid ${color}22` }}>
         <Icon size={18} style={{ color }} />
       </motion.div>
 

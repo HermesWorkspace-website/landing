@@ -101,7 +101,7 @@ function ChannelCard({
 
       {/* Icon */}
       <div
-        className="relative w-10 h-10 rounded-xl flex items-center justify-center"
+        className="relative size-10 rounded-xl flex items-center justify-center"
         style={{ background: channel.bg }}
       >
         <Icon size={18} style={{ color: channel.accentColor }} />

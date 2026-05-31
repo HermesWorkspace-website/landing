@@ -130,7 +130,7 @@ export function TrustSection() {
           className="relative"
         >
           {/* Orb bg */}
-          <div className="absolute -top-20 -right-20 w-64 h-64 opacity-60 pointer-events-none">
+          <div className="absolute -top-20 -right-20 size-64 opacity-60 pointer-events-none">
             <OrbCanvas />
           </div>
 
@@ -165,7 +165,7 @@ export function TrustSection() {
                 initial={{ scale: 0 }}
                 animate={inView ? { scale: 1 } : { scale: 0 }}
                 transition={{ delay: 0.7, type: "spring", stiffness: 300 }}
-                className="w-10 h-10 rounded-full bg-[#EAE8FF] flex items-center justify-center"
+                className="size-10 rounded-full bg-[#EAE8FF] flex items-center justify-center"
               >
                 <span className="text-[11px] font-black text-[#6B5CE7]">HW</span>
               </motion.div>

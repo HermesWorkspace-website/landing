@@ -43,16 +43,16 @@ export default function ProblemSolution() {
           {/* Before */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7, delay: 0.1 }}>
             <div className="flex items-center gap-2 mb-5">
-              <div className="w-6 h-6 rounded-full bg-red-50 border border-red-100 flex items-center justify-center">
+              <div className="size-6 rounded-full bg-red-50 border border-red-100 flex items-center justify-center">
                 <XCircle size={14} className="text-red-400" />
               </div>
               <p className="text-[12px] font-bold text-red-400 tracking-wider uppercase">Fragmented Workflows</p>
             </div>
             <div className="flex flex-col gap-3">
               {problems.map((p, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.3 + i * 0.1 }}
+                <motion.div key={`item-${i}`} initial={{ opacity: 0, y: 10 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.3 + i * 0.1 }}
                   className="flex items-start gap-3 p-4 rounded-xl border border-red-50 bg-red-50/50">
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-300 flex-shrink-0 mt-1.5" />
+                  <div className="size-1.5 rounded-full bg-red-300 flex-shrink-0 mt-1.5" />
                   <span className="text-[13px] text-[#4B5563] leading-relaxed">{p}</span>
                 </motion.div>
               ))}
@@ -64,16 +64,16 @@ export default function ProblemSolution() {
           {/* After */}
           <motion.div initial={{ opacity: 0, x: 30 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7, delay: 0.2 }}>
             <div className="flex items-center gap-2 mb-5">
-              <div className="w-6 h-6 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/20 flex items-center justify-center">
+              <div className="size-6 rounded-full bg-[#22C55E]/10 border border-[#22C55E]/20 flex items-center justify-center">
                 <CheckCircle size={14} className="text-[#22C55E]" />
               </div>
               <p className="text-[12px] font-bold text-[#22C55E] tracking-wider uppercase">Connected Infrastructure</p>
             </div>
             <div className="flex flex-col gap-3">
               {solutions.map((s, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.4 + i * 0.1 }}
+                <motion.div key={`item-${i}`} initial={{ opacity: 0, y: 10 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.4 + i * 0.1 }}
                   className="flex items-start gap-3 p-4 rounded-xl border border-[#22C55E]/15 bg-[#22C55E]/5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#22C55E] flex-shrink-0 mt-1.5" />
+                  <div className="size-1.5 rounded-full bg-[#22C55E] flex-shrink-0 mt-1.5" />
                   <span className="text-[13px] text-[#0A1628] font-medium leading-relaxed">{s}</span>
                 </motion.div>
               ))}

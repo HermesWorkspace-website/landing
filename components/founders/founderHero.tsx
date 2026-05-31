@@ -102,7 +102,7 @@ export default function HeroSection() {
           transition={{ delay: 0.1, duration: 0.6 }}
           className="mb-8 flex items-center gap-2 md:hidden"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+          <span className="size-1.5 rounded-full bg-indigo-500" />
           <span className="text-[11px] tracking-[0.28em] uppercase text-indigo-500 font-medium">
             Leadership & Vision
           </span>
@@ -116,7 +116,7 @@ export default function HeroSection() {
           }}
         >
           {["Building The Future", "Of Institutional", "Communication."].map((line, i) => (
-            <span key={i} className="block overflow-hidden">
+            <span key={`item-${i}`} className="block overflow-hidden">
               <motion.span
                 className={`inline-block ${i >= 1 ? "gradient-text-brand" : ""}`}
                 initial={{ y: 64, opacity: 0 }}
@@ -158,7 +158,7 @@ export default function HeroSection() {
               className="gap-2 shadow-[0_4px_24px_rgba(96,99,238,0.35)] hover:shadow-[0_8px_36px_rgba(96,99,238,0.45)] h-14 px-8 text-[1rem]"
             >
               Meet our Founders
-              <ArrowDown className="w-4 h-4" />
+              <ArrowDown className="size-4" />
             </Button>
           </motion.div>
         </motion.div>

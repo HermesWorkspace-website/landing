@@ -13,7 +13,7 @@ import {
 
 const features = [
   {
-    icon: <MessageSquare className="w-5 h-5" />,
+    icon: <MessageSquare className="size-5" />,
     title: "Messages",
     desc: "Parent–teacher, staff room, and class group chats — all in one place with read receipts and instant delivery.",
     color: "bg-purple-500/[0.07] text-purple-600",
@@ -21,7 +21,7 @@ const features = [
     mock: <MessagesMock />,
   },
   {
-    icon: <Activity className="w-5 h-5" />,
+    icon: <Activity className="size-5" />,
     title: "Activity",
     desc: "Real-time activity feed — track assignments, attendance, notices, and every action across your school.",
     color: "bg-brand/[0.07] text-brand",
@@ -29,7 +29,7 @@ const features = [
     mock: <ActivityMock />,
   },
   {
-    icon: <Calendar className="w-5 h-5" />,
+    icon: <Calendar className="size-5" />,
     title: "Meetings",
     desc: "Schedule and manage staff meetings, PTA sessions, and board reviews — with calendar sync and reminders.",
     color: "bg-amber-500/[0.07] text-amber-600",
@@ -37,7 +37,7 @@ const features = [
     mock: <MeetingsMock />,
   },
   {
-    icon: <Presentation className="w-5 h-5" />,
+    icon: <Presentation className="size-5" />,
     title: "Webinars",
     desc: "Host large-scale webinars for career guidance, parent orientations, and guest lectures — with registration and recordings.",
     color: "bg-rose-500/[0.07] text-rose-600",
@@ -45,7 +45,7 @@ const features = [
     mock: <WebinarsMock />,
   },
   {
-    icon: <Users className="w-5 h-5" />,
+    icon: <Users className="size-5" />,
     title: "Members",
     desc: "Manage students, teachers, admins, and alumni — all with role-based access, profiles, and bulk onboarding.",
     color: "bg-green-500/[0.07] text-green-600",
@@ -53,7 +53,7 @@ const features = [
     mock: <MembersMock />,
   },
   {
-    icon: <Bell className="w-5 h-5" />,
+    icon: <Bell className="size-5" />,
     title: "Notice",
     desc: "Push school announcements to every parent's phone in seconds — with delivery tracking and priority tags.",
     color: "bg-blue-500/[0.07] text-blue-600",
@@ -61,7 +61,7 @@ const features = [
     mock: <NoticeMock />,
   },
   {
-    icon: <Video className="w-5 h-5" />,
+    icon: <Video className="size-5" />,
     title: "Classes",
     desc: "HD video classes at 360p SFU quality — run 30 concurrent sessions serving 150 students each.",
     color: "bg-brand/[0.07] text-brand",
@@ -112,7 +112,7 @@ export default function Features() {
         >
           {features.map((f, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               variants={item}
               className={`bento p-6 flex flex-col gap-4 ${
                 f.size === "col-span-2" ? "md:col-span-2 lg:col-span-2" : 
@@ -121,7 +121,7 @@ export default function Features() {
             >
               {/* Icon + title row */}
               <div className="flex items-start gap-3">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${f.color}`}>
+                <div className={`size-10 rounded-xl flex items-center justify-center shrink-0 ${f.color}`}>
                   {f.icon}
                 </div>
                 <div>
@@ -150,10 +150,10 @@ export default function Features() {
           className="mt-12 flex flex-wrap items-center justify-center gap-6 text-sm text-brand-muted font-body"
         >
           {[
-            { icon: <ShieldCheck className="w-4 h-4 text-green-600" />, label: "DPDPA Compliant" },
-            { icon: <Globe2 className="w-4 h-4 text-brand" />, label: "Hosted in India" },
-            { icon: <Zap className="w-4 h-4 text-amber-500" />, label: "99.9% Uptime SLA" },
-            { icon: <BookOpen className="w-4 h-4 text-purple-600" />, label: "CBSE / ICSE / State Ready" },
+            { icon: <ShieldCheck className="size-4 text-green-600" />, label: "DPDPA Compliant" },
+            { icon: <Globe2 className="size-4 text-brand" />, label: "Hosted in India" },
+            { icon: <Zap className="size-4 text-amber-500" />, label: "99.9% Uptime SLA" },
+            { icon: <BookOpen className="size-4 text-purple-600" />, label: "CBSE / ICSE / State Ready" },
           ].map((t) => (
             <div key={t.label} className="flex items-center gap-2">
               {t.icon}

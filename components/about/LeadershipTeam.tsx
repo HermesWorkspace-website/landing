@@ -79,7 +79,7 @@ const renderTextWithBrandFont = (text: string, isLightBg: boolean = true) => {
   return (
     <>
       {parts.map((part, index) => (
-        <React.Fragment key={index}>
+        <React.Fragment key={`item-${index}`}>
           {part}
           {index < parts.length - 1 && (
             <span className={`font-logo font-bold ${isLightBg ? 'text-[#0A1628]' : 'text-white'}`}>
@@ -229,7 +229,7 @@ function EditorialEntry({
         >
           {/* Role badge */}
           <div className="inline-flex w-fit items-center gap-1.5 bg-[#22C55E]/8 border border-[#22C55E]/20 rounded-full px-3 py-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#22C55E]" />
+            <div className="size-1.5 rounded-full bg-[#22C55E]" />
             <span className="text-[10px] font-semibold text-[#22C55E] tracking-wider uppercase">
               {member.role}
             </span>
@@ -278,27 +278,27 @@ function EditorialEntry({
               href={member.socials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#0A66C2] hover:bg-[#0A66C2]"
+              className="group flex size-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#0A66C2] hover:bg-[#0A66C2]"
             >
-              <IconBrandLinkedin className="h-4 w-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
+              <IconBrandLinkedin className="size-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
             </a>
 
             <a
               href={member.socials.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-pink-500 hover:bg-pink-500"
+              className="group flex size-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-pink-500 hover:bg-pink-500"
             >
-              <IconBrandInstagram className="h-4 w-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
+              <IconBrandInstagram className="size-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
             </a>
 
             <a
               href={member.socials.twitter}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-black hover:bg-black"
+              className="group flex size-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-black hover:bg-black"
             >
-              <IconBrandX className="h-4 w-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
+              <IconBrandX className="size-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
             </a>
           </motion.div>
         </motion.div>

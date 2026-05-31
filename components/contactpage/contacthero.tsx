@@ -151,12 +151,12 @@ export default function Hero() {
               >
                 Request Demo
                 <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="size-4" />
                 </motion.div>
               </motion.button>
               <a href="mailto:support@hermesworkspace.com">
                 <motion.button whileHover={{ scale: 1.02, x: 2 }} whileTap={{ scale: 0.98 }} className="flex items-center gap-2 text-[13px] font-semibold font-body" style={{ color: "var(--ink-60)" }}>
-                  <Mail className="w-4 h-4" style={{ color: "var(--brand)" }} />
+                  <Mail className="size-4" style={{ color: "var(--brand)" }} />
                   Contact Support
                 </motion.button>
               </a>
@@ -192,14 +192,14 @@ export default function Hero() {
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
-                  <Globe className="w-5 h-5" style={{ color: "var(--brand)" }} />
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                  <Globe className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
                     <p className="text-[13px] font-bold" style={{ color: "var(--ink)" }}>Institutional Partnerships</p>
                     <span className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-500">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       Online Now
                     </span>
                   </div>
@@ -223,8 +223,8 @@ export default function Hero() {
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
-                  <Mail className="w-5 h-5" style={{ color: "var(--brand)" }} />
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                  <Mail className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div>
                   <p className="text-[13px] font-bold mb-1" style={{ color: "var(--ink)" }}>Institutional Inquiries</p>
@@ -244,8 +244,8 @@ export default function Hero() {
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
-                  <Clock className="w-5 h-5" style={{ color: "var(--brand)" }} />
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                  <Clock className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div className="flex-1">
                   <p className="text-[13px] font-bold mb-1" style={{ color: "var(--ink)" }}>Response Time</p>

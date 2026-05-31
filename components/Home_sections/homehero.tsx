@@ -84,7 +84,7 @@ function OverviewVisual() {
       <div className="col-span-2 grid grid-cols-3 gap-3">
         {stats.map((s, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.12, ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
@@ -110,7 +110,7 @@ function OverviewVisual() {
         <div className="space-y-2.5">
           {[100, 65, 45].map((w, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               initial={{ width: 0 }}
               animate={{ width: `${w}%` }}
               transition={{ delay: 0.6 + i * 0.1, duration: 0.8, ease: "easeOut" }}
@@ -132,7 +132,7 @@ function OverviewVisual() {
           { subject: "Maths · Class XII", color: "brand" },
         ].map((item, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.7 + i * 0.12 }}
@@ -145,7 +145,7 @@ function OverviewVisual() {
             <motion.span
               animate={{ opacity: [1, 0.3, 1] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className={`w-1.5 h-1.5 rounded-full ${item.color === "red" ? "bg-red-500" : "bg-brand"}`}
+              className={`size-1.5 rounded-full ${item.color === "red" ? "bg-red-500" : "bg-brand"}`}
             />
             <span className={`text-[10px] font-bold ${item.color === "red" ? "text-red-500" : "text-brand"}`}>
               {item.subject}
@@ -174,12 +174,12 @@ function CommunicationVisual() {
       <div className="w-[48px] bg-[#FAFAFA] border-r border-black/[0.05] flex flex-col items-center py-3 gap-2">
         {["10", "11", "T", "SC"].map((w, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.08 }}
             whileHover={{ scale: 1.1 }}
-            className={`w-9 h-9 rounded-xl flex items-center justify-center text-[10px] font-bold cursor-pointer transition-all ${
+            className={`size-9 rounded-xl flex items-center justify-center text-[10px] font-bold cursor-pointer transition-all ${
               i === 0 ? "bg-brand text-white shadow-lg shadow-brand/30" : "bg-black/[0.05] text-brand-ink/40 hover:bg-black/10"
             }`}
           >
@@ -192,7 +192,7 @@ function CommunicationVisual() {
         <div className="text-xs font-bold text-brand-ink mb-3">Class 10</div>
         {["10A", "10B", "General", "Science"].map((c, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 + i * 0.07 }}
@@ -208,7 +208,7 @@ function CommunicationVisual() {
       <div className="flex-1 p-4 flex flex-col justify-end gap-3 overflow-hidden">
         {messages.map((m, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, y: 12, x: -6 }}
             animate={{ opacity: 1, y: 0, x: 0 }}
             transition={{ delay: m.delay, ease: [0.22, 1, 0.36, 1], duration: 0.5 }}
@@ -218,7 +218,7 @@ function CommunicationVisual() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: m.delay, type: "spring", stiffness: 260, damping: 20 }}
-              className="w-7 h-7 rounded-full bg-brand/[0.08] flex-shrink-0"
+              className="size-7 rounded-full bg-brand/[0.08] flex-shrink-0"
             />
             <div className="rounded-2xl rounded-tl-md bg-black/[0.03] px-4 py-2.5 text-xs text-brand-ink leading-relaxed max-w-[85%]">
               {m.text}
@@ -232,14 +232,14 @@ function CommunicationVisual() {
           transition={{ delay: 1.6 }}
           className="flex gap-2 items-center"
         >
-          <div className="w-7 h-7 rounded-full bg-brand/[0.08]" />
+          <div className="size-7 rounded-full bg-brand/[0.08]" />
           <div className="rounded-2xl rounded-tl-md bg-black/[0.03] px-4 py-2.5 flex gap-1 items-center">
             {[0, 1, 2].map((i) => (
               <motion.span
-                key={i}
+                key={`item-${i}`}
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.15 }}
-                className="w-1.5 h-1.5 rounded-full bg-brand-ink/25"
+                className="size-1.5 rounded-full bg-brand-ink/25"
               />
             ))}
           </div>
@@ -273,16 +273,16 @@ function ClassesVisual() {
         <motion.div
           animate={{ x: [0, 20, 0], y: [0, -15, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-40 h-40 bg-brand/20 rounded-full blur-3xl"
+          className="absolute top-1/4 left-1/4 size-40 bg-brand/20 rounded-full blur-3xl"
         />
         {/* Teacher */}
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
           <motion.div
             animate={{ scale: [1, 1.04, 1] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="w-16 h-16 rounded-full border-2 border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-md"
+            className="size-16 rounded-full border-2 border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-md"
           >
-            <Users className="w-7 h-7 text-white/70" />
+            <Users className="size-7 text-white/70" />
           </motion.div>
           <span className="text-white/50 text-[10px] font-bold tracking-widest uppercase">
             Dr. Satish Kumar
@@ -294,7 +294,7 @@ function ClassesVisual() {
             <motion.span
               animate={{ opacity: [1, 0, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
-              className="w-1.5 h-1.5 rounded-full bg-white"
+              className="size-1.5 rounded-full bg-white"
             />
             <span className="text-[9px] font-bold text-white">LIVE</span>
           </div>
@@ -309,12 +309,12 @@ function ClassesVisual() {
             <div className="text-white/50 text-[10px] mt-0.5">Class 12-B · Science</div>
           </div>
           <div className="flex gap-1.5">
-            {[<Mic key="mic" className="w-3 h-3" />, <Monitor key="monitor" className="w-3 h-3" />, <PhoneCall key="phone" className="w-3 h-3" />].map(
+            {[<Mic key="mic" className="size-3" />, <Monitor key="monitor" className="size-3" />, <PhoneCall key="phone" className="size-3" />].map(
               (icon, i) => (
                 <motion.div
-                  key={i}
+                  key={`item-${i}`}
                   whileHover={{ scale: 1.15, backgroundColor: "rgba(255,255,255,0.2)" }}
-                  className="w-7 h-7 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center text-white/60 cursor-pointer backdrop-blur-md"
+                  className="size-7 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center text-white/60 cursor-pointer backdrop-blur-md"
                 >
                   {icon}
                 </motion.div>
@@ -331,7 +331,7 @@ function ClassesVisual() {
         <div className="flex-1 space-y-1.5 overflow-hidden">
           {participants.map((p, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -342,7 +342,7 @@ function ClassesVisual() {
               <motion.div
                 animate={p.mic ? { scale: [1, 1.3, 1] } : {}}
                 transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-                className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${p.mic ? "bg-green-500" : "bg-brand-ink/15"}`}
+                className={`size-1.5 rounded-full flex-shrink-0 ${p.mic ? "bg-green-500" : "bg-brand-ink/15"}`}
               />
             </motion.div>
           ))}
@@ -378,7 +378,7 @@ function MeetingsVisual() {
         </div>
         {meetings.map((m, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -402,22 +402,22 @@ function MeetingsVisual() {
             <motion.span
               animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-2 h-2 rounded-full bg-green-500"
+              className="size-2 rounded-full bg-green-500"
             />
             <span className="text-sm font-bold text-brand-ink">Weekly Faculty Sync</span>
           </div>
           <div className="flex -space-x-2">
             {["#6063EE", "#A855F7", "#22C55E", "#F59E0B", "#3B82F6"].map((c, i) => (
               <motion.div
-                key={i}
+                key={`item-${i}`}
                 initial={{ opacity: 0, x: 8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 + i * 0.06 }}
-                className="w-6 h-6 rounded-full border-2 border-white"
+                className="size-6 rounded-full border-2 border-white"
                 style={{ background: c }}
               />
             ))}
-            <div className="w-6 h-6 rounded-full border-2 border-white bg-black/[0.05] flex items-center justify-center text-[8px] text-brand-muted">
+            <div className="size-6 rounded-full border-2 border-white bg-black/[0.05] flex items-center justify-center text-[8px] text-brand-muted">
               +8
             </div>
           </div>
@@ -433,8 +433,8 @@ function MeetingsVisual() {
             transition={{ duration: 4, repeat: Infinity }}
             className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent"
           />
-          <div className="w-10 h-10 rounded-xl bg-brand/[0.08] flex items-center justify-center">
-            <Monitor className="w-4 h-4 text-brand" />
+          <div className="size-10 rounded-xl bg-brand/[0.08] flex items-center justify-center">
+            <Monitor className="size-4 text-brand" />
           </div>
           <div className="text-[11px] text-brand-ink/60 font-semibold">Screen Sharing Active</div>
           <div className="text-[10px] text-brand-muted italic">"Reviewing Q3 Academic Progress"</div>
@@ -445,13 +445,13 @@ function MeetingsVisual() {
             whileTap={{ scale: 0.98 }}
             className="h-9 flex-1 rounded-xl bg-brand text-white text-[11px] font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-lg shadow-brand/20"
           >
-            <PhoneCall className="w-3.5 h-3.5" /> Join Audio
+            <PhoneCall className="size-3.5" /> Join Audio
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.05, backgroundColor: "rgba(0,0,0,0.07)" }}
             className="h-9 w-10 rounded-xl bg-black/[0.04] flex items-center justify-center cursor-pointer"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-ink/20" />
+            <span className="size-1.5 rounded-full bg-brand-ink/20" />
           </motion.div>
         </div>
       </div>
@@ -497,7 +497,7 @@ function WebinarsVisual() {
           </div>
           <div className="mt-2 flex items-center gap-3">
             <div className="flex items-center gap-1.5 text-white/80 text-[10px]">
-              <Users className="w-3 h-3" /> 1,240 Registered
+              <Users className="size-3" /> 1,240 Registered
             </div>
             <motion.div
               animate={{ opacity: [1, 0.6, 1] }}
@@ -520,7 +520,7 @@ function WebinarsVisual() {
         >
           <div className="text-xs font-bold text-brand-ink mb-4">Registration Stats</div>
           {statBars.map((s, i) => (
-            <div key={i} className="mb-3">
+            <div key={`item-${i}`} className="mb-3">
               <div className="flex justify-between text-[9px] mb-1">
                 <span className="text-brand-muted">{s.label}</span>
                 <span className="font-bold text-brand-ink">{s.val.toLocaleString()}</span>
@@ -547,7 +547,7 @@ function WebinarsVisual() {
           <div className="flex-1 space-y-2 overflow-hidden">
             {qaItems.map((q, i) => (
               <motion.div
-                key={i}
+                key={`item-${i}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + i * 0.15 }}
@@ -563,9 +563,9 @@ function WebinarsVisual() {
             <motion.div
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-5 h-5 rounded-full bg-brand/10 flex items-center justify-center"
+              className="size-5 rounded-full bg-brand/10 flex items-center justify-center"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-brand" />
+              <span className="size-1.5 rounded-full bg-brand" />
             </motion.div>
           </div>
         </motion.div>
@@ -586,7 +586,7 @@ function InstitutionVisual() {
         <div className="text-sm font-bold text-brand-ink mb-3">Directory</div>
         {departments.map((d, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.09 }}
@@ -620,9 +620,9 @@ function InstitutionVisual() {
         <div className="flex items-center gap-4 mb-5">
           <motion.div
             whileHover={{ scale: 1.05, rotate: 2 }}
-            className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand/10 to-brand/25 border border-brand/10 flex items-center justify-center"
+            className="size-14 rounded-2xl bg-gradient-to-br from-brand/10 to-brand/25 border border-brand/10 flex items-center justify-center"
           >
-            <Users className="w-7 h-7 text-brand" />
+            <Users className="size-7 text-brand" />
           </motion.div>
           <div>
             <div className="text-base font-bold text-brand-ink">Dr. Ananya Sharma</div>
@@ -643,7 +643,7 @@ function InstitutionVisual() {
             { label: "Working Hours", val: "9:00 AM – 5:00 PM" },
           ].map((info, i) => (
             <motion.div
-              key={i}
+              key={`item-${i}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 + i * 0.08 }}
@@ -660,13 +660,13 @@ function InstitutionVisual() {
             whileTap={{ scale: 0.97 }}
             className="h-10 flex-1 rounded-xl bg-brand/[0.07] border border-brand/15 flex items-center justify-center text-[11px] font-bold text-brand cursor-pointer gap-1.5"
           >
-            <MessageSquare className="w-3.5 h-3.5" /> Message Admin
+            <MessageSquare className="size-3.5" /> Message Admin
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="h-10 w-12 rounded-xl bg-black/[0.04] flex items-center justify-center cursor-pointer"
           >
-            <Bell className="w-4 h-4 text-brand-ink/30" />
+            <Bell className="size-4 text-brand-ink/30" />
           </motion.div>
         </div>
       </motion.div>
@@ -687,11 +687,11 @@ function EventsVisual() {
         <div className="flex items-center justify-between mb-3">
           <div className="text-sm font-bold text-brand-ink">October 2026</div>
           <div className="flex gap-1">
-            {[<ChevronLeft key="left" className="w-3 h-3" />, <ChevronRight key="right" className="w-3 h-3" />].map((icon, i) => (
+            {[<ChevronLeft key="left" className="size-3" />, <ChevronRight key="right" className="size-3" />].map((icon, i) => (
               <motion.div
-                key={i}
+                key={`item-${i}`}
                 whileHover={{ scale: 1.15, backgroundColor: "rgba(96,99,238,0.1)" }}
-                className="w-5 h-5 rounded-md bg-black/[0.04] flex items-center justify-center text-brand-ink/50 cursor-pointer"
+                className="size-5 rounded-md bg-black/[0.04] flex items-center justify-center text-brand-ink/50 cursor-pointer"
               >
                 {icon}
               </motion.div>
@@ -701,7 +701,7 @@ function EventsVisual() {
         <div className="flex-1">
           <div className="grid grid-cols-7 mb-1">
             {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
-              <div key={i} className="text-[9px] font-bold text-brand-muted text-center py-1">{d}</div>
+              <div key={`item-${i}`} className="text-[9px] font-bold text-brand-muted text-center py-1">{d}</div>
             ))}
           </div>
           <div className="grid grid-cols-7 gap-1">
@@ -722,11 +722,11 @@ function EventsVisual() {
                   <motion.div
                     animate={{ scale: [1, 1.4, 1] }}
                     transition={{ duration: 2, repeat: Infinity, delay: d * 0.1 }}
-                    className="absolute bottom-0.5 w-1 h-1 rounded-full bg-brand"
+                    className="absolute bottom-0.5 size-1 rounded-full bg-brand"
                   />
                 )}
                 {d === today && (
-                  <div className="absolute bottom-0.5 w-1 h-1 rounded-full bg-white/80" />
+                  <div className="absolute bottom-0.5 size-1 rounded-full bg-white/80" />
                 )}
               </motion.div>
             ))}
@@ -748,7 +748,7 @@ function EventsVisual() {
             whileHover={{ y: -2 }}
             className="p-3 rounded-2xl bg-white border border-black/[0.04] shadow-sm cursor-pointer"
           >
-            <div className="w-7 h-7 rounded-xl bg-amber-500/10 flex items-center justify-center mb-2 text-base">
+            <div className="size-7 rounded-xl bg-amber-500/10 flex items-center justify-center mb-2 text-base">
               🏆
             </div>
             <div className="text-xs font-bold text-brand-ink mb-1">Annual Sports Meet</div>
@@ -796,7 +796,7 @@ function NoticesVisual() {
       <div className="flex-1 grid grid-cols-3 gap-3">
         {notices.map((n, i) => (
           <motion.div
-            key={i}
+            key={`item-${i}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -818,9 +818,9 @@ function NoticesVisual() {
               </span>
               <motion.div
                 whileHover={{ x: 3 }}
-                className="w-5 h-5 rounded-lg bg-black/[0.04] flex items-center justify-center"
+                className="size-5 rounded-lg bg-black/[0.04] flex items-center justify-center"
               >
-                <ArrowRight className="w-2.5 h-2.5 text-brand-ink/30" />
+                <ArrowRight className="size-2.5 text-brand-ink/30" />
               </motion.div>
             </div>
           </motion.div>
@@ -836,7 +836,7 @@ function NoticesVisual() {
           <motion.div
             animate={{ opacity: [1, 0.3, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-1.5 rounded-full bg-brand"
+            className="size-1.5 rounded-full bg-brand"
           />
           <span className="text-[10px] font-medium text-brand-ink/60">
             Pinned: Transport route update for Sector 4 residents…
@@ -857,14 +857,14 @@ function DashboardMock() {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   const navItems = [
-    { icon: <BookOpen className="w-3.5 h-3.5" />, label: "Overview" },
-    { icon: <MessageSquare className="w-3.5 h-3.5" />, label: "Communication" },
-    { icon: <Video className="w-3.5 h-3.5" />, label: "Online Classes" },
-    { icon: <User className="w-3.5 h-3.5" />, label: "Meetings" },
-    { icon: <Presentation className="w-3.5 h-3.5" />, label: "Webinars" },
-    { icon: <Users className="w-3.5 h-3.5" />, label: "Institution" },
-    { icon: <CalendarDays className="w-3.5 h-3.5" />, label: "Events" },
-    { icon: <Bell className="w-3.5 h-3.5" />, label: "Notices" },
+    { icon: <BookOpen className="size-3.5" />, label: "Overview" },
+    { icon: <MessageSquare className="size-3.5" />, label: "Communication" },
+    { icon: <Video className="size-3.5" />, label: "Online Classes" },
+    { icon: <User className="size-3.5" />, label: "Meetings" },
+    { icon: <Presentation className="size-3.5" />, label: "Webinars" },
+    { icon: <Users className="size-3.5" />, label: "Institution" },
+    { icon: <CalendarDays className="size-3.5" />, label: "Events" },
+    { icon: <Bell className="size-3.5" />, label: "Notices" },
   ];
 
   const handleNav = (label: string) => {
@@ -909,7 +909,7 @@ function DashboardMock() {
             const isActive = activeSection === item.label;
             return (
               <motion.button
-                key={i}
+                key={`item-${i}`}
                 onClick={() => handleNav(item.label)}
                 whileHover={{ x: 2 }}
                 whileTap={{ scale: 0.97 }}
@@ -1122,7 +1122,7 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <Badge variant="brand" className="mb-3 gap-2 py-1 px-4">
-            <Zap className="w-3 h-3 fill-brand text-brand" />
+            <Zap className="size-3 fill-brand text-brand" />
             v1.0.1 Live Now
           </Badge>
         </motion.div>
@@ -1130,7 +1130,7 @@ export default function Hero() {
         {/* Headline */}
         <h1 className="font-display text-[clamp(2.6rem,6vw,5.2rem)] font-extrabold leading-[1.04] tracking-[-0.04em] text-brand-ink max-w-[900px]">
           {["Every school.", "Connected Through", "One Platform."].map((word, i) => (
-            <span key={i} className="inline-block overflow-hidden mr-3">
+            <span key={`item-${i}`} className="inline-block overflow-hidden mr-3">
               <motion.span
                 className={`inline-block ${i >= 1 ? "gradient-text-brand" : ""}`}
                 initial={{ y: 56, opacity: 0 }}
@@ -1169,7 +1169,7 @@ export default function Hero() {
     className="gap-2 shadow-[0_4px_24px_rgba(96,99,238,0.35)] hover:shadow-[0_8px_36px_rgba(96,99,238,0.45)]"
   >
     Request Live Demo
-    <ArrowRight className="w-4 h-4" />
+    <ArrowRight className="size-4" />
   </Button>
 </Link>
           </motion.div>
@@ -1188,7 +1188,7 @@ export default function Hero() {
               }
             }}
             variant="outline" size="lg" className="gap-2">
-              <Video className="w-4 h-4 text-brand" /> Explore Platform
+              <Video className="size-4 text-brand" /> Explore Platform
             </Button>
           </motion.div>
         </motion.div>
@@ -1203,11 +1203,11 @@ export default function Hero() {
           <div className="flex -space-x-2">
             {["#6063EE", "#A855F7", "#22C55E", "#F59E0B"].map((c, i) => (
               <motion.div
-                key={i}
+                key={`item-${i}`}
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.4 + i * 0.07 }}
-                className="w-7 h-7 rounded-full border-2 border-white"
+                className="size-7 rounded-full border-2 border-white"
                 style={{ background: c }}
               />
             ))}
@@ -1235,8 +1235,8 @@ export default function Hero() {
           {/* Floating card — Live class */}
           <div className="float-card absolute -top-5 -left-4 md:-left-10 hidden md:block z-20">
             <FloatingCard className="flex items-center gap-3" delay={2}>
-              <div className="w-9 h-9 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                <Video className="w-4 h-4 text-red-500" />
+              <div className="size-9 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                <Video className="size-4 text-red-500" />
               </div>
               <div>
                 <div className="text-[11px] font-semibold text-brand-ink font-body">Online Session Active</div>
@@ -1245,7 +1245,7 @@ export default function Hero() {
               <motion.span
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 1, repeat: Infinity }}
-                className="w-2 h-2 rounded-full bg-red-500 ml-1 flex-shrink-0"
+                className="size-2 rounded-full bg-red-500 ml-1 flex-shrink-0"
               />
             </FloatingCard>
           </div>
@@ -1253,7 +1253,7 @@ export default function Hero() {
           {/* Floating card — Message */}
           <div className="float-card absolute top-10 -right-4 md:-right-12 hidden md:block z-20">
             <FloatingCard className="flex items-center gap-3 max-w-[220px]" delay={2.15}>
-              <div className="w-9 h-9 rounded-full mock-avatar flex-shrink-0 bg-brand/10" />
+              <div className="size-9 rounded-full mock-avatar flex-shrink-0 bg-brand/10" />
               <div className="min-w-0">
                 <div className="text-[11px] font-semibold text-brand-ink font-body">Administrative Notice</div>
                 <div className="text-[10px] text-brand-muted font-body truncate">Transport schedule updated…</div>
@@ -1264,8 +1264,8 @@ export default function Hero() {
           {/* Floating card — Attendance */}
           <div className="float-card absolute -bottom-5 right-8 md:right-20 hidden md:block z-20">
             <FloatingCard className="flex items-center gap-3" delay={2.3}>
-              <div className="w-9 h-9 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">
-                <Users className="w-4 h-4 text-brand" />
+              <div className="size-9 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">
+                <Users className="size-4 text-brand" />
               </div>
               <div>
                 <div className="text-[11px] font-semibold text-brand-ink font-body">Attendance Today</div>
@@ -1277,8 +1277,8 @@ export default function Hero() {
           {/* Floating card — Webinar */}
           <div className="float-card absolute top-[45%] -left-4 md:-left-14 hidden lg:block z-20">
             <FloatingCard className="flex items-center gap-3" delay={2.45}>
-              <div className="w-9 h-9 rounded-xl bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                <Presentation className="w-4 h-4 text-purple-500" />
+              <div className="size-9 rounded-xl bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                <Presentation className="size-4 text-purple-500" />
               </div>
               <div>
                 <div className="text-[11px] font-semibold text-brand-ink font-body">Upcoming Webinar</div>

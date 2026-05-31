@@ -67,7 +67,7 @@ export default function WorkflowBento() {
           <div className="relative z-[2] grid grid-cols-1 md:grid-cols-2 gap-5">
             {steps.map((s, i) => (
               <motion.div
-                key={i}
+                key={`item-${i}`}
                 initial={{ opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.75, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
@@ -85,7 +85,7 @@ export default function WorkflowBento() {
 
               <div className="flex items-start justify-between">
                 <span className="badge badge-brand text-[10px]">{s.badge}</span>
-                <CheckCircle2 className="w-5 h-5 text-green-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CheckCircle2 className="size-5 text-green-500 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
 
               <div>
@@ -100,7 +100,7 @@ export default function WorkflowBento() {
 
                 <div className="mt-auto flex items-center gap-1 text-xs text-brand font-medium font-body group-hover:gap-2 transition-all relative z-10">
                   <span>Learn more</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="size-3.5" />
                 </div>
               </motion.div>
             ))}
@@ -126,7 +126,7 @@ export default function WorkflowBento() {
           className="text-center mt-14"
         >
           <Link href="/contact?scroll=inquiry" className="btn btn-dark inline-flex gap-2 text-sm">
-            Schedule a School Demo <ArrowRight className="w-4 h-4" />
+            Schedule a School Demo <ArrowRight className="size-4" />
           </Link>
         </motion.div>
       </div>

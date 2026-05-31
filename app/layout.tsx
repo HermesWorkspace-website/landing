@@ -34,13 +34,13 @@ export const metadata: Metadata = {
     type: "website", locale: "en_IN", url: BASE_URL, siteName: "HermesWorkspace",
     title: "HermesWorkspace — Every school. One platform.",
     description: "India's unified school platform for communication, live classes, meetings, notices, and academic coordination.",
-    images: [{ url: `${BASE_URL}/opengraph-image`, width: 1200, height: 630, alt: "HermesWorkspace — Every school. One platform." }],
+    images: [{ url: `${BASE_URL}/opengraph-image?v=3`, width: 1200, height: 630, alt: "HermesWorkspace — Every school. One platform." }],
   },
   twitter: {
     card: "summary_large_image", site: "@hermesworkspace", creator: "@hermesworkspace",
     title: "HermesWorkspace — Every school. One platform.",
     description: "India's all-in-one school platform: live classes, messaging, notices, meetings & more.",
-    images: [`${BASE_URL}/opengraph-image`],
+    images: [`${BASE_URL}/opengraph-image?v=3`],
   },
   applicationName: "HermesWorkspace",
   appleWebApp: { capable: true, title: "HermesWorkspace", statusBarStyle: "default" },
@@ -85,7 +85,7 @@ const softwareApplicationSchema = {
   offers: { "@type": "Offer", price: "0", priceCurrency: "INR", description: "Free demo available for qualifying institutions." },
   publisher: { "@id": `${BASE_URL}/#organization` },
   featureList: ["Live HD video classes", "Institutional messaging and channels", "Digital notice board with delivery tracking", "Parent-teacher communication", "Meeting and webinar scheduler", "Role-based access control", "School-wide analytics dashboard", "CBSE/ICSE/State Board compatible"],
-  screenshot: `${BASE_URL}/opengraph-image`,
+  screenshot: `${BASE_URL}/opengraph-image?v=3`,
   aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", ratingCount: "47", bestRating: "5" },
 };
 

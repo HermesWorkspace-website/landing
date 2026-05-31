@@ -248,8 +248,8 @@ export default function Footer() {
       </div>
 
       {/* ─── Divider ──────────────────────────────────────── */}
-      <div className="container-page">
-        <div className="h-px bg-white/[0.06]" />
+      <div className="container-page ">
+        <div className="h-px my-4 bg-white/[0.06]" />
       </div>
 
       {/* ─── Bottom bar ───────────────────────────────────── */}

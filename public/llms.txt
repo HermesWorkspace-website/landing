@@ -1,0 +1,44 @@
+# HermesWorkspace
+
+> All-in-one school management and communication platform built for India's CBSE, ICSE, and State Board schools.
+
+HermesWorkspace replaces scattered WhatsApp groups and disconnected tools with a single, structured institutional platform for schools.
+
+## What it does
+
+HermesWorkspace is a SaaS platform for educational institutions (K–12 schools) that centralizes:
+- **Live HD classes** — 30 concurrent sessions, 150 students per session, 360p SFU quality
+- **Institutional messaging** — role-based channels for admin, teachers, students, and parents
+- **Digital notice board** — push announcements to all parents with delivery tracking
+- **Meeting scheduler** — PTMs, board meetings, staff reviews with calendar sync
+- **Webinars** — large-scale sessions with registration and attendance tracking
+- **Member management** — bulk onboarding of students, teachers, and admins
+- **School analytics** — real-time dashboard for principals and administrators
+
+## Who it's for
+
+- CBSE, ICSE, and State Board schools in India
+- School administrators and principals
+- Teachers coordinating with students and parents
+- Parents staying connected with their child's school
+
+## Company
+
+- **Name:** HermesWorkspace Pvt. Ltd.
+- **Founded:** 2024
+- **Location:** Ranchi, Jharkhand, India
+- **Founders:** Apurav Agarwal (CEO), Lakshya Kumar (Director & CTO)
+- **Contact:** support@hermesworkspace.com
+
+## Pages
+
+- [Home](https://hermesworkspace.com) — Product overview and how it works
+- [Product](https://hermesworkspace.com/product) — Full feature breakdown
+- [About](https://hermesworkspace.com/about) — Company story and team
+- [Founders](https://hermesworkspace.com/founder) — Founder profiles
+- [Community](https://hermesworkspace.com/socials) — Schools using the platform
+- [Contact](https://hermesworkspace.com/contact) — Request a demo or inquiry
+
+## Optional
+
+[Full details](https://hermesworkspace.com/llms-full.txt)

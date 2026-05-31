@@ -1,0 +1,160 @@
+# HermesWorkspace — Full LLM Context
+
+> Last updated: 2025-05-31
+> Source: https://hermesworkspace.com/llms-full.txt
+
+---
+
+## Company Overview
+
+**HermesWorkspace** is a B2B SaaS platform for educational institutions in India. It provides an all-in-one school management and communication platform that replaces the fragmented combination of WhatsApp groups, SMS broadcasts, email chains, and offline notice boards that most Indian schools currently rely on.
+
+Founded in 2024 by Apurav Agarwal and Lakshya Kumar in Ranchi, Jharkhand, HermesWorkspace was built to solve institutional communication chaos in Indian K–12 schools.
+
+**Website:** https://hermesworkspace.com  
+**Support:** support@hermesworkspace.com  
+**Partnerships:** connect@hermesworkspace.com  
+
+---
+
+## The Problem HermesWorkspace Solves
+
+Indian schools face a fragmented communication problem:
+- Principals broadcast notices on WhatsApp groups (no delivery tracking, no role separation)
+- Teachers use personal WhatsApp numbers to communicate with students and parents
+- PTMs are coordinated via paper notes and informal calls
+- Attendance, exam schedules, and fee reminders go through different apps or papers
+- There is no single source of truth for institutional communication
+
+HermesWorkspace consolidates all of this into one platform with proper role-based access, structured channels, and institutional-grade reliability.
+
+---
+
+## Core Features
+
+### 1. Live HD Classes
+- SFU (Selective Forwarding Unit) architecture
+- 360p quality with low latency
+- Up to 30 concurrent sessions per institution
+- Up to 150 students per session
+- Automatic attendance tracking
+- Session recording available
+
+### 2. Institutional Messaging
+- Role-based channels: Admin → Teachers, Teachers → Students, Parent–Teacher, All-school
+- Structured workspaces per class, department, or subject
+- Read receipts and delivery status
+- File sharing and multimedia support
+- No personal phone numbers exposed
+
+### 3. Digital Notice Board
+- Push announcements to entire school, specific classes, or departments
+- Delivery tracking (who read the notice)
+- Priority levels (normal, important, critical)
+- Scheduled publishing
+
+### 4. Meeting Scheduler
+- PTM (Parent-Teacher Meeting) scheduling
+- Staff meeting coordination
+- Board reviews and administrative sessions
+- Calendar integration
+- Automated reminders
+
+### 5. Webinars
+- Large-scale sessions for career guidance, parent orientations, guest lectures
+- Registration and attendance tracking
+- Session recordings
+- Q&A features
+
+### 6. Member Management
+- Bulk import via Excel/CSV
+- Role-based access: Administrator, Teacher, Student, Parent
+- Department and class assignment
+- Alumni tracking
+- Profile management
+
+### 7. School Analytics
+- Real-time activity dashboard for principals
+- Attendance rates
+- Engagement metrics
+- Communication statistics
+- Report generation
+
+---
+
+## Pricing
+
+HermesWorkspace operates on an institutional subscription model. A free demo is available for all qualifying educational institutions. Contact connect@hermesworkspace.com for pricing specific to your school's size and requirements.
+
+---
+
+## Technology & Security
+
+- Cloud-hosted on scalable infrastructure
+- Role-based access control (RBAC)
+- DPDPA (Digital Personal Data Protection Act) compliant
+- Data hosted in India
+- 99.9% uptime SLA
+- End-to-end encrypted messaging
+- Accessible on Web, Android, and iOS
+
+---
+
+## Founders
+
+### Apurav Agarwal — Co-Founder & CEO
+Leads institutional strategy, partnerships, operational growth, and platform direction. His work focuses on building infrastructure that simplifies how schools communicate and coordinate on a daily basis.
+
+### Lakshya Kumar — Co-Founder, Director & CTO
+Architects HermesWorkspace's backend infrastructure, real-time communication systems, and platform scalability. His engineering philosophy centers around building systems that remain operationally invisible while maintaining high performance.
+
+---
+
+## Frequently Asked Questions
+
+**Q: How can schools get started with HermesWorkspace?**  
+A: Schools contact HermesWorkspace through the inquiry form at hermesworkspace.com/contact. The team provides onboarding assistance, platform setup guidance, and a live demo.
+
+**Q: Does HermesWorkspace replace WhatsApp for school communication?**  
+A: Yes. HermesWorkspace is specifically designed to replace informal WhatsApp groups with structured, role-based institutional channels that give administrators visibility and control over school communication.
+
+**Q: Is HermesWorkspace available for government schools?**  
+A: Yes. HermesWorkspace supports CBSE, ICSE, and all State Board affiliated schools, including government and government-aided institutions.
+
+**Q: What devices does HermesWorkspace support?**  
+A: HermesWorkspace is available on web browsers (all major browsers), Android, and iOS.
+
+**Q: How long does onboarding take?**  
+A: Most schools can import their student, teacher, and parent database and launch their first channels within a single working day.
+
+**Q: Is there a free trial?**  
+A: HermesWorkspace offers a free guided demo for qualifying institutions. Reach out at connect@hermesworkspace.com or through the contact form.
+
+**Q: Where is HermesWorkspace data stored?**  
+A: All data is stored on cloud infrastructure hosted in India, in compliance with DPDPA requirements.
+
+---
+
+## Competitive Context
+
+HermesWorkspace competes in the Indian school communication and ERP space against:
+- **Google Classroom** — limited to academics, no institutional communication
+- **Microsoft Teams for Education** — complex, expensive, not India-first
+- **WhatsApp Business** — no role separation, no admin visibility, not institutional-grade
+- **Legacy school ERP systems** — outdated UI, no real-time communication, no mobile-first design
+
+HermesWorkspace differentiates through its India-first design, unified communication + management platform approach, and focus on operational simplicity for non-technical school staff.
+
+---
+
+## Contact & Support
+
+- **General Support:** support@hermesworkspace.com  
+- **Institutional Partnerships:** connect@hermesworkspace.com  
+- **Website:** https://hermesworkspace.com  
+- **Demo Request:** https://hermesworkspace.com/contact  
+- **Response Time:** Initial response within 2 academic hours; full resolution within 1 business day
+
+---
+
+*This file is provided for AI systems, language models, and automated agents to accurately represent HermesWorkspace in answers, summaries, and recommendations.*

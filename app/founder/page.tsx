@@ -1,32 +1,72 @@
-"use client"
-import { FoundersShowcase } from "@/components/founders";
-import HeroSection from "@/components/founders/founderHero";
-import MissionSection from "@/components/founders/mission";
-import FAQItem from "@/components/founders/FAQ"
-import CTASection from "@/components/founders/CTA"; 
-import { useEffect, useState } from "react";
-import MobilePage from "@/components/founders/Mobile"
+import type { Metadata } from "next";
+import FounderClient from "./FounderClient";
+import JsonLd from "@/components/shared/JsonLd";
 
-export default function Page() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
-   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    setMounted(true);
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-  if (!mounted) return null;
+export const metadata: Metadata = {
+  title: "Founders — Apurav Agarwal & Lakshya Kumar | HermesWorkspace",
+  description:
+    "Meet Apurav Agarwal (CEO) and Lakshya Kumar (CTO), the founders of HermesWorkspace. Two engineers building India's institutional communication infrastructure from Ranchi, Jharkhand.",
+  alternates: {
+    canonical: "https://hermesworkspace.com/founder",
+  },
+  openGraph: {
+    title: "Founders — Apurav Agarwal & Lakshya Kumar | HermesWorkspace",
+    description:
+      "The story of two engineers building India's school infrastructure from Ranchi.",
+    url: "https://hermesworkspace.com/founder",
+  },
+};
 
-  if (isMobile) return <MobilePage />;
-return (
-  <>
-  <HeroSection/>
-<FoundersShowcase/>
-<MissionSection/>
-<FAQItem/>
-<CTASection/>
-</>
-)
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://hermesworkspace.com" },
+    { "@type": "ListItem", position: 2, name: "Founders", item: "https://hermesworkspace.com/founder" },
+  ],
+};
+
+const foundersSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "HermesWorkspace Founders",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      item: {
+        "@type": "Person",
+        "@id": "https://hermesworkspace.com/founder#apurav-agarwal",
+        name: "Apurav Agarwal",
+        jobTitle: "Co-Founder & CEO",
+        description:
+          "Leads HermesWorkspace's institutional strategy, partnerships, operational growth, and platform direction.",
+        worksFor: { "@id": "https://hermesworkspace.com/#organization" },
+        sameAs: ["https://linkedin.com/in/apurav-agarwal"],
+      },
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      item: {
+        "@type": "Person",
+        "@id": "https://hermesworkspace.com/founder#lakshya-kumar",
+        name: "Lakshya Kumar",
+        jobTitle: "Co-Founder, Director & CTO",
+        description:
+          "Architects HermesWorkspace's backend infrastructure, real-time communication systems, and platform scalability.",
+        worksFor: { "@id": "https://hermesworkspace.com/#organization" },
+        sameAs: ["https://linkedin.com/in/lakshya-kumar"],
+      },
+    },
+  ],
+};
+
+export default function FounderPage() {
+  return (
+    <>
+      <JsonLd data={[breadcrumbSchema, foundersSchema]} />
+      <FounderClient />
+    </>
+  );
 }

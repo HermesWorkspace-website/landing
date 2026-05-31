@@ -1,42 +1,47 @@
+import type { Metadata } from "next";
+import AboutClient from "./AboutClient";
+import JsonLd from "@/components/shared/JsonLd";
 
-"use client";
-import MobileAbout from "@/components/about/Mobileabout";
-import Hero from "@/components/about/aboutHero";
-import OurStory from "@/components/about/OurStory";
-import Philosophy from "@/components/about/Philosophy";
-import Ecosystem from "@/components/about/Ecosystem";
-import LeadershipTeam from "@/components/about/LeadershipTeam";
-import Stats from "@/components/about/Stats";
-import FAQ from "@/components/about/FAQ";
-import CTA from "@/components/about/CTA";
-import { useEffect, useState } from "react";
+export const metadata: Metadata = {
+  title: "About HermesWorkspace — Building India's School Infrastructure",
+  description:
+    "Learn how HermesWorkspace was built to solve the communication chaos in Indian schools. Our story, our mission, and the team building the future of institutional infrastructure.",
+  alternates: {
+    canonical: "https://hermesworkspace.com/about",
+  },
+  openGraph: {
+    title: "About HermesWorkspace — Building India's School Infrastructure",
+    description:
+      "Our story, mission, philosophy, and the team behind HermesWorkspace — the platform replacing WhatsApp groups in Indian schools.",
+    url: "https://hermesworkspace.com/about",
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://hermesworkspace.com" },
+    { "@type": "ListItem", position: 2, name: "About", item: "https://hermesworkspace.com/about" },
+  ],
+};
+
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": "https://hermesworkspace.com/about#page",
+  url: "https://hermesworkspace.com/about",
+  name: "About HermesWorkspace",
+  description:
+    "HermesWorkspace was founded in Ranchi, Jharkhand to replace the fragmented WhatsApp-based communication in Indian schools with a structured, institutional-grade platform.",
+  publisher: { "@id": "https://hermesworkspace.com/#organization" },
+};
 
 export default function AboutPage() {
-   const [isMobile, setIsMobile] = useState(false);
-  const [ready, setReady] = useState(false);
- 
-  useEffect(() => {
-    // Mobile detection
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    setReady(true);
-    window.addEventListener("resize", check);
-
-    return () => window.removeEventListener("resize", check);
-  }, []);
-  if (!ready) return null;
- 
-  if (isMobile) return <MobileAbout />;
   return (
-    <main className="overflow-x-hidden">
-      <Hero />
-      <OurStory />
-      <Philosophy />
-      <Ecosystem />
-      <LeadershipTeam />
-      <Stats />
-      <FAQ />
-      <CTA />
-    </main>
+    <>
+      <JsonLd data={[breadcrumbSchema, aboutPageSchema]} />
+      <AboutClient />
+    </>
   );
 }

@@ -6,7 +6,7 @@ import { fadeUp, staggerContainer, slideRight } from "@/components/socials/motio
 import { ArrowRight, TrendingUp, Globe } from "lucide-react";
 import Link from "next/link";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 // Three.js floating particles background
 function ThreeCanvas() {
@@ -217,14 +217,14 @@ function AnalyticsCard() {
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F9F8FF] pt-16">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F9F8FF] pt-[96px] md:pt-[120px] pb-16 md:pb-24">
       <ThreeCanvas />
 
       {/* Gradient blobs */}
       <div className="absolute top-20 right-0 w-[600px] h-[600px] rounded-full bg-[#6B5CE7]/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#1A3FBE]/5 blur-3xl pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 container-page grid lg:grid-cols-2 gap-16 items-center w-full">
         {/* Left */}
         <motion.div
           variants={staggerContainer}
@@ -239,8 +239,7 @@ export function HeroSection() {
 
           <motion.h1
               variants={fadeUp}
-              className="text-[clamp(42px,6vw,68px)] font-black leading-[1.0] tracking-tight text-[#0D0D0F] mb-6"
-              style={{ fontFamily: "var(--font-playfair, serif)" }}
+              className="font-display text-[clamp(42px,6vw,68px)] font-black leading-[1.0] tracking-tight text-[#0D0D0F] mb-6"
             >
               Sharing the future
               <br />

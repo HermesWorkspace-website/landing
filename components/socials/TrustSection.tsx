@@ -79,7 +79,7 @@ export function TrustSection() {
 
   return (
     <section id="trust" className="py-28 bg-[#F9F8FF] overflow-hidden" ref={ref}>
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="container-page grid lg:grid-cols-2 gap-16 items-center">
         {/* Left: manifesto */}
         <motion.div
           variants={staggerContainer}

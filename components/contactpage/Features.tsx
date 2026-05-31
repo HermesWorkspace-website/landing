@@ -35,35 +35,7 @@ const featureCards: FeatureCard[] = [
   },
 ];
 
-function MarqueeBar() {
-  const items = [
-  "School Communication Infrastructure",
-  "Class & Section Based Channels",
-  "Meetings • Notices • Events",
-  "Built for Educational Institutions",
-  "Centralized Academic Operations",
-  "HermesWorkspace Platform",
-];
-  const doubled = [...items, ...items];
 
-  return (
-    <div
-      className="py-4 overflow-hidden border-y"
-      style={{ borderColor: "var(--ink-06)", background: "rgba(90,95,232,0.03)" }}
-    >
-      <div className="flex animate-marquee whitespace-nowrap" style={{ width: "max-content" }}>
-        {doubled.map((text, i) => (
-          <React.Fragment key={i}>
-            <span className="text-[11px] font-bold font-syne uppercase tracking-widest px-6" style={{ color: "var(--ink-35)" }}>
-              {text}
-            </span>
-            <span style={{ color: "var(--brand)" }} className="text-[8px]">◆</span>
-          </React.Fragment>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function Features() {
   const ref = useRef(null);
@@ -71,7 +43,6 @@ export default function Features() {
 
   return (
     <>
-      <MarqueeBar />
       <section ref={ref} id="features" className="max-w-7xl mx-auto px-6 py-24">
         <motion.div
           className="text-center mb-14"

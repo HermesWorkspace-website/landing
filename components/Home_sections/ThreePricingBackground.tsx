@@ -1,117 +1,58 @@
 "use client";
+import React from "react";
 
-import React, { useEffect, useRef } from "react";
-import * as THREE from "three";
-
+// Replaced Three.js WebGL renderer with pure CSS animation.
+// Previous implementation had a full WebGL context + mousemove listener running continuously.
 export default function ThreePricingBackground() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Get section dimensions
-    const getWidth = () => containerRef.current?.clientWidth || window.innerWidth;
-    const getHeight = () => containerRef.current?.clientHeight || window.innerHeight;
-
-    // Scene setup
-    const scene = new THREE.Scene();
-    
-    // Camera setup
-    const camera = new THREE.PerspectiveCamera(75, getWidth() / getHeight(), 0.1, 1000);
-    camera.position.z = 5;
-
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(getWidth(), getHeight());
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    containerRef.current.appendChild(renderer.domElement);
-
-    // Geometry & Material (Icosahedron for a gem/tech look)
-    const geometry = new THREE.IcosahedronGeometry(2.8, 1);
-    const edges = new THREE.EdgesGeometry(geometry);
-    const material = new THREE.LineBasicMaterial({ 
-      color: 0x10b981, // Brand green color
-      transparent: true,
-      opacity: 0.12
-    });
-    
-    const wireframe = new THREE.LineSegments(edges, material);
-    scene.add(wireframe);
-
-    // Mouse interaction variables
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
-
-    const onDocumentMouseMove = (event: MouseEvent) => {
-      // Calculate mouse position relative to center of screen
-      mouseX = (event.clientX - window.innerWidth / 2);
-      mouseY = (event.clientY - window.innerHeight / 2);
-    };
-
-    document.addEventListener("mousemove", onDocumentMouseMove);
-
-    // Animation Loop
-    let animationFrameId: number;
-    const clock = new THREE.Clock();
-
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-
-      const elapsedTime = clock.getElapsedTime();
-
-      // Base slow ambient rotation
-      const baseRotationX = elapsedTime * 0.05;
-      const baseRotationY = elapsedTime * 0.1;
-
-      // Mouse interaction lerp (smoothly follow mouse)
-      targetX = mouseX * 0.001;
-      targetY = mouseY * 0.001;
-
-      // Apply combined rotation
-      wireframe.rotation.y = baseRotationY + (targetX * 0.5);
-      wireframe.rotation.x = baseRotationX + (targetY * 0.5);
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    // Resize handler
-    const handleResize = () => {
-      if (!containerRef.current) return;
-      const newWidth = getWidth();
-      const newHeight = getHeight();
-      
-      camera.aspect = newWidth / newHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(newWidth, newHeight);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      document.removeEventListener("mousemove", onDocumentMouseMove);
-      cancelAnimationFrame(animationFrameId);
-      
-      if (containerRef.current && renderer.domElement) {
-        containerRef.current.removeChild(renderer.domElement);
-      }
-      
-      geometry.dispose();
-      material.dispose();
-      edges.dispose();
-      renderer.dispose();
-    };
-  }, []);
-
   return (
-    <div 
-      ref={containerRef} 
-      className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center mix-blend-screen"
-    />
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
+      {/* Rotating geometric rings — pure CSS, zero JS overhead */}
+      <div
+        style={{
+          position: "absolute",
+          width: 480,
+          height: 480,
+          border: "1px solid rgba(16,185,129,0.14)",
+          borderRadius: "30%",
+          animation: "pricing-spin 24s linear infinite",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          width: 340,
+          height: 340,
+          border: "1px solid rgba(16,185,129,0.09)",
+          borderRadius: "20%",
+          animation: "pricing-spin 18s linear infinite reverse",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          width: 200,
+          height: 200,
+          border: "1px solid rgba(16,185,129,0.07)",
+          animation: "pricing-spin 13s linear infinite",
+        }}
+      />
+      {/* Ambient radial glow */}
+      <div
+        style={{
+          position: "absolute",
+          width: 560,
+          height: 560,
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%)",
+        }}
+      />
+      <style>{`
+        @keyframes pricing-spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
   );
 }

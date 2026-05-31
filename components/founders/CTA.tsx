@@ -19,7 +19,7 @@ export default function CTASection() {
       ref={ref}
       id="cta"
       className="py-22"
-      style={{ fontFamily: "var(--font-body, 'Inter', sans-serif)" }}
+      style={{ fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)" }}
     >
       <div className="container-page">
         <motion.div

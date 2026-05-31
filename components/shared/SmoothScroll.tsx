@@ -54,7 +54,19 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     initGSAP();
 
+    const onScrollTo = (event: Event) => {
+      const { top, behavior } = (event as CustomEvent<{ top: number; behavior?: ScrollBehavior }>).detail;
+      if (behavior === "auto") {
+        lenis.scrollTo(top, { immediate: true });
+      } else {
+        lenis.scrollTo(top);
+      }
+    };
+
+    window.addEventListener("hermes:scroll-to", onScrollTo);
+
     return () => {
+      window.removeEventListener("hermes:scroll-to", onScrollTo);
       lenis.destroy();
       lenisRef.current = null;
     };

@@ -69,8 +69,8 @@ export default function Reliability() {
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
-    <section ref={sectionRef} className="bg-[#0A1628] py-16 sm:py-24 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
+    <section ref={sectionRef} className="bg-[#0A1628] py-16 sm:py-24">
+      <div className="container-page">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left */}
           <div>

@@ -31,7 +31,7 @@ export function FoundersShowcase() {
     <section id="founders">
       <div
         className="relative w-full h-screen overflow-hidden select-none"
-        style={{ background: "#ffffff", fontFamily: "'DM Sans', sans-serif" }}
+        style={{ background: "#ffffff", fontFamily: "'Plus Jakarta Sans', sans-serif" }}
       >
         {/* Main editorial grid */}
         <div
@@ -39,7 +39,7 @@ export function FoundersShowcase() {
           style={{ gridTemplateColumns: "1fr 300px 1fr" }}
         >
           {/* Left */}
-          <div className="overflow-hidden">
+          <div className="min-h-0 overflow-x-hidden overflow-y-auto">
             <LeftPanel founder={activeFounder} />
           </div>
 
@@ -47,7 +47,7 @@ export function FoundersShowcase() {
           <CenterPortrait founder={activeFounder} />
 
           {/* Right */}
-          <div className="overflow-hidden">
+          <div className="min-h-0 overflow-x-hidden overflow-y-auto">
             <RightPanel
               founder={activeFounder}
               nextFounder={nextFounder}

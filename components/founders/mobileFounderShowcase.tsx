@@ -12,6 +12,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Linkedin, Instagram } from "lucide-react";
 import { FOUNDERS } from "./founders-data";
+import { FounderPhoto } from "./FounderPhoto";
 
 // X icon (lucide doesn't have updated logo)
 function XIcon({ className }: { className?: string }) {
@@ -27,20 +28,6 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-// Background shapes per founder (mirrors FounderAvatar)
-const SHAPES = [
-  [
-    { cx: "50%", cy: "38%", r: 110, fill: "#EAE8FF" },
-    { cx: "60%", cy: "62%", r: 80, fill: "#D5D0FF" },
-    { cx: "30%", cy: "55%", r: 60, fill: "#F0EEFF" },
-  ],
-  [
-    { cx: "50%", cy: "38%", r: 110, fill: "#E6EDFF" },
-    { cx: "40%", cy: "65%", r: 80, fill: "#C9D7FF" },
-    { cx: "70%", cy: "50%", r: 60, fill: "#EEF2FF" },
-  ],
-];
-
 const AUTO_DURATION = 6000;
 
 export default function MobileFoundersShowcase() {
@@ -51,7 +38,6 @@ export default function MobileFoundersShowcase() {
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const founder = FOUNDERS[activeIndex];
-  const shapes = SHAPES[activeIndex] ?? SHAPES[0];
 
   const advance = useCallback(
     (dir: 1 | -1 = 1) => {
@@ -101,8 +87,8 @@ export default function MobileFoundersShowcase() {
       className="relative w-full overflow-hidden"
       style={{
         backgroundColor: "#ffffff",
-        fontFamily: "'DM Sans', sans-serif",
-        minHeight: "100svh",
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+        height: "100svh",
       }}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
@@ -115,7 +101,7 @@ export default function MobileFoundersShowcase() {
         />
         <span
           className="text-[10px] font-bold tracking-[0.2em] uppercase"
-          style={{ color: "#0D0D0F", fontFamily: "'DM Sans', sans-serif" }}
+          style={{ color: "#0D0D0F", fontFamily: "'Plus Jakarta Sans', sans-serif" }}
         >
           HermesWorkspace
         </span>
@@ -129,8 +115,7 @@ export default function MobileFoundersShowcase() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: direction > 0 ? -80 : 80 }}
           transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
-          className="flex flex-col items-center px-6 pt-20 pb-36"
-          style={{ minHeight: "100svh" }}
+          className="absolute inset-0 flex flex-col items-center overflow-x-hidden overflow-y-auto px-6 pt-20 pb-36"
         >
           {/* Founder index label */}
           <motion.p
@@ -146,69 +131,27 @@ export default function MobileFoundersShowcase() {
 
           {/* Portrait card */}
           <motion.div
-            initial={{ scale: 0.88, opacity: 0 }}
+            initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
-            className="relative mb-8 overflow-hidden rounded-2xl shadow-2xl"
-            style={{ width: 200, height: 260 }}
+            className="relative mb-8 w-full max-w-[220px] overflow-hidden rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
+            style={{ height: "34svh", maxHeight: 320 }}
           >
-            {/* Organic background shapes */}
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 200 260"
-              preserveAspectRatio="xMidYMid slice"
-            >
-              {shapes.map((s, i) => (
-                <motion.circle
-                  key={i}
-                  cx={s.cx}
-                  cy={s.cy}
-                  r={s.r}
-                  fill={s.fill}
-                  initial={{ scale: 0.7, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.15 + i * 0.1, duration: 0.6 }}
-                />
-              ))}
-            </svg>
-
-            {/* Initials circle */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div
-                className="w-28 h-28 rounded-full flex items-center justify-center shadow-xl"
-                style={{
-                  background: `linear-gradient(135deg, ${founder.accentColor}22 0%, ${founder.accentColor}44 100%)`,
-                  border: `2px solid ${founder.accentColor}55`,
-                  boxShadow: `0 20px 60px ${founder.accentColor}30`,
-                }}
-              >
-                <span
-                  className="text-5xl font-black select-none"
-                  style={{
-                    color: founder.accentColor,
-                    fontFamily: "'Bebas Neue', sans-serif",
-                  }}
-                >
-                  {founder.avatarInitials}
-                </span>
-              </div>
-            </div>
-
-            {/* Floating accent rings */}
-            <motion.div
-              className="absolute rounded-full border pointer-events-none"
-              style={{
-                width: 170,
-                height: 170,
-                top: "50%",
-                left: "50%",
-                marginTop: -85,
-                marginLeft: -85,
-                borderColor: `${founder.accentColor}20`,
-              }}
-              animate={{ rotate: 360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            <FounderPhoto
+              src={founder.photo}
+              alt={`${founder.firstName} ${founder.lastName}`}
+              className="absolute inset-0"
             />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+
+            <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-2">
+              <div className="h-px w-6 bg-white/70" />
+              <span className="text-[9px] font-medium uppercase tracking-[3px] text-white">
+                Founder {String(founder.id).padStart(2, "0")}
+              </span>
+              <div className="h-px w-6 bg-white/70" />
+            </div>
           </motion.div>
 
           {/* Role badge */}
@@ -230,15 +173,17 @@ export default function MobileFoundersShowcase() {
           </motion.div>
 
           {/* Name — Bebas Neue, matches desktop */}
-          <div className="text-center mb-2">
+          <div className="mb-2 w-full min-w-0 max-w-full px-1 text-center">
             <motion.span
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className="block leading-[0.86]"
+              className="block w-full max-w-full break-words leading-[0.86]"
               style={{
                 fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: "clamp(52px, 14vw, 80px)",
+                fontSize: founder.lastName
+                  ? "clamp(40px, 11vw, 68px)"
+                  : "clamp(52px, 14vw, 80px)",
                 color: "#0D0D0F",
               }}
             >
@@ -249,10 +194,10 @@ export default function MobileFoundersShowcase() {
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.32, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className="block leading-[0.86]"
+                className="block w-full max-w-full break-words leading-[0.86]"
                 style={{
                   fontFamily: "'Bebas Neue', sans-serif",
-                  fontSize: "clamp(52px, 14vw, 80px)",
+                  fontSize: "clamp(40px, 11vw, 68px)",
                   color: founder.accentColor,
                 }}
               >
@@ -266,20 +211,20 @@ export default function MobileFoundersShowcase() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.38 }}
-            className="flex items-center gap-2 mb-6"
+            className="mb-6 flex max-w-full flex-wrap items-center justify-center gap-2 px-2 text-center"
           >
             <div
-              className="w-6 h-[2px] rounded-full"
+              className="h-[2px] w-6 shrink-0 rounded-full"
               style={{ background: founder.accentColor }}
             />
             <span
-              className="text-[10px] tracking-[2px] uppercase font-medium"
+              className="max-w-[min(100%,240px)] text-[10px] font-medium uppercase leading-snug tracking-[1.5px]"
               style={{ color: founder.accentColor }}
             >
               {founder.title}
             </span>
             <div
-              className="w-6 h-[2px] rounded-full"
+              className="h-[2px] w-6 shrink-0 rounded-full"
               style={{ background: founder.accentColor }}
             />
           </motion.div>
@@ -379,9 +324,9 @@ export default function MobileFoundersShowcase() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Bottom progress + nav — fixed to bottom */}
+      {/* Bottom progress + nav */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-30 px-6 pb-6 pt-4"
+        className="absolute bottom-0 left-0 right-0 z-30 px-6 pb-6 pt-4"
         style={{ background: "linear-gradient(to top, #fff 60%, transparent)" }}
       >
         {/* Progress tracks */}

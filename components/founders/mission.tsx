@@ -25,7 +25,7 @@ export default function MissionSection() {
     <section
       id="mission"
       className="relative overflow-hidden border-t border-black/[0.04] bg-[#FAFAFA] py-28"
-      style={{ fontFamily: "var(--font-body, 'Inter', sans-serif)" }}
+      style={{ fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)" }}
     >
       {/* Ambient gradients */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">

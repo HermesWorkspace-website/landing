@@ -114,6 +114,7 @@ function MobileHero() {
             Request Live Demo <ArrowRight className="w-4 h-4" />
           </Link>
           <button
+            type="button"
             onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
             className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-black/[0.08] text-brand-ink font-semibold text-sm font-body active:scale-[0.97] transition-transform bg-white"
           >
@@ -450,14 +451,14 @@ function MobileFAQ() {
 
         <div className="divide-y divide-black/[0.06]">
           {FAQS.map((f, i) => (
-            <FadeUp key={i} delay={i * 0.05}>
+            <FadeUp key={f.q} delay={i * 0.05}>
               <div className="cursor-pointer" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
                 <div className="py-4 flex items-start justify-between gap-3">
                   <span className={`font-body font-medium text-[0.9rem] transition-colors ${openIdx === i ? "text-brand" : "text-brand-ink"}`}>
                     {f.q}
                   </span>
-                  <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${openIdx === i ? "border-brand bg-brand/10 text-brand" : "border-black/10 text-brand-muted"}`}>
-                    {openIdx === i ? <Minus className="w-2.5 h-2.5" /> : <Plus className="w-2.5 h-2.5" />}
+                  <div className={`size-5 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${openIdx === i ? "border-brand bg-brand/10 text-brand" : "border-black/10 text-brand-muted"}`}>
+                    {openIdx === i ? <Minus className="size-2.5" /> : <Plus className="size-2.5" />}
                   </div>
                 </div>
                 <AnimatePresence initial={false}>
@@ -502,7 +503,7 @@ function MobileCTA() {
 
             <div className="relative z-10">
               <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-brand/70 uppercase tracking-widest font-body mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
+                <span className="size-1.5 rounded-full bg-brand animate-pulse" />
                 Demonstrations Open
               </span>
 
@@ -527,7 +528,7 @@ function MobileCTA() {
 
               <a href="mailto:connect@hermesworkspace.com"
                 className="flex items-center justify-center gap-2 mt-6 text-xs text-white/40 font-body hover:text-white/60 transition-colors">
-                <Mail className="w-3.5 h-3.5" />
+                <Mail className="size-3.5" />
                 connect@hermesworkspace.com
               </a>
             </div>

@@ -10,17 +10,17 @@ interface FounderAvatarProps {
   direction: "enter" | "exit" | "idle";
 }
 
-export function FounderAvatar({ founder }: FounderAvatarProps) {
-  const variants = {
-    enter: { x: 80, opacity: 0, scale: 0.96 },
-    center: { x: 0, opacity: 1, scale: 1 },
-    exit: { x: -80, opacity: 0, scale: 0.96 },
-  };
+const AVATAR_VARIANTS = {
+  enter: { x: 80, opacity: 0, scale: 0.96 },
+  center: { x: 0, opacity: 1, scale: 1 },
+  exit: { x: -80, opacity: 0, scale: 0.96 },
+};
 
+export function FounderAvatar({ founder }: FounderAvatarProps) {
   return (
     <motion.div
       key={founder.id}
-      variants={variants}
+      variants={AVATAR_VARIANTS}
       initial="enter"
       animate="center"
       exit="exit"

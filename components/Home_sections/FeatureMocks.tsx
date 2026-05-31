@@ -127,6 +127,7 @@ function MagneticButton({ children, className }: { children: React.ReactNode; cl
 
   return (
     <button
+      type="button"
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

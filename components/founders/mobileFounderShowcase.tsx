@@ -333,6 +333,7 @@ export default function MobileFoundersShowcase() {
         <div className="flex gap-3 mb-4">
           {FOUNDERS.map((f, i) => (
             <button
+              type="button"
               key={f.id}
               onClick={() => {
                 const dir = i > activeIndex ? 1 : -1;
@@ -390,6 +391,7 @@ export default function MobileFoundersShowcase() {
         {/* Prev / Next nav */}
         <div className="flex items-center justify-between">
           <button
+            type="button"
             onClick={() => advance(-1)}
             className="flex items-center gap-1.5 text-[10px] tracking-[2px] uppercase"
             style={{ color: "#9896A4" }}
@@ -398,6 +400,7 @@ export default function MobileFoundersShowcase() {
             Prev
           </button>
           <button
+            type="button"
             onClick={() => advance(1)}
             className="flex items-center gap-1.5 text-[10px] tracking-[2px] uppercase"
             style={{ color: founder.accentColor }}

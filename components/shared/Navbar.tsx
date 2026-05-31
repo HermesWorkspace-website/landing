@@ -121,6 +121,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
+            type="button"
             className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg hover:bg-black/[0.05] active:bg-black/10 transition-colors"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
@@ -182,6 +183,7 @@ export default function Navbar() {
                   Menu
                 </span>
                 <button
+                  type="button"
                   onClick={() => setOpen(false)}
                   className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/[0.06] transition-colors"
                   aria-label="Close menu"

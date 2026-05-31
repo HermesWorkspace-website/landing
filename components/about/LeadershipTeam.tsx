@@ -72,25 +72,6 @@ Alongside infrastructure engineering, Lakshya also contributes heavily to produc
   },
 ];
 
-// Helper to dynamically style any occurrence of HermesWorkspace in paragraphs
-const renderTextWithBrandFont = (text: string, isLightBg: boolean = true) => {
-  if (!text.includes("HermesWorkspace")) return text;
-  const parts = text.split("HermesWorkspace");
-  return (
-    <>
-      {parts.map((part, index) => (
-        <React.Fragment key={`item-${index}`}>
-          {part}
-          {index < parts.length - 1 && (
-            <span className={`font-logo font-bold ${isLightBg ? 'text-[#0A1628]' : 'text-white'}`}>
-              HermesWorkspace
-            </span>
-          )}
-        </React.Fragment>
-      ))}
-    </>
-  );
-};
 
 export default function LeadershipTeam() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -249,7 +230,7 @@ function EditorialEntry({
                 transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
                 className="text-[13px] text-[#4B5563] leading-[1.9]"
               >
-                {renderTextWithBrandFont(para, true)}
+                {para}
               </motion.p>
             ))}
           </div>

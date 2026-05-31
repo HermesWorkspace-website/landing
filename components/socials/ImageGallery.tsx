@@ -80,12 +80,12 @@ export function ImageGallery() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section className="py-0 bg-white" ref={ref}>
+    <section className="bg-white py-5" ref={ref}>
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
-        className="grid grid-cols-3 gap-4 container-page py-16 mt-5"
+        className="grid grid-cols-3 gap-4 container-page py-16"
       >
         {IMAGES.map((img, i) => (
           <GridImage key={img.label} img={img} index={i} />

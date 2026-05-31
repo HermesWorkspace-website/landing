@@ -507,9 +507,9 @@ export default function Inquiry() {
               style={{ borderTop: "1px solid var(--ink-06)" }}
             >
               {[
-                { val: 128, label: "Active Nodes", suffix: "" },
-                { val: 0.4, label: "System Latency", suffix: "ms", decimals: 1 },
-              ].map((s, i) => (
+                { val: 5, label: "Core Platform Modules", suffix: "" },
+  { val: 3, label: "Connected Experiences", suffix: "" },
+              ].map((s: { val: number; label: string; suffix: string; decimals?: number }, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, scale: 0.85 }}

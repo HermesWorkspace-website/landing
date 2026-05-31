@@ -123,7 +123,7 @@ function MobileHero() {
         </motion.div>
 
         {/* Trust strip */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -135,7 +135,7 @@ function MobileHero() {
             ))}
           </div>
           <span>Built for Indian schools</span>
-        </motion.div>
+        </motion.div> */}
 
         {/* Minimal dashboard preview — static, no mock UI overhead */}
         <motion.div

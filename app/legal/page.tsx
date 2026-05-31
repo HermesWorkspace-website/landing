@@ -17,6 +17,8 @@ const documentNav = [
   { slug: "data-deletion", label: "Data Deletion", href: "/legal/data-deletion" },
   { slug: "information", label: "Information", href: "/legal/information" },
   { slug: "parental-control", label: "Parental Control", href: "/legal/parental-control" },
+  { slug: "aup", label: "Acceptable Use", href: "/legal/aup" },
+  { slug: "grievance", label: "Grievance Officer", href: "/legal/grievance" },
   { slug: "contact", label: "Contact", href: "/legal/contact" },
 ];
 

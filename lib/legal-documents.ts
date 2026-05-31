@@ -5,7 +5,9 @@ export type LegalSlug =
   | 'information'
   | 'contact'
   | 'data-deletion'
-  | 'parental-control';
+  | 'parental-control'
+  | 'grievance'
+  | 'aup';
 
 export type LegalDocSection = {
   id: string;
@@ -75,6 +77,48 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         content:
           'Questions about these terms may be directed to support@hermesworkspace.com.',
       },
+      {
+        id: 'governing-law',
+        title: '8. Governing Law',
+        content:
+          'Disputes are governed by the laws of India. Courts of Jharkhand have exclusive jurisdiction.',
+      },
+      {
+        id: 'limitation-of-liability',
+        title: '9. Limitation of Liability',
+        content:
+          "HermesWorkspace's total liability is limited to fees paid by the school in the 12 months before the claim. We are not liable for indirect, consequential, or incidental damages.",
+      },
+      {
+        id: 'warranty-disclaimer',
+        title: '10. Warranty Disclaimer',
+        content:
+          'The Service is provided as-is and as-available. We make no implied warranties of fitness, merchantability, or uninterrupted availability.',
+      },
+      {
+        id: 'ip-ownership',
+        title: '11. IP Ownership',
+        content:
+          'HermesWorkspace owns the platform and its software. The school owns all workspace data and content uploaded by its users.',
+      },
+      {
+        id: 'force-majeure',
+        title: '12. Force Majeure',
+        content:
+          'Neither party is liable for failures caused by events outside reasonable control — including internet outages, power failures, or government action.',
+      },
+      {
+        id: 'terms-changes',
+        title: '13. Terms Changes',
+        content:
+          'We will notify subscribing schools 30 days before making material changes to these terms.',
+      },
+      {
+        id: 'indemnification',
+        title: '14. Indemnification',
+        content:
+          "The school agrees to indemnify and hold HermesWorkspace harmless from any claims, damages, or legal costs arising from: content uploaded or shared by the school's users, the school's violation of these terms, or the school's failure to obtain required consents for student accounts. HermesWorkspace agrees to indemnify the school from any claims arising from the platform infringing a third party's intellectual property or HermesWorkspace's own negligence or misconduct.",
+      },
     ],
   },
   privacy: {
@@ -109,13 +153,37 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         id: 'sharing',
         title: '4. How we share personal data',
         content:
-          'HermesWorkspace may share data with hosting providers, notification services, analytics providers, and support partners. We do not sell personal data.',
+          'HermesWorkspace may share data with notification services, analytics providers, and support partners. We do not sell personal data.',
       },
       {
         id: 'rights',
         title: '5. Rights and requests',
         content:
           'Users may request access, correction, export, or deletion through their school administrator or by contacting support@hermesworkspace.com.',
+      },
+      {
+        id: 'data-retention',
+        title: '6. Data Retention',
+        content:
+          "We retain personal data for as long as the school's subscription is active. After contract end, workspace data is deleted within 30 days unless the school requests an export first.",
+      },
+      {
+        id: 'grievance-officer',
+        title: '7. Grievance Officer',
+        content:
+          'For privacy concerns, contact our Grievance Officer at grievance@hermesworkspace.com. See our Grievance page for details.',
+      },
+      {
+        id: 'childrens-data',
+        title: "8. Children's Data",
+        content:
+          'Student data is processed on behalf of the school. The school is responsible for obtaining any required parental consent before adding students to the platform.',
+      },
+      {
+        id: 'cross-border-transfers',
+        title: '9. Cross-Border Transfers',
+        content:
+          'Some service providers (storage, notifications, analytics) may process data outside India. We ensure such providers maintain adequate data protection standards.',
       },
     ],
   },
@@ -139,7 +207,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         id: 'subprocessors',
         title: '2. Sub-processors',
         content:
-          'HermesWorkspace may engage service providers for hosting, storage, messaging, analytics, notifications, security, and support. Sub-processors are bound by obligations to protect personal data.',
+          'HermesWorkspace may engage service providers for storage, messaging, analytics, notifications, security, and support. Sub-processors are bound by obligations to protect personal data.',
       },
       {
         id: 'security',
@@ -305,6 +373,88 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         title: '5. Support and reporting',
         content:
           'If guardians or students have safety concerns, they should contact their school administrator or email support@hermesworkspace.com for technical help and guidance.',
+      },
+    ],
+  },
+  grievance: {
+    slug: 'grievance',
+    title: 'Grievance Officer',
+    eyebrow: 'Indian IT Rules compliance',
+    effective: 'Updated May 11, 2026',
+    intro: [
+      'HermesWorkspace has appointed a Grievance Officer as required under the Digital Personal Data Protection Act 2023 and IT Rules 2011.',
+    ],
+    sections: [
+      {
+        id: 'details',
+        title: '1. Grievance Officer Details',
+        content:
+          'Grievance Officer: Mr. Apurav Kumar\nEmail: grievance@hermesworkspace.com',
+      },
+      {
+        id: 'filing',
+        title: '2. How to File a Grievance',
+        content:
+          'To file a grievance, email the above address with your name, contact details, description of the concern, and relevant dates. We will acknowledge within 48 hours and resolve within 30 days.',
+      },
+      {
+        id: 'matters',
+        title: '3. Grievance Covered Matters',
+        content:
+          'Grievances may relate to: privacy complaints, data access or deletion requests, safety concerns, or content disputes.',
+      },
+      {
+        id: 'escalation',
+        title: '4. Escalation',
+        content:
+          'If unresolved, you may escalate to the appropriate authority under Indian law.',
+      },
+    ],
+  },
+  aup: {
+    slug: 'aup',
+    title: 'Acceptable Use Policy',
+    eyebrow: 'Policy',
+    effective: 'Effective date: May 11, 2026',
+    intro: [
+      'This policy applies to all users — admins, teachers, students, and parents.',
+    ],
+    sections: [
+      {
+        id: 'conduct',
+        title: '1. Prohibited Conduct',
+        content:
+          'Prohibited: harassment, bullying, impersonation, sharing inappropriate content, bypassing access controls, recording classes without permission, uploading malware, spam.',
+      },
+      {
+        id: 'student-rules',
+        title: '2. Student Guidelines',
+        content:
+          'Student rules: do not share login credentials, follow your school\'s platform rules, do not record or screenshot sessions without permission.',
+      },
+      {
+        id: 'admin-responsibility',
+        title: '3. Admin Responsibility',
+        content:
+          'School admin responsibility: enforce this policy within your workspace and report violations to support@hermesworkspace.com.',
+      },
+      {
+        id: 'content-standards',
+        title: '4. Content Standards',
+        content:
+          'Content standards: no adult content, no violent content, nothing that violates Indian law including the IT Act 2000.',
+      },
+      {
+        id: 'consequences',
+        title: '5. Consequences',
+        content:
+          'Consequences: depending on severity — warning, suspension, or permanent termination of access. HermesWorkspace may remove content or suspend accounts without prior notice if required for platform safety.',
+      },
+      {
+        id: 'reporting-takedown',
+        title: '6. Reporting and Takedown',
+        content:
+          "HermesWorkspace provides an in-app report button for users to flag content or behaviour that violates this policy. What can be reported: inappropriate content, harassment, bullying, impersonation, unauthorised recordings, spam, or any content that violates Indian law. What happens after a report: Reports are reviewed by HermesWorkspace within 72 hours. If a violation is confirmed, we may remove the content, restrict the account, or suspend access — without prior notice. For severe violations (illegal content, child safety, threats), we may act immediately and report to relevant authorities. No abuse of the report function: filing false or malicious reports is itself a violation of this policy and may result in your account being suspended. School admin reports: school admins may report workspace-level concerns directly to support@hermesworkspace.com for faster resolution. HermesWorkspace's decision on reported content is final. We are not obligated to explain every moderation decision, but will notify affected parties where required by law.",
       },
     ],
   },

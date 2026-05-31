@@ -35,6 +35,8 @@ const documentNav: { type: LegalSlug; label: string; href: string }[] = [
   { type: "data-deletion", label: "Data Deletion", href: "/legal/data-deletion" },
   { type: "information", label: "Information", href: "/legal/information" },
   { type: "parental-control", label: "Parental Control", href: "/legal/parental-control" },
+  { type: "aup", label: "Acceptable Use", href: "/legal/aup" },
+  { type: "grievance", label: "Grievance Officer", href: "/legal/grievance" },
   { type: "contact", label: "Contact", href: "/legal/contact" },
 ];
 

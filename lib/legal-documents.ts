@@ -171,7 +171,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         id: 'grievance-officer',
         title: '7. Grievance Officer',
         content:
-          'For privacy concerns, contact our Grievance Officer at grievance@hermesworkspace.com. See our Grievance page for details.',
+          'For privacy concerns, contact our Grievance Officer at apurav@hermesworkspace.com. See our Grievance page for details.',
       },
       {
         id: 'childrens-data',
@@ -389,7 +389,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         id: 'details',
         title: '1. Grievance Officer Details',
         content:
-          'Grievance Officer: Mr. Apurav Kumar\nEmail: grievance@hermesworkspace.com',
+          'Grievance Officer: Mr. Apurav Agarwal\nEmail: apurav@hermesworkspace.com',
       },
       {
         id: 'filing',

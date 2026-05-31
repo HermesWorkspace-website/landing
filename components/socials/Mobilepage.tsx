@@ -387,13 +387,13 @@ function MobileEcosystem() {
 /* ══════════════════════════════════════════════
    4. TRUST — mobile (quote card only, no OrbCanvas)
    ══════════════════════════════════════════════ */
-function MobileTrust() {
-  const PILLARS = [
-    "Institutional Communication",
-    "Operational Coordination",
-    "Modern Educational Infrastructure",
-  ];
+const TRUST_PILLARS = [
+  "Institutional Communication",
+  "Operational Coordination",
+  "Modern Educational Infrastructure",
+];
 
+function MobileTrust() {
   return (
     <section className="py-16 px-5 bg-[#F9F8FF]">
       <FadeUp>
@@ -408,7 +408,7 @@ function MobileTrust() {
         </p>
 
         <ul className="space-y-2 mb-8">
-          {PILLARS.map((p) => (
+          {TRUST_PILLARS.map((p) => (
             <li key={p} className="flex items-center gap-3 text-[#0D0D0F]">
               <span className="block w-3 h-px bg-[#6B5CE7] shrink-0" />
               <span className="text-[10px] tracking-[2px] uppercase font-medium">{p}</span>
@@ -452,31 +452,31 @@ function MobileTrust() {
 /* ══════════════════════════════════════════════
    5. INSIDE HERMES — minimal card (replaces bento)
    ══════════════════════════════════════════════ */
-function MobilePulse() {
-  const CARDS = [
-    {
-      icon: Cpu,
-      label: "Founder Notes",
-      title: "Building systems that reduce operational complexity.",
-      color: "#6B5CE7",
-      bg: "#EAE8FF",
-    },
-    {
-      icon: Layers,
-      label: "Platform Focus",
-      title: "Unified infrastructure designed for modern academic workflows.",
-      color: "#1A3FBE",
-      bg: "#E8EDFF",
-    },
-    {
-      icon: BarChart3,
-      label: "Communication Systems",
-      title: "Unified workflows replacing fragmented, generic institutional tools.",
-      color: "#6B5CE7",
-      bg: "#EAE8FF",
-    },
-  ];
+const PULSE_CARDS = [
+  {
+    icon: Cpu,
+    label: "Founder Notes",
+    title: "Building systems that reduce operational complexity.",
+    color: "#6B5CE7",
+    bg: "#EAE8FF",
+  },
+  {
+    icon: Layers,
+    label: "Platform Focus",
+    title: "Unified infrastructure designed for modern academic workflows.",
+    color: "#1A3FBE",
+    bg: "#E8EDFF",
+  },
+  {
+    icon: BarChart3,
+    label: "Communication Systems",
+    title: "Unified workflows replacing fragmented, generic institutional tools.",
+    color: "#6B5CE7",
+    bg: "#EAE8FF",
+  },
+];
 
+function MobilePulse() {
   return (
     <section className="py-16 px-5 bg-white">
       <FadeUp>
@@ -512,7 +512,7 @@ function MobilePulse() {
       </FadeUp>
 
       <div className="flex flex-col gap-3">
-        {CARDS.map((card, i) => {
+        {PULSE_CARDS.map((card, i) => {
           const Icon = card.icon;
           return (
             <FadeUp key={card.label} delay={i * 60}>

@@ -85,16 +85,13 @@ and designing operational systems for modern institutions.
   );
 }
 
-// Metrics mini cards
-function MetricsMiniCards() {
-  const cards = [
+const METRICS_CARDS = [
   {
     label: "Platform Focus",
     value: "Institutional Infrastructure",
     icon: Layers,
     color: "#6B5CE7",
   },
-
   {
     label: "Communication Systems",
     value: "Unified Workflows",
@@ -103,9 +100,10 @@ function MetricsMiniCards() {
   },
 ];
 
+function MetricsMiniCards() {
   return (
     <div className="grid grid-cols-2 gap-3">
-      {cards.map((card) => {
+      {METRICS_CARDS.map((card) => {
         const Icon = card.icon;
         return (
           <motion.div

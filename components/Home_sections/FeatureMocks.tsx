@@ -318,21 +318,22 @@ function FloatingBadge({ children, delay = 0 }: { children: React.ReactNode; del
 /* -----------------------------------------------------
    1. MESSAGES MOCK (animated)
 ----------------------------------------------------- */
+const WORKSPACES = [{ name: "X" }, { name: "XI" }, { name: "OPS" }, { name: "Nova" }];
+
+const SCHOOL_NOTICES = [
+  { title: "Board Examination Schedule Released", priority: "Important", time: "2h ago" },
+  { title: "PTM Scheduled For Senior Wing", priority: "Update", time: "1d ago" },
+  { title: "Winter Break Begins From Dec 24", priority: "General", time: "3d ago" },
+];
+
+type Message = { sender: string; role: string; text: string; time: string; teacher?: boolean };
+type Member = { name: string; role: string; online: boolean };
+type ChannelData = { resources: string[]; members: Member[]; messages: Message[] };
+type Channel = { type: "chat" | "notice"; data: ChannelData };
+type Workspace = { channels: Record<string, Channel> };
+type WorkspaceData = Record<string, Workspace>;
+
 export function MessagesMock() {
-  const workspaces = [{ name: "X" }, { name: "XI" }, { name: "OPS" }, { name: "Nova" }];
-
-  type Message = { sender: string; role: string; text: string; time: string; teacher?: boolean };
-  type Member = { name: string; role: string; online: boolean };
-  type ChannelData = { resources: string[]; members: Member[]; messages: Message[] };
-  type Channel = { type: "chat" | "notice"; data: ChannelData };
-  type Workspace = { channels: Record<string, Channel> };
-  type WorkspaceData = Record<string, Workspace>;
-
-  const schoolNotices = [
-    { title: "Board Examination Schedule Released", priority: "Important", time: "2h ago" },
-    { title: "PTM Scheduled For Senior Wing", priority: "Update", time: "1d ago" },
-    { title: "Winter Break Begins From Dec 24", priority: "General", time: "3d ago" },
-  ];
 
   const workspaceData: WorkspaceData = {
     X: {
@@ -473,7 +474,7 @@ export function MessagesMock() {
           >
             HW
           </motion.div>
-          {workspaces.map((w, i) => (
+          {WORKSPACES.map((w, i) => (
             <motion.div
               key={`item-${i}`}
               whileHover={{ scale: 1.1, rotate: 3 }}
@@ -510,7 +511,7 @@ export function MessagesMock() {
               Notices
             </div>
             <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="space-y-1.5">
-              {schoolNotices.map((notice, i) => (
+              {SCHOOL_NOTICES.map((notice, i) => (
                 <motion.div
                   key={`item-${i}`}
                   variants={fadeUp}
@@ -843,14 +844,14 @@ export function ClassesMock() {
 /* -----------------------------------------------------
    3. MEETINGS MOCK
 ----------------------------------------------------- */
-export function MeetingsMock() {
-  const participants = [
-    { name: "Mr. Sharma", role: "Teacher", speaking: true },
-    { name: "Aarav P.", role: "Student", speaking: false },
-    { name: "Priya K.", role: "Student", speaking: false },
-    { name: "Rohan S.", role: "Student", speaking: false },
-  ];
+const MEETING_PARTICIPANTS = [
+  { name: "Mr. Sharma", role: "Teacher", speaking: true },
+  { name: "Aarav P.", role: "Student", speaking: false },
+  { name: "Priya K.", role: "Student", speaking: false },
+  { name: "Rohan S.", role: "Student", speaking: false },
+];
 
+export function MeetingsMock() {
   return (
     <div className="rounded-xl border border-black/[0.06] overflow-hidden bg-[#1a1c1d] shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
       <div className="p-2.5">
@@ -867,7 +868,7 @@ export function MeetingsMock() {
           <span className="text-[7px] text-white/30 font-body">34 students</span>
         </div>
         <div className="grid grid-cols-2 gap-1.5">
-          {participants.map((p, i) => (
+          {MEETING_PARTICIPANTS.map((p, i) => (
             <motion.div
               key={`item-${i}`}
               initial={{ opacity: 0, scale: 0.9 }}

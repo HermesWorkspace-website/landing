@@ -184,17 +184,18 @@ function MobileHero() {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 2. STATS — simple, no counter animation overhead
 // ═══════════════════════════════════════════════════════════════════════════════
+const MOBILE_STATS_ITEMS = [
+  { val: "1 Platform", label: "Centralized Communication" },
+  { val: "24/7", label: "Institution Connectivity" },
+  { val: "100%", label: "Administrative Visibility" },
+  { val: "0 WhatsApp", label: "Structured Workflow" },
+];
+
 function MobileStats() {
-  const items = [
-    { val: "1 Platform", label: "Centralized Communication" },
-    { val: "24/7", label: "Institution Connectivity" },
-    { val: "100%", label: "Administrative Visibility" },
-    { val: "0 WhatsApp", label: "Structured Workflow" },
-  ];
   return (
     <section className="py-10 border-y border-black/[0.05] bg-white">
       <div className="container-page grid grid-cols-2 gap-5">
-        {items.map((s, i) => (
+        {MOBILE_STATS_ITEMS.map((s, i) => (
           <FadeUp key={`item-${i}`} delay={i * 0.07}>
             <div className="font-display font-extrabold text-brand-ink text-[1.6rem] tracking-tight leading-tight">{s.val}</div>
             <div className="text-xs text-brand-muted font-body mt-1">{s.label}</div>

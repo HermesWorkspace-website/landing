@@ -160,13 +160,14 @@ function OverviewVisual() {
 /* ---------------------------------------------
    COMMUNICATION VISUAL
 --------------------------------------------- */
+const COMM_MESSAGES = [
+  { text: "Physics notes for Chapter 12 have been uploaded.", delay: 0.2 },
+  { text: "Tomorrow's PTM timing updated to 3:30 PM.", delay: 0.5 },
+  { text: "Assignment deadline extended to Friday.", delay: 0.8 },
+  { text: "New circular from principal's office.", delay: 1.1 },
+];
+
 function CommunicationVisual() {
-  const messages = [
-    { text: "Physics notes for Chapter 12 have been uploaded.", delay: 0.2 },
-    { text: "Tomorrow's PTM timing updated to 3:30 PM.", delay: 0.5 },
-    { text: "Assignment deadline extended to Friday.", delay: 0.8 },
-    { text: "New circular from principal's office.", delay: 1.1 },
-  ];
 
   return (
     <div className="h-full flex rounded-2xl overflow-hidden border border-black/[0.05] bg-white">
@@ -206,7 +207,7 @@ function CommunicationVisual() {
       </div>
       {/* Messages */}
       <div className="flex-1 p-4 flex flex-col justify-end gap-3 overflow-hidden">
-        {messages.map((m, i) => (
+        {COMM_MESSAGES.map((m, i) => (
           <motion.div
             key={`item-${i}`}
             initial={{ opacity: 0, y: 12, x: -6 }}
@@ -252,14 +253,15 @@ function CommunicationVisual() {
 /* ---------------------------------------------
    ONLINE CLASSES VISUAL
 --------------------------------------------- */
+const CLASS_PARTICIPANTS = [
+  { name: "Aditi R.", mic: true },
+  { name: "Karan J.", mic: false },
+  { name: "Sanya M.", mic: true },
+  { name: "Rahul V.", mic: true },
+  { name: "Priya K.", mic: false },
+];
+
 function ClassesVisual() {
-  const participants = [
-    { name: "Aditi R.", mic: true },
-    { name: "Karan J.", mic: false },
-    { name: "Sanya M.", mic: true },
-    { name: "Rahul V.", mic: true },
-    { name: "Priya K.", mic: false },
-  ];
   return (
     <div className="h-full flex gap-3">
       {/* Video feed */}
@@ -329,7 +331,7 @@ function ClassesVisual() {
           Participants (42)
         </div>
         <div className="flex-1 space-y-1.5 overflow-hidden">
-          {participants.map((p, i) => (
+          {CLASS_PARTICIPANTS.map((p, i) => (
             <motion.div
               key={`item-${i}`}
               initial={{ opacity: 0, x: 12 }}
@@ -362,13 +364,14 @@ function ClassesVisual() {
 /* ---------------------------------------------
    MEETINGS VISUAL
 --------------------------------------------- */
+const MEETINGS_LIST = [
+  { title: "Staff Sync", time: "10:30 AM", type: "Internal" },
+  { title: "Parent Meeting", time: "11:45 AM", type: "External" },
+  { title: "Curriculum Review", time: "02:00 PM", type: "Board" },
+  { title: "IT Infrastructure", time: "04:30 PM", type: "Internal" },
+];
+
 function MeetingsVisual() {
-  const meetings = [
-    { title: "Staff Sync", time: "10:30 AM", type: "Internal" },
-    { title: "Parent Meeting", time: "11:45 AM", type: "External" },
-    { title: "Curriculum Review", time: "02:00 PM", type: "Board" },
-    { title: "IT Infrastructure", time: "04:30 PM", type: "Internal" },
-  ];
   return (
     <div className="h-full grid grid-cols-12 gap-3">
       {/* Schedule */}
@@ -376,7 +379,7 @@ function MeetingsVisual() {
         <div className="text-[10px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">
           Today's Schedule
         </div>
-        {meetings.map((m, i) => (
+        {MEETINGS_LIST.map((m, i) => (
           <motion.div
             key={`item-${i}`}
             initial={{ opacity: 0, x: -12 }}
@@ -462,17 +465,18 @@ function MeetingsVisual() {
 /* ---------------------------------------------
    WEBINARS VISUAL
 --------------------------------------------- */
+const WEBINAR_STAT_BARS = [
+  { label: "Students", val: 840, max: 1200, color: "bg-brand" },
+  { label: "Teachers", val: 320, max: 1200, color: "bg-purple-500" },
+  { label: "Parents", val: 120, max: 1200, color: "bg-green-500" },
+];
+const WEBINAR_QA_ITEMS = [
+  { q: "How will this affect board exams?", from: "Rahul S." },
+  { q: "Is there a certificate issued?", from: "Priya M." },
+  { q: "Can parents attend too?", from: "Ajay T." },
+];
+
 function WebinarsVisual() {
-  const statBars = [
-    { label: "Students", val: 840, max: 1200, color: "bg-brand" },
-    { label: "Teachers", val: 320, max: 1200, color: "bg-purple-500" },
-    { label: "Parents", val: 120, max: 1200, color: "bg-green-500" },
-  ];
-  const qaItems = [
-    { q: "How will this affect board exams?", from: "Rahul S." },
-    { q: "Is there a certificate issued?", from: "Priya M." },
-    { q: "Can parents attend too?", from: "Ajay T." },
-  ];
   return (
     <div className="h-full flex flex-col gap-3">
       {/* Banner */}
@@ -519,7 +523,7 @@ function WebinarsVisual() {
           className="rounded-2xl bg-white border border-black/[0.05] p-4"
         >
           <div className="text-xs font-bold text-brand-ink mb-4">Registration Stats</div>
-          {statBars.map((s, i) => (
+          {WEBINAR_STAT_BARS.map((s, i) => (
             <div key={`item-${i}`} className="mb-3">
               <div className="flex justify-between text-[9px] mb-1">
                 <span className="text-brand-muted">{s.label}</span>
@@ -545,7 +549,7 @@ function WebinarsVisual() {
         >
           <div className="text-xs font-bold text-brand-ink mb-3">Live Q&A</div>
           <div className="flex-1 space-y-2 overflow-hidden">
-            {qaItems.map((q, i) => (
+            {WEBINAR_QA_ITEMS.map((q, i) => (
               <motion.div
                 key={`item-${i}`}
                 initial={{ opacity: 0, y: 10 }}
@@ -577,14 +581,15 @@ function WebinarsVisual() {
 /* ---------------------------------------------
    INSTITUTION VISUAL
 --------------------------------------------- */
+const INSTITUTION_DEPARTMENTS = ["Administration", "Teaching Staff", "Medical Wing", "Transport"];
+
 function InstitutionVisual() {
-  const departments = ["Administration", "Teaching Staff", "Medical Wing", "Transport"];
   return (
     <div className="h-full flex gap-3">
       {/* Directory */}
       <div className="w-48 flex-shrink-0 rounded-2xl bg-white border border-black/[0.05] p-4 flex flex-col">
         <div className="text-sm font-bold text-brand-ink mb-3">Directory</div>
-        {departments.map((d, i) => (
+        {INSTITUTION_DEPARTMENTS.map((d, i) => (
           <motion.div
             key={`item-${i}`}
             initial={{ opacity: 0, x: -10 }}
@@ -677,9 +682,11 @@ function InstitutionVisual() {
 /* ---------------------------------------------
    EVENTS VISUAL
 --------------------------------------------- */
+const EVENT_DAYS = [12, 15, 24, 28];
+const EVENT_TODAY = 24;
+
 function EventsVisual() {
-  const eventDays = [12, 15, 24, 28];
-  const today = 24;
+  const today = EVENT_TODAY;
   return (
     <div className="h-full grid grid-cols-12 gap-3">
       {/* Calendar */}
@@ -712,13 +719,13 @@ function EventsVisual() {
                 className={`aspect-square rounded-lg flex flex-col items-center justify-center text-[10px] relative cursor-pointer transition-all ${
                   d === today
                     ? "bg-brand text-white font-bold shadow-md shadow-brand/30"
-                    : eventDays.includes(d) && d !== today
+                    : EVENT_DAYS.includes(d) && d !== today
                     ? "text-brand font-bold bg-brand/[0.04]"
                     : "text-brand-ink/35 hover:bg-black/[0.04]"
                 }`}
               >
                 {d}
-                {eventDays.includes(d) && d !== today && (
+                {EVENT_DAYS.includes(d) && d !== today && (
                   <motion.div
                     animate={{ scale: [1, 1.4, 1] }}
                     transition={{ duration: 2, repeat: Infinity, delay: d * 0.1 }}
@@ -775,12 +782,13 @@ function EventsVisual() {
 /* ---------------------------------------------
    NOTICES VISUAL
 --------------------------------------------- */
+const NOTICE_LIST = [
+  { title: "Winter Break Schedule Released", date: "Oct 24", urgency: "High", color: "#EF4444" },
+  { title: "Updated Uniform Policy 2025-26", date: "Oct 23", urgency: "Normal", color: "#6063EE" },
+  { title: "Annual Science Exhibition", date: "Oct 22", urgency: "Info", color: "#3B82F6" },
+];
+
 function NoticesVisual() {
-  const notices = [
-    { title: "Winter Break Schedule Released", date: "Oct 24", urgency: "High", color: "#EF4444" },
-    { title: "Updated Uniform Policy 2025-26", date: "Oct 23", urgency: "Normal", color: "#6063EE" },
-    { title: "Annual Science Exhibition", date: "Oct 22", urgency: "Info", color: "#3B82F6" },
-  ];
   return (
     <div className="h-full flex flex-col gap-3">
       <div className="flex items-center justify-between">
@@ -794,7 +802,7 @@ function NoticesVisual() {
         </motion.div>
       </div>
       <div className="flex-1 grid grid-cols-3 gap-3">
-        {notices.map((n, i) => (
+        {NOTICE_LIST.map((n, i) => (
           <motion.div
             key={`item-${i}`}
             initial={{ opacity: 0, y: 20 }}
@@ -956,18 +964,18 @@ function DashboardMock() {
 /* ---------------------------------------------
    HERO SECTION — ROOT
 --------------------------------------------- */
+const HERO_WORDS = ["Connect", "Collaborate", "Coordinate"];
+
 export default function Hero() {
   const router = useRouter();
     const sectionRef = useRef<HTMLElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
   
-    const words = ["Connect", "Collaborate", "Coordinate"];
-  
     const [wordIndex, setWordIndex] = useState(0);
   
     useEffect(() => {
       const id = setInterval(() => {
-        setWordIndex((v) => (v + 1) % words.length);
+        setWordIndex((v) => (v + 1) % HERO_WORDS.length);
       }, 2800);
   
       return () => clearInterval(id);

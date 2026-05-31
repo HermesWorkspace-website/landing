@@ -219,8 +219,9 @@ function WorkspaceHealthCard() {
   );
 }
 
+const RESOURCE_BARS = [65, 82, 48, 91, 73, 55, 88];
+
 function ResourceAllocationCard() {
-  const bars = [65, 82, 48, 91, 73, 55, 88];
   return (
     <motion.div
       whileHover={{ y: -3, boxShadow: "0 20px 40px rgba(10,22,40,0.1)" }}
@@ -231,7 +232,7 @@ function ResourceAllocationCard() {
       <div className="absolute top-0 right-0 size-24 bg-[#22C55E]/10 rounded-full blur-2xl" />
       <div className="relative z-10">
         <div className="flex items-end gap-1 h-14 mb-3">
-          {bars.map((h, i) => (
+          {RESOURCE_BARS.map((h, i) => (
             <motion.div
               key={`item-${i}`}
               initial={{ height: 0 }}

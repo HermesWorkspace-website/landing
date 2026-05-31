@@ -83,7 +83,7 @@ export default function Hero() {
     );
   }, []);
 
-  const titleWords = ["Modern", "infrastructure", "for", "institutional", "communication."];
+const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "communication."];
 
   return (
     <section
@@ -148,7 +148,7 @@ export default function Hero() {
             className="font-display font-bold leading-[1.08] tracking-tight"
             style={{ fontSize: "clamp(2.4rem, 5vw, 3.8rem)" }}
           >
-            {titleWords.map((w, i) => {
+            {TITLE_WORDS.map((w, i) => {
               // "institutional" and "communication." get the purple gradient
               const isGradient = i >= 3;
               return (
@@ -261,8 +261,9 @@ export default function Hero() {
   );
 }
 
+const PHONE_BARS = [40, 65, 50, 80, 60, 90, 70, 85];
+
 function PhoneMockup() {
-  const bars = [40, 65, 50, 80, 60, 90, 70, 85];
   return (
     <div className="relative w-[220px] sm:w-[260px]">
       {/* Lavender glow instead of green */}
@@ -291,7 +292,7 @@ function PhoneMockup() {
           <div className="rounded-2xl p-3 border" style={{ backgroundColor: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.06)" }}>
             <div className="h-1.5 w-14 rounded-full mb-3" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
             <div className="flex items-end gap-1 h-12">
-              {bars.map((h, i) => (
+              {PHONE_BARS.map((h, i) => (
                 <motion.div
                   key={`item-${i}`}
                   initial={{ height: 0 }}

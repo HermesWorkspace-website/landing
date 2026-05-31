@@ -114,14 +114,8 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
   },
 
-  // ── Verification (add your actual tokens) ─────────────────────────────────
-  verification: {
-    google: "YOUR_GOOGLE_SEARCH_CONSOLE_TOKEN",
-    // bing: "YOUR_BING_WEBMASTER_TOKEN",
-  },
-
   // ── Other ─────────────────────────────────────────────────────────────────
-  category: "education",
+  category: "EdTech",
   creator: "HermesWorkspace",
   publisher: "HermesWorkspace Pvt. Ltd.",
 };

@@ -1,7 +1,10 @@
 "use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { legalDocuments, type LegalDocument, type LegalSlug } from "@/lib/legal-documents";
+import LegalHeader from "./LegalHeader";
 
 const EMAIL_RE = /([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g;
 
@@ -37,6 +40,7 @@ const documentNav: { type: LegalSlug; label: string; href: string }[] = [
   { type: "parental-control", label: "Parental Control", href: "/legal/parental-control" },
   { type: "aup", label: "Acceptable Use", href: "/legal/aup" },
   { type: "grievance", label: "Grievance Officer", href: "/legal/grievance" },
+  { type: "cookie", label: "Cookie Policy", href: "/legal/cookie" },
   { type: "contact", label: "Contact", href: "/legal/contact" },
 ];
 
@@ -52,39 +56,9 @@ export default function LegalDocPage({ document }: LegalDocPageProps) {
     >
       {/* Bulletproof native smooth scrolling fallback */}
       <style dangerouslySetInnerHTML={{ __html: `html { scroll-behavior: smooth !important; }` }} />
-      {/* ── Header ── */}
-      <header className="border-b border-[#d0d6e0]/70 bg-[#f7f8f8]/92 backdrop-blur sticky top-0 z-10">
-        <div className="mx-auto flex min-h-16 w-full max-w-6xl items-center justify-between gap-4 px-5">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-3 text-[14px] font-medium text-[#161922]"
-          >
-            <Image
-              src="/hermes-square-icon.svg"
-              alt="HermesWorkspace"
-              width={28}
-              height={28}
-              className="size-7 rounded-md"
-            />
-            HermesWorkspace
-          </Link>
-          <nav className="hidden items-center gap-1 md:flex">
-            {documentNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`rounded-md px-3 py-1.5 text-[13px] font-medium transition-colors ${
-                  item.type === document.slug
-                    ? "bg-[#eef0ff] text-[#5e6ad2]"
-                    : "text-[#62666d] hover:bg-[#f3f4f5] hover:text-[#161922]"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </header>
+      
+      {/* ── Header with Drawer Menu ── */}
+      <LegalHeader activeSlug={document.slug} />
 
       {/* ── Body grid ── */}
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-10 lg:grid-cols-[220px_minmax(0,760px)] lg:py-14">

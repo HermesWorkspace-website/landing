@@ -7,7 +7,8 @@ export type LegalSlug =
   | 'data-deletion'
   | 'parental-control'
   | 'grievance'
-  | 'aup';
+  | 'aup'
+  | 'cookie';
 
 export type LegalDocSection = {
   id: string;
@@ -72,52 +73,52 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
           'HermesWorkspace may suspend or terminate access to protect the Service, comply with law, or respond to abuse. The organization may also restrict accounts for safety, policy, or administrative reasons.',
       },
       {
-        id: 'contact',
-        title: '7. Contact',
-        content:
-          'Questions about these terms may be directed to support@hermesworkspace.com.',
-      },
-      {
         id: 'governing-law',
-        title: '8. Governing Law',
+        title: '7. Governing Law',
         content:
           'Disputes are governed by the laws of India. Courts of Jharkhand have exclusive jurisdiction.',
       },
       {
         id: 'limitation-of-liability',
-        title: '9. Limitation of Liability',
+        title: '8. Limitation of Liability',
         content:
           "HermesWorkspace's total liability is limited to fees paid by the school in the 12 months before the claim. We are not liable for indirect, consequential, or incidental damages.",
       },
       {
         id: 'warranty-disclaimer',
-        title: '10. Warranty Disclaimer',
+        title: '9. Warranty Disclaimer',
         content:
           'The Service is provided as-is and as-available. We make no implied warranties of fitness, merchantability, or uninterrupted availability.',
       },
       {
         id: 'ip-ownership',
-        title: '11. IP Ownership',
+        title: '10. IP Ownership',
         content:
           'HermesWorkspace owns the platform and its software. The school owns all workspace data and content uploaded by its users.',
       },
       {
         id: 'force-majeure',
-        title: '12. Force Majeure',
+        title: '11. Force Majeure',
         content:
           'Neither party is liable for failures caused by events outside reasonable control — including internet outages, power failures, or government action.',
       },
       {
         id: 'terms-changes',
-        title: '13. Terms Changes',
+        title: '12. Terms Changes',
         content:
           'We will notify subscribing schools 30 days before making material changes to these terms.',
       },
       {
         id: 'indemnification',
-        title: '14. Indemnification',
+        title: '13. Indemnification',
         content:
           "The school agrees to indemnify and hold HermesWorkspace harmless from any claims, damages, or legal costs arising from: content uploaded or shared by the school's users, the school's violation of these terms, or the school's failure to obtain required consents for student accounts. HermesWorkspace agrees to indemnify the school from any claims arising from the platform infringing a third party's intellectual property or HermesWorkspace's own negligence or misconduct.",
+      },
+      {
+        id: 'contact',
+        title: '14. Contact',
+        content:
+          'Questions about these terms may be directed to support@hermesworkspace.com.',
       },
     ],
   },
@@ -455,6 +456,47 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         title: '6. Reporting and Takedown',
         content:
           "HermesWorkspace provides an in-app report button for users to flag content or behaviour that violates this policy. What can be reported: inappropriate content, harassment, bullying, impersonation, unauthorised recordings, spam, or any content that violates Indian law. What happens after a report: Reports are reviewed by HermesWorkspace within 72 hours. If a violation is confirmed, we may remove the content, restrict the account, or suspend access — without prior notice. For severe violations (illegal content, child safety, threats), we may act immediately and report to relevant authorities. No abuse of the report function: filing false or malicious reports is itself a violation of this policy and may result in your account being suspended. School admin reports: school admins may report workspace-level concerns directly to support@hermesworkspace.com for faster resolution. HermesWorkspace's decision on reported content is final. We are not obligated to explain every moderation decision, but will notify affected parties where required by law.",
+      },
+    ],
+  },
+  cookie: {
+    slug: 'cookie',
+    title: 'Cookie Policy',
+    eyebrow: 'Policy',
+    effective: 'Effective date: May 11, 2026',
+    intro: [
+      'This Cookie Policy explains how HermesWorkspace uses cookies and similar technologies to recognize you when you visit our website or use our school messaging and classroom portal.',
+    ],
+    sections: [
+      {
+        id: 'what-are-cookies',
+        title: '1. What Are Cookies',
+        content:
+          'Cookies are small data files placed on your computer or mobile device when you visit a website. They are widely used by website owners to make websites work, or work more efficiently, as well as to provide reporting information.',
+      },
+      {
+        id: 'why-we-use',
+        title: '2. Why We Use Cookies',
+        content:
+          'We use first-party cookies for essential technical reasons. These "essential" or "strictly necessary" cookies are required for user authentication, session management, secure data transport, and core educational features (such as maintaining your active classroom connection).',
+      },
+      {
+        id: 'third-party',
+        title: '3. Third-Party Tracking',
+        content:
+          'We do not allow third-party behavioral tracking or advertising cookies on the HermesWorkspace classroom platform. We may use privacy-compliant telemetry and analytics tools to monitor system performance and prevent platform abuse.',
+      },
+      {
+        id: 'control-cookies',
+        title: '4. How to Control Cookies',
+        content:
+          'You can set or amend your web browser controls to accept or refuse cookies. If you choose to reject strictly necessary cookies, you may still access the marketing site, but key functions of the classroom application (including logins, chats, and meetings) will not function.',
+      },
+      {
+        id: 'policy-updates',
+        title: '5. Policy Updates',
+        content:
+          'We may update this Cookie Policy from time to time to reflect changes in the cookies we use or for other operational, legal, or regulatory reasons.',
       },
     ],
   },

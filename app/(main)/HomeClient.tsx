@@ -4,8 +4,8 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/Home_sections/homehero";
 import Stats from "@/components/Home_sections/Stats";
 import { useEffect, useState } from "react";
+import { WithLoader } from "@/components/LoadingScreen/useLoader";
 
-// Below-fold sections are lazy-loaded so they don't block the initial paint.
 const Features = dynamic(() => import("@/components/Home_sections/Features"), {
   ssr: false,
   loading: () => <div className="py-section" />,
@@ -31,7 +31,7 @@ const MobilePage = dynamic(
   { ssr: false }
 );
 
-export default function HomeClient() {
+function HomeContent() {
   const [isMobile, setIsMobile] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -64,4 +64,8 @@ export default function HomeClient() {
       <CTA />
     </main>
   );
+}
+
+export default function HomeClient() {
+  return <HomeContent />;
 }

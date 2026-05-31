@@ -176,7 +176,7 @@ export default function Footer() {
               <span className="font-logo font-bold text-[16px] text-white tracking-[-0.02em]">HermesWorkspace</span>
             </Link>
             <p className="text-[14px] leading-[1.65] text-white/45 font-body max-w-[260px]">
-              Every school. One platform. School communication &amp; management built for India.
+              Every school. One platform. School communication &amp; management built.
             </p>
             <div className="flex items-center gap-2.5 mt-1">
               {socials.map((s) => (
@@ -213,7 +213,7 @@ export default function Footer() {
             <div className="flex items-center justify-between rounded-2xl border border-white/[0.07] bg-white/[0.03] px-6 py-5 xl:px-8 xl:py-6">
               <div>
                 <p className="text-[15px] font-semibold text-white tracking-[-0.01em]">Stay ahead of school management trends</p>
-                <p className="text-[13px] text-white/40 font-body mt-0.5">Early access updates, product news &amp; insights — no spam.</p>
+                <p className="text-[13px] text-white/40 font-body mt-0.5">Early access updates, product news &amp; insights .</p>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
                 <NavHashLink

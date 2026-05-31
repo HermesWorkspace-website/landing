@@ -67,7 +67,7 @@ export default function WorkflowBento() {
           <div className="relative z-[2] grid grid-cols-1 md:grid-cols-2 gap-5">
             {steps.map((s, i) => (
               <motion.div
-                key={`item-${i}`}
+                key={s.num}
                 initial={{ opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.75, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}

@@ -112,7 +112,7 @@ export default function Features() {
         >
           {features.map((f, i) => (
             <motion.div
-              key={`item-${i}`}
+              key={f.title}
               variants={item}
               className={`bento p-6 flex flex-col gap-4 ${
                 f.size === "col-span-2" ? "md:col-span-2 lg:col-span-2" : 

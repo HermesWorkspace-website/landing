@@ -153,7 +153,7 @@ const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "commun
               const isGradient = i >= 3;
               return (
                 <span
-                  key={`item-${i}`}
+                  key={w}
                   className="word inline-block mr-[0.25em] opacity-0"
                   style={isGradient ? {
                     background: "linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #a78bfa 100%)",
@@ -239,7 +239,7 @@ const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "commun
               "Designed for Academic Coordination",
               "Accessible Across Web & Mobile"
             ].map((t, i) => (
-              <span key={`item-${i}`} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#8b8fbd" }}>
+              <span key={t} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#8b8fbd" }}>
                 <span className="size-1 rounded-full inline-block" style={{ backgroundColor: "#6366f1" }} />
                 {t}
               </span>
@@ -294,7 +294,7 @@ function PhoneMockup() {
             <div className="flex items-end gap-1 h-12">
               {PHONE_BARS.map((h, i) => (
                 <motion.div
-                  key={`item-${i}`}
+                  key={`bar-${i}`}
                   initial={{ height: 0 }}
                   animate={{ height: `${h}%` }}
                   transition={{ delay: 1.2 + i * 0.07, duration: 0.5, ease: "easeOut" }}
@@ -312,7 +312,7 @@ function PhoneMockup() {
             { dot: "#818cf8" },
           ].map((n, i) => (
             <motion.div
-              key={`item-${i}`}
+              key={n.dot}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.5 + i * 0.1 }}

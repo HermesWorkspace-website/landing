@@ -223,7 +223,7 @@ function MobileHero() {
               { icon: <Globe className="size-3.5 shrink-0" />, label: "Web & Mobile Accessibility" },
               { icon: <Zap className="size-3.5 shrink-0" />, label: "Built for Academic Coordination" },
             ].map((item, i) => (
-              <div key={`item-${i}`} className="flex w-full min-w-0 max-w-full items-start gap-1.5">
+              <div key={item.label} className="flex w-full min-w-0 max-w-full items-start gap-1.5">
                 <span className="mt-0.5 shrink-0" style={{ color: "var(--brand)" }}>{item.icon}</span>
                 <span className="min-w-0 text-[11px] font-semibold font-body leading-snug" style={{ color: "var(--ink-60)" }}>
                   {item.label}
@@ -351,7 +351,7 @@ function MobileHero() {
             "Supporting modern institutional operations",
             "Free Demo available for qualifying institutions",
           ].map((text, i) => (
-            <div key={`item-${i}`} className="flex items-center gap-2">
+            <div key={text} className="flex items-center gap-2">
               <CheckCircle className="size-3.5 shrink-0 text-emerald-500" />
               <span className="text-[12px]" style={{ color: "var(--ink-60)" }}>
                 {text}
@@ -416,7 +416,7 @@ function MobileFeatures() {
 
       <div className="flex flex-col gap-4">
         {FEATURES.map((card, i) => (
-          <FadeUp key={`item-${i}`} delay={i * 70}>
+          <FadeUp key={card.title} delay={i * 70}>
             <div
               className="rounded-2xl p-5 bg-white"
               style={{ border: "1px solid var(--ink-06)", boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
@@ -798,7 +798,7 @@ function MobileInquiry() {
             { icon: <IconMail size={15} />, title: "Email", body: "support@hermesworkspace.com" },
             { icon: <IconBolt size={15} />, title: "Response Time", body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours." },
           ].map((item, i) => (
-            <div key={`item-${i}`} className="flex gap-3">
+            <div key={item.title} className="flex gap-3">
               <div
                 className="size-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
                 style={{ background: "rgba(90,95,232,0.08)", color: "var(--brand)" }}
@@ -902,7 +902,7 @@ function MobileRealtime() {
           { icon: <Lock className="size-4" />, label: "Secure Role-Based Access Control", color: "var(--brand-light)" },
           { icon: <Server className="size-4" />, label: "Scalable Cloud Infrastructure", color: "#a855f7" },
         ].map((item, i) => (
-          <div key={`item-${i}`} className="flex items-center gap-3">
+          <div key={item.label} className="flex items-center gap-3">
             <span style={{ color: item.color }}>{item.icon}</span>
             <span className="text-[12px] font-semibold font-body" style={{ color: item.color }}>
               {item.label}
@@ -926,7 +926,7 @@ function MobileRealtime() {
           style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
         >
           {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => (
-            <div key={`item-${i}`} className="size-2.5 rounded-full" style={{ background: c }} />
+            <div key={c} className="size-2.5 rounded-full" style={{ background: c }} />
           ))}
           <span className="text-[8px] font-body ml-2" style={{ color: "rgba(255,255,255,0.2)" }}>
             LIVE · CAMPUS-WIDE COORDINATION ACTIVE
@@ -936,7 +936,7 @@ function MobileRealtime() {
         <div className="p-3 space-y-2">
           {ALERTS.map((a, i) => (
             <div
-              key={`item-${i}`}
+              key={a.text}
               className="flex items-start gap-2.5 p-3 rounded-xl"
               style={{
                 background:
@@ -1064,7 +1064,7 @@ function MobileFAQ() {
       <FadeUp delay={80}>
         {FAQS.map((f, i) => (
           <FAQItem
-            key={`item-${i}`}
+            key={f.q}
             q={f.q}
             a={f.a}
             open={openIdx === i}

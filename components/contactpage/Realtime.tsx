@@ -110,7 +110,7 @@ through a secure and structured institutional platform.
               { icon: <Server className="size-4" />, label: "Scalable Cloud Infrastructure", color: "#a855f7" },
             ].map((item, i) => (
               <motion.div
-                key={`item-${i}`}
+                key={item.label}
                 className="flex items-center gap-3"
                 initial={{ opacity: 0, x: -20 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -149,7 +149,7 @@ through a secure and structured institutional platform.
             <div className="flex items-center gap-1.5 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => (
                 <motion.div
-                  key={`item-${i}`}
+                  key={c}
                   className="size-2.5 rounded-full cursor-pointer"
                   style={{ background: c }}
                   whileHover={{ scale: 1.3 }}
@@ -163,7 +163,7 @@ through a secure and structured institutional platform.
             <div className="p-4 space-y-2.5">
               {alerts.map((a, i) => (
                 <motion.div
-                  key={`item-${i}`}
+                  key={a.text}
                   initial={{ opacity: 0, x: 30 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.55 + i * 0.13 }}

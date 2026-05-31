@@ -238,7 +238,7 @@ function MobileHero() {
                 { text: "Institutions", accent: null },
               ].map((line, i) => (
                 <motion.span
-                  key={`item-${i}`}
+                  key={line.text}
                   className="block"
                   style={{ color: INK }}
                   initial={{ opacity: 0, y: 28 }}
@@ -699,7 +699,7 @@ function MobileFAQ() {
       <FadeUp delay={0.1}>
         {FAQS.map((f, i) => (
           <FAQItem
-            key={`item-${i}`}
+            key={f.q}
             q={f.q}
             a={f.a}
             open={openIdx === i}

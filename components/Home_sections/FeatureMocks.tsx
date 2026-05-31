@@ -476,7 +476,7 @@ export function MessagesMock() {
           </motion.div>
           {WORKSPACES.map((w, i) => (
             <motion.div
-              key={`item-${i}`}
+              key={w.name}
               whileHover={{ scale: 1.1, rotate: 3 }}
               whileTap={{ scale: 0.92 }}
               onClick={() => {
@@ -513,7 +513,7 @@ export function MessagesMock() {
             <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="space-y-1.5">
               {SCHOOL_NOTICES.map((notice, i) => (
                 <motion.div
-                  key={`item-${i}`}
+                  key={notice.title}
                   variants={fadeUp}
                   whileHover={{ x: 2, scale: 1.01 }}
                   className="rounded-lg bg-brand/[0.04] border border-brand/[0.06] px-2 py-1.5 cursor-pointer"

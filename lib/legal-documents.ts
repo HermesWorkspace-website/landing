@@ -30,7 +30,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'terms',
     title: 'Terms of Service',
     eyebrow: 'Legal',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'These Terms of Service govern access to and use of HermesWorkspace by schools, organizations, administrators, teachers, students, and other authorized users.',
       'By accessing or using the Service, the organization or individual accepts these terms and agrees to follow applicable school policies and local law.',
@@ -126,7 +126,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'privacy',
     title: 'Privacy Policy',
     eyebrow: 'Privacy',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'This Privacy Policy explains how HermesWorkspace collects, uses, discloses, and protects personal data when users access school communication, classroom messaging, meetings, notices, and support services.',
       'Workspaces are typically administered by a school or organization. That organization determines access, membership, content retention, and review of records generated within the workspace.',
@@ -192,7 +192,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'dpa',
     title: 'Data Processing Addendum',
     eyebrow: 'Data processing',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'This Data Processing Addendum supplements the agreement between HermesWorkspace and the organization that administers a workspace. It applies when HermesWorkspace processes personal data on behalf of that organization.',
       'The organization remains responsible for its legal obligations, user notices, and the lawful basis for processing personal data under applicable privacy law.',
@@ -299,7 +299,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'data-deletion',
     title: 'Data Deletion',
     eyebrow: 'Account and workspace data requests',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'HermesWorkspace supports deletion requests while recognizing that many workspace records are controlled by a school or organization and may be subject to legal, safety, or audit obligations.',
     ],
@@ -340,7 +340,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'parental-control',
     title: 'Parental Control Policy',
     eyebrow: 'Student safety and supervision',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'HermesWorkspace is designed for use by schools, teachers, students, and guardians. This Parental Control Policy explains how the platform supports safe student use, parental oversight, and responsible account handling.',
     ],
@@ -416,7 +416,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'aup',
     title: 'Acceptable Use Policy',
     eyebrow: 'Policy',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'This policy applies to all users — admins, teachers, students, and parents.',
     ],
@@ -463,7 +463,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'cookie',
     title: 'Cookie Policy',
     eyebrow: 'Policy',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'This Cookie Policy explains how HermesWorkspace uses cookies and similar technologies to recognize you when you visit our website or use our school messaging and classroom portal.',
     ],

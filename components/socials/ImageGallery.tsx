@@ -85,7 +85,7 @@ export function ImageGallery() {
         variants={staggerContainer}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
-        className="grid grid-cols-3 gap-4 container-page py-16"
+        className="grid grid-cols-3 gap-4 container-page py-16 mt-5"
       >
         {IMAGES.map((img, i) => (
           <GridImage key={img.label} img={img} index={i} />

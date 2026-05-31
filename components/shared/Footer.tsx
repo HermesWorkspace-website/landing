@@ -131,7 +131,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-brand-ink overflow-hidden">
+    <footer className="relative bg-brand-ink overflow-hidden mt-2">
       {/* Glow — decorative, desktop only */}
       <div
         aria-hidden
@@ -239,10 +239,10 @@ export default function Footer() {
         <div className="md:hidden mx-5 mt-6 rounded-xl border border-white/[0.07] bg-white/[0.03] p-4">
           <p className="text-[13px] font-semibold text-white tracking-[-0.01em]">Stay in the loop</p>
           <p className="text-[12px] text-white/35 font-body mt-0.5 mb-3">Early access updates &amp; product news — no spam.</p>
-          <input type="email" placeholder="school@example.com"
-            className="w-full h-9 rounded-lg bg-white/[0.06] border border-white/[0.08] px-3 text-[13px] text-white placeholder:text-white/25 outline-none focus:border-white/25 transition-all font-body mb-2" />
-          <button type="submit" className="w-full h-9 rounded-lg bg-white text-brand-ink text-[13px] font-semibold font-body hover:bg-white/90 active:scale-[0.98] transition-all">
-            Subscribe
+          <button type="submit" onClick={() => {
+            location.href = "/contact#inquiry"
+          }} className="w-full h-9 rounded-lg bg-white text-brand-ink text-[13px] font-semibold font-body hover:bg-white/90 active:scale-[0.98] transition-all">
+            Early Access
           </button>
         </div>
       </div>

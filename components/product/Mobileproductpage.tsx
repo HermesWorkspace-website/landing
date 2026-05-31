@@ -56,16 +56,22 @@ import { useRouter } from "next/navigation";
 function useVisible(rootMargin = "-30px") {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const marginRef = useRef(rootMargin);
+
+  useEffect(() => {
+    marginRef.current = rootMargin;
+  }, [rootMargin]);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.unobserve(el); } },
-      { rootMargin }
+      { rootMargin: marginRef.current }
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [rootMargin]);
+  }, []);
   return { ref, visible };
 }
 

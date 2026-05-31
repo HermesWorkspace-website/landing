@@ -7,15 +7,17 @@ export default function HeroCanvas() {
 
   useEffect(() => {
     let animId: number;
-    let THREE: typeof import("three");
+    let renderer: any;
+    let onMouse: (e: MouseEvent) => void;
+    let onResize: () => void;
+    let disposed = false;
 
-    async function init() {
-      THREE = await import("three");
-
+    import("three").then((THREE) => {
+      if (disposed) return;
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
 
@@ -62,7 +64,7 @@ export default function HeroCanvas() {
 
       // --- 2. Floating soft spheres ---
       const sphereGeo = new THREE.SphereGeometry(0.1, 16, 16);
-      const spheres: { mesh: THREE_TYPES.Mesh<THREE_TYPES.SphereGeometry, THREE_TYPES.MeshBasicMaterial, THREE_TYPES.Object3DEventMap>; phase: number; }[] = [];
+      const spheres: { mesh: any; phase: number; }[] = [];
       for (let i = 0; i < 4; i++) {
         const sphereMat = new THREE.MeshBasicMaterial({ 
           color: i % 2 === 0 ? 0x6063ee : 0xa855f7,
@@ -78,13 +80,13 @@ export default function HeroCanvas() {
       }
 
       let mouse = { x: 0, y: 0 };
-      const onMouse = (e: MouseEvent) => {
+      onMouse = (e: MouseEvent) => {
         mouse.x = (e.clientX / window.innerWidth - 0.5) * 0.4;
         mouse.y = (e.clientY / window.innerHeight - 0.5) * -0.3;
       };
       window.addEventListener("mousemove", onMouse);
 
-      const onResize = () => {
+      onResize = () => {
         if (!canvas) return;
         const w = canvas.offsetWidth, h = canvas.offsetHeight;
         renderer.setSize(w, h);
@@ -147,17 +149,15 @@ export default function HeroCanvas() {
         renderer.render(scene, camera);
       };
       animate();
+    });
 
-      return () => {
-        window.removeEventListener("mousemove", onMouse);
-        window.removeEventListener("resize", onResize);
-        cancelAnimationFrame(animId);
-        renderer.dispose();
-      };
-    }
-
-    const cleanup = init();
-    return () => { cleanup.then(fn => fn && fn()); };
+    return () => {
+      disposed = true;
+      if (onMouse) window.removeEventListener("mousemove", onMouse);
+      if (onResize) window.removeEventListener("resize", onResize);
+      if (animId) cancelAnimationFrame(animId);
+      if (renderer) renderer.dispose();
+    };
   }, []);
 
   return (

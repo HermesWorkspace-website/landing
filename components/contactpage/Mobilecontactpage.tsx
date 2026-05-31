@@ -80,16 +80,22 @@ import { InquirySchema, INQUIRY_TYPES, type InquiryFieldErrors } from "@/lib/val
 function useVisible(rootMargin = "-30px") {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const marginRef = useRef(rootMargin);
+
+  useEffect(() => {
+    marginRef.current = rootMargin;
+  }, [rootMargin]);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.unobserve(el); } },
-      { rootMargin }
+      { rootMargin: marginRef.current }
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [rootMargin]);
+  }, []);
   return { ref, visible };
 }
 
@@ -458,6 +464,27 @@ const INITIAL_FORM: FormState = {
   message: "",
 };
 
+const FieldLabel = ({ text, required = true }: { text: string; required?: boolean }) => (
+  <span
+    className="block mb-1.5 uppercase tracking-widest font-body font-bold"
+    style={{ fontSize: 9.5, color: "var(--ink-35)" }}
+  >
+    {text}
+    {required && <span style={{ color: "#EF4444", marginLeft: 2 }}>*</span>}
+  </span>
+);
+
+const ErrMsg = ({ name, fieldErrors }: { name: FieldKey; fieldErrors: InquiryFieldErrors }) =>
+  fieldErrors[name] ? (
+    <p
+      className="mt-1 flex items-center gap-1 text-[10px] font-medium"
+      style={{ color: "#EF4444" }}
+    >
+      <IconAlertCircle size={10} />
+      {fieldErrors[name]}
+    </p>
+  ) : null;
+
 function MobileInquiry() {
   const [focused, setFocused] = useState<FieldKey | null>(null);
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
@@ -568,27 +595,6 @@ function MobileInquiry() {
     WebkitAppearance: "none",
   });
 
-  const FieldLabel = ({ text, required = true }: { text: string; required?: boolean }) => (
-    <span
-      className="block mb-1.5 uppercase tracking-widest font-body font-bold"
-      style={{ fontSize: 9.5, color: "var(--ink-35)" }}
-    >
-      {text}
-      {required && <span style={{ color: "#EF4444", marginLeft: 2 }}>*</span>}
-    </span>
-  );
-
-  const ErrMsg = ({ name }: { name: FieldKey }) =>
-    fieldErrors[name] ? (
-      <p
-        className="mt-1 flex items-center gap-1 text-[10px] font-medium"
-        style={{ color: "#EF4444" }}
-      >
-        <IconAlertCircle size={10} />
-        {fieldErrors[name]}
-      </p>
-    ) : null;
-
   return (
     <section
       id="m-inquiry"
@@ -632,7 +638,7 @@ function MobileInquiry() {
                 onBlur={() => handleBlur("fullName")}
                 style={inputStyle("fullName")}
               />
-              <ErrMsg name="fullName" />
+              <ErrMsg name="fullName" fieldErrors={fieldErrors} />
             </div>
             <div>
               <FieldLabel text="Institution" />
@@ -645,7 +651,7 @@ function MobileInquiry() {
                 onBlur={() => handleBlur("institution")}
                 style={inputStyle("institution")}
               />
-              <ErrMsg name="institution" />
+              <ErrMsg name="institution" fieldErrors={fieldErrors} />
             </div>
           </div>
 
@@ -661,7 +667,7 @@ function MobileInquiry() {
               onBlur={() => handleBlur("email")}
               style={inputStyle("email")}
             />
-            <ErrMsg name="email" />
+            <ErrMsg name="email" fieldErrors={fieldErrors} />
           </div>
 
           {/* Phone */}
@@ -676,7 +682,7 @@ function MobileInquiry() {
               onBlur={() => handleBlur("phone")}
               style={inputStyle("phone")}
             />
-            <ErrMsg name="phone" />
+            <ErrMsg name="phone" fieldErrors={fieldErrors} />
           </div>
 
           {/* Inquiry Type */}
@@ -700,7 +706,7 @@ function MobileInquiry() {
                 style={{ color: "var(--ink-35)" }}
               />
             </div>
-            <ErrMsg name="inquiryType" />
+            <ErrMsg name="inquiryType" fieldErrors={fieldErrors} />
           </div>
 
           {/* Message */}
@@ -716,7 +722,7 @@ function MobileInquiry() {
               style={{ ...inputStyle("message"), resize: "none" }}
             />
             <div className="flex justify-between items-start mt-1">
-              <ErrMsg name="message" />
+              <ErrMsg name="message" fieldErrors={fieldErrors} />
               <span
                 className="text-[9px] font-mono shrink-0 ml-2"
                 style={{ color: form.message.length > 1900 ? "#EF4444" : "var(--ink-35)" }}

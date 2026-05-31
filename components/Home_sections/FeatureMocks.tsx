@@ -770,7 +770,7 @@ export function ClassesMock() {
                 <div className="text-[8px] text-white/50 mt-0.5">You · HOST</div>
               </div>
               <div className="absolute bottom-2.5 right-2.5 flex gap-1.5 z-10">
-                {[<MicOff className="w-3 h-3" />, <VideoOff className="w-3 h-3" />].map((ic, i) => (
+                {[<MicOff key="micoff" className="w-3 h-3" />, <VideoOff key="videooff" className="w-3 h-3" />].map((ic, i) => (
                   <motion.div
                     key={i}
                     whileHover={{ scale: 1.15 }}
@@ -1274,8 +1274,12 @@ function SectionHeader() {
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
   const [scramble, setScramble] = useState(false);
   const inView = useInView(ref, { once: true });
-
-  useEffect(() => { if (inView) { setTimeout(() => setScramble(true), 200); } }, [inView]);
+  useEffect(() => {
+    if (inView) {
+      const t = setTimeout(() => setScramble(true), 200);
+      return () => clearTimeout(t);
+    }
+  }, [inView]);
 
   return (
     <motion.div ref={ref} style={{ y }} className="text-center mb-20 relative">

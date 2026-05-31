@@ -63,7 +63,7 @@ export default function Stats() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((s, i) => (
             <motion.div
-              key={i}
+              key={s.label}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}

@@ -309,7 +309,7 @@ function ClassesVisual() {
             <div className="text-white/50 text-[10px] mt-0.5">Class 12-B · Science</div>
           </div>
           <div className="flex gap-1.5">
-            {[<Mic className="w-3 h-3" />, <Monitor className="w-3 h-3" />, <PhoneCall className="w-3 h-3" />].map(
+            {[<Mic key="mic" className="w-3 h-3" />, <Monitor key="monitor" className="w-3 h-3" />, <PhoneCall key="phone" className="w-3 h-3" />].map(
               (icon, i) => (
                 <motion.div
                   key={i}
@@ -687,7 +687,7 @@ function EventsVisual() {
         <div className="flex items-center justify-between mb-3">
           <div className="text-sm font-bold text-brand-ink">October 2026</div>
           <div className="flex gap-1">
-            {[<ChevronLeft className="w-3 h-3" />, <ChevronRight className="w-3 h-3" />].map((icon, i) => (
+            {[<ChevronLeft key="left" className="w-3 h-3" />, <ChevronRight key="right" className="w-3 h-3" />].map((icon, i) => (
               <motion.div
                 key={i}
                 whileHover={{ scale: 1.15, backgroundColor: "rgba(96,99,238,0.1)" }}

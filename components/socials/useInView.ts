@@ -13,6 +13,16 @@ export function useInView(options: UseInViewOptions = {}) {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
+  const thresholdRef = useRef(threshold);
+  const rootMarginRef = useRef(rootMargin);
+  const onceRef = useRef(once);
+
+  useEffect(() => {
+    thresholdRef.current = threshold;
+    rootMarginRef.current = rootMargin;
+    onceRef.current = once;
+  }, [threshold, rootMargin, once]);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -20,16 +30,16 @@ export function useInView(options: UseInViewOptions = {}) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-          if (once) observer.unobserve(el);
-        } else if (!once) {
+          if (onceRef.current) observer.unobserve(el);
+        } else if (!onceRef.current) {
           setInView(false);
         }
       },
-      { threshold, rootMargin }
+      { threshold: thresholdRef.current, rootMargin: rootMarginRef.current }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold, rootMargin, once]);
+  }, []);
 
   return { ref, inView };
 }

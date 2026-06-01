@@ -5,7 +5,10 @@ export type LegalSlug =
   | 'information'
   | 'contact'
   | 'data-deletion'
-  | 'parental-control';
+  | 'parental-control'
+  | 'grievance'
+  | 'aup'
+  | 'cookie';
 
 export type LegalDocSection = {
   id: string;
@@ -27,7 +30,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'terms',
     title: 'Terms of Service',
     eyebrow: 'Legal',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'These Terms of Service govern access to and use of HermesWorkspace by schools, organizations, administrators, teachers, students, and other authorized users.',
       'By accessing or using the Service, the organization or individual accepts these terms and agrees to follow applicable school policies and local law.',
@@ -70,8 +73,50 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
           'HermesWorkspace may suspend or terminate access to protect the Service, comply with law, or respond to abuse. The organization may also restrict accounts for safety, policy, or administrative reasons.',
       },
       {
+        id: 'governing-law',
+        title: '7. Governing Law',
+        content:
+          'Disputes are governed by the laws of India. Courts of Jharkhand have exclusive jurisdiction.',
+      },
+      {
+        id: 'limitation-of-liability',
+        title: '8. Limitation of Liability',
+        content:
+          "HermesWorkspace's total liability is limited to fees paid by the school in the 12 months before the claim. We are not liable for indirect, consequential, or incidental damages.",
+      },
+      {
+        id: 'warranty-disclaimer',
+        title: '9. Warranty Disclaimer',
+        content:
+          'The Service is provided as-is and as-available. We make no implied warranties of fitness, merchantability, or uninterrupted availability.',
+      },
+      {
+        id: 'ip-ownership',
+        title: '10. IP Ownership',
+        content:
+          'HermesWorkspace owns the platform and its software. The school owns all workspace data and content uploaded by its users.',
+      },
+      {
+        id: 'force-majeure',
+        title: '11. Force Majeure',
+        content:
+          'Neither party is liable for failures caused by events outside reasonable control — including internet outages, power failures, or government action.',
+      },
+      {
+        id: 'terms-changes',
+        title: '12. Terms Changes',
+        content:
+          'We will notify subscribing schools 30 days before making material changes to these terms.',
+      },
+      {
+        id: 'indemnification',
+        title: '13. Indemnification',
+        content:
+          "The school agrees to indemnify and hold HermesWorkspace harmless from any claims, damages, or legal costs arising from: content uploaded or shared by the school's users, the school's violation of these terms, or the school's failure to obtain required consents for student accounts. HermesWorkspace agrees to indemnify the school from any claims arising from the platform infringing a third party's intellectual property or HermesWorkspace's own negligence or misconduct.",
+      },
+      {
         id: 'contact',
-        title: '7. Contact',
+        title: '14. Contact',
         content:
           'Questions about these terms may be directed to support@hermesworkspace.com.',
       },
@@ -81,7 +126,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'privacy',
     title: 'Privacy Policy',
     eyebrow: 'Privacy',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'This Privacy Policy explains how HermesWorkspace collects, uses, discloses, and protects personal data when users access school communication, classroom messaging, meetings, notices, and support services.',
       'Workspaces are typically administered by a school or organization. That organization determines access, membership, content retention, and review of records generated within the workspace.',
@@ -109,7 +154,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         id: 'sharing',
         title: '4. How we share personal data',
         content:
-          'HermesWorkspace may share data with hosting providers, notification services, analytics providers, and support partners. We do not sell personal data.',
+          'HermesWorkspace may share data with notification services, analytics providers, and support partners. We do not sell personal data.',
       },
       {
         id: 'rights',
@@ -117,13 +162,37 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         content:
           'Users may request access, correction, export, or deletion through their school administrator or by contacting support@hermesworkspace.com.',
       },
+      {
+        id: 'data-retention',
+        title: '6. Data Retention',
+        content:
+          "We retain personal data for as long as the school's subscription is active. After contract end, workspace data is deleted within 30 days unless the school requests an export first.",
+      },
+      {
+        id: 'grievance-officer',
+        title: '7. Grievance Officer',
+        content:
+          'For privacy concerns, contact our Grievance Officer at apurav@hermesworkspace.com. See our Grievance page for details.',
+      },
+      {
+        id: 'childrens-data',
+        title: "8. Children's Data",
+        content:
+          'Student data is processed on behalf of the school. The school is responsible for obtaining any required parental consent before adding students to the platform.',
+      },
+      {
+        id: 'cross-border-transfers',
+        title: '9. Cross-Border Transfers',
+        content:
+          'Some service providers (storage, notifications, analytics) may process data outside India. We ensure such providers maintain adequate data protection standards.',
+      },
     ],
   },
   dpa: {
     slug: 'dpa',
     title: 'Data Processing Addendum',
     eyebrow: 'Data processing',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'This Data Processing Addendum supplements the agreement between HermesWorkspace and the organization that administers a workspace. It applies when HermesWorkspace processes personal data on behalf of that organization.',
       'The organization remains responsible for its legal obligations, user notices, and the lawful basis for processing personal data under applicable privacy law.',
@@ -139,7 +208,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         id: 'subprocessors',
         title: '2. Sub-processors',
         content:
-          'HermesWorkspace may engage service providers for hosting, storage, messaging, analytics, notifications, security, and support. Sub-processors are bound by obligations to protect personal data.',
+          'HermesWorkspace may engage service providers for storage, messaging, analytics, notifications, security, and support. Sub-processors are bound by obligations to protect personal data.',
       },
       {
         id: 'security',
@@ -230,7 +299,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'data-deletion',
     title: 'Data Deletion',
     eyebrow: 'Account and workspace data requests',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'HermesWorkspace supports deletion requests while recognizing that many workspace records are controlled by a school or organization and may be subject to legal, safety, or audit obligations.',
     ],
@@ -271,7 +340,7 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
     slug: 'parental-control',
     title: 'Parental Control Policy',
     eyebrow: 'Student safety and supervision',
-    effective: 'Effective date: May 11, 2026',
+    effective: 'Effective date: June 1, 2026',
     intro: [
       'HermesWorkspace is designed for use by schools, teachers, students, and guardians. This Parental Control Policy explains how the platform supports safe student use, parental oversight, and responsible account handling.',
     ],
@@ -305,6 +374,129 @@ export const legalDocuments: Record<LegalSlug, LegalDocument> = {
         title: '5. Support and reporting',
         content:
           'If guardians or students have safety concerns, they should contact their school administrator or email support@hermesworkspace.com for technical help and guidance.',
+      },
+    ],
+  },
+  grievance: {
+    slug: 'grievance',
+    title: 'Grievance Officer',
+    eyebrow: 'Indian IT Rules compliance',
+    effective: 'Updated May 11, 2026',
+    intro: [
+      'HermesWorkspace has appointed a Grievance Officer as required under the Digital Personal Data Protection Act 2023 and IT Rules 2011.',
+    ],
+    sections: [
+      {
+        id: 'details',
+        title: '1. Grievance Officer Details',
+        content:
+          'Grievance Officer: Mr. Apurav Agarwal\nEmail: apurav@hermesworkspace.com',
+      },
+      {
+        id: 'filing',
+        title: '2. How to File a Grievance',
+        content:
+          'To file a grievance, email the above address with your name, contact details, description of the concern, and relevant dates. We will acknowledge within 48 hours and resolve within 30 days.',
+      },
+      {
+        id: 'matters',
+        title: '3. Grievance Covered Matters',
+        content:
+          'Grievances may relate to: privacy complaints, data access or deletion requests, safety concerns, or content disputes.',
+      },
+      {
+        id: 'escalation',
+        title: '4. Escalation',
+        content:
+          'If unresolved, you may escalate to the appropriate authority under Indian law.',
+      },
+    ],
+  },
+  aup: {
+    slug: 'aup',
+    title: 'Acceptable Use Policy',
+    eyebrow: 'Policy',
+    effective: 'Effective date: June 1, 2026',
+    intro: [
+      'This policy applies to all users — admins, teachers, students, and parents.',
+    ],
+    sections: [
+      {
+        id: 'conduct',
+        title: '1. Prohibited Conduct',
+        content:
+          'Prohibited: harassment, bullying, impersonation, sharing inappropriate content, bypassing access controls, recording classes without permission, uploading malware, spam.',
+      },
+      {
+        id: 'student-rules',
+        title: '2. Student Guidelines',
+        content:
+          'Student rules: do not share login credentials, follow your school\'s platform rules, do not record or screenshot sessions without permission.',
+      },
+      {
+        id: 'admin-responsibility',
+        title: '3. Admin Responsibility',
+        content:
+          'School admin responsibility: enforce this policy within your workspace and report violations to support@hermesworkspace.com.',
+      },
+      {
+        id: 'content-standards',
+        title: '4. Content Standards',
+        content:
+          'Content standards: no adult content, no violent content, nothing that violates Indian law including the IT Act 2000.',
+      },
+      {
+        id: 'consequences',
+        title: '5. Consequences',
+        content:
+          'Consequences: depending on severity — warning, suspension, or permanent termination of access. HermesWorkspace may remove content or suspend accounts without prior notice if required for platform safety.',
+      },
+      {
+        id: 'reporting-takedown',
+        title: '6. Reporting and Takedown',
+        content:
+          "HermesWorkspace provides an in-app report button for users to flag content or behaviour that violates this policy. What can be reported: inappropriate content, harassment, bullying, impersonation, unauthorised recordings, spam, or any content that violates Indian law. What happens after a report: Reports are reviewed by HermesWorkspace within 72 hours. If a violation is confirmed, we may remove the content, restrict the account, or suspend access — without prior notice. For severe violations (illegal content, child safety, threats), we may act immediately and report to relevant authorities. No abuse of the report function: filing false or malicious reports is itself a violation of this policy and may result in your account being suspended. School admin reports: school admins may report workspace-level concerns directly to support@hermesworkspace.com for faster resolution. HermesWorkspace's decision on reported content is final. We are not obligated to explain every moderation decision, but will notify affected parties where required by law.",
+      },
+    ],
+  },
+  cookie: {
+    slug: 'cookie',
+    title: 'Cookie Policy',
+    eyebrow: 'Policy',
+    effective: 'Effective date: June 1, 2026',
+    intro: [
+      'This Cookie Policy explains how HermesWorkspace uses cookies and similar technologies to recognize you when you visit our website or use our school messaging and classroom portal.',
+    ],
+    sections: [
+      {
+        id: 'what-are-cookies',
+        title: '1. What Are Cookies',
+        content:
+          'Cookies are small data files placed on your computer or mobile device when you visit a website. They are widely used by website owners to make websites work, or work more efficiently, as well as to provide reporting information.',
+      },
+      {
+        id: 'why-we-use',
+        title: '2. Why We Use Cookies',
+        content:
+          'We use first-party cookies for essential technical reasons. These "essential" or "strictly necessary" cookies are required for user authentication, session management, secure data transport, and core educational features (such as maintaining your active classroom connection).',
+      },
+      {
+        id: 'third-party',
+        title: '3. Third-Party Tracking',
+        content:
+          'We do not allow third-party behavioral tracking or advertising cookies on the HermesWorkspace classroom platform. We may use privacy-compliant telemetry and analytics tools to monitor system performance and prevent platform abuse.',
+      },
+      {
+        id: 'control-cookies',
+        title: '4. How to Control Cookies',
+        content:
+          'You can set or amend your web browser controls to accept or refuse cookies. If you choose to reject strictly necessary cookies, you may still access the marketing site, but key functions of the classroom application (including logins, chats, and meetings) will not function.',
+      },
+      {
+        id: 'policy-updates',
+        title: '5. Policy Updates',
+        content:
+          'We may update this Cookie Policy from time to time to reflect changes in the cookies we use or for other operational, legal, or regulatory reasons.',
       },
     ],
   },

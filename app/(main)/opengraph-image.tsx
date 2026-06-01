@@ -16,23 +16,6 @@ const BASE_URL =
   "http://localhost:3000";
 
 export default async function Image() {
-  // Prefer local public/logo.png so it always matches the real logo
-  const logoSrc = `${BASE_URL.startsWith("http") ? BASE_URL : `https://${BASE_URL}`}/logo.png`;
-  
-  // Attempt to load logo; gracefully fall back to text badge if it fails
-  let logoData: string | null = null;
-  try {
-    const res = await fetch(logoSrc);
-    if (res.ok) {
-      const buf = await res.arrayBuffer();
-      const b64 = Buffer.from(buf).toString("base64");
-      const mime = res.headers.get("content-type") ?? "image/png";
-      logoData = `data:${mime};base64,${b64}`;
-    }
-  } catch {
-    // logo will be replaced by text badge fallback below
-  }
-
   return new ImageResponse(
     (
       <div
@@ -109,40 +92,25 @@ export default async function Image() {
             marginBottom: 40,
           }}
         >
-          {/* Logo image or fallback badge */}
-          {logoData ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={logoData}
-              width={56}
-              height={56}
-              alt="HermesWorkspace logo"
-              style={{
-                borderRadius: 14,
-                border: `1.5px solid rgba(96,99,238,0.5)`,
-                boxShadow: `0 0 24px rgba(96,99,238,0.35)`,
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                width: 56,
-                height: 56,
-                borderRadius: 14,
-                background: "rgba(96,99,238,0.15)",
-                border: `1.5px solid rgba(96,99,238,0.5)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 20,
-                fontWeight: 900,
-                color: BRAND,
-                boxShadow: `0 0 24px rgba(96,99,238,0.3)`,
-              }}
-            >
-              HW
-            </div>
-          )}
+          {/* Brand logo badge */}
+          <div
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: 14,
+              background: "rgba(96,99,238,0.15)",
+              border: `1.5px solid rgba(96,99,238,0.5)`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 20,
+              fontWeight: 900,
+              color: BRAND,
+              boxShadow: `0 0 24px rgba(96,99,238,0.3)`,
+            }}
+          >
+            HW
+          </div>
 
           {/* Brand wordmark */}
           <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>

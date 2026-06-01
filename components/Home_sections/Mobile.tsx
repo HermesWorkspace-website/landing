@@ -152,8 +152,8 @@ function MobileHero() {
           {/* Stats row */}
           <div className="grid grid-cols-3 gap-2 p-3">
             {[
-              { label: "Students", val: "1,842", color: "bg-blue-500/[0.07]" },
-              { label: "Live", val: "12", color: "bg-purple-500/[0.07]" },
+              { label: "Students", val: "2000+", color: "bg-blue-500/[0.07]" },
+              { label: "Teachers", val: "50+", color: "bg-purple-500/[0.07]" },
               { label: "Engage", val: "94%", color: "bg-green-500/[0.07]" },
             ].map(s => (
               <div key={s.label} className={`${s.color} rounded-xl p-2.5 text-center`}>
@@ -211,12 +211,12 @@ function MobileStats() {
 // ═══════════════════════════════════════════════════════════════════════════════
 const FEATURES = [
   { icon: MessageSquare, label: "Messages", desc: "Parent–teacher, staff, and class group chats with read receipts.", color: "bg-purple-500/[0.08] text-purple-600" },
-  { icon: Video, label: "Classes", desc: "HD live classes at 360p SFU — 30 concurrent sessions, 150 students each.", color: "bg-brand/[0.08] text-brand" },
-  { icon: Calendar, label: "Meetings", desc: "Staff meetings, PTA sessions, and board reviews with calendar sync.", color: "bg-amber-500/[0.08] text-amber-600" },
-  { icon: Presentation, label: "Webinars", desc: "Large-scale webinars for orientations and guest lectures — 300+ attendees.", color: "bg-rose-500/[0.08] text-rose-600" },
-  { icon: Bell, label: "Notice Board", desc: "Push school announcements to every parent's phone in seconds.", color: "bg-blue-500/[0.08] text-blue-600" },
+  { icon: Video, label: "Classes", desc: "Live classes up to 150 students each.", color: "bg-brand/[0.08] text-brand" },
+  { icon: Calendar, label: "Meetings", desc: "Staff meetings, Teacher meeting, Parents-Teachers meeting", color: "bg-amber-500/[0.08] text-amber-600" },
+  { icon: Presentation, label: "Webinars", desc: "Large-scale webinars for orientations and guest lectures up to 500 attendees.", color: "bg-rose-500/[0.08] text-rose-600" },
+  { icon: Bell, label: "Notice Board", desc: "Push school announcements to every one's phone in seconds.", color: "bg-blue-500/[0.08] text-blue-600" },
   { icon: Users, label: "Members", desc: "Manage students, teachers, admins with role-based access and bulk onboarding.", color: "bg-green-500/[0.08] text-green-600" },
-  { icon: Activity, label: "Activity", desc: "Real-time feed — track assignments, attendance, notices across your school.", color: "bg-violet-500/[0.08] text-violet-600" },
+  { icon: Activity, label: "Activity", desc: "Teachers can create and manage activities, competitions, and events for students to discover and participate in.", color: "bg-violet-500/[0.08] text-violet-600" },
 ];
 
 function MobileFeatures() {
@@ -255,7 +255,6 @@ function MobileFeatures() {
           {[
             { icon: Shield, label: "DPDPA Compliant", color: "text-green-600" },
             { icon: Globe2, label: "Hosted in India", color: "text-brand" },
-            { icon: BookOpen, label: "CBSE / ICSE Ready", color: "text-purple-600" },
           ].map(t => (
             <div key={t.label} className="flex items-center gap-1.5 text-xs text-brand-muted font-body">
               <t.icon className={`size-3.5 ${t.color}`} />
@@ -273,13 +272,13 @@ function MobileFeatures() {
 // ═══════════════════════════════════════════════════════════════════════════════
 const STEPS = [
   { num: "01", title: "Set up your institution", badge: "Onboarding",
-    desc: "Import students, teachers, and parents in minutes. Departments and channels are created automatically." },
+    desc: "Import students, teachers, and admins in minutes. Departments and channels are created automatically." },
   { num: "02", title: "Centralize communication", badge: "Communication",
     desc: "Notices, class chats, staff coordination, and PTMs — all through one organized workspace." },
   { num: "03", title: "Conduct live sessions", badge: "Academics",
-    desc: "Teachers start HD classes and webinars directly from HermesWorkspace. Students join from any device." },
+    desc: "Teachers start Live classes directly from HermesWorkspace." },
   { num: "04", title: "Monitor in real time", badge: "Administration",
-    desc: "Track attendance, engagement, and institutional activity from one admin dashboard." },
+    desc: "Track Groups, engagement, and institutional activity from one admin dashboard." },
 ];
 
 function MobileWorkflow() {

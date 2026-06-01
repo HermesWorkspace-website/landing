@@ -494,11 +494,11 @@ function WebinarsVisual() {
             Featured Webinar
           </div>
           <div className="text-lg font-extrabold text-white leading-tight max-w-[220px]">
-            The Future of AI in Indian Education
+           Atomic Theory with Dr. Sharma
           </div>
           <div className="mt-2 flex items-center gap-3">
             <div className="flex items-center gap-1.5 text-white/80 text-[10px]">
-              <Users className="size-3" /> 1,240 Registered
+              <Users className="size-3" /> 
             </div>
             <motion.div
               animate={{ opacity: [1, 0.6, 1] }}

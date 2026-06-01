@@ -1264,19 +1264,6 @@ export default function Hero() {
             </FloatingCard>
           </div>
 
-          {/* Floating card — Attendance */}
-          <div className="float-card absolute -bottom-5 right-8 md:right-20 hidden md:block z-20">
-            <FloatingCard className="flex items-center gap-3" delay={2.3}>
-              <div className="size-9 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">
-                <Users className="size-4 text-brand" />
-              </div>
-              <div>
-                <div className="text-[11px] font-semibold text-brand-ink font-body">Attendance Today</div>
-                <div className="text-base font-display font-extrabold text-brand">96.4%</div>
-              </div>
-            </FloatingCard>
-          </div>
-
           {/* Floating card — Webinar */}
           <div className="float-card absolute top-[45%] -left-4 md:-left-14 hidden lg:block z-20">
             <FloatingCard className="flex items-center gap-3" delay={2.45}>
@@ -1285,7 +1272,7 @@ export default function Hero() {
               </div>
               <div>
                 <div className="text-[11px] font-semibold text-brand-ink font-body">Upcoming Webinar</div>
-                <div className="text-[10px] text-brand-muted font-body">1,240 registered</div>
+                <div className="text-[10px] text-brand-muted font-body">Atomic Theory by Dr. Sharma</div>
               </div>
             </FloatingCard>
           </div>

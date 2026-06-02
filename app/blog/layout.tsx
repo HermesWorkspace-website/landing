@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { ThemeToggle } from './ThemeToggle'
 import Footer from '@/components/shared/Footer'
+import { IconArrowLeft } from "@tabler/icons-react"
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://hermesworkspace.com'),
@@ -53,10 +54,8 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body suppressHydrationWarning>
                 <nav className="blog-nav">
-                    <Link href="/" className="blog-nav-home">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M19 12H5M12 5l-7 7 7 7" />
-                        </svg>
+                    <Link href="/blog" className="blog-nav-home">
+                        <IconArrowLeft strokeWidth={2.5} size={14} />
                         hermesworkspace.com
                     </Link>
                     <ThemeToggle />

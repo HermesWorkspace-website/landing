@@ -707,3 +707,316 @@ body {
     font-size: 24px;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   AUTHOR HOVER CARD  (ahc-* classes match AuthorHoverCard.tsx)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ── */
+.ahc-root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── Trigger ── */
+.ahc-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: none;
+  padding: 2px 5px 2px 2px;
+  margin: -2px -5px -2px -2px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: var(--n-sans);
+  transition: background var(--n-r);
+}
+.ahc-trigger:hover,
+.ahc-trigger:focus-visible {
+  background: var(--n-bg2);
+  outline: none;
+}
+
+/* small avatar */
+.ahc-sm-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid var(--n-border);
+  background: var(--n-bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ahc-sm-img {
+  object-fit: cover;
+  border-radius: 50%;
+}
+.ahc-sm-initials {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--n-muted);
+  font-family: var(--n-sans);
+  letter-spacing: 0.04em;
+}
+
+/* trigger name */
+.ahc-trigger-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--n-text);
+  font-family: var(--n-sans);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+  transition: text-decoration-color var(--n-r);
+}
+.ahc-trigger:hover .ahc-trigger-name,
+.ahc-trigger:focus-visible .ahc-trigger-name {
+  text-decoration-color: var(--n-border);
+}
+
+/* ── Floating card ── */
+.ahc-card {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: -4px;
+  width: 272px;
+  background: var(--n-bg);
+  border: 1px solid var(--n-border);
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px var(--n-border),
+    0 4px 8px -2px rgba(0,0,0,0.08),
+    0 16px 32px -8px rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 200;
+  transform-origin: bottom left;
+  transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="dark"] .ahc-card {
+  box-shadow:
+    0 0 0 1px var(--n-border),
+    0 4px 8px -2px rgba(0,0,0,0.3),
+    0 16px 32px -8px rgba(0,0,0,0.45);
+}
+.ahc-card--in  { opacity: 1; transform: translateY(0)   scale(1); }
+.ahc-card--out { opacity: 0; transform: translateY(6px) scale(0.97); }
+
+/* card top: avatar + identity */
+.ahc-card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 0;
+}
+
+/* large avatar */
+.ahc-lg-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid var(--n-border);
+  background: var(--n-bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ahc-lg-img {
+  object-fit: cover;
+  border-radius: 50%;
+}
+.ahc-lg-initials {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--n-muted);
+  font-family: var(--n-sans);
+}
+
+/* name + label column */
+.ahc-card-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.ahc-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--n-text);
+  font-family: var(--n-sans);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ahc-card-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--n-muted);
+  background: var(--n-bg3);
+  border: 1px solid var(--n-border);
+  padding: 1px 7px;
+  border-radius: 100px;
+  font-family: var(--n-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* bio */
+.ahc-bio {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--n-muted);
+  margin: 0;
+  padding: 10px 14px 0;
+  font-family: var(--n-serif);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* socials row */
+.ahc-socials {
+  display: flex;
+  gap: 4px;
+  padding: 10px;
+  border-top: 1px solid var(--n-border);
+  margin-top: 12px;
+}
+.ahc-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 450;
+  color: var(--n-muted);
+  text-decoration: none;
+  font-family: var(--n-sans);
+  padding: 4px 8px;
+  border-radius: 5px;
+  transition: background var(--n-r), color var(--n-r);
+}
+.ahc-social-btn:hover {
+  background: var(--n-bg2);
+  color: var(--n-text);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   SHARE BAR
+   ════════════════════════════════════════════════════════════════════ */
+.share-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px 0 10px;
+}
+
+/* Bottom share bar gets a bit more margin top */
+.post-divider + .share-bar-container {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.share-bar-label {
+  font-family: var(--n-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--n-muted);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.share-bar-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.share-bar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--n-muted);
+  cursor: pointer;
+  transition: color var(--n-r), background-color var(--n-r);
+  padding: 0;
+  position: relative;
+}
+
+.share-bar-btn:hover {
+  color: var(--n-text);
+  background-color: var(--n-bg2);
+}
+
+.share-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--n-r);
+}
+
+.share-bar-btn:active .share-icon {
+  transform: scale(0.92);
+}
+
+.share-copied {
+  color: #10b981 !important;
+}
+
+.copied-tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--n-text);
+  color: var(--n-bg);
+  font-family: var(--n-sans);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 6px;
+  border-radius: 3px;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: authorCardFadeIn 0.15s ease-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.copied-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--n-text);
+}
+
+
+/* --- UnHide scrollbar utility --------------------------------------- */
+.no-scrollbar::-webkit-scrollbar {
+  display: block;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: auto;
+  scrollbar-width: auto;
+}

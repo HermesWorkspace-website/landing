@@ -1,7 +1,9 @@
+import '@/app/(app)/globals.css'
 import './blog.css'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { ThemeToggle } from './ThemeToggle'
+import Footer from '@/components/shared/Footer'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hermesworkspace.com'),
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" suppressHydrationWarning>
+    <html lang="en-IN" className="blog-page" suppressHydrationWarning>
       <head>
         {/*
           Inline script runs before first paint to read localStorage
@@ -38,6 +40,7 @@ export default function BlogLayout({ children }: { children: React.ReactNode }) 
           <ThemeToggle />
         </nav>
         {children}
+        <Footer />
       </body>
     </html>
   )

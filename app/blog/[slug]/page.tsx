@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import type { Post } from '@/payload-types'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { AuthorHoverCard } from '../AuthorHoverCard'
+import { ShareBar } from '../ShareBar'
 
 export const revalidate = 60
 
@@ -78,20 +80,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
         {/* Meta */}
         <div className="post-byline">
-          {author && (
-            <div className="post-author">
-              {author.avatar?.url && (
-                <Image
-                  src={author.avatar.url}
-                  alt={author.name}
-                  width={28}
-                  height={28}
-                  className="author-avatar"
-                />
-              )}
-              <span className="author-name">{author.name}</span>
-            </div>
-          )}
+          {author && <AuthorHoverCard author={author} />}
           <span className="byline-sep">·</span>
           <time className="post-date">
             {post.publishedAt &&
@@ -102,6 +91,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               })}
           </time>
         </div>
+
+        {/* Top Share Bar */}
+        <ShareBar title={post.title} />
 
         <div className="post-divider" />
 
@@ -123,6 +115,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <div className="post-body notion-prose">
           <RichText data={post.content}  />
         </div>
+
+        <div className="post-divider" />
+
+        {/* Bottom Share Bar */}
+        <ShareBar title={post.title} />
       </article>
     </main>
   )

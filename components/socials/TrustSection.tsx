@@ -113,7 +113,7 @@ export function TrustSection() {
                 <motion.span
                   initial={{ scaleX: 0 }}
                   animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-                  transition={{ delay: 0.4 + i * 0.1, duration: 0.4, origin: "left" }}
+                  transition={{ delay: 0.4 + i * 0.1, duration: 0.4 }}
                   className="block w-3 h-px bg-[#6B5CE7] origin-left"
                 />
                 <span className="text-[10px] tracking-[2px] uppercase">{pillar}</span>

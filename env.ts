@@ -1,6 +1,7 @@
 import "server-only";
 
 export const DATABASE_URL = process.env.DATABASE_URL;
+export const DATABASE_URI = process.env.DATABASE_URI; 
 
 // Webhook URLs are no longer used — messages are sent via chat.postMessage
 // These can be kept in .env for reference but are not required at runtime
@@ -22,6 +23,7 @@ const missing = [
   !SLACK_BOT_TOKEN && "SLACK_BOT_TOKEN",
   !SLACK_SALES_CHANNEL_ID && "SLACK_SALES_CHANNEL_ID",
   !SLACK_SUPPORT_CHANNEL_ID && "SLACK_SUPPORT_CHANNEL_ID",
+  !DATABASE_URI && "DATABASE_URI",
 ].filter(Boolean);
 
 if (missing.length > 0) {

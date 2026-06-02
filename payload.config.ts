@@ -1,6 +1,8 @@
 import { buildConfig } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
+import sharp from 'sharp'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -10,13 +12,13 @@ import { Tags } from './collections/Tags'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { NewsletterSubscribers } from './collections/NewsletterSubscribers'
-
+import { imagekitAdapter } from './lib/imagekit-adapter'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-    admin: {
+  admin: {
     user: 'users',
   },
   editor: lexicalEditor(),
@@ -27,12 +29,32 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI!,
     },
   }),
+  // ── Sharp: enables server-side image resizing in the admin panel ──────────
+  sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   upload: {
     limits: {
-      fileSize: 5_000_000, // 5MB
+      fileSize: 10_000_000, // 10 MB
     },
   },
+  // ── Cloud storage: all media uploads go to ImageKit ───────────────────────
+  plugins: [
+    cloudStoragePlugin({
+      collections: {
+        media: {
+          adapter: imagekitAdapter(),
+          // Skip writing files to /public/media on disk
+          disableLocalStorage: true,
+          // URL used for public access — served via ImageKit CDN
+          generateFileURL: ({ filename: fname }) => {
+            const base = (process.env.IMAGEKIT_URL_ENDPOINT ?? '').replace(/\/$/, '')
+            const fldr = process.env.IMAGEKIT_FOLDER ?? 'cms'
+            return `${base}/${fldr}/${fname}`
+          },
+        },
+      },
+    }),
+  ],
 })

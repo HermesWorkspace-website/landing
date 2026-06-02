@@ -2,42 +2,107 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import Link from 'next/link'
 import Image from 'next/image'
-import type { Post } from '@/payload-types'
+import type { Post, Tag } from '@/payload-types'
 
 export const revalidate = 60
 
-async function getPosts() {
+async function getPosts(tag?: string) {
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
     collection: 'posts',
-    where: { status: { equals: 'published' } },
+    where: {
+      status: { equals: 'published' },
+      ...(tag ? { 'tags.slug': { equals: tag } } : {}),
+    },
     sort: '-publishedAt',
     depth: 2,
+    limit: 100,
   })
   return docs as Post[]
 }
 
-export default async function BlogPage() {
-  const posts = await getPosts()
+async function getTags() {
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'tags',
+    limit: 50,
+    depth: 0,
+  })
+  return docs as Tag[]
+}
+
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tag?: string }>
+}) {
+  const { tag } = await searchParams
+  const [posts, tags] = await Promise.all([getPosts(tag), getTags()])
 
   return (
     <main className="blog-root">
       <header className="blog-header">
-        <p className="blog-eyebrow">Hermes Workspace</p>
+        <p className="blog-eyebrow">HermesWorkspace</p>
         <h1 className="blog-title">Writing</h1>
         <p className="blog-subtitle">
           Thoughts on education, collaboration, and building for India.
         </p>
       </header>
 
+      {/* Tag filter */}
+      {tags.length > 0 && (
+        <div className="blog-filters">
+          <Link
+            href="/blog"
+            className={`filter-pill ${!tag ? 'filter-pill--active' : ''}`}
+          >
+            All
+          </Link>
+          {tags.map((t) => (
+            <Link
+              key={t.id}
+              href={`/blog?tag=${t.slug}`}
+              className={`filter-pill ${tag === t.slug ? 'filter-pill--active' : ''}`}
+            >
+              {t.name}
+            </Link>
+          ))}
+        </div>
+      )}
+
       <div className="blog-divider" />
 
+      {/* Post count */}
+      <p className="blog-count">
+        {posts.length === 0
+          ? 'No posts yet'
+          : `${posts.length} post${posts.length === 1 ? '' : 's'}${tag ? ` tagged "${tags.find((t) => t.slug === tag)?.name ?? tag}"` : ''}`}
+      </p>
+
       <section className="blog-list">
-        {posts.map((post) => (
-          <PostRow key={post.id} post={post} />
-        ))}
+        {posts.length === 0 ? (
+          <EmptyState tag={tag} />
+        ) : (
+          posts.map((post) => <PostRow key={post.id} post={post} />)
+        )}
       </section>
     </main>
+  )
+}
+
+function EmptyState({ tag }: { tag?: string }) {
+  return (
+    <div className="blog-empty">
+      <span className="blog-empty-icon">✦</span>
+      <p className="blog-empty-text">
+        {tag ? `No posts tagged "${tag}" yet.` : 'No posts published yet.'}
+      </p>
+      {tag && (
+        <Link href="/blog" className="blog-empty-link">
+          View all posts
+        </Link>
+      )}
+    </div>
   )
 }
 
@@ -58,7 +123,7 @@ function PostRow({ post }: { post: Post }) {
                 day: 'numeric',
                 year: 'numeric',
               })
-            : ''}
+            : '—'}
         </time>
         {tags.length > 0 && (
           <div className="post-tags">

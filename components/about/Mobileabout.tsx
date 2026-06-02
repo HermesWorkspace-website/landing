@@ -30,11 +30,10 @@ import {
   Server,
   ShieldCheck,
   ArrowRight,
-  Linkedin,
-  Instagram,
   Zap,
   Globe,
 } from "lucide-react";
+import { IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 
 // ─── shared token ────────────────────────────────────────────────────────────
@@ -662,11 +661,11 @@ function MobileLeadershipTeam() {
                 <div className="flex items-center gap-2.5">
                   <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer"
                     className="flex size-9 items-center justify-center rounded-full border border-gray-200" aria-label="LinkedIn">
-                    <Linkedin size={14} style={{ color: INK }} />
+                    <IconBrandLinkedin size={14} style={{ color: INK }} />
                   </a>
                   <a href={member.socials.instagram} target="_blank" rel="noopener noreferrer"
                     className="flex size-9 items-center justify-center rounded-full border border-gray-200" aria-label="Instagram">
-                    <Instagram size={14} style={{ color: INK }} />
+                    <IconBrandInstagram size={14} style={{ color: INK }} />
                   </a>
                   <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer"
                     className="flex size-9 items-center justify-center rounded-full border border-gray-200" aria-label="X">

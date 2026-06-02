@@ -10,7 +10,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Linkedin, Instagram } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
+import { IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
 import { FOUNDERS } from "./founders-data";
 import { FounderPhoto } from "./FounderPhoto";
 
@@ -293,7 +294,7 @@ export default function MobileFoundersShowcase() {
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
                 aria-label="LinkedIn"
               >
-                <Linkedin size={13} />
+                <IconBrandLinkedin size={13} />
               </a>
             )}
             {founder.socialLinks.twitter && (
@@ -317,7 +318,7 @@ export default function MobileFoundersShowcase() {
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
                 aria-label="Instagram"
               >
-                <Instagram size={13} />
+                <IconBrandInstagram size={13} />
               </a>
             )}
           </motion.div>

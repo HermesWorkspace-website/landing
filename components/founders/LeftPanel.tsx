@@ -20,8 +20,8 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { y: 32, opacity: 0 },
-  show: { y: 0, opacity: 1, transition: { duration: 0.65, ease: [0.76, 0, 0.24, 1] } },
-  exit: { y: -20, opacity: 0, transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] } },
+  show: { y: 0, opacity: 1, transition: { duration: 0.65, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] } },
+  exit: { y: -20, opacity: 0, transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] } },
 };
 
 export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {

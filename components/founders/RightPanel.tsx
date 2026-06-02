@@ -23,8 +23,8 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { y: 28, opacity: 0 },
-  show: { y: 0, opacity: 1, transition: { duration: 0.65, ease: [0.76, 0, 0.24, 1] } },
-  exit: { y: -18, opacity: 0, transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] } },
+  show: { y: 0, opacity: 1, transition: { duration: 0.65, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] } },
+  exit: { y: -18, opacity: 0, transition: { duration: 0.4, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] } },
 };
 
 export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelProps) {

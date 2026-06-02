@@ -18,28 +18,43 @@ async function getPost(slug: string) {
   return (docs[0] as Post) ?? null
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getPost(slug)
   if (!post) return {}
   const seo = post.seo
+  const ogImageUrl =
+    (seo?.ogImage as any)?.url ??
+    (post.coverImage as any)?.sizes?.og?.url ??
+    (post.coverImage as any)?.url
+
   return {
-    title: seo?.metaTitle ?? post.title,
+    title: seo?.metaTitle ?? `${post.title} | Hermes Workspace`,
     description: seo?.metaDescription ?? post.excerpt,
+    alternates: {
+      canonical: `https://hermesworkspace.com/blog/${slug}`,
+    },
     openGraph: {
-      images: [
-        {
-          url:
-            (seo?.ogImage as any)?.url ??
-            (post.coverImage as any)?.sizes?.og?.url ??
-            (post.coverImage as any)?.url,
-        },
-      ],
+      title: seo?.metaTitle ?? post.title,
+      description: seo?.metaDescription ?? post.excerpt,
+      url: `https://hermesworkspace.com/blog/${slug}`,
+      siteName: 'HermesWorkspace',
+      type: 'article',
+      publishedTime: post.publishedAt ?? undefined,
+      images: ogImageUrl ? [{ url: ogImageUrl, width: 1200, height: 630 }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo?.metaTitle ?? post.title,
+      description: seo?.metaDescription ?? post.excerpt,
+      images: ogImageUrl ? [ogImageUrl] : [],
     },
   }
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug)
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getPost(slug)
   if (!post) notFound()
 
   const cover = typeof post.coverImage === 'object' ? (post.coverImage as any) : null
@@ -106,7 +121,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
         {/* Body */}
         <div className="post-body notion-prose">
-          <RichText data={post.content} />
+          <RichText data={post.content}  />
         </div>
       </article>
     </main>

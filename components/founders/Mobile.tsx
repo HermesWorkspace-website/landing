@@ -20,12 +20,11 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowLeft,
-  Linkedin,
-  Instagram,
   Plus,
   Minus,
   Mail,
 } from "lucide-react";
+import { IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
 import { FOUNDERS } from "@/components/founders/founders-data";
 import { FounderPhoto } from "@/components/founders/FounderPhoto";
 
@@ -346,7 +345,7 @@ function MobileFoundersShowcase() {
                 <a href={founder.socialLinks.linkedin} target="_blank" rel="noopener noreferrer"
                   className="flex size-9 items-center justify-center rounded-full border"
                   style={{ borderColor: "#D8D4CC", color: "#9896A4" }} aria-label="LinkedIn">
-                  <Linkedin size={14} />
+                  <IconBrandLinkedin size={14} />
                 </a>
               )}
               {founder.socialLinks.twitter && (
@@ -360,7 +359,7 @@ function MobileFoundersShowcase() {
                 <a href={founder.socialLinks.instagram} target="_blank" rel="noopener noreferrer"
                   className="flex size-9 items-center justify-center rounded-full border"
                   style={{ borderColor: "#D8D4CC", color: "#9896A4" }} aria-label="Instagram">
-                  <Instagram size={14} />
+                  <IconBrandInstagram size={14} />
                 </a>
               )}
             </motion.div>

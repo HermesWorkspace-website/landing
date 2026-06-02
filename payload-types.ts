@@ -172,6 +172,7 @@ export interface Author {
 export interface Media {
   id: number;
   alt: string;
+  imagekitFileId?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -432,6 +433,7 @@ export interface TagsSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  imagekitFileId?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

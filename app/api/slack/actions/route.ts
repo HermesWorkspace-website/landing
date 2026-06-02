@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     console.warn("[Slack Actions] Rejected — invalid signature");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
- 
+
   // ── 3. Parse the form-encoded payload ────────────────────────────────────
   // Slack sends: payload=<url-encoded JSON string>
   let payload: SlackInteractivePayload;

@@ -1,100 +1,317 @@
-/* ── Tokens ─────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════
+   HermesWorkspace Blog — Notion-accurate design system
+   Light + Dark via [data-theme="dark"] on <html>
+   FOUC is prevented by an inline script in layout.tsx <head>
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Design Tokens ──────────────────────────────────────────────── */
 :root {
-  --notion-bg: #ffffff;
-  --notion-text: #1a1a1a;
-  --notion-muted: #787774;
-  --notion-border: #e9e9e7;
-  --notion-hover: #f7f7f5;
-  --notion-tag-bg: #f1f1ef;
-  --notion-tag-text: #5a5a57;
-  --notion-code-bg: #f7f6f3;
-  --notion-max: 720px;
-  --notion-font: 'Georgia', 'Charter', 'Palatino', serif;
-  --notion-sans: 'Söhne', ui-sans-serif, system-ui, sans-serif;
+  /* Surfaces */
+  --n-bg:       #ffffff;
+  --n-bg2:      #f7f7f5;      /* hover / card */
+  --n-bg3:      #f1f1ef;      /* tag / subtle surface */
+
+  /* Text */
+  --n-text:     #37352f;      /* primary — Notion's exact dark */
+  --n-muted:    #787774;      /* secondary */
+  --n-subtle:   #9b9996;      /* placeholder, very faint */
+
+  /* Borders */
+  --n-border:   #e9e9e7;
+
+  /* Tags */
+  --n-tag-bg:   #f1f1ef;
+  --n-tag-text: #5a5a57;
+
+  /* Code */
+  --n-code-bg:  #f7f6f3;
+
+  /* Nav */
+  --n-nav-bg:   rgba(255, 255, 255, 0.94);
+
+  /* Typography — no external fonts, Notion uses system UI */
+  --n-sans:     ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                'Helvetica Neue', Arial, system-ui, sans-serif;
+  --n-serif:    'Georgia', 'Charter', 'Palatino Linotype', ui-serif, serif;
+  --n-mono:     'JetBrains Mono', 'Fira Code', ui-monospace,
+                'SFMono-Regular', 'Cascadia Code', monospace;
+
+  /* Layout */
+  --n-max:  720px;
+  --n-r:    0.15s ease;       /* standard transition */
 }
 
-/* ── Blog listing ────────────────────────────────── */
+/* ── Dark mode tokens ───────────────────────────────────────────── */
+[data-theme="dark"] {
+  --n-bg:       #191919;
+  --n-bg2:      #252525;
+  --n-bg3:      #2f2e2a;
+  --n-text:     #e9e9e7;
+  --n-muted:    #787774;
+  --n-subtle:   #5a5855;
+  --n-border:   #2f2e2a;
+  --n-tag-bg:   #2f2e2a;
+  --n-tag-text: #9b9996;
+  --n-code-bg:  #252525;
+  --n-nav-bg:   rgba(25, 25, 25, 0.94);
+}
+
+/* ── Base reset ─────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: var(--n-bg);
+  color: var(--n-text);
+  font-family: var(--n-sans);
+  transition: background var(--n-r), color var(--n-r);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   NAV
+   ════════════════════════════════════════════════════════════════════ */
+.blog-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 45px;
+  background: var(--n-nav-bg);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-bottom: 1px solid var(--n-border);
+  transition: background var(--n-r), border-color var(--n-r);
+}
+
+.blog-nav-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--n-sans);
+  font-size: 13px;
+  font-weight: 450;
+  color: var(--n-muted);
+  text-decoration: none;
+  padding: 4px 6px;
+  border-radius: 4px;
+  margin-left: -6px;
+  transition: color var(--n-r), background var(--n-r);
+}
+
+.blog-nav-home:hover {
+  color: var(--n-text);
+  background: var(--n-bg2);
+}
+
+/* ── Theme toggle button ────────────────────────────────────────── */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--n-muted);
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--n-r), background var(--n-r);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  color: var(--n-text);
+  background: var(--n-bg2);
+}
+
+.theme-toggle-placeholder {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   BLOG LISTING PAGE
+   ════════════════════════════════════════════════════════════════════ */
 .blog-root {
-  max-width: var(--notion-max);
+  max-width: var(--n-max);
   margin: 0 auto;
-  padding: 80px 24px 120px;
-  background: var(--notion-bg);
+  padding: 100px 24px 120px;
   min-height: 100vh;
 }
 
+/* ── Header ─────────────────────────────────────────────────────── */
 .blog-eyebrow {
-  font-family: var(--notion-sans);
-  font-size: 12px;
+  font-family: var(--n-sans);
+  font-size: 11.5px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--notion-muted);
-  margin-bottom: 12px;
+  color: var(--n-muted);
+  margin: 0 0 10px;
 }
 
 .blog-title {
-  font-family: var(--notion-sans);
+  font-family: var(--n-sans);
   font-size: 40px;
   font-weight: 700;
-  color: var(--notion-text);
-  margin: 0 0 12px;
-  letter-spacing: -0.02em;
+  color: var(--n-text);
+  margin: 0 0 8px;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
 .blog-subtitle {
-  font-family: var(--notion-sans);
-  font-size: 16px;
-  color: var(--notion-muted);
+  font-family: var(--n-sans);
+  font-size: 15px;
+  color: var(--n-muted);
   margin: 0;
   line-height: 1.6;
 }
 
+/* ── Divider ─────────────────────────────────────────────────────── */
 .blog-divider {
   height: 1px;
-  background: var(--notion-border);
-  margin: 40px 0;
+  background: var(--n-border);
+  margin: 32px 0;
+  transition: background var(--n-r);
 }
 
+/* ── Tag filter pills ────────────────────────────────────────────── */
+.blog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.filter-pill {
+  font-family: var(--n-sans);
+  font-size: 12px;
+  font-weight: 450;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--n-border);
+  color: var(--n-muted);
+  text-decoration: none;
+  transition: background var(--n-r), color var(--n-r), border-color var(--n-r);
+  background: transparent;
+  line-height: 1.6;
+}
+
+.filter-pill:hover {
+  border-color: var(--n-text);
+  color: var(--n-text);
+  background: var(--n-bg2);
+}
+
+.filter-pill--active {
+  background: var(--n-text);
+  color: var(--n-bg);
+  border-color: var(--n-text);
+}
+
+.filter-pill--active:hover {
+  opacity: 0.85;
+}
+
+/* ── Post count ──────────────────────────────────────────────────── */
+.blog-count {
+  font-family: var(--n-sans);
+  font-size: 11.5px;
+  color: var(--n-muted);
+  margin: 0 0 6px;
+}
+
+/* ── Post list ───────────────────────────────────────────────────── */
 .blog-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
-/* ── Post row ────────────────────────────────────── */
+/* ── Post row ────────────────────────────────────────────────────── */
 .post-row {
   display: grid;
-  grid-template-columns: 120px 1fr 160px;
-  grid-template-rows: auto;
-  gap: 0 24px;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "main  cover"
+    "meta  cover";
+  gap: 0 20px;
   align-items: start;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--notion-border);
+  padding: 14px 10px;
+  margin: 0 -10px;
+  border-bottom: 1px solid var(--n-border);
   text-decoration: none;
   color: inherit;
-  transition: background 0.15s;
-  border-radius: 4px;
-  margin: 0 -8px;
-  padding-left: 8px;
-  padding-right: 8px;
+  border-radius: 6px;
+  transition: background var(--n-r);
+  cursor: pointer;
 }
 
 .post-row:hover {
-  background: var(--notion-hover);
+  background: var(--n-bg2);
 }
 
+/* Main content area */
+.post-row-content {
+  grid-area: main;
+  min-width: 0;
+}
+
+.post-row-title {
+  font-family: var(--n-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--n-text);
+  margin: 0 0 4px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.post-row-excerpt {
+  font-family: var(--n-sans);
+  font-size: 13.5px;
+  color: var(--n-muted);
+  margin: 0 0 8px;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Meta row: date + tags + author */
 .post-row-meta {
+  grid-area: meta;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
-  padding-top: 3px;
+  padding-top: 2px;
 }
 
 .post-date {
-  font-family: var(--notion-sans);
+  font-family: var(--n-sans);
   font-size: 12px;
-  color: var(--notion-muted);
+  color: var(--n-muted);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .post-tags {
@@ -104,133 +321,171 @@
 }
 
 .post-tag {
-  font-family: var(--notion-sans);
+  font-family: var(--n-sans);
   font-size: 11px;
-  background: var(--notion-tag-bg);
-  color: var(--notion-tag-text);
-  padding: 2px 7px;
-  border-radius: 3px;
   font-weight: 500;
-}
-
-.post-row-title {
-  font-family: var(--notion-sans);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--notion-text);
-  margin: 0 0 6px;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-}
-
-.post-row-excerpt {
-  font-family: var(--notion-sans);
-  font-size: 14px;
-  color: var(--notion-muted);
-  margin: 0 0 10px;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  background: var(--n-tag-bg);
+  color: var(--n-tag-text);
+  padding: 1px 7px;
+  border-radius: 3px;
+  transition: background var(--n-r), color var(--n-r);
 }
 
 .post-row-author {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-family: var(--notion-sans);
+  gap: 5px;
+  font-family: var(--n-sans);
   font-size: 12px;
-  color: var(--notion-muted);
+  color: var(--n-muted);
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .author-avatar-sm {
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
+/* Cover thumbnail */
 .post-row-cover {
+  grid-area: cover;
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-start;
+  padding-top: 3px;
 }
 
 .cover-img {
-  width: 160px;
-  height: 100px;
+  width: 112px;
+  height: 70px;
   object-fit: cover;
   border-radius: 4px;
-  border: 1px solid var(--notion-border);
+  border: 1px solid var(--n-border);
+  display: block;
+  flex-shrink: 0;
 }
 
-/* ── Post page ───────────────────────────────────── */
+/* ── Empty state ─────────────────────────────────────────────────── */
+.blog-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.blog-empty-icon {
+  font-size: 28px;
+  line-height: 1;
+  opacity: 0.35;
+}
+
+.blog-empty-text {
+  font-family: var(--n-sans);
+  font-size: 14px;
+  color: var(--n-muted);
+  margin: 0;
+}
+
+.blog-empty-link {
+  font-family: var(--n-sans);
+  font-size: 13px;
+  color: var(--n-text);
+  text-decoration: underline;
+  text-decoration-color: var(--n-border);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--n-r);
+}
+
+.blog-empty-link:hover {
+  text-decoration-color: var(--n-text);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   POST / ARTICLE PAGE
+   ════════════════════════════════════════════════════════════════════ */
 .post-root {
-  background: var(--notion-bg);
+  background: var(--n-bg);
   min-height: 100vh;
   padding: 80px 24px 160px;
+  transition: background var(--n-r);
 }
 
 .post-article {
-  max-width: var(--notion-max);
+  max-width: var(--n-max);
   margin: 0 auto;
 }
 
+/* ── Tags above title ────────────────────────────────────────────── */
 .post-tags-top {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
+/* ── Post title ──────────────────────────────────────────────────── */
 .post-title {
-  font-family: var(--notion-sans);
-  font-size: clamp(28px, 5vw, 42px);
+  font-family: var(--n-sans);
+  font-size: clamp(26px, 5vw, 40px);
   font-weight: 700;
-  color: var(--notion-text);
+  color: var(--n-text);
   line-height: 1.2;
   letter-spacing: -0.03em;
-  margin: 0 0 20px;
+  margin: 0 0 18px;
 }
 
+/* ── Byline ──────────────────────────────────────────────────────── */
 .post-byline {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--notion-sans);
-  font-size: 14px;
-  color: var(--notion-muted);
-  margin-bottom: 24px;
+  font-family: var(--n-sans);
+  font-size: 13.5px;
+  color: var(--n-muted);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .post-author {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .author-avatar {
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .author-name {
   font-weight: 500;
-  color: var(--notion-text);
+  color: var(--n-text);
 }
 
 .byline-sep {
-  color: var(--notion-border);
+  color: var(--n-border);
+  user-select: none;
 }
 
+/* ── Dividers ────────────────────────────────────────────────────── */
 .post-divider {
   height: 1px;
-  background: var(--notion-border);
-  margin: 24px 0 40px;
+  background: var(--n-border);
+  margin: 20px 0 36px;
+  transition: background var(--n-r);
 }
 
+/* ── Cover image ─────────────────────────────────────────────────── */
 .post-cover {
-  margin-bottom: 48px;
+  margin-bottom: 44px;
   border-radius: 6px;
   overflow: hidden;
-  border: 1px solid var(--notion-border);
+  border: 1px solid var(--n-border);
+  transition: border-color var(--n-r);
 }
 
 .cover-image {
@@ -239,68 +494,104 @@
   display: block;
 }
 
-/* ── Notion prose (rich text body) ──────────────── */
+/* ════════════════════════════════════════════════════════════════════
+   NOTION PROSE — Article body
+   ════════════════════════════════════════════════════════════════════ */
 .notion-prose {
-  font-family: var(--notion-font);
+  font-family: var(--n-serif);
   font-size: 16px;
-  line-height: 1.75;
-  color: var(--notion-text);
+  line-height: 1.8;
+  color: var(--n-text);
+  transition: color var(--n-r);
 }
 
 .notion-prose h1,
 .notion-prose h2,
-.notion-prose h3 {
-  font-family: var(--notion-sans);
+.notion-prose h3,
+.notion-prose h4 {
+  font-family: var(--n-sans);
   font-weight: 600;
   letter-spacing: -0.02em;
-  margin: 2em 0 0.5em;
-  color: var(--notion-text);
+  margin: 2.2em 0 0.6em;
+  color: var(--n-text);
+  line-height: 1.3;
 }
 
-.notion-prose h1 { font-size: 26px; }
-.notion-prose h2 { font-size: 22px; }
-.notion-prose h3 { font-size: 18px; }
+.notion-prose h1 {
+  font-size: 26px;
+  margin-top: 2.5em;
+}
+
+.notion-prose h2 {
+  font-size: 21px;
+  border-bottom: 1px solid var(--n-border);
+  padding-bottom: 0.4em;
+}
+
+.notion-prose h3 {
+  font-size: 17px;
+}
+
+.notion-prose h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
 
 .notion-prose p {
-  margin: 0 0 1.2em;
+  margin: 0 0 1.3em;
 }
 
 .notion-prose a {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: var(--notion-border);
+  text-decoration-color: var(--n-border);
   text-underline-offset: 3px;
-  transition: text-decoration-color 0.15s;
+  transition: text-decoration-color var(--n-r);
 }
 
 .notion-prose a:hover {
-  text-decoration-color: var(--notion-text);
+  text-decoration-color: var(--n-text);
 }
 
-.notion-prose blockquote {
-  border-left: 3px solid var(--notion-border);
-  padding-left: 16px;
-  margin: 1.5em 0;
-  color: var(--notion-muted);
+.notion-prose strong {
+  font-weight: 600;
+  color: var(--n-text);
+}
+
+.notion-prose em {
   font-style: italic;
 }
 
-.notion-prose code {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.875em;
-  background: var(--notion-code-bg);
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid var(--notion-border);
+.notion-prose blockquote {
+  border-left: 3px solid var(--n-border);
+  margin: 1.6em 0;
+  padding: 4px 0 4px 20px;
+  color: var(--n-muted);
+  font-style: italic;
+  transition: border-color var(--n-r);
 }
 
+/* Inline code */
+.notion-prose code {
+  font-family: var(--n-mono);
+  font-size: 0.85em;
+  background: var(--n-code-bg);
+  color: var(--n-text);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--n-border);
+  transition: background var(--n-r), border-color var(--n-r);
+}
+
+/* Code blocks */
 .notion-prose pre {
-  background: var(--notion-code-bg);
-  border: 1px solid var(--notion-border);
+  background: var(--n-code-bg);
+  border: 1px solid var(--n-border);
   border-radius: 6px;
-  padding: 16px 20px;
+  padding: 18px 20px;
   overflow-x: auto;
-  margin: 1.5em 0;
+  margin: 1.6em 0;
+  transition: background var(--n-r), border-color var(--n-r);
 }
 
 .notion-prose pre code {
@@ -308,70 +599,111 @@
   border: none;
   padding: 0;
   font-size: 13px;
+  line-height: 1.65;
 }
 
 .notion-prose ul,
 .notion-prose ol {
-  padding-left: 24px;
-  margin: 0 0 1.2em;
+  padding-left: 26px;
+  margin: 0 0 1.3em;
 }
 
 .notion-prose li {
-  margin-bottom: 4px;
+  margin-bottom: 5px;
+  line-height: 1.7;
+}
+
+.notion-prose ul li {
+  list-style-type: disc;
 }
 
 .notion-prose img {
   max-width: 100%;
-  border-radius: 4px;
-  border: 1px solid var(--notion-border);
-  margin: 1.5em 0;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid var(--n-border);
+  margin: 1.6em 0;
+  display: block;
+  transition: border-color var(--n-r);
 }
 
 .notion-prose hr {
   border: none;
-  border-top: 1px solid var(--notion-border);
+  border-top: 1px solid var(--n-border);
   margin: 2.5em 0;
+  transition: border-color var(--n-r);
 }
 
-/* ── Responsive ──────────────────────────────────── */
+.notion-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.6em 0;
+  font-family: var(--n-sans);
+  font-size: 14px;
+}
+
+.notion-prose th,
+.notion-prose td {
+  border: 1px solid var(--n-border);
+  padding: 8px 12px;
+  text-align: left;
+  transition: border-color var(--n-r);
+}
+
+.notion-prose th {
+  background: var(--n-bg2);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--n-muted);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
-  .post-row {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+  .blog-root {
+    padding: 80px 16px 80px;
   }
 
-  .post-row-meta {
-    flex-direction: row;
-    align-items: center;
+  .blog-title {
+    font-size: 28px;
+  }
+
+  .post-root {
+    padding: 72px 16px 100px;
+  }
+
+  .post-row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "main"
+      "meta";
+    gap: 6px 0;
+    padding: 14px 8px;
+    margin: 0 -8px;
   }
 
   .post-row-cover {
     display: none;
   }
+
+  .post-row-author {
+    margin-left: 0;
+  }
+
+  .cover-img {
+    display: none;
+  }
+
+  .blog-nav {
+    padding: 0 14px;
+  }
 }
 
-
-/* BLOG */
-.blog-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 14px 24px;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--notion-border);
-  z-index: 50;
-}
-
-.blog-nav-home {
-  font-family: var(--notion-sans);
-  font-size: 13px;
-  color: var(--notion-muted);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-
-.blog-nav-home:hover {
-  color: var(--notion-text);
+@media (max-width: 400px) {
+  .blog-title {
+    font-size: 24px;
+  }
 }

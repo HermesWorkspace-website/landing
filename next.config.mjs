@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+import { withPayload } from '@payloadcms/next/withPayload' 
+
 const nextConfig = {
     allowedDevOrigins: ["pointing-factor-monorail.ngrok-free.dev"],
     images: {
@@ -13,4 +15,4 @@ const nextConfig = {
     }
 };
 
-export default nextConfig;
+export default withPayload(nextConfig)

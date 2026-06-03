@@ -7,7 +7,7 @@ HermesWorkspace replaces scattered WhatsApp groups and disconnected tools with a
 ## What it does
 
 HermesWorkspace is a SaaS platform for educational institutions (K–12 schools) that centralizes:
-- **Live HD classes** — 30 concurrent sessions, 150 students per session, 360p SFU quality
+- **Live HD classes** — concurrent sessions, 150 students per session, HD quality
 - **Institutional messaging** — role-based channels for admin, teachers, students, and parents
 - **Digital notice board** — push announcements to all parents with delivery tracking
 - **Meeting scheduler** — PTMs, board meetings, staff reviews with calendar sync

@@ -63,7 +63,7 @@ const features = [
   {
     icon: <Video className="size-5" />,
     title: "Classes",
-    desc: "HD video classes at 360p SFU quality — run 30 concurrent sessions serving 150 students each.",
+    desc: "HD live classes upto 150 participants each.",
     color: "bg-brand/[0.07] text-brand",
     size: "col-span-3",
     mock: <ClassesMock />,
@@ -152,8 +152,6 @@ export default function Features() {
           {[
             { icon: <ShieldCheck className="size-4 text-green-600" />, label: "DPDPA Compliant" },
             { icon: <Globe2 className="size-4 text-brand" />, label: "Hosted in India" },
-            { icon: <Zap className="size-4 text-amber-500" />, label: "99.9% Uptime SLA" },
-            { icon: <BookOpen className="size-4 text-purple-600" />, label: "CBSE / ICSE / State Ready" },
           ].map((t) => (
             <div key={t.label} className="flex items-center gap-2">
               {t.icon}

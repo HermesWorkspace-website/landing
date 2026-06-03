@@ -35,7 +35,7 @@ const productFaqSchema = {
       name: "What features does HermesWorkspace include?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "HermesWorkspace includes HD live video classes (360p SFU quality), institutional messaging with role-based channels, digital notice board with delivery tracking, meeting and webinar scheduler, parent-teacher communication, member management for students and teachers, real-time activity feed, and school-wide analytics.",
+        text: "HermesWorkspace includes HD live video classes, institutional messaging with role-based channels, digital notice board with delivery tracking, meeting and webinar scheduler, parent-teacher communication, member management for students and teachers, real-time activity feed, and school-wide analytics.",
       },
     },
     {
@@ -51,7 +51,7 @@ const productFaqSchema = {
       name: "How many concurrent classes can HermesWorkspace support?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "HermesWorkspace supports 30 concurrent live class sessions, with up to 150 students per session, at 360p SFU quality.",
+        text: "HermesWorkspace supports concurrent live class sessions, with up to 150 students per session, in HD quality.",
       },
     },
     {

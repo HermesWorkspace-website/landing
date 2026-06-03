@@ -1211,7 +1211,7 @@ const features = [
     icon: Video,
     accent: "#8b5cf6",
     headline: "Live virtual classrooms",
-    sub: "SFU-powered video at 360p with teacher controls and student management.",
+    sub: "HD video with teacher controls and student management.",
     mock: ClassesMock,
     span: "lg:col-span-1",
   },
@@ -1327,7 +1327,7 @@ function SectionHeader() {
         {[
           { value: "2000+", label: "Students per school" },
           { value: "30", label: "Concurrent meetings" },
-          { value: "360p", label: "SFU video quality" },
+          { value: "HD", label: "Video quality" },
         ].map((s, i) => (
           <FloatingBadge key={`item-${i}`} delay={i * 0.3}>
             <div className="text-center">

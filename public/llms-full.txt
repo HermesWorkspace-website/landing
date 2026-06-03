@@ -33,9 +33,8 @@ HermesWorkspace consolidates all of this into one platform with proper role-base
 ## Core Features
 
 ### 1. Live HD Classes
-- SFU (Selective Forwarding Unit) architecture
-- 360p quality with low latency
-- Up to 30 concurrent sessions per institution
+- HD quality with low latency
+- Up to concurrent sessions per institution
 - Up to 150 students per session
 - Automatic attendance tracking
 - Session recording available

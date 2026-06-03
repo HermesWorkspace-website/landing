@@ -3,37 +3,61 @@ import React, { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 
+
 const faqs = [
   {
-    q: "How quickly can our school start using HermesWorkspace?",
-    a: "Most schools can begin onboarding within the same day. Our team assists with setup, configuration, and platform activation to ensure a smooth transition for administration, teachers, students, and parents.",
+    q: "What is HermesWorkspace?",
+    a: "HermesWorkspace is a unified school communication and management platform designed for educational institutions. It helps schools manage announcements, messaging, live classes, meetings, academic coordination, and institutional communication from one centralized platform.",
   },
 
   {
-    q: "Can HermesWorkspace be used for online classes and meetings?",
-    a: "Yes. Schools can conduct online classes, PTMs, webinars, meetings, and academic sessions directly through the platform across both desktop and mobile devices.",
+    q: "Who can use HermesWorkspace?",
+    a: "HermesWorkspace is built for schools, coaching institutes, educational organizations, administrators, teachers, students, and parents who need a modern communication and operational platform.",
   },
 
   {
-    q: "Will parents and students need technical training?",
-    a: "No. HermesWorkspace is designed to be simple and easy to use for students, parents, teachers, and administrators with minimal learning effort required.",
+    q: "How does HermesWorkspace improve school communication?",
+    a: "HermesWorkspace replaces fragmented communication systems like multiple WhatsApp groups with structured institution-wide messaging, announcements, notices, meeting systems, and academic coordination tools.",
   },
 
   {
-    q: "Is HermesWorkspace accessible on mobile devices?",
-    a: "Yes. HermesWorkspace is accessible across Android, iOS, and web platforms, allowing institutions to stay connected from anywhere.",
+    q: "Can schools conduct online classes using HermesWorkspace?",
+    a: "Yes. Schools can host online classes, PTMs, webinars, meetings, and academic sessions directly through HermesWorkspace on both desktop and mobile devices.",
   },
 
   {
-    q: "Can the platform scale as our institution grows?",
-    a: "Absolutely. HermesWorkspace is designed to support institutions of different sizes with scalable infrastructure and flexible deployment options.",
+    q: "Is HermesWorkspace available on mobile devices?",
+    a: "Yes. HermesWorkspace works across Android, iOS, and modern web browsers, allowing teachers, students, parents, and administrators to stay connected from anywhere.",
   },
 
   {
-    q: "Do you provide onboarding and support for schools?",
-    a: "Yes. We assist schools with onboarding, deployment guidance, and operational support to help institutions adopt the platform smoothly.",
+    q: "Is HermesWorkspace suitable for CBSE and ICSE schools?",
+    a: "Yes. HermesWorkspace is designed for CBSE, ICSE, State Board schools, coaching institutes, and other educational institutions across India.",
+  },
+
+  {
+    q: "How quickly can a school start using HermesWorkspace?",
+    a: "Most institutions can begin onboarding quickly with support for setup, deployment, configuration, and operational guidance provided by the HermesWorkspace team.",
+  },
+
+  {
+    q: "Does HermesWorkspace support parent-teacher communication?",
+    a: "Yes. HermesWorkspace enables secure and organized communication between schools, teachers, parents, and students through institutional messaging and announcements.",
+  },
+
+  {
+    q: "Can HermesWorkspace scale for large institutions?",
+    a: "Yes. HermesWorkspace is built with scalable infrastructure capable of supporting institutions of different sizes, departments, and communication requirements.",
+  },
+
+  {
+    q: "Does HermesWorkspace provide onboarding and support?",
+    a: "Yes. HermesWorkspace provides onboarding assistance, deployment support, operational guidance, and institutional support for schools adopting the platform.",
   },
 ];
+
+
+const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a, }, })), };
 
 function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
   return (
@@ -45,9 +69,8 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
         <h4 className="font-body font-medium text-[0.9375rem] text-brand-ink group-hover:text-brand transition-colors pr-4">
           {q}
         </h4>
-        <div className={`size-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${
-          open ? "border-brand bg-brand/10 text-brand rotate-45" : "border-black/10 text-brand-muted"
-        }`}>
+        <div className={`size-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${open ? "border-brand bg-brand/10 text-brand rotate-45" : "border-black/10 text-brand-muted"
+          }`}>
           {open ? <Minus className="size-3" /> : <Plus className="size-3" />}
         </div>
       </div>
@@ -74,36 +97,39 @@ export default function FAQ() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
-    <section id="faqs" ref={ref} className="py-section">
-      <div className="container-page max-w-[800px]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-12"
-        >
-          <span className="section-eyebrow">FAQ</span>
-          <h2 className="font-display text-display-xl font-extrabold text-brand-ink mt-3 tracking-[-0.03em]">
-            Questions? <span className="gradient-text-brand">Answered.</span>
-          </h2>
-        </motion.div>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema), }} />
+      <section id="faqs" ref={ref} className="py-section">
+        <div className="container-page max-w-[800px]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center mb-12"
+          >
+            <span className="section-eyebrow">FAQ</span>
+            <h2 className="font-display text-display-xl font-extrabold text-brand-ink mt-3 tracking-[-0.03em]">
+              Questions? <span className="gradient-text-brand">Answered.</span>
+            </h2>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {faqs.map((f, i) => (
-            <FAQItem
-              key={f.q}
-              q={f.q}
-              a={f.a}
-              open={openIdx === i}
-              toggle={() => setOpenIdx(openIdx === i ? null : i)}
-            />
-          ))}
-        </motion.div>
-      </div>
-    </section>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {faqs.map((f, i) => (
+              <FAQItem
+                key={f.q}
+                q={f.q}
+                a={f.a}
+                open={openIdx === i}
+                toggle={() => setOpenIdx(openIdx === i ? null : i)}
+              />
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }

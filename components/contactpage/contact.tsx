@@ -15,6 +15,7 @@ export default function ContactPage() {
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setReady(true);
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);

@@ -236,6 +236,7 @@ export interface Post {
    * e.g. "why-hermes-is-built-for-india"
    */
   slug: string;
+  featured?: boolean | null;
   status: 'draft' | 'published';
   publishedAt?: string | null;
   author: number | Author;
@@ -487,6 +488,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  featured?: T;
   status?: T;
   publishedAt?: T;
   author?: T;

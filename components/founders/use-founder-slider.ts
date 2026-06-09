@@ -12,7 +12,7 @@ export function useFounderSlider() {
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const startTimeRef = useRef<number>(Date.now());
+  const [startTime, setStartTime] = useState(() => Date.now());
 
   const goTo = useCallback(
     (index: number) => {
@@ -21,7 +21,7 @@ export function useFounderSlider() {
       setPrevIndex(activeIndex);
       setActiveIndex(index);
       setProgress(0);
-      startTimeRef.current = Date.now();
+      setStartTime(Date.now());
       setTimeout(() => {
         setIsTransitioning(false);
         setPrevIndex(null);
@@ -51,7 +51,7 @@ export function useFounderSlider() {
   // Progress ticker
   useEffect(() => {
     progressRef.current = setInterval(() => {
-      const elapsed = Date.now() - startTimeRef.current;
+      const elapsed = Date.now() - startTime;
       setProgress(Math.min((elapsed / SLIDE_DURATION) * 100, 100));
     }, 50);
     return () => {

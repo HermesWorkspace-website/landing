@@ -35,7 +35,8 @@ export default function MobileFoundersShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [progress, setProgress] = useState(0);
-  const startTimeRef = useRef<number>(Date.now());
+  const [startTime, setStartTime] = useState(() => Date.now());
+
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const founder = FOUNDERS[activeIndex];
@@ -50,7 +51,7 @@ export default function MobileFoundersShowcase() {
         return next;
       });
       setProgress(0);
-      startTimeRef.current = Date.now();
+      setStartTime(Date.now());
     },
     []
   );
@@ -64,13 +65,12 @@ export default function MobileFoundersShowcase() {
   // Progress ticker
   useEffect(() => {
     progressRef.current = setInterval(() => {
-      const elapsed = Date.now() - startTimeRef.current;
-      setProgress(Math.min((elapsed / AUTO_DURATION) * 100, 100));
+      setProgress(Math.min(((Date.now() - startTime) / AUTO_DURATION) * 100, 100));
     }, 50);
     return () => {
       if (progressRef.current) clearInterval(progressRef.current);
     };
-  }, [activeIndex]);
+  }, [activeIndex, startTime]);
 
   // Swipe support
   const touchStartX = useRef(0);
@@ -341,7 +341,7 @@ export default function MobileFoundersShowcase() {
                 setDirection(dir);
                 setActiveIndex(i);
                 setProgress(0);
-                startTimeRef.current = Date.now();
+                setStartTime(Date.now());
               }}
               className="flex-1 flex flex-col gap-1"
               aria-label={`Go to ${f.firstName} ${f.lastName}`}

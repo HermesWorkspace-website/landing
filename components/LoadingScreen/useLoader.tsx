@@ -37,7 +37,6 @@ export function WithLoader({ children, alwaysShow = false }: WithLoaderProps) {
     setShowLoader(false);
   };
 
-  // On the server, we want to render the markup with the loader visible initially
   const isLoaderActive = !mounted || showLoader;
 
   return (
@@ -48,9 +47,16 @@ export function WithLoader({ children, alwaysShow = false }: WithLoaderProps) {
         )}
       </AnimatePresence>
 
+      {/*
+       * KEY FIX: `initial` only fires on first mount, never again.
+       * `animate` always drives toward opacity:1 and never goes back to 0.
+       * This means soft navigations (router.push) that trigger re-renders
+       * will NOT re-trigger the opacity-0 → opacity-1 animation, so the
+       * wrapper never becomes invisible/non-interactive mid-session.
+       */}
       <motion.div
-        initial={isLoaderActive ? { opacity: 0 } : { opacity: 1 }}
-        animate={isLoaderActive ? { opacity: 0 } : { opacity: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.55, ease: "easeOut" }}
       >
         {children}

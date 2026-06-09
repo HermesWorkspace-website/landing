@@ -1,8 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import JsonLd from "@/components/shared/JsonLd";
 import { Geist, Bebas_Neue, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import { cn } from "@/lib/utils";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-display" });

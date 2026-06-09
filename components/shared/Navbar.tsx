@@ -12,11 +12,12 @@ import { scrollToSection } from "@/lib/scroll-to-section";
 
 const mainLinks = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Socials", href: "/socials" },
-  { label: "Contact", href: "/contact" },
-  { label: "Founders", href: "/founder" },
   { label: "Product", href: "/product" },
+  { label: "Blog", href: "/blog" },
+  { label: "Socials", href: "/socials" },
+  { label: "About Us", href: "/about" },
+  { label: "Founders", href: "/founder" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -45,7 +46,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll when mobile drawer is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -55,11 +55,14 @@ export default function Navbar() {
     if (href.startsWith("#")) {
       e.preventDefault();
       const id = href.slice(1);
-      if (id && scrollToSection(id)) {
-        setOpen(false);
-      }
+      if (id && scrollToSection(id)) setOpen(false);
     }
   };
+
+  // A link is "active" if pathname exactly matches its href,
+  // except "/" which only matches exactly (not every page).
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 
   return (
     <>
@@ -70,7 +73,7 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? "bg-[#F8F9FA]/90 backdrop-blur-xl border-b border-black/[0.06] shadow-[0_1px_12px_rgba(0,0,0,0.04)]"
-            : "bg-transparent"
+            : "bg-[#FAFAF9]/90 backdrop-blur-xl border-b border-black/[0.06] shadow-[0_1px_12px_rgba(0,0,0,0.04)]"
         }`}
       >
         {/* ── Main bar ── */}
@@ -99,15 +102,29 @@ export default function Navbar() {
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
-            {mainLinks.map((l) => (
-              <Link
-                key={l.label}
-                href={l.href}
-                className="text-[14px] font-medium text-brand-ink hover:text-brand transition-colors whitespace-nowrap"
-              >
-                {l.label}
-              </Link>
-            ))}
+            {mainLinks.map((l) => {
+              const active = isActive(l.href);
+              return (
+                <Link
+                  key={l.label}
+                  href={l.href}
+                  className="text-[14px] font-medium transition-colors whitespace-nowrap"
+                  style={
+                    active
+                      ? {
+                          color: "#6366f1",
+                          textShadow:
+                            "0 0 12px rgba(99,102,241,0.45), 0 0 24px rgba(99,102,241,0.2)",
+                        }
+                      : undefined
+                  }
+                >
+                  <span className={active ? "text-brand" : "text-brand-ink hover:text-brand"}>
+                    {l.label}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
 
           {/* Desktop CTA */}
@@ -195,7 +212,7 @@ export default function Navbar() {
               {/* Nav links */}
               <div className="flex-1 overflow-y-auto py-4 px-5 flex flex-col gap-1">
                 {mainLinks.map((l, i) => {
-                  const active = pathname === l.href;
+                  const active = isActive(l.href);
                   return (
                     <motion.div
                       key={l.label}
@@ -212,6 +229,13 @@ export default function Navbar() {
                             : "text-brand-ink/70 hover:text-brand-ink hover:bg-black/[0.04]"
                         }`}
                       >
+                        {/* Active dot indicator for mobile */}
+                        {active && (
+                          <span
+                            className="mr-2.5 size-1.5 rounded-full bg-brand flex-shrink-0"
+                            style={{ boxShadow: "0 0 6px rgba(99,102,241,0.8)" }}
+                          />
+                        )}
                         {l.label}
                       </Link>
                     </motion.div>

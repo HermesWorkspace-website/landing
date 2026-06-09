@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
+
 const isAdminOrEditor = ({ req }: any) =>
   ['admin', 'editor'].includes(req.user?.role)
 
@@ -18,10 +19,14 @@ export const Posts: CollectionConfig = {
         status: { equals: 'published' },
       }
     },
+    
     create: isAdminOrEditor,
     update: isAdminOrEditor,
     delete: ({ req }) => req.user?.role === 'admin',
   },
+  // hooks: {
+  //     beforeChange: [convertMarkdown],
+  //   },
   fields: [
     {
       name: 'title',
@@ -36,6 +41,12 @@ export const Posts: CollectionConfig = {
       admin: {
         description: 'e.g. "why-hermes-is-built-for-india"',
       },
+    },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      label: 'Featured Post',
+      defaultValue: false,
     },
     {
       name: 'status',
@@ -77,12 +88,13 @@ export const Posts: CollectionConfig = {
         description: 'Short summary shown in blog listing cards (~160 chars)',
       },
     },
-    {
-      name: 'content',
-      type: 'richText',
-      editor: lexicalEditor(),
-      required: true,
-    },
+   {
+   name: 'content',
+  type: 'richText',
+  editor: lexicalEditor(),
+  required: true,
+},
+    
     // SEO
     {
       name: 'seo',

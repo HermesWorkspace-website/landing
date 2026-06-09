@@ -155,7 +155,8 @@ function MobileFoundersShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [progress, setProgress] = useState(0);
-  const startTimeRef = useRef<number>(Date.now());
+  const [startTime, setStartTime] = useState(() => Date.now());
+  
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const founder = FOUNDERS[activeIndex];
@@ -169,7 +170,7 @@ function MobileFoundersShowcase() {
       return next;
     });
     setProgress(0);
-    startTimeRef.current = Date.now();
+    setStartTime(Date.now());
   }, []);
 
   useEffect(() => {
@@ -179,7 +180,7 @@ function MobileFoundersShowcase() {
 
   useEffect(() => {
     progressRef.current = setInterval(() => {
-      setProgress(Math.min(((Date.now() - startTimeRef.current) / AUTO_DURATION) * 100, 100));
+      setProgress(Math.min(((Date.now() - startTime) / AUTO_DURATION) * 100, 100));
     }, 50);
     return () => { if (progressRef.current) clearInterval(progressRef.current); };
   }, [activeIndex]);

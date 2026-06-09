@@ -27,6 +27,13 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI!,
+      // Keep pool small for serverless/hosted Postgres (Neon, Supabase, etc.)
+      // to avoid exhausting connection limits
+      max: 5,
+      // Discard idle connections after 20s — before the host drops them
+      idleTimeoutMillis: 20_000,
+      // Fail fast (10s) if no connection is available, instead of hanging
+      connectionTimeoutMillis: 10_000,
     },
   }),
   // ── Sharp: enables server-side image resizing in the admin panel ──────────

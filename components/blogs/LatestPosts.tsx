@@ -114,7 +114,7 @@ export function LatestPosts({ post }: LatestPostsProps) {
   if (!posts.length) return null
 
   return (
-    <section className="px-4 md:px-8 xl:px-16 py-12">
+    <section className="px-4 md:px-8 xl:px-16 pt-6 pb-12">
       {/* ── Header ── */}
       <div ref={headerRef} className="flex items-center justify-between gap-4 mb-8">
         <motion.div

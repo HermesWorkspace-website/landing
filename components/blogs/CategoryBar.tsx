@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 interface CategoryBarProps {
   categories: string[]
+  id?: string
 }
 
-export default function CategoryBar({ categories }: CategoryBarProps) {
+export default function CategoryBar({ categories, id }: CategoryBarProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const confirmedCategory = searchParams.get('category') || 'All Posts'
@@ -29,8 +30,9 @@ export default function CategoryBar({ categories }: CategoryBarProps) {
       document.getElementById('blog-posts')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 80)
   }
+
   return (
-    <section className="py-8 sm:py-10">
+    <section className="pt-8 pb-2 sm:pt-10 sm:pb-3">
       {/* Divider + label */}
       <div className="flex items-center gap-4 mb-5 px-4 md:px-8 xl:px-16 sm:mb-7">
         <div className="w-[3px] h-5 rounded-full bg-brand" />
@@ -41,8 +43,10 @@ export default function CategoryBar({ categories }: CategoryBarProps) {
       </div>
 
       {/* Pill row — scrollable on mobile, wrapping on desktop */}
+      {/* Container padding is adjusted from px-4 md:px-8 xl:px-16 to px-0 md:px-4 xl:px-12
+          so that the first pill text (which has px-4 padding itself) aligns exactly with the header text/border above it. */}
       <div className="
-        flex gap-2 overflow-x-auto px-4 md:px-8 xl:px-16
+        flex gap-2 overflow-x-auto px-0 md:px-4 xl:px-12
         scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none]
         md:flex-wrap md:overflow-visible
       ">
@@ -58,18 +62,13 @@ export default function CategoryBar({ categories }: CategoryBarProps) {
               className="font-body relative px-4 py-2 rounded-full text-[12.5px] font-semibold transition-colors duration-200 focus:outline-none shrink-0"
             >
               {/* Active background */}
-              <AnimatePresence>
-                {isActive && (
-                  <motion.span
-                    layoutId="category-pill"
-                    className="absolute inset-0 rounded-full bg-brand"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                )}
-              </AnimatePresence>
+              {isActive && (
+                <motion.span
+                  layoutId={id ? `category-pill-${id}` : 'category-pill'}
+                  className="absolute inset-0 rounded-full bg-brand"
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                />
+              )}
               <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-white' : 'text-brand-ink/55 hover:text-brand-ink'}`}>
                 {cat}
               </span>

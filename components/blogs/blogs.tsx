@@ -178,7 +178,7 @@ const totalCategories = tags.length
 
               {/* 3. Category filter */}
               <Suspense fallback={null}>
-                <CategoryBar categories={categories} />
+                <CategoryBar categories={categories} id="desktop" />
               </Suspense>
 
               {/* 4. Latest posts */}

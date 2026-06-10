@@ -5,7 +5,7 @@ import {
   TrustSection,
   InstitutionalPulse,
   StatsSection,
-  ImageGallery,
+  // ImageGallery,
   CtaSection,
 } from "@/components/socials";
 import { MobileSocialsPage } from "@/components/socials/Mobilepage";
@@ -19,7 +19,7 @@ export default function SocialsClient() {
         <TrustSection />
         <InstitutionalPulse />
         <StatsSection />
-        <ImageGallery />
+        {/* <ImageGallery /> */}
         <CtaSection />
       </div>
       <div className="block md:hidden">

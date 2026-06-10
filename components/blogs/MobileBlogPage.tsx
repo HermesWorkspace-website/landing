@@ -100,7 +100,7 @@ export default async function MobileBlogPage({ searchParams }: { searchParams: P
 
         {/* Category filter */}
         <Suspense fallback={null}>
-          <CategoryBar categories={categories} />
+          <CategoryBar categories={categories} id="mobile" />
         </Suspense>
 
         {/* Latest posts */}

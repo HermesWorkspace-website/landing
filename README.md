@@ -16,7 +16,7 @@ A production-grade Next.js 14 landing page for HermesWorkspace — India's unifi
 | Components | shadcn/ui (Radix UI primitives + CVA) |
 | Animations | Framer Motion v11 + GSAP 3 + CSS keyframes |
 | 3D / WebGL | Three.js r166 (hero particle canvas) |
-| Typography | Syne (display) + DM Sans (body) + JetBrains Mono |
+| Typography | DM Sans (display/headings) + Inter (body/UI) |
 | Icons | Lucide React |
 
 ---

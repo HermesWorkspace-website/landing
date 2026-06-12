@@ -15,7 +15,8 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { m, AnimatePresence } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
@@ -38,17 +39,16 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-const BODY = "'Plus Jakarta Sans', sans-serif";
-const DISPLAY = "'Bebas Neue', sans-serif";
-const SERIF = "'DM Serif Display', serif";
+const BODY = "var(--font-body, Inter, sans-serif)";
+const DISPLAY = "var(--font-display, 'DM Sans', sans-serif)";
+
+const scrollToFounders = () => {
+  document.getElementById("founders-mobile")?.scrollIntoView({ behavior: "smooth" });
+};
 
 // ─── Section 1: Hero ───────────────────────────────────────────────────────
 
 function MobileHero() {
-  const scrollToFounders = () => {
-    document.getElementById("founders-mobile")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section
       className="relative overflow-hidden bg-white"
@@ -69,7 +69,7 @@ function MobileHero() {
       </div>
 
       {/* Watermark */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.6 }}
@@ -78,12 +78,12 @@ function MobileHero() {
         <span className="select-none text-[22vw] font-black tracking-[-0.08em] text-black/[0.025]">
           FOUNDERS
         </span>
-      </motion.div>
+      </m.div>
 
       {/* Content */}
       <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 text-center">
         {/* Eyebrow */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
@@ -93,7 +93,7 @@ function MobileHero() {
           <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-indigo-500">
             Leadership &amp; Vision
           </span>
-        </motion.div>
+        </m.div>
 
         {/* Headline */}
         <h1
@@ -101,21 +101,21 @@ function MobileHero() {
           style={{ fontSize: "clamp(2.6rem, 11vw, 4rem)" }}
         >
           {["Building The Future", "Of Institutional", "Communication."].map((line, i) => (
-            <span key={`item-${i}`} className="block overflow-hidden">
-              <motion.span
+            <span key={line} className="block overflow-hidden">
+              <m.span
                 className={`inline-block ${i >= 1 ? "bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent" : ""}`}
                 initial={{ y: 56, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 + i * 0.18, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               >
                 {line}
-              </motion.span>
+              </m.span>
             </span>
           ))}
         </h1>
 
         {/* Sub-copy */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.82, ease: [0.22, 1, 0.36, 1] }}
@@ -123,16 +123,16 @@ function MobileHero() {
         >
           HermesWorkspace modernizes how educational institutions communicate,
           coordinate, and operate through scalable digital infrastructure.
-        </motion.p>
+        </m.p>
 
         {/* CTA */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.7 }}
           className="mt-9"
         >
-          <motion.button
+          <m.button
             whileTap={{ scale: 0.96 }}
             onClick={scrollToFounders}
             className="flex items-center gap-2 rounded-full px-7 py-3.5 text-[0.85rem] font-semibold text-white shadow-[0_4px_24px_rgba(96,99,238,0.38)]"
@@ -140,8 +140,8 @@ function MobileHero() {
           >
             Meet our Founders
             <ArrowDown className="size-3.5" />
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
       </div>
     </section>
   );
@@ -154,10 +154,9 @@ const AUTO_DURATION = 6000;
 function MobileFoundersShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
-  const [progress, setProgress] = useState(0);
-  const [startTime, setStartTime] = useState(() => Date.now());
-  
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimeRef = useRef<number | null>(null);
+  if (!startTimeRef.current) startTimeRef.current = Date.now();
 
   const founder = FOUNDERS[activeIndex];
 
@@ -169,21 +168,13 @@ function MobileFoundersShowcase() {
       if (next < 0) return FOUNDERS.length - 1;
       return next;
     });
-    setProgress(0);
-    setStartTime(Date.now());
+    startTimeRef.current = Date.now();
   }, []);
 
   useEffect(() => {
     const t = setTimeout(() => advance(1), AUTO_DURATION);
     return () => clearTimeout(t);
   }, [activeIndex, advance]);
-
-  useEffect(() => {
-    progressRef.current = setInterval(() => {
-      setProgress(Math.min(((Date.now() - startTime) / AUTO_DURATION) * 100, 100));
-    }, 50);
-    return () => { if (progressRef.current) clearInterval(progressRef.current); };
-  }, [activeIndex]);
 
   const touchStartX = useRef(0);
   const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
@@ -201,7 +192,7 @@ function MobileFoundersShowcase() {
       onTouchEnd={onTouchEnd}
     >
       <AnimatePresence mode="wait" custom={direction}>
-        <motion.div
+        <m.div
           key={founder.id}
           custom={direction}
           initial={{ opacity: 0, x: direction > 0 ? 60 : -60 }}
@@ -224,14 +215,14 @@ function MobileFoundersShowcase() {
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
-              <motion.p
+              <m.p
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="absolute left-4 top-4 z-10 text-[10px] font-medium uppercase tracking-[3px] text-white drop-shadow-sm"
               >
                 {String(founder.id).padStart(2, "0")} / {String(FOUNDERS.length).padStart(2, "0")}
-              </motion.p>
+              </m.p>
             </div>
           </div>
 
@@ -239,7 +230,7 @@ function MobileFoundersShowcase() {
           <div className="px-5 pt-5 pb-6">
 
             {/* Role badge */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.18 }}
@@ -251,11 +242,11 @@ function MobileFoundersShowcase() {
               >
                 {founder.role}
               </span>
-            </motion.div>
+            </m.div>
 
             {/* Name — big Bebas */}
             <div className="text-center leading-none">
-              <motion.span
+              <m.span
                 initial={{ y: 24, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.22, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -263,9 +254,9 @@ function MobileFoundersShowcase() {
                 style={{ fontFamily: DISPLAY, fontSize: "17vw", color: "#0D0D0F", lineHeight: 0.88 }}
               >
                 {founder.firstName}
-              </motion.span>
+              </m.span>
               {founder.lastName && (
-                <motion.span
+                <m.span
                   initial={{ y: 24, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.26, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -273,12 +264,12 @@ function MobileFoundersShowcase() {
                   style={{ fontFamily: DISPLAY, fontSize: "17vw", color: founder.accentColor, lineHeight: 0.88 }}
                 >
                   {founder.lastName}
-                </motion.span>
+                </m.span>
               )}
             </div>
 
             {/* Title */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
@@ -289,10 +280,10 @@ function MobileFoundersShowcase() {
                 {founder.title}
               </span>
               <div className="h-[2px] w-5 rounded-full" style={{ background: founder.accentColor }} />
-            </motion.div>
+            </m.div>
 
             {/* Bio */}
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.34 }}
@@ -300,10 +291,10 @@ function MobileFoundersShowcase() {
               style={{ color: "#555" }}
             >
               {founder.bio}
-            </motion.p>
+            </m.p>
 
             {/* Focus pills */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.38 }}
@@ -322,21 +313,21 @@ function MobileFoundersShowcase() {
                   {area}
                 </span>
               ))}
-            </motion.div>
+            </m.div>
 
             {/* Quote */}
-            <motion.blockquote
+            <m.blockquote
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.42 }}
               className="mb-5 border-l-2 pl-4 text-left text-[12px] italic leading-relaxed"
-              style={{ borderColor: founder.accentColor, color: "#666", fontFamily: SERIF }}
+              style={{ borderColor: founder.accentColor, color: "#666", fontFamily: DISPLAY }}
             >
               &ldquo;{founder.quote}&rdquo;
-            </motion.blockquote>
+            </m.blockquote>
 
             {/* Social icons */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.46 }}
@@ -363,9 +354,9 @@ function MobileFoundersShowcase() {
                   <IconBrandInstagram size={14} />
                 </a>
               )}
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </section>
   );
@@ -393,7 +384,7 @@ function MobileMission() {
       </div>
 
       <div className="relative z-10 px-6">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -408,11 +399,11 @@ function MobileMission() {
           <p className="mt-5 text-[0.85rem] leading-[1.85] text-zinc-600">
             HermesWorkspace centralizes communication, academic coordination, and operational workflows into one unified platform.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="flex flex-col gap-3">
           {FEATURES.map((f, i) => (
-            <motion.div
+            <m.div
               key={f.num}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -423,7 +414,7 @@ function MobileMission() {
               <p className="mb-3 text-[10px] font-medium tracking-[0.22em] text-zinc-300">{f.num}</p>
               <h3 className="mb-2 text-[1rem] font-bold leading-tight tracking-[-0.02em] text-black">{f.title}</h3>
               <p className="text-[0.8rem] leading-7 text-zinc-600">{f.text}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
@@ -446,7 +437,7 @@ function MobileFAQ() {
   return (
     <section id="faqs" className="py-16" style={{ fontFamily: BODY }}>
       <div className="px-6">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -458,16 +449,16 @@ function MobileFAQ() {
             Questions?{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">Answered.</span>
           </h2>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
         >
           {FAQS.map((f, i) => (
-            <div key={`item-${i}`} className="cursor-pointer border-b border-black/[0.06]" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
+            <div key={f.q} className="cursor-pointer border-b border-black/[0.06]" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
               <div className="flex items-start justify-between gap-4 py-4">
                 <h4 className="text-[0.875rem] font-medium text-[#0D0D0F]">{f.q}</h4>
                 <div className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border transition-all ${openIdx === i ? "border-indigo-500 bg-indigo-500/10 text-indigo-500" : "border-black/10 text-[#9896A4]"}`}>
@@ -476,7 +467,7 @@ function MobileFAQ() {
               </div>
               <AnimatePresence>
                 {openIdx === i && (
-                  <motion.div
+                  <m.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -484,12 +475,12 @@ function MobileFAQ() {
                     className="overflow-hidden"
                   >
                     <p className="pb-4 text-[0.8rem] leading-relaxed text-[#666]">{f.a}</p>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
@@ -500,7 +491,7 @@ function MobileFAQ() {
 function MobileCTA() {
   return (
     <section className="px-5 pb-12 pt-2" style={{ fontFamily: BODY }}>
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -535,14 +526,14 @@ function MobileCTA() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3">
-            <a
+            <Link
               href="/contact?scroll=inquiry"
               className="flex items-center justify-center gap-2 rounded-xl py-3.5 text-[0.85rem] font-semibold text-white shadow-[0_8px_28px_rgba(96,99,238,0.4)]"
               style={{ background: "linear-gradient(135deg, #6063EE 0%, #8B5CF6 100%)" }}
             >
               Partner With HermesWorkspace
               <ArrowRight className="size-3.5" />
-            </a>
+            </Link>
             <a
               href="mailto:connect@hermesworkspace.com"
               className="flex items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] py-3.5 text-[0.85rem] font-medium text-white/70"
@@ -560,7 +551,7 @@ function MobileCTA() {
             <span>Scalable Infrastructure</span>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

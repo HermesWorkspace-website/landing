@@ -2,18 +2,34 @@ import type { Metadata } from "next";
 import ProductClient from "./ProductClient";
 import JsonLd from "@/components/shared/JsonLd";
 
+const BASE_URL = "https://hermesworkspace.com";
+const OG_IMAGE = `${BASE_URL}/opengraph-image?v=3`;
+
 export const metadata: Metadata = {
   title: "Product — School Communication & Management Platform",
   description:
     "Explore HermesWorkspace's full product: HD live classes, institutional messaging, digital notice board, meeting scheduler, parent communication, and school analytics — all in one platform built for Indian schools.",
   alternates: {
-    canonical: "https://hermesworkspace.com/product",
+    canonical: `${BASE_URL}/product`,
   },
   openGraph: {
     title: "HermesWorkspace Product — The Complete School Platform",
     description:
       "Live HD classes, messaging, notices, meetings, and analytics built for CBSE, ICSE, and State Board schools in India.",
-    url: "https://hermesworkspace.com/product",
+    url: `${BASE_URL}/product`,
+    siteName: "HermesWorkspace",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "HermesWorkspace Product" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@hermesworkspace",
+    creator: "@hermesworkspace",
+    title: "HermesWorkspace Product — The Complete School Platform",
+    description:
+      "Live HD classes, messaging, notices, meetings, and analytics built for CBSE, ICSE, and State Board schools in India.",
+    images: [OG_IMAGE],
   },
 };
 

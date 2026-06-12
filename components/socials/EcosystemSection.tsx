@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { IconArrowRight, IconBrandLinkedin, IconBrandInstagram, IconBrandYoutube, IconBrandX } from "@tabler/icons-react";
 import { staggerContainer, fadeUp, scaleIn } from "@/components/socials/motion-variants";
 
@@ -59,6 +59,20 @@ const CHANNELS = [
   },
 ];
 
+const renderDescription = (text: string) => {
+  if (text.includes("HermesWorkspace")) {
+    const parts = text.split("HermesWorkspace");
+    return (
+      <>
+        {parts[0]}
+        <span className="font-display font-semibold text-[#0D0D0F]">HermesWorkspace</span>
+        {parts[1]}
+      </>
+    );
+  }
+  return text;
+};
+
 function ChannelCard({
   channel,
   index,
@@ -68,23 +82,8 @@ function ChannelCard({
 }) {
   const Icon = channel.icon;
 
-  // Render description with HermesWorkspace styled in custom font if it contains the word
-  const renderDescription = (text: string) => {
-    if (text.includes("HermesWorkspace")) {
-      const parts = text.split("HermesWorkspace");
-      return (
-        <>
-          {parts[0]}
-          <span className="font-logo font-semibold text-[#0D0D0F]">HermesWorkspace</span>
-          {parts[1]}
-        </>
-      );
-    }
-    return text;
-  };
-
   return (
-    <motion.a
+    <m.a
       href={channel.link}
       target="_blank"
       rel="noopener noreferrer"
@@ -94,7 +93,7 @@ function ChannelCard({
       className="relative bg-white rounded-2xl border border-[#E8E5F0] p-6 flex flex-col gap-4 group cursor-pointer overflow-hidden"
     >
       {/* Hover background bloom */}
-      <motion.div
+      <m.div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
         style={{ background: `radial-gradient(ellipse at 30% 20%, ${channel.bg} 0%, transparent 70%)` }}
       />
@@ -124,7 +123,7 @@ function ChannelCard({
       </p>
 
       {/* CTA */}
-      <motion.div
+      <m.div
         className="flex items-center gap-1.5 text-[11px] tracking-[0.5px] font-medium"
         style={{ color: channel.accentColor }}
         whileHover={{ x: 4 }}
@@ -132,14 +131,14 @@ function ChannelCard({
       >
         {channel.cta}
         <IconArrowRight size={12} />
-      </motion.div>
+      </m.div>
 
       {/* Bottom line accent */}
-      <motion.div
+      <m.div
         className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-500 rounded-full"
         style={{ background: channel.accentColor }}
       />
-    </motion.a>
+    </m.a>
   );
 }
 
@@ -151,25 +150,25 @@ export function EcosystemSection() {
     <section id="ecosystem" className="py-24 bg-white" ref={ref}>
       <div className="container-page">
         {/* Header */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
           className="mb-14"
         >
-          <motion.h2
+          <m.h2
             variants={fadeUp}
             className="text-[clamp(32px,4vw,48px)] font-black text-[#0D0D0F] tracking-tight mb-3"
           >
             Digital Ecosystem
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-[14px] text-[#888] max-w-md">
-            How <span className="font-logo font-semibold text-[#0D0D0F]">HermesWorkspace</span> communicates product vision, institutional thinking, and operational innovation across modern digital platforms.
-          </motion.p>
-        </motion.div>
+          </m.h2>
+          <m.p variants={fadeUp} className="text-[14px] text-[#888] max-w-md">
+            How <span className="font-display font-semibold text-[#0D0D0F]">HermesWorkspace</span> communicates product vision, institutional thinking, and operational innovation across modern digital platforms.
+          </m.p>
+        </m.div>
 
         {/* Channel grid */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
@@ -178,7 +177,7 @@ export function EcosystemSection() {
           {CHANNELS.map((ch, i) => (
             <ChannelCard key={ch.name} channel={ch} index={i} />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

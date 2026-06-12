@@ -63,7 +63,7 @@ function RelatedCard({ post }: { post: RelatedPost }) {
   const publishedDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('en-IN', {
         day: 'numeric',
-        month: 'short',
+        month: 'long',
         year: 'numeric',
       })
     : null

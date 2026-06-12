@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { IconMenu2, IconX, IconArrowRight } from "@tabler/icons-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,7 @@ const mainLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-export default function Navbar() {
+function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -66,10 +66,9 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -60, opacity: 0 }}
+      <m.header
+        initial={false}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? "bg-[#F8F9FA]/90 backdrop-blur-xl border-b border-black/[0.06] shadow-[0_1px_12px_rgba(0,0,0,0.04)]"
@@ -95,7 +94,7 @@ export default function Navbar() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="font-logo font-700 text-[15px] text-brand-ink tracking-[-0.02em]">
+            <span className="font-display font-bold text-[15px] text-brand-ink tracking-[-0.02em]">
               HermesWorkspace
             </span>
           </Link>
@@ -112,9 +111,9 @@ export default function Navbar() {
                   style={
                     active
                       ? {
-                          color: "#6366f1",
+                          color: "#6063EE",
                           textShadow:
-                            "0 0 12px rgba(99,102,241,0.45), 0 0 24px rgba(99,102,241,0.2)",
+                            "0 0 12px rgba(96,99,238,0.45), 0 0 24px rgba(96,99,238,0.2)",
                         }
                       : undefined
                   }
@@ -168,14 +167,14 @@ export default function Navbar() {
             </div>
           </div>
         )}
-      </motion.header>
+      </m.header>
 
       {/* ── Mobile drawer ── */}
       <AnimatePresence>
         {open && (
           <>
             {/* Backdrop */}
-            <motion.div
+            <m.div
               key="backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -186,7 +185,7 @@ export default function Navbar() {
             />
 
             {/* Drawer panel */}
-            <motion.nav
+            <m.nav
               key="drawer"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -196,7 +195,7 @@ export default function Navbar() {
             >
               {/* Drawer header */}
               <div className="h-[56px] flex items-center justify-between px-5 border-b border-black/[0.06]">
-                <span className="font-logo font-700 text-[13px] text-brand-ink/40 tracking-widest uppercase">
+                <span className="font-display font-bold text-xs text-brand-ink/40 tracking-widest uppercase">
                   Menu
                 </span>
                 <button
@@ -214,7 +213,7 @@ export default function Navbar() {
                 {mainLinks.map((l, i) => {
                   const active = isActive(l.href);
                   return (
-                    <motion.div
+                    <m.div
                       key={l.label}
                       initial={{ x: 20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
@@ -233,12 +232,12 @@ export default function Navbar() {
                         {active && (
                           <span
                             className="mr-2.5 size-1.5 rounded-full bg-brand flex-shrink-0"
-                            style={{ boxShadow: "0 0 6px rgba(99,102,241,0.8)" }}
+                            style={{ boxShadow: "0 0 6px rgba(96,99,238,0.8)" }}
                           />
                         )}
                         {l.label}
                       </Link>
-                    </motion.div>
+                    </m.div>
                   );
                 })}
               </div>
@@ -251,10 +250,12 @@ export default function Navbar() {
                   </Button>
                 </NavHashLink>
               </div>
-            </motion.nav>
+            </m.nav>
           </>
         )}
       </AnimatePresence>
     </>
   );
 }
+
+export default React.memo(Navbar);

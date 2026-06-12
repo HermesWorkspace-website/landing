@@ -2,18 +2,34 @@ import type { Metadata } from "next";
 import AboutClient from "./AboutClient";
 import JsonLd from "@/components/shared/JsonLd";
 
+const BASE_URL = "https://hermesworkspace.com";
+const OG_IMAGE = `${BASE_URL}/opengraph-image?v=3`;
+
 export const metadata: Metadata = {
   title: "About HermesWorkspace — Building India's School Infrastructure",
   description:
     "Learn how HermesWorkspace was built to solve the communication chaos in Indian schools. Our story, our mission, and the team building the future of institutional infrastructure.",
   alternates: {
-    canonical: "https://hermesworkspace.com/about",
+    canonical: `${BASE_URL}/about`,
   },
   openGraph: {
     title: "About HermesWorkspace — Building India's School Infrastructure",
     description:
       "Our story, mission, philosophy, and the team behind HermesWorkspace — the platform replacing WhatsApp groups in Indian schools.",
-    url: "https://hermesworkspace.com/about",
+    url: `${BASE_URL}/about`,
+    siteName: "HermesWorkspace",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "About HermesWorkspace" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@hermesworkspace",
+    creator: "@hermesworkspace",
+    title: "About HermesWorkspace — Building India's School Infrastructure",
+    description:
+      "Our story, mission, philosophy, and the team behind HermesWorkspace — the platform replacing WhatsApp groups in Indian schools.",
+    images: [OG_IMAGE],
   },
 };
 

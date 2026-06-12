@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import {
   MessageSquare,
   LayoutGrid,
@@ -49,17 +49,17 @@ export default function Philosophy() {
   return (
     <section id="vision" ref={sectionRef} className="bg-white py-20 px-6">
       {/* Header */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
         className="text-center mb-14"
       >
-        <h2 className="text-[1.9rem] font-bold text-[#0A1628] tracking-tight">
+        <h2 className="text-[1.9rem] font-bold text-[#1A1D26] tracking-tight">
           The HermesWorkspace's Philosophy
         </h2>
-        <p className="text-[13px] text-[#6B7280] mt-2">Operating with institutional precision.</p>
-      </motion.div>
+        <p className="text-[13px] text-[#61667A] mt-2">Operating with institutional precision.</p>
+      </m.div>
 
       {/* Pillars grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -85,7 +85,7 @@ function PhilosophyCard({
   isInView: boolean;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -97,21 +97,21 @@ function PhilosophyCard({
       className="group flex flex-col gap-3 p-5 border border-gray-100 rounded-xl bg-white cursor-default transition-colors"
     >
       {/* Icon container */}
-      <motion.div
-        whileHover={{ scale: 1.08, backgroundColor: "#0A1628" }}
+      <m.div
+        whileHover={{ scale: 1.08, backgroundColor: "#1A1D26" }}
         transition={{ type: "spring", stiffness: 350 }}
-        className="size-9 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center group-hover:bg-[#0A1628] transition-colors"
+        className="size-9 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center group-hover:bg-[#1A1D26] transition-colors"
       >
         <Icon
           size={16}
-          className="text-[#6B7280] group-hover:text-[#22C55E] transition-colors"
+          className="text-[#61667A] group-hover:text-[#6063EE] transition-colors"
         />
-      </motion.div>
+      </m.div>
 
       <div>
-        <p className="text-[13px] font-semibold text-[#0A1628] mb-1">{title}</p>
-        <p className="text-[11.5px] text-[#6B7280] leading-relaxed">{desc}</p>
+        <p className="text-[13px] font-semibold text-[#1A1D26] mb-1">{title}</p>
+        <p className="text-[11.5px] text-[#61667A] leading-relaxed">{desc}</p>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

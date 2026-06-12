@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface HeroSectionProps {
   totalPosts: number
@@ -16,7 +16,7 @@ export default function HeroSection({ totalPosts, totalCategories }: HeroSection
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
           <div>
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08, duration: 0.45, ease: 'easeOut' }}
@@ -24,8 +24,8 @@ export default function HeroSection({ totalPosts, totalCategories }: HeroSection
             >
               Resources & insights for{' '}
               <span className="text-indigo-600">modern schools</span>
-            </motion.h1>
-            <motion.p
+            </m.h1>
+            <m.p
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.18, duration: 0.4, ease: 'easeOut' }}
@@ -33,10 +33,10 @@ export default function HeroSection({ totalPosts, totalCategories }: HeroSection
             >
               Practical frameworks, communication strategies, and technology
               insights for educational leaders.
-            </motion.p>
+            </m.p>
           </div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.25, duration: 0.4 }}
@@ -52,7 +52,7 @@ export default function HeroSection({ totalPosts, totalCategories }: HeroSection
                 <p className="text-[11px] text-slate-400 mt-1 uppercase tracking-wide">{label}</p>
               </div>
             ))}
-          </motion.div>
+          </m.div>
 
         </div>
       </div>

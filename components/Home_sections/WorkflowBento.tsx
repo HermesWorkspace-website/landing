@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
@@ -46,7 +46,7 @@ export default function WorkflowBento() {
 
       <div className="container-page relative">
         {/* Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
@@ -60,21 +60,21 @@ export default function WorkflowBento() {
           <p className="mt-4 text-body-lg text-brand-muted font-body">
            HermesWorkspace helps schools manage communication, academics, meetings, and coordination without switching between disconnected platforms.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Steps grid Wrapper */}
         <div className="relative max-w-5xl mx-auto">
           <div className="relative z-[2] grid grid-cols-1 md:grid-cols-2 gap-5">
             {steps.map((s, i) => (
-              <motion.div
+              <m.div
                 key={s.num}
                 initial={{ opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.75, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="bento p-7 flex flex-col gap-4 relative overflow-hidden group hover:shadow-[0_0_30px_rgba(99,102,241,0.15)] transition-all duration-500"
+                className="bento p-7 flex flex-col gap-4 relative overflow-hidden group hover:shadow-[0_0_30px_rgba(96,99,238,0.15)] transition-all duration-500"
               >
                 {/* Glowing border effect */}
-                <div className="absolute inset-0 rounded-[inherit] border-2 border-transparent group-hover:border-brand/30 transition-colors duration-500 z-0 pointer-events-none shadow-[inset_0_0_20px_rgba(99,102,241,0)] group-hover:shadow-[inset_0_0_30px_rgba(99,102,241,0.15)]" />
+                <div className="absolute inset-0 rounded-[inherit] border-2 border-transparent group-hover:border-brand/30 transition-colors duration-500 z-0 pointer-events-none shadow-[inset_0_0_20px_rgba(96,99,238,0)] group-hover:shadow-[inset_0_0_30px_rgba(96,99,238,0.15)]" />
               {/* Big number bg */}
               <div
                 className="absolute -right-3 -top-4 font-display font-extrabold text-[7rem] leading-none tracking-tighter select-none pointer-events-none transition-opacity duration-300 group-hover:opacity-20"
@@ -90,7 +90,7 @@ export default function WorkflowBento() {
 
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="font-mono text-[11px] text-brand/60">{s.num}</span>
+                  <span className="font-body text-[11px] text-brand/60">{s.num}</span>
                   <h3 className="font-display text-[1.125rem] font-bold text-brand-ink tracking-tight">
                     {s.title}
                   </h3>
@@ -102,14 +102,14 @@ export default function WorkflowBento() {
                   <span>Learn more</span>
                   <ArrowRight className="size-3.5" />
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
           {/* Connection SVG line (decorative, desktop) */}
      {/* Center connection line */}
 <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 pointer-events-none z-[1]">
-  <motion.div
+  <m.div
     initial={{ height: 0 }}
     whileInView={{ height: "100%" }}
     transition={{ duration: 1.4, ease: "easeOut" }}
@@ -119,7 +119,7 @@ export default function WorkflowBento() {
         </div>
 
         {/* CTA */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.55 }}
@@ -128,7 +128,7 @@ export default function WorkflowBento() {
           <Link href="/contact?scroll=inquiry" className="btn btn-dark inline-flex gap-2 text-sm">
             Schedule a School Demo <ArrowRight className="size-4" />
           </Link>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

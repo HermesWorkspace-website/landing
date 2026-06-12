@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "framer-motion";
 import { CheckCircle, Lock, Server } from "lucide-react";
 
 interface AlertItem {
@@ -48,7 +48,7 @@ export default function Realtime() {
       {/* Ambient effects */}
       <div
         className="absolute top-0 left-1/4 w-[600px] h-[400px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(90,95,232,0.14) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse, rgba(96,99,238,0.14) 0%, transparent 70%)" }}
       />
       <div
         className="absolute bottom-0 right-1/4 w-[400px] h-[300px] pointer-events-none"
@@ -57,30 +57,28 @@ export default function Realtime() {
 
       {/* Grid */}
       <div className="absolute inset-0 pointer-events-none animate-grid" style={{
-        backgroundImage: "linear-gradient(rgba(90,95,232,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(90,95,232,0.04) 1px, transparent 1px)",
+        backgroundImage: "linear-gradient(rgba(96,99,238,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(96,99,238,0.04) 1px, transparent 1px)",
         backgroundSize: "60px 60px",
       }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
         {/* Text */}
         <div>
-          <motion.div
+          <m.div
             className="flex items-center gap-2 mb-6"
             initial={{ opacity: 0, x: -20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
           >
-            <motion.span
-              className="size-2 rounded-full"
+            <span
+              className="size-2 rounded-full anim-pulse-scale"
               style={{ background: "var(--green)" }}
-              animate={{ scale: [1, 1.6, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
             />
-            <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest font-syne">
+            <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest font-display">
               Platform Status: Live
             </span>
-          </motion.div>
+          </m.div>
 
-          <motion.h2
+          <m.h2
             className="font-display leading-[1.05] tracking-[-0.035em] text-white mb-6"
             style={{ fontSize: "clamp(2rem,4.5vw,3.2rem)" }}
             initial={{ opacity: 0, y: 30 }}
@@ -90,9 +88,9 @@ export default function Realtime() {
             Keep every{" "}
             <span className="shimmer-text-dark">classroom, department, and parent</span>
             <br />Connected
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             className="text-[14px] font-body leading-[1.75] mb-10 max-w-[400px]"
             style={{ color: "rgba(255,255,255,0.5)" }}
             initial={{ opacity: 0, y: 16 }}
@@ -101,37 +99,37 @@ export default function Realtime() {
           >
             Coordinate communication across admin, teachers, students, and parents
 through a secure and structured institutional platform.
-          </motion.p>
+          </m.p>
 
           <div className="space-y-3.5">
             {[
-              { icon: <CheckCircle className="size-4" />, label: "Centralized School Announcements", color: "#22C55E" },
+              { icon: <CheckCircle className="size-4" />, label: "Centralized School Announcements", color: "#6063EE" },
               { icon: <Lock className="size-4" />, label: "Secure Role-Based Access Control", color: "var(--brand-light)" },
-              { icon: <Server className="size-4" />, label: "Scalable Cloud Infrastructure", color: "#a855f7" },
+              { icon: <Server className="size-4" />, label: "Scalable Cloud Infrastructure", color: "#6063EE" },
             ].map((item, i) => (
-              <motion.div
+              <m.div
                 key={item.label}
                 className="flex items-center gap-3"
                 initial={{ opacity: 0, x: -20 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
               >
-                <motion.div
+                <m.div
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   style={{ color: item.color }}
                 >
                   {item.icon}
-                </motion.div>
+                </m.div>
                 <span className="text-[12px] font-semibold font-body" style={{ color: item.color }}>
                   {item.label}
                 </span>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
 
         {/* Terminal window */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: 50, y: 20 }}
           animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -142,13 +140,13 @@ through a secure and structured institutional platform.
             style={{
               background: "#161b22",
               border: "1px solid rgba(255,255,255,0.07)",
-              boxShadow: "0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(90,95,232,0.1)",
+              boxShadow: "0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(96,99,238,0.1)",
             }}
           >
             {/* Window chrome */}
             <div className="flex items-center gap-1.5 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               {["#FF5F57", "#FEBC2E", "#28C840"].map((c, i) => (
-                <motion.div
+                <m.div
                   key={c}
                   className="size-2.5 rounded-full cursor-pointer"
                   style={{ background: c }}
@@ -162,7 +160,7 @@ through a secure and structured institutional platform.
 
             <div className="p-4 space-y-2.5">
               {alerts.map((a, i) => (
-                <motion.div
+                <m.div
                   key={a.text}
                   initial={{ opacity: 0, x: 30 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -184,21 +182,17 @@ through a secure and structured institutional platform.
                   }}
                 >
                   {a.type === "critical" && (
-                    <motion.div
+                    <div
                       className="absolute inset-0 pointer-events-none"
                       style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)" }}
-                      animate={{ x: ["-100%", "100%"] }}
-                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
                     />
                   )}
-                  <motion.div
-                    className="size-1.5 rounded-full mt-1.5 shrink-0"
+                  <div
+                    className={`size-1.5 rounded-full mt-1.5 shrink-0${activeIndex === i ? ' anim-pulse-scale' : ''}`}
                     style={{
                       background:
                         a.type === "critical" ? "#fff" : a.type === "alert" ? "#F59E0B" : "rgba(255,255,255,0.3)",
                     }}
-                    animate={activeIndex === i ? { scale: [1, 1.5, 1] } : {}}
-                    transition={{ duration: 1, repeat: Infinity }}
                   />
                   <div>
                     <div
@@ -214,7 +208,7 @@ through a secure and structured institutional platform.
                       {a.sub}
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
@@ -223,13 +217,11 @@ through a secure and structured institutional platform.
               className="px-4 py-3 flex items-center gap-2"
               style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
             >
-              <motion.div
-                className="size-1.5 rounded-full"
-                style={{ background: "#22C55E" }}
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{ duration: 1.2, repeat: Infinity }}
+              <div
+                className="size-1.5 rounded-full anim-pulse-opacity"
+                style={{ background: "#6063EE" }}
               />
-              <span className="text-[8px] font-syne" style={{ color: "rgba(255,255,255,0.3)" }}>
+              <span className="text-[8px] font-display" style={{ color: "rgba(255,255,255,0.3)" }}>
                 LIVE STREAM ACTIVE · 4 CLUSTERS CONNECTED
               </span>
             </div>
@@ -238,9 +230,9 @@ through a secure and structured institutional platform.
           {/* Glow */}
           <div
             className="absolute -bottom-10 -right-10 size-40 rounded-full pointer-events-none"
-            style={{ background: "radial-gradient(ellipse, rgba(90,95,232,0.35) 0%, transparent 70%)" }}
+            style={{ background: "radial-gradient(ellipse, rgba(96,99,238,0.35) 0%, transparent 70%)" }}
           />
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

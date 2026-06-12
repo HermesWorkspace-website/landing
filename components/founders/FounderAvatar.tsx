@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Founder } from "@/types/founder";
 import { FounderPhoto } from "./FounderPhoto";
 
@@ -18,7 +18,7 @@ const AVATAR_VARIANTS = {
 
 export function FounderAvatar({ founder }: FounderAvatarProps) {
   return (
-    <motion.div
+    <m.div
       key={founder.id}
       variants={AVATAR_VARIANTS}
       initial="enter"
@@ -37,7 +37,7 @@ export function FounderAvatar({ founder }: FounderAvatarProps) {
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 0.5 }}
@@ -48,8 +48,8 @@ export function FounderAvatar({ founder }: FounderAvatarProps) {
             Founder {String(founder.id).padStart(2, "0")}
           </span>
           <div className="h-px w-6 bg-white/70" />
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

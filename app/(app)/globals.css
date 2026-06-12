@@ -1,69 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
-@import "../../node_modules/tw-animate-css/dist/tw-animate.css";
-@import "../../node_modules/shadcn/dist/tailwind.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* --- Motivate (Logo Font) ----------------------------------- */
-@font-face {
-  font-family: 'Motivate';
-  src: url('https://ik.imagekit.io/hermesworkspace/Landing/fonts/Motivate.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* --- SF Pro Display (Logo Font) ----------------------------- */
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('https://ik.imagekit.io/hermesworkspace/Landing/fonts/SFPRODISPLAYREGULAR.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('https://ik.imagekit.io/hermesworkspace/Landing/fonts/SFPRODISPLAYMEDIUM.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SF Pro Display';
-  src: url('https://ik.imagekit.io/hermesworkspace/Landing/fonts/SFPRODISPLAYBOLD.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-.font-logo {
-  font-family: 'Sora', 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
-}
-
-
-.font-inter {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
-}
-
 
 
 /* --- CSS Variables ----------------------------------------------- */
 :root {
   --brand: #6063EE;
   --brand-dark: #4648D4;
-  --brand-purple: #A855F7;
+  --brand-light: #7B7FF0;
+  --brand-success: #1E8B4C;
+  --brand-warning: #D97706;
+  --brand-error: #BC1C1E;
   --bg: #F8F9FA;
   --ink: #1A1C1D;
   --ink-muted: #45464C;
   --ink-faint: #9EA0A5;
   --border: rgba(0, 0, 0, 0.07);
   --white: #ffffff;
+  --dark-bg: #12141D;
+  --dark-card: #1A1D28;
+  --dark-border: #2A2D3A;
   --radius: 16px;
 
   /* Typography scale */
@@ -81,8 +37,8 @@
   box-sizing: border-box;
 }
 
-html.lenis,
-html.lenis body {
+html,
+body {
   height: auto;
   position: relative;
 }
@@ -100,12 +56,11 @@ html.lenis body {
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-body), 'Inter', system-ui, sans-serif;
   background: var(--bg);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 /* --- Hero layouts ------------------------------------------------- */
@@ -160,33 +115,38 @@ body {
 
 /* --- Typography --------------------------------------------------- */
 .font-display {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display), 'DM Sans', sans-serif;
 }
 
 .font-mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
+  font-family: var(--font-display), 'DM Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
+
+h1 { font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
+h2 { font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
+h3 { font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+h4 { font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; }
 
 /* --- Gradient text ------------------------------------------------ */
 .gradient-text {
-  background: linear-gradient(135deg, var(--ink) 0%, var(--brand) 60%, var(--brand-purple) 100%);
+  background: linear-gradient(135deg, var(--ink) 0%, var(--brand) 60%, var(--brand-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-text-brand {
-  background: linear-gradient(100deg, var(--brand-dark) 0%, var(--brand) 50%, var(--brand-purple) 100%);
+  background: linear-gradient(100deg, var(--brand-dark) 0%, var(--brand) 50%, var(--brand-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -251,7 +211,7 @@ h4 {
   text-decoration: none;
   line-height: 1.4;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body), Inter, sans-serif;
 }
 
 .btn-dark {
@@ -300,7 +260,7 @@ h4 {
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.01em;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body), Inter, sans-serif;
 }
 
 .badge-brand {
@@ -315,9 +275,9 @@ h4 {
 }
 
 .badge-green {
-  background: rgba(34, 197, 94, 0.08);
-  color: #16a34a;
-  border: 1px solid rgba(34, 197, 94, 0.14);
+  background: rgba(30, 139, 76, 0.08);
+  color: #1E8B4C;
+  border: 1px solid rgba(30, 139, 76, 0.14);
 }
 
 /* --- Nav ----------------------------------------------------------- */
@@ -327,7 +287,7 @@ h4 {
   color: var(--ink-muted);
   text-decoration: none;
   transition: color 0.18s;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body), Inter, sans-serif;
 }
 
 .nav-item:hover {
@@ -336,7 +296,7 @@ h4 {
 
 /* --- Section ------------------------------------------------------- */
 .section-eyebrow {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-body), Inter, sans-serif;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -582,7 +542,7 @@ h4 {
 
 .mock-avatar {
   border-radius: 50%;
-  background: linear-gradient(135deg, #6063EE, #A855F7);
+  background: linear-gradient(135deg, #6063EE, #7B7FF0);
 }
 
 /* --- Bento Grid --------------------------------------------------- */
@@ -668,8 +628,8 @@ details summary::-webkit-details-marker {
 
 /* --- Stat number --------------------------------------------------- */
 .stat-number {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
+  font-family: var(--font-display), 'DM Sans', sans-serif;
+  font-weight: 700;
   font-size: clamp(2rem, 4vw, 3.25rem);
   letter-spacing: -0.04em;
   line-height: 1;
@@ -701,26 +661,26 @@ details summary::-webkit-details-marker {
 
 /* --- Contact Page Styles ------------------------------------------ */
 .contact-page {
-  --brand: #5A5FE8;
+  --brand: #6063EE;
   --brand-light: #7B7FF0;
-  --brand-dark: #3D42C8;
-  --ink: #0A0B1E;
-  --ink-60: rgba(10, 11, 30, 0.6);
-  --ink-35: rgba(10, 11, 30, 0.35);
-  --ink-12: rgba(10, 11, 30, 0.12);
-  --ink-06: rgba(10, 11, 30, 0.06);
+  --brand-dark: #4648D4;
+  --ink: #1A1C1D;
+  --ink-60: rgba(26, 28, 29, 0.6);
+  --ink-35: rgba(26, 28, 29, 0.35);
+  --ink-12: rgba(26, 28, 29, 0.12);
+  --ink-06: rgba(26, 28, 29, 0.06);
   --surface: #FAFAFA;
   --white: #FFFFFF;
-  --dark: #080A14;
-  --dark-2: #10131F;
-  --green: #22C55E;
-  --amber: #F59E0B;
+  --dark: #12141D;
+  --dark-2: #1A1D28;
+  --green: #1E8B4C;
+  --amber: #D97706;
 }
 
 .contact-page input,
 .contact-page textarea,
 .contact-page select {
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: var(--font-body), Inter, sans-serif;
   outline: none;
 }
 
@@ -728,19 +688,7 @@ details summary::-webkit-details-marker {
 .contact-page textarea:focus,
 .contact-page select:focus {
   border-color: var(--brand) !important;
-  box-shadow: 0 0 0 3px rgba(90, 95, 232, 0.12) !important;
-}
-
-.font-display {
-  font-family: 'DM Serif Display', serif;
-}
-
-.font-syne {
-  font-family: 'Syne', sans-serif;
-}
-
-.font-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  box-shadow: 0 0 0 3px rgba(96, 99, 238, 0.12) !important;
 }
 
 @keyframes pulse-ring {
@@ -853,16 +801,14 @@ details summary::-webkit-details-marker {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer 4s linear infinite;
 }
 
 .shimmer-text-dark {
-  background: linear-gradient(90deg, #fff 0%, #a5a8ff 30%, #c4c6ff 50%, #a5a8ff 70%, #fff 100%);
+  background: linear-gradient(90deg, #fff 0%, #6063EE 30%, #7B7FF0 50%, #6063EE 70%, #fff 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer 4s linear infinite;
 }
 
 .glass-dark {
@@ -873,11 +819,6 @@ details summary::-webkit-details-marker {
 }
 
 @layer base {
-  .theme {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
-  }
-
   :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
@@ -954,11 +895,11 @@ details summary::-webkit-details-marker {
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-family: 'Inter', var(--font-body), system-ui, sans-serif;
   }
 
-  html {
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+html {
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
   }
 
   [id] {
@@ -980,4 +921,81 @@ details summary::-webkit-details-marker {
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* ── CSS Keyframe Animations (replace framer-motion infinite loops) ── */
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes pulse-opacity-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}
+
+@keyframes pulse-scale-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes float-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+@keyframes spin-linear {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes breathe-opacity {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.anim-pulse-opacity {
+  animation: pulse-opacity 1.8s ease-in-out infinite;
+}
+
+.anim-pulse-opacity-fast {
+  animation: pulse-opacity 1s ease-in-out infinite;
+}
+
+.anim-pulse-opacity-blink {
+  animation: pulse-opacity-blink 1s ease-in-out infinite;
+}
+
+.anim-pulse-scale {
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.anim-pulse-scale-subtle {
+  animation: pulse-scale-subtle 3s ease-in-out infinite;
+}
+
+.anim-float-y {
+  animation: float-y 3s ease-in-out infinite;
+}
+
+.anim-float-x {
+  animation: float-x 1.5s ease-in-out infinite;
+}
+
+.anim-spin {
+  animation: spin-linear 0.8s linear infinite;
+}
+
+.anim-breathe {
+  animation: breathe-opacity 4s ease-in-out infinite;
 }

@@ -20,7 +20,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { FOUNDER_PHOTO_QUALITY, FOUNDER_PHOTO_SIZES } from "@/components/founders/FounderPhoto";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { m, AnimatePresence, useInView } from "framer-motion";
 import {
   Plus,
   Minus,
@@ -37,9 +37,9 @@ import { IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 
 // ─── shared token ────────────────────────────────────────────────────────────
-const INK = "#0A1628";
-const GREEN = "#22C55E";
-const MUTED = "#6B7280";
+const INK = "#1A1D26";
+const BRAND = "#6063EE";
+const MUTED = "#61667A";
 
 // X icon
 function XIcon({ size = 16 }: { size?: number }) {
@@ -63,7 +63,7 @@ function FadeUp({
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, y: 22 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -71,7 +71,7 @@ function FadeUp({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -80,7 +80,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
     <p
       className="text-[10px] font-bold tracking-widest uppercase mb-3"
-      style={{ color: GREEN }}
+      style={{ color: BRAND }}
     >
       {children}
     </p>
@@ -129,10 +129,11 @@ function FAQItem({
   toggle: () => void;
 }) {
   return (
-    <div
-      className="cursor-pointer border-b border-gray-100"
-      onClick={toggle}
-    >
+        <button
+          type="button"
+          className="w-full text-left p-0 bg-transparent border-0 cursor-pointer border-b border-gray-100"
+          onClick={toggle}
+        >
       <div className="flex items-start justify-between gap-4 py-4">
         <h4 className="pr-2 text-[13.5px] font-semibold leading-snug" style={{ color: INK }}>
           {q}
@@ -140,9 +141,9 @@ function FAQItem({
         <div
           className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border transition-all"
           style={{
-            borderColor: open ? `${GREEN}50` : "#E5E7EB",
-            background: open ? `${GREEN}12` : "transparent",
-            color: open ? GREEN : MUTED,
+            borderColor: open ? `${BRAND}50` : "#E5E7EB",
+            background: open ? `${BRAND}12` : "transparent",
+            color: open ? BRAND : MUTED,
           }}
         >
           {open ? <Minus size={12} /> : <Plus size={12} />}
@@ -150,7 +151,7 @@ function FAQItem({
       </div>
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -160,10 +161,10 @@ function FAQItem({
             <p className="pb-4 pr-6 text-[13px] leading-[1.75]" style={{ color: MUTED }}>
               {a}
             </p>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </div>
+    </button>
   );
 }
 
@@ -174,7 +175,7 @@ function StatValue({ value }: { value: string }) {
   }
   return (
     <>
-      <span style={{ color: GREEN }}>{match[1]}</span>
+      <span style={{ color: BRAND }}>{match[1]}</span>
       <span style={{ color: INK }}>{match[2]}</span>
     </>
   );
@@ -206,27 +207,25 @@ function MobileHero() {
       <div className="relative z-10 w-full">
         <div className="flex flex-col items-start text-left">
           {/* Badge */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 16, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6 }}
             className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2"
-            style={{ borderColor: `${GREEN}40`, background: `${GREEN}0D` }}
+            style={{ borderColor: `${BRAND}40`, background: `${BRAND}0D` }}
           >
-            <motion.span
-              className="size-1.5 rounded-full"
-              style={{ background: GREEN }}
-              animate={{ scale: [1, 1.5, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+            <span
+              className="size-1.5 rounded-full anim-pulse-scale"
+              style={{ background: BRAND }}
             />
-            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: GREEN }}>
+            <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: BRAND }}>
               Transforming Education
             </span>
-          </motion.div>
+          </m.div>
 
           {/* Headline — stacked blocks like contact hero */}
           <div className="mb-5">
-            <motion.h1
+            <m.h1
               className="font-display leading-[1.02] tracking-[-0.04em]"
               style={{ fontSize: "clamp(2.5rem, 11vw, 3.5rem)" }}
             >
@@ -236,7 +235,7 @@ function MobileHero() {
                 { text: "Educational", accent: "Educational" },
                 { text: "Institutions", accent: null },
               ].map((line, i) => (
-                <motion.span
+                <m.span
                   key={line.text}
                   className="block"
                   style={{ color: INK }}
@@ -247,18 +246,18 @@ function MobileHero() {
                   {line.accent && line.text.includes(line.accent) ? (
                     <>
                       {line.text.replace(line.accent, "").trim()}{" "}
-                      <span style={{ color: GREEN }}>{line.accent}</span>
+                      <span style={{ color: BRAND }}>{line.accent}</span>
                     </>
                   ) : (
                     line.text
                   )}
-                </motion.span>
+                </m.span>
               ))}
-            </motion.h1>
+            </m.h1>
           </div>
 
           {/* Sub-copy */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45, duration: 0.7 }}
@@ -266,41 +265,41 @@ function MobileHero() {
             style={{ color: MUTED }}
           >
             HermesWorkspace is the backbone of next-generation academic management — delivering clarity and scale for modern institutions.
-          </motion.p>
+          </m.p>
 
           {/* CTAs */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
             className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
           >
-            <motion.button
+            <m.button
               whileTap={{ scale: 0.97 }}
               onClick={() => document.getElementById("mission")?.scrollIntoView({ behavior: "smooth" })}
               className="inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-xl px-7 text-[13px] font-bold text-white sm:w-auto"
               style={{ background: INK }}
             >
               Explore Mission
-              <ArrowRight className="size-4 shrink-0" style={{ color: GREEN }} />
-            </motion.button>
-            <motion.button
+              <ArrowRight className="size-4 shrink-0" style={{ color: BRAND }} />
+            </m.button>
+            <m.button
               whileTap={{ scale: 0.98 }}
               onClick={() => document.getElementById("team")?.scrollIntoView({ behavior: "smooth" })}
               className="inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-xl border px-7 text-[13px] font-bold sm:w-auto"
               style={{
-                background: `${GREEN}12`,
-                borderColor: `${GREEN}45`,
+                background: `${BRAND}12`,
+                borderColor: `${BRAND}45`,
                 color: INK,
               }}
             >
-              <Globe className="size-4 shrink-0" style={{ color: GREEN }} />
+              <Globe className="size-4 shrink-0" style={{ color: BRAND }} />
               Meet the Founders
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
 
           {/* Trust bar — same pattern as contact hero */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.85 }}
@@ -311,20 +310,20 @@ function MobileHero() {
               { icon: <Server className="size-3.5" />, label: "Scalable Academic Infrastructure" },
               { icon: <Zap className="size-3.5" />, label: "Built for Modern Institutions" },
             ].map((item, i) => (
-              <motion.div
+              <m.div
                 key={item.label}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9 + i * 0.08 }}
                 className="flex items-center gap-1.5"
               >
-                <span style={{ color: GREEN }}>{item.icon}</span>
+                <span style={{ color: BRAND }}>{item.icon}</span>
                 <span className="text-[11px] font-semibold" style={{ color: MUTED }}>
                   {item.label}
                 </span>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
@@ -353,7 +352,7 @@ function MobileOurStory() {
       <FadeUp delay={0.2} className="mt-6">
         <div
           className="border-l-[3px] pl-4 py-1"
-          style={{ borderColor: GREEN }}
+          style={{ borderColor: BRAND }}
         >
           <p className="text-[13.5px] font-semibold leading-relaxed" style={{ color: INK }}>
             "Educational institutions deserve systems built for clarity, reliability, and scale. We didn't just
@@ -382,7 +381,7 @@ function MobileStats() {
     <section ref={ref} className="py-14 px-5 border-t border-b border-gray-100 bg-white">
       <div className="grid grid-cols-3 gap-3">
         {STATS.map((s, i) => (
-          <motion.div
+          <m.div
             key={s.label}
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -395,7 +394,7 @@ function MobileStats() {
             <p className="text-[9px] font-bold tracking-wider uppercase leading-tight" style={{ color: MUTED }}>
               {s.label}
             </p>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>
@@ -434,9 +433,9 @@ function MobilePhilosophy() {
               >
                 <div
                   className="flex size-8 items-center justify-center rounded-lg"
-                  style={{ background: `${GREEN}12`, border: `1px solid ${GREEN}30` }}
+                  style={{ background: `${BRAND}12`, border: `1px solid ${BRAND}30` }}
                 >
-                  <Icon size={15} style={{ color: GREEN }} />
+                  <Icon size={15} style={{ color: BRAND }} />
                 </div>
                 <p className="text-[12.5px] font-semibold" style={{ color: INK }}>{p.title}</p>
                 <p className="text-[11px] leading-relaxed" style={{ color: MUTED }}>{p.desc}</p>
@@ -457,7 +456,7 @@ function MobileEcosystem() {
     <section className="relative py-16 px-5" style={{ background: INK }}>
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-10 -left-10 size-48 rounded-full opacity-10 blur-3xl" style={{ background: GREEN }} />
+        <div className="absolute -top-10 -left-10 size-48 rounded-full opacity-10 blur-3xl" style={{ background: BRAND }} />
       </div>
 
       <FadeUp>
@@ -487,7 +486,7 @@ function MobileEcosystem() {
               className="flex items-center gap-3 rounded-xl border px-4 py-3"
               style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.04)" }}
             >
-              <div className="size-1.5 shrink-0 rounded-full" style={{ background: GREEN }} />
+              <div className="size-1.5 shrink-0 rounded-full" style={{ background: BRAND }} />
               <p className="text-[12.5px] font-medium text-white">{f}</p>
             </div>
           ))}
@@ -507,7 +506,7 @@ const TEAM = [
     initials: "AA",
     photo: "https://ik.imagekit.io/hermesworkspace/Landing/assets/apurav.png",
     bg: "#0f1f30",
-    accentColor: "#6B5CE7",
+    accentColor: "#6063EE",
     bio: "Leads HermesWorkspace's institutional strategy, partnerships, operational growth, and platform direction. His work focuses on building infrastructure that simplifies how schools communicate and coordinate on a daily basis.",
     quote: "Educational institutions deserve infrastructure built for clarity, reliability, and long-term operational scale.",
     socials: {
@@ -578,7 +577,7 @@ function MobileLeadershipTeam() {
                       { cx: "72%", cy: "52%", r: 65, fill: "#EEF2FF" },
                     ]
                   ).map((s, si) => (
-                    <motion.circle
+                    <m.circle
                       key={`circle-${si}`}
                       cx={s.cx} cy={s.cy} r={s.r} fill={s.fill}
                       initial={{ scale: 0.7, opacity: 0 }}
@@ -589,7 +588,7 @@ function MobileLeadershipTeam() {
                 </svg>
 
                 {/* Green accent bar left */}
-                <div className="absolute left-0 top-0 bottom-0 z-10 w-[3px]" style={{ background: GREEN }} />
+                <div className="absolute left-0 top-0 bottom-0 z-10 w-[3px]" style={{ background: BRAND }} />
 
                 <Image
                   src={member.photo}
@@ -603,16 +602,14 @@ function MobileLeadershipTeam() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
 
                 {/* Rotating accent rings */}
-                <motion.div
-                  className="absolute rounded-full border pointer-events-none"
-                  style={{ width: 200, height: 200, top: "50%", left: "50%", marginTop: -100, marginLeft: -100, borderColor: `${member.accentColor}25` }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                <div
+                  className="absolute rounded-full border pointer-events-none anim-spin"
+                  style={{ width: 200, height: 200, top: "50%", left: "50%", marginTop: -100, marginLeft: -100, borderColor: `${member.accentColor}25`, animationDuration: '28s' }}
                 />
 
                 {/* Founder label */}
                 <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center justify-end gap-3 pb-5">
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
@@ -623,7 +620,7 @@ function MobileLeadershipTeam() {
                       Founder {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="h-px w-6" style={{ background: member.accentColor }} />
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
 
@@ -633,10 +630,10 @@ function MobileLeadershipTeam() {
                 <div>
                   <div
                     className="mb-2 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5"
-                    style={{ borderColor: `${GREEN}30`, background: `${GREEN}0D` }}
+                    style={{ borderColor: `${BRAND}30`, background: `${BRAND}0D` }}
                   >
-                    <div className="size-1 rounded-full" style={{ background: GREEN }} />
-                    <span className="text-[9px] font-semibold tracking-wider uppercase" style={{ color: GREEN }}>
+                    <div className="size-1 rounded-full" style={{ background: BRAND }} />
+                    <span className="text-[9px] font-semibold tracking-wider uppercase" style={{ color: BRAND }}>
                       {member.role}
                     </span>
                   </div>
@@ -651,7 +648,7 @@ function MobileLeadershipTeam() {
                 </p>
 
                 {/* Pull quote */}
-                <div className="rounded-xl px-4 py-3" style={{ background: `${GREEN}0A`, borderLeft: `3px solid ${GREEN}` }}>
+                <div className="rounded-xl px-4 py-3" style={{ background: `${BRAND}0A`, borderLeft: `3px solid ${BRAND}` }}>
                   <p className="text-[12.5px] font-semibold italic leading-relaxed" style={{ color: INK }}>
                     &ldquo;{member.quote}&rdquo;
                   </p>
@@ -691,7 +688,7 @@ function MobileFAQ() {
         <Eyebrow>FAQ</Eyebrow>
         <h2 className="text-[1.7rem] font-bold tracking-tight mb-8" style={{ color: INK }}>
           Questions?{" "}
-          <span style={{ color: GREEN }}>Answered.</span>
+          <span style={{ color: BRAND }}>Answered.</span>
         </h2>
       </FadeUp>
 
@@ -720,20 +717,20 @@ function MobileCTA() {
 
   return (
     <section id="cta" className="px-5 py-10 pb-20 bg-white">
-      <motion.div
+      <m.div
         ref={ref}
         initial={{ opacity: 0, y: 30, scale: 0.97 }}
         animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="relative overflow-hidden rounded-3xl px-7 py-12 text-center"
-        style={{ background: "#071221" }}
+        style={{ background: "#12141D" }}
       >
         {/* Top border glow */}
         <div
           className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-px"
           style={{
             width: "70%",
-            background: "linear-gradient(90deg, transparent, rgba(90,95,232,0.6), transparent)",
+            background: "linear-gradient(90deg, transparent, rgba(96,99,238,0.6), transparent)",
           }}
         />
         {/* Ambient glow */}
@@ -760,7 +757,7 @@ function MobileCTA() {
             className="text-[1.65rem] font-bold leading-[1.1] tracking-tight text-white"
           >
             Ready To Modernize{" "}
-            <span style={{ color: GREEN }}>Institutional</span>{" "}
+            <span style={{ color: BRAND }}>Institutional</span>{" "}
             Communication?
           </h2>
 
@@ -787,7 +784,7 @@ function MobileCTA() {
             </button>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 }
@@ -797,7 +794,7 @@ function MobileCTA() {
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function MobileAbout() {
   return (
-    <main style={{ fontFamily: "var(--font-body, 'DM Sans', sans-serif)" }}>
+    <main className="font-body">
       <MobileHero />
       <MobileOurStory />
       <MobileStats />

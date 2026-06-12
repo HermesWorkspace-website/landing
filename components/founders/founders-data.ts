@@ -16,7 +16,7 @@ export const FOUNDERS: Founder[] = [
       "Platform Deployment",
       "Infrastructure Growth",
     ],
-    accentColor: "#6B5CE7",
+    accentColor: "#6063EE",
     avatarInitials: "AA",
     photo: "https://ik.imagekit.io/hermesworkspace/Landing/assets/apurav.png",
     socialLinks: {

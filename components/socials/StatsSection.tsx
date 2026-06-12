@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { staggerContainer, fadeUp } from "@/components/socials/motion-variants";
 import { useCountUp } from "@/components/socials/useCountUp";
 
@@ -30,7 +30,7 @@ function DarkCanvas() {
       // Large wireframe torus
       const geo = new THREE.TorusGeometry(2.5, 0.8, 8, 32);
       const mat = new THREE.MeshBasicMaterial({
-        color: 0x6b5ce7,
+        color: 0x6063ee,
         wireframe: true,
         opacity: 0.08,
         transparent: true,
@@ -43,7 +43,7 @@ function DarkCanvas() {
       const positions = new Float32Array(120 * 3);
       for (let i = 0; i < 120 * 3; i++) positions[i] = (Math.random() - 0.5) * 16;
       pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-      scene.add(new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x6b5ce7, size: 0.06, transparent: true, opacity: 0.3 })));
+      scene.add(new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x6063ee, size: 0.06, transparent: true, opacity: 0.3 })));
 
       let t = 0;
       const animate = () => {
@@ -80,15 +80,15 @@ interface StatCounterProps {
 function StatCounter({ value, suffix, label, sublabel, started }: StatCounterProps) {
   const count = useCountUp(value, 2200, started);
   return (
-    <motion.div variants={fadeUp} className="text-center">
-      <motion.p
+    <m.div variants={fadeUp} className="text-center">
+      <m.p
         className="text-[clamp(40px,6vw,72px)] font-black text-white leading-none tracking-tight"
       >
         {count.toFixed(1).replace(/\.0$/, "")}{suffix}
-      </motion.p>
+      </m.p>
       <p className="text-[11px] tracking-[2px] uppercase text-[#9896A4] mt-3 mb-1">{label}</p>
       <p className="text-[12px] text-[#666] max-w-[160px] mx-auto leading-relaxed">{sublabel}</p>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -130,25 +130,24 @@ export function StatsSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0D0D0F]/80 via-transparent to-[#0D0D0F]/80 pointer-events-none" />
 
       <div className="relative container-page">
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
         >
           {/* Headline */}
-          <motion.div variants={fadeUp} className="text-center mb-16">
+          <m.div variants={fadeUp} className="text-center mb-16">
             <h2
-              className="text-[clamp(36px,5.5vw,72px)] font-black text-white leading-[1.05] tracking-tight"
-              style={{ fontFamily: "var(--font-playfair, Georgia, serif)" }}
+              className="text-[clamp(36px,5.5vw,72px)] font-black text-white leading-[1.05] tracking-tight font-display"
             >
               Designed for modern institutions.
               <br />
               Built for long-term operational clarity.
             </h2>
-          </motion.div>
+          </m.div>
 
           {/* Stats */}
-          <motion.div
+          <m.div
             variants={staggerContainer}
             className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16"
           >
@@ -162,20 +161,20 @@ export function StatsSection() {
                 started={inView}
               />
             ))}
-          </motion.div>
+          </m.div>
 
           {/* CTA */}
-          <motion.div variants={fadeUp} className="flex justify-center">
-            <motion.a
+          <m.div variants={fadeUp} className="flex justify-center">
+            <m.a
               href="/contact"
-              whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(107,92,231,0.4)" }}
+              whileHover={{ scale: 1.05, boxShadow: "0 12px 40px rgba(96,99,238,0.4)" }}
               whileTap={{ scale: 0.97 }}
-              className="bg-[#6B5CE7] text-white text-[13px] font-semibold px-8 py-3.5 rounded-full tracking-wide"
+              className="bg-[#6063EE] text-white text-[13px] font-semibold px-8 py-3.5 rounded-full tracking-wide"
             >
               Join the Network
-            </motion.a>
-          </motion.div>
-        </motion.div>
+            </m.a>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );

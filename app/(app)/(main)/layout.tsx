@@ -1,50 +1,29 @@
-import SmoothScroll from "@/components/shared/SmoothScroll";
-import ScrollOnNavigate from "@/components/shared/ScrollOnNavigate";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
+import dynamic from "next/dynamic";
 import { WithLoader } from "@/components/LoadingScreen/useLoader";
+import LazyMotionProvider from "@/components/shared/LazyMotionProvider";
+
+const SmoothScroll = dynamic(() => import("@/components/shared/SmoothScroll"));
+const ScrollOnNavigate = dynamic(() => import("@/components/shared/ScrollOnNavigate"));
+const Navbar = dynamic(() => import("@/components/shared/Navbar"));
+const Footer = dynamic(() => import("@/components/shared/Footer"));
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-
-    name: "HermesWorkspace",
-    url: "https://www.hermesworkspace.com",
-
-    logo: "https://www.hermesworkspace.com/logo.png",
-
-    description:
-      "Communication and management platform for educational institutions.",
-
-    sameAs: [
-      "https://x.com/hermesworkspace",
-      "https://www.linkedin.com/company/hermesworkspace",
-    ],
-  };
-
   return (
     <WithLoader>
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationSchema),
-        }}
-      />
+      <LazyMotionProvider>
+        <Navbar />
 
-      <Navbar />
+        <SmoothScroll>
+          <ScrollOnNavigate />
+          {children}
+        </SmoothScroll>
 
-      <SmoothScroll>
-        <ScrollOnNavigate />
-        {children}
-      </SmoothScroll>
-
-      <Footer />
+        <Footer />
+      </LazyMotionProvider>
     </WithLoader>
   );
 }

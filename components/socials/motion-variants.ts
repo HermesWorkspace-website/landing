@@ -12,7 +12,7 @@ export const fadeUp: Variants = {
   },
 };
 
-export const fadeIn: Variants = {
+const fadeIn: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -48,7 +48,7 @@ export const staggerContainer: Variants = {
   },
 };
 
-export const staggerFast: Variants = {
+const staggerFast: Variants = {
   hidden: {},
   show: {
     transition: {

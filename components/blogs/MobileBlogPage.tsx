@@ -1,6 +1,4 @@
 import { Suspense } from 'react';
-import { getPayload } from 'payload';
-import config from '@/payload.config';
 import type { Tag } from '@/payload-types';
 import HeroSection from '@/components/blogs/Bloghero';
 import { FeaturedPost } from '@/components/blogs/FeaturedPost';
@@ -8,63 +6,48 @@ import CategoryBar from '@/components/blogs/CategoryBar';
 import { LatestPosts } from '@/components/blogs/LatestPosts';
 import CTA from '@/components/blogs/CTA';
 import type { Article, BlogTag } from '@/components/blogs/types';
-import { unstable_cache } from 'next/cache';
-
-// Reuse cached data functions from blogs.tsx
-export const getCachedPosts = unstable_cache(
-  async ({ tag, page = 1, limit = 100 }: { tag?: string; page?: number; limit?: number }) => {
-    const payload = await getPayload({ config });
-    return payload.find({
-      collection: 'posts',
-      where: {
-        status: { equals: 'published' },
-        ...(tag ? { 'tags.slug': { equals: tag } } : {}),
-      },
-      sort: '-publishedAt',
-      depth: 2,
-      limit,
-      page,
-    });
-  },
-  ['blog-posts-v2'],
-  { revalidate: 30 }
-);
-
-export const getCachedTags = unstable_cache(
-  async () => {
-    const payload = await getPayload({ config });
-    const { docs } = await payload.find({ collection: 'tags', limit: 50, depth: 0 });
-    return docs as Tag[];
-  },
-  ['blog-tags'],
-  { revalidate: 30 }
-);
 
 type BlogSearchParams = { category?: string; search?: string; tag?: string };
 
-export default async function MobileBlogPage({ searchParams }: { searchParams: Promise<BlogSearchParams> }) {
+interface PostsResult {
+  docs: any[];
+  totalDocs: number;
+}
+
+export default async function MobileBlogPage({
+  searchParams,
+  initialPosts,
+  initialTags,
+}: {
+  searchParams: Promise<BlogSearchParams>;
+  initialPosts?: PostsResult;
+  initialTags?: Tag[];
+}) {
   const params = await searchParams;
-  const [postsResult, tags] = await Promise.all([getCachedPosts({}), getCachedTags()]);
+  const postsResult = initialPosts ?? { docs: [], totalDocs: 0 };
+  const tags = initialTags ?? [];
   const totalPosts = postsResult.totalDocs;
   const totalCategories = tags.length;
 
   const activeCategory = params.category || 'All Posts';
   const searchQuery = (params.search || '').trim().toLowerCase();
 
-  const articles: Article[] = postsResult.docs.map((post) => {
-    const resolvedTags: BlogTag[] = (post.tags ?? [])
-      .filter((t): t is Tag => typeof t === 'object' && t !== null)
-      .map((t) => ({ id: String(t.id), name: t.name, slug: t.slug ?? '' }));
+  const articles: Article[] = postsResult.docs.map((post: any) => {
+    const resolvedTags: BlogTag[] = (post.tags ?? []).flatMap((t: any) =>
+      typeof t === 'object' && t !== null
+        ? [{ id: String((t as Tag).id), name: (t as Tag).name, slug: (t as Tag).slug ?? '' }]
+        : []
+    );
     return {
       id: String(post.id),
       slug: post.slug,
       title: post.title,
       excerpt: post.excerpt ?? '',
-      featured: post.featured ?? false,
+      featured: (post as any).featured ?? false,
       category: resolvedTags[0]?.name ?? 'General',
       tags: resolvedTags,
       readTime: (post as { readTime?: number }).readTime ?? 5,
-      date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-IN') : '',
+      date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : '',
       cover: typeof post.coverImage === 'object' && post.coverImage !== null ? (post.coverImage as { url?: string }).url || '' : '',
       author: typeof post.author === 'object' && post.author !== null ? {
         name: (post.author as { name?: string }).name ?? 'HermesWorkspace',
@@ -85,7 +68,7 @@ export default async function MobileBlogPage({ searchParams }: { searchParams: P
     return categoryMatch && searchMatch;
   });
 
-  const categories = ['All Posts', ...tags.map((t) => t.name).filter(Boolean).sort()];
+  const categories = ['All Posts', ...tags.flatMap((t) => t.name ? [t.name] : []).sort()];
 
   return (
     <>
@@ -99,7 +82,7 @@ export default async function MobileBlogPage({ searchParams }: { searchParams: P
         )}
 
         {/* Category filter */}
-        <Suspense fallback={null}>
+        <Suspense fallback={<div className="h-11 bg-white" />}>
           <CategoryBar categories={categories} id="mobile" />
         </Suspense>
 

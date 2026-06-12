@@ -22,7 +22,7 @@ function getChannelId(channel: InquiryChannel): string {
 
 // ── Emoji + label maps ────────────────────────────────────────────────────────
 const TYPE_CONFIG: Record<string, { emoji: string; label: string; color: string }> = {
-    "Demo Request":      { emoji: "🎯", label: "Demo Request",      color: "#5A5FE8" },
+    "Demo Request":      { emoji: "🎯", label: "Demo Request",      color: "#6063EE" },
     "Partnership":       { emoji: "🤝", label: "Partnership",       color: "#7C3AED" },
     "Onboarding":        { emoji: "🚀", label: "Onboarding",        color: "#0EA5E9" },
     "Technical Support": { emoji: "🔧", label: "Technical Support", color: "#F59E0B" },

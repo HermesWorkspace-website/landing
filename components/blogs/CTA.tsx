@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { ArrowRight, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -13,7 +13,7 @@ export default function CTA() {
   return (
     <section ref={ref} id="contact" className="py-section">
       <div className="container-page">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 32, scale: 0.97 }}
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -37,7 +37,7 @@ export default function CTA() {
             }} />
 
           <div className="relative z-10 max-w-[640px] mx-auto">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.15 }}
@@ -46,27 +46,27 @@ export default function CTA() {
                 <span className="size-1.5 rounded-full bg-brand animate-pulse" />
                 Institutional Demonstrations Open
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.h2
+            <m.h2
               initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 }}
               className="font-display text-[clamp(2rem,4.5vw,3.5rem)] font-extrabold text-white tracking-[-0.04em] leading-tight mb-5"
             >
               Ready to transform<br />your school?
-            </motion.h2>
+            </m.h2>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.28 }}
               className="text-[1rem] text-white/55 font-body mb-9 leading-relaxed"
             >
               HermesWorkspace helps schools centralize communication, meetings, notices, online classes, and academic coordination through one structured platform with guided onboarding support.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.36 }}
@@ -82,7 +82,7 @@ export default function CTA() {
                 </Link>
               </Button>
               <Link href="/contact">
-                <motion.button
+                <m.button
                   ref={btn2Ref as any}
                   style={{ x: x2, y: y2 }}
                   whileHover={{ scale: 1.04, background: "rgba(255,255,255,0.08)" }}
@@ -92,12 +92,12 @@ export default function CTA() {
                   <span style={{ border: "1px solid rgba(255,255,255,0.2)", padding: "0", display: "contents" }}>
                     Contact Us
                   </span>
-                </motion.button>
+                </m.button>
               </Link>
-            </motion.div>
+            </m.div>
 
             {/* Contact row */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.45 }}
@@ -107,9 +107,9 @@ export default function CTA() {
                 <Mail className="size-4" />
                 connect@hermesworkspace.com
               </a>
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

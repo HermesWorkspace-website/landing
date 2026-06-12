@@ -2,15 +2,17 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getPayload } from 'payload'
+import type { Metadata } from 'next'
+import { getPayloadClient } from "@/lib/payload";
 import config from '@/payload.config'
 import type { Post } from '@/payload-types'
+import { getCachedPost, getCachedRelatedPosts } from '@/lib/payload'
 import { ReadingProgress } from '@/components/blogs/Readingprogress'
 import { ShareBar } from '@/components/blogs/ShareBar'
 import { AuthorHoverCard } from '@/components/blogs/AuthorHoverCard'
 import { IconArrowLeft, IconTag, IconClock, IconCalendar } from '@tabler/icons-react'
 import { RelatedPosts } from '@/components/blogs/Relatedposts'
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import { RichText, LinkJSXConverter } from '@payloadcms/richtext-lexical/react'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -40,52 +42,85 @@ interface ResolvedCoverImage {
 // Data helpers
 // ---------------------------------------------------------------------------
 async function getPost(slug: string) {
-  const payload = await getPayload({ config })
-  const { docs } = await payload.find({
-    collection: 'posts',
-    where: { slug: { equals: slug }, status: { equals: 'published' } },
-    depth: 3,
-    limit: 1,
-  })
-  return docs[0] as Post | undefined
+  return getCachedPost(slug);
 }
 
 async function getRelatedPosts(tagIds: string[], currentSlug: string) {
-  if (!tagIds.length) return []
-  const payload = await getPayload({ config })
-  const { docs } = await payload.find({
-    collection: 'posts',
-    where: {
-      status: { equals: 'published' },
-      slug: { not_equals: currentSlug },
-      'tags.id': { in: tagIds },
+  return getCachedRelatedPosts(tagIds, currentSlug);
+}
+
+// ---------------------------------------------------------------------------
+// Metadata
+// ---------------------------------------------------------------------------
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getPost(slug)
+  if (!post) return {}
+
+  const coverImage: ResolvedCoverImage | null =
+    typeof post.coverImage === 'object' && post.coverImage !== null
+      ? (post.coverImage as any)
+      : null
+
+  const tags: ResolvedTag[] = (post.tags ?? []).flatMap((t) =>
+    typeof t === 'object' ? [{ id: String((t as any).id), name: (t as any).name, slug: (t as any).slug }] : []
+  )
+
+  const title = post.title
+  const description = post.excerpt ?? ''
+  const canonicalUrl = `https://hermesworkspace.com/blog/${slug}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url: canonicalUrl,
+      siteName: 'HermesWorkspace',
+      locale: 'en_IN',
+      images: coverImage?.url
+        ? [{ url: coverImage.url, width: 1200, height: 630, alt: coverImage.alt ?? title }]
+        : undefined,
     },
-    depth: 2,
-    limit: 6,
-    sort: '-publishedAt',
-  })
-  return docs as Post[]
+    twitter: {
+      card: 'summary_large_image',
+      site: '@hermesworkspace',
+      creator: '@hermesworkspace',
+      title,
+      description,
+      images: coverImage?.url ? [coverImage.url] : undefined,
+    },
+  }
 }
 
 // ---------------------------------------------------------------------------
 // Static params
 // ---------------------------------------------------------------------------
+export const revalidate = 300;
+
 export async function generateStaticParams() {
-  const payload = await getPayload({ config })
-  const { docs } = await payload.find({
-    collection: 'posts',
-    where: { status: { equals: 'published' } },
-    limit: 200,
-    depth: 0,
-  })
-  return docs.map(post => ({ slug: post.slug }))
+  try {
+    const payload = await getPayloadClient();
+    const { docs } = await payload.find({
+      collection: 'posts',
+      where: { status: { equals: 'published' } },
+      limit: 200,
+      depth: 0,
+    })
+    return docs.map(post => ({ slug: post.slug }))
+  } catch {
+    return []
+  }
 }
 
 // ---------------------------------------------------------------------------
 // Category colour map
 // ---------------------------------------------------------------------------
 const CATEGORY_COLORS: Record<string, { bg: string; text: string; dot: string }> = {
-  Infrastructure:      { bg: 'bg-purple-500/10', text: 'text-purple-600', dot: 'bg-purple-500' },
+  Infrastructure:      { bg: 'bg-brand/10',       text: 'text-brand',      dot: 'bg-brand'      },
   Technology:          { bg: 'bg-brand/10',       text: 'text-brand',      dot: 'bg-brand'      },
   Operations:          { bg: 'bg-amber-500/10',   text: 'text-amber-600',  dot: 'bg-amber-500'  },
   Communication:       { bg: 'bg-green-500/10',   text: 'text-green-600',  dot: 'bg-green-500'  },
@@ -123,15 +158,16 @@ export default async function BlogPostPage({ params }: PageProps) {
         }
       : { name: 'HermesWorkspace' }
 
-  const tags: ResolvedTag[] = (post.tags ?? [])
-    .filter(t => typeof t === 'object')
-    .map(t => ({ id: String((t as any).id), name: (t as any).name, slug: (t as any).slug }))
+  const tags: ResolvedTag[] = (post.tags ?? []).flatMap((t) =>
+    typeof t === 'object' ? [{ id: String((t as any).id), name: (t as any).name, slug: (t as any).slug }] : []
+  )
 
   const coverImage: ResolvedCoverImage | null =
     typeof post.coverImage === 'object' && post.coverImage !== null
       ? (post.coverImage as any)
       : null
 
+  const canonicalUrl = `https://hermesworkspace.com/blog/${slug}`
   const primaryCategory = tags[0]?.name ?? 'General'
   const readTime: number = (post as any).readTime ?? 5
   const publishedDate = post.publishedAt
@@ -152,13 +188,40 @@ export default async function BlogPostPage({ params }: PageProps) {
     readTime: (rp as any).readTime ?? 5,
     coverImage: typeof rp.coverImage === 'object' ? (rp.coverImage as any) : null,
     author: typeof rp.author === 'object' ? { name: (rp.author as any).name } : null,
-    tags: ((rp.tags ?? []) as any[])
-      .filter(t => typeof t === 'object')
-      .map(t => ({ id: String(t.id), name: t.name })),
+    tags: ((rp.tags ?? []) as any[]).flatMap((t) =>
+      typeof t === 'object' ? [{ id: String(t.id), name: t.name }] : []
+    ),
   }))
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": canonicalUrl,
+    headline: post.title,
+    description: post.excerpt ?? "",
+    image: coverImage?.url ?? undefined,
+    datePublished: post.publishedAt ?? undefined,
+    dateModified: post.updatedAt ?? post.publishedAt ?? undefined,
+    author: {
+      "@type": "Person",
+      name: author.name,
+      ...(author.linkedin ? { sameAs: author.linkedin } : {}),
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://hermesworkspace.com/#organization",
+      name: "HermesWorkspace",
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+    ...(tags.length > 0 ? { keywords: tags.map(t => t.name).join(", ") } : {}),
+  };
 
   return (
     <div className="min-h-screen bg-brand-bg pt-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <ReadingProgress />
 
       <div className="mx-auto w-full max-w-[1400px] px-6 py-6 md:px-10 xl:px-12">
@@ -206,9 +269,12 @@ export default async function BlogPostPage({ params }: PageProps) {
             {/* Cover Image */}
             {coverImage?.url && (
               <div className="mb-10 w-full overflow-hidden rounded-3xl border border-brand-ink/[0.06] shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
-                <img
+                <Image
                   src={coverImage.url}
                   alt={coverImage.alt ?? post.title}
+                  width={1200}
+                  height={630}
+                  priority
                   className="w-full h-auto block"
                 />
               </div>
@@ -240,7 +306,27 @@ export default async function BlogPostPage({ params }: PageProps) {
               prose-h2:mt-12
               prose-h2:mb-5
             ">
-              <RichText data={post.content} />
+              <RichText 
+                data={post.content} 
+                converters={({ defaultConverters }) => ({
+                  ...defaultConverters,
+                  ...LinkJSXConverter({
+                    internalDocToHref: ({ linkNode }) => {
+                      const value = linkNode?.fields?.doc?.value;
+                      const relationTo = linkNode?.fields?.doc?.relationTo;
+                      if (relationTo === 'posts') {
+                        if (typeof value === 'object' && value?.slug) {
+                          return `/blog/${value.slug}`;
+                        }
+                        if (typeof value === 'string') {
+                          return `/blog/${value}`;
+                        }
+                      }
+                      return '#';
+                    }
+                  })
+                })}
+              />
             </div>
 
             {/* Mobile author + share block */}
@@ -279,8 +365,11 @@ export default async function BlogPostPage({ params }: PageProps) {
           </article>
 
           {/* ── Right Area: Sidebar ── */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-28 space-y-5">
+          <aside className="hidden lg:block relative h-full">
+            <div 
+              className= "pb-8 pt-20"
+              data-lenis-prevent
+            >
 
               {/* Author Info */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg text-slate-600">

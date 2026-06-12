@@ -2,18 +2,34 @@ import type { Metadata } from "next";
 import ContactClient from "./ContactClient";
 import JsonLd from "@/components/shared/JsonLd";
 
+const BASE_URL = "https://hermesworkspace.com";
+const OG_IMAGE = `${BASE_URL}/opengraph-image?v=3`;
+
 export const metadata: Metadata = {
   title: "Contact HermesWorkspace — Request a School Demo",
   description:
     "Get in touch with HermesWorkspace to schedule a live platform demo, discuss institutional onboarding, or ask about partnerships. We respond within one business day.",
   alternates: {
-    canonical: "https://hermesworkspace.com/contact",
+    canonical: `${BASE_URL}/contact`,
   },
   openGraph: {
     title: "Contact HermesWorkspace — Request a School Demo",
     description:
       "Schedule a live demo or submit an institutional inquiry. We respond within one business day.",
-    url: "https://hermesworkspace.com/contact",
+    url: `${BASE_URL}/contact`,
+    siteName: "HermesWorkspace",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Contact HermesWorkspace" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@hermesworkspace",
+    creator: "@hermesworkspace",
+    title: "Contact HermesWorkspace — Request a School Demo",
+    description:
+      "Schedule a live demo or submit an institutional inquiry. We respond within one business day.",
+    images: [OG_IMAGE],
   },
 };
 

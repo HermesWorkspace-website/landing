@@ -3,10 +3,32 @@ import Image from "next/image";
 import { legalDocuments } from "@/lib/legal-documents";
 import LegalHeader from "@/components/legal/LegalHeader";
 
+const BASE_URL = "https://hermesworkspace.com";
+const OG_IMAGE = `${BASE_URL}/opengraph-image?v=3`;
+
 export const metadata = {
   title: "Legal — HermesWorkspace",
   description:
     "Legal information for HermesWorkspace, including Terms, Privacy, Data Processing, and Parental Control guidance for under-18 use.",
+  alternates: { canonical: `${BASE_URL}/legal` },
+  openGraph: {
+    title: "Legal — HermesWorkspace",
+    description:
+      "Legal information for HermesWorkspace, including Terms, Privacy, Data Processing, and Parental Control guidance for under-18 use.",
+    url: `${BASE_URL}/legal`,
+    siteName: "HermesWorkspace",
+    locale: "en_IN",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "HermesWorkspace Legal" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@hermesworkspace",
+    creator: "@hermesworkspace",
+    title: "Legal — HermesWorkspace",
+    description:
+      "Legal information for HermesWorkspace, including Terms, Privacy, Data Processing, and Parental Control guidance for under-18 use.",
+    images: [OG_IMAGE],
+  },
 };
 
 const supportEmail = "support@hermesworkspace.com";
@@ -29,12 +51,7 @@ export default function LegalOverviewPage() {
 
   return (
     <main
-      className="min-h-screen bg-[#f7f8f8] text-[#161922]"
-      style={{
-        fontFamily:
-          '"SF Pro Display Medium", "Inter Variable", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-        fontFeatureSettings: '"cv01", "ss03"',
-      }}
+      className="min-h-screen bg-[#f7f8f8] text-[#161922] font-body"
     >
       {/* ── Header with Drawer Menu ── */}
       <LegalHeader />
@@ -42,7 +59,7 @@ export default function LegalOverviewPage() {
       {/* ── Body ── */}
       <div className="mx-auto w-full max-w-6xl px-5 py-10 lg:py-14">
         <div className="border-b border-[#d0d6e0] pb-10">
-          <p className="text-[13px] font-medium text-[#5e6ad2]">Legal</p>
+          <p className="text-[13px] font-medium text-[#6063EE]">Legal</p>
           <h1 className="mt-4 text-[42px] font-medium leading-none text-[#161922] sm:text-[56px]">
             HermesWorkspace Legal Documents
           </h1>
@@ -59,7 +76,7 @@ export default function LegalOverviewPage() {
               className="group flex items-center justify-between gap-4 bg-[#f7f8f8] px-6 py-5 transition hover:bg-white"
             >
               <div>
-                <p className="text-[13px] font-medium text-[#5e6ad2]">
+                <p className="text-[13px] font-medium text-[#6063EE]">
                   {document.eyebrow}
                 </p>
                 <p className="mt-1 text-[17px] font-medium text-[#161922]">

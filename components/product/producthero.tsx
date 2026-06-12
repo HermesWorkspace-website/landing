@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import gsap from "gsap";
-import * as THREE from "three";
+import { m, useScroll, useTransform } from "framer-motion";
+// gsap dynamically imported inside useEffect
+// THREE dynamically imported inside useEffect
 import { useRouter } from "next/navigation";
+
+const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "communication."];
 
 export default function Hero() {
   const router = useRouter();
@@ -19,77 +21,88 @@ export default function Hero() {
 
   // ── Three.js square particles ──
   useEffect(() => {
-    if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 100);
-    camera.position.z = 6;
+    const dispose: (() => void)[] = [];
 
-    // Small lavender squares
-    const squareGeo = new THREE.PlaneGeometry(0.06, 0.06);
-    const squareGroup = new THREE.Group();
-    for (let i = 0; i < 60; i++) {
-      const mat = new THREE.MeshBasicMaterial({ color: 0x8b8fd4, transparent: true, opacity: Math.random() * 0.4 + 0.15 });
-      const mesh = new THREE.Mesh(squareGeo, mat);
-      mesh.position.set((Math.random() - 0.5) * 22, (Math.random() - 0.5) * 14, (Math.random() - 0.5) * 4);
-      mesh.rotation.z = Math.random() * Math.PI;
-      squareGroup.add(mesh);
-    }
-    scene.add(squareGroup);
+    (async () => {
+      if (!canvasRef.current) return;
+      const canvas = canvasRef.current;
+      const THREE = await import("three");
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 100);
+      camera.position.z = 6;
 
-    // Larger accent squares
-    for (let i = 0; i < 8; i++) {
-      const size = Math.random() * 0.1 + 0.08;
-      const mat = new THREE.MeshBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: Math.random() * 0.3 + 0.1 });
-      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(size, size), mat);
-      mesh.position.set((Math.random() - 0.5) * 22, (Math.random() - 0.5) * 14, (Math.random() - 0.5) * 2);
-      mesh.rotation.z = Math.random() * Math.PI;
-      scene.add(mesh);
-    }
+      // Small lavender squares
+      const squareGeo = new THREE.PlaneGeometry(0.06, 0.06);
+      const squareGroup = new THREE.Group();
+      for (let i = 0; i < 60; i++) {
+        const mat = new THREE.MeshBasicMaterial({ color: 0x8b8fd4, transparent: true, opacity: Math.random() * 0.4 + 0.15 });
+        const mesh = new THREE.Mesh(squareGeo, mat);
+        mesh.position.set((Math.random() - 0.5) * 22, (Math.random() - 0.5) * 14, (Math.random() - 0.5) * 4);
+        mesh.rotation.z = Math.random() * Math.PI;
+        squareGroup.add(mesh);
+      }
+      scene.add(squareGroup);
 
-    let raf: number;
-    const animate = () => {
-      raf = requestAnimationFrame(animate);
-      squareGroup.rotation.z += 0.00015;
-      squareGroup.rotation.y += 0.00008;
-      renderer.render(scene, camera);
-    };
-    animate();
+      // Larger accent squares
+      for (let i = 0; i < 8; i++) {
+        const size = Math.random() * 0.1 + 0.08;
+        const mat = new THREE.MeshBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: Math.random() * 0.3 + 0.1 });
+        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(size, size), mat);
+        mesh.position.set((Math.random() - 0.5) * 22, (Math.random() - 0.5) * 14, (Math.random() - 0.5) * 2);
+        mesh.rotation.z = Math.random() * Math.PI;
+        scene.add(mesh);
+      }
 
-    const onResize = () => {
-      if (!canvas.parentElement) return;
-      renderer.setSize(canvas.parentElement.offsetWidth, canvas.parentElement.offsetHeight);
-      camera.aspect = canvas.parentElement.offsetWidth / canvas.parentElement.offsetHeight;
-      camera.updateProjectionMatrix();
-    };
-    window.addEventListener("resize", onResize);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", onResize); renderer.dispose(); };
+      let raf: number;
+      const animate = () => {
+        raf = requestAnimationFrame(animate);
+        squareGroup.rotation.z += 0.00015;
+        squareGroup.rotation.y += 0.00008;
+        renderer.render(scene, camera);
+      };
+      animate();
+
+      const onResize = () => {
+        if (!canvas.parentElement) return;
+        renderer.setSize(canvas.parentElement.offsetWidth, canvas.parentElement.offsetHeight);
+        camera.aspect = canvas.parentElement.offsetWidth / canvas.parentElement.offsetHeight;
+        camera.updateProjectionMatrix();
+      };
+      window.addEventListener("resize", onResize);
+      dispose.push(() => { cancelAnimationFrame(raf); window.removeEventListener("resize", onResize); renderer.dispose(); });
+    })();
+
+    return () => { dispose.forEach(fn => fn()); };
   }, []);
 
   // ── GSAP title reveal ──
   useEffect(() => {
-    if (!titleRef.current || !badgeRef.current) return;
-    const tl = gsap.timeline({ delay: 0.3 });
-    tl.fromTo(badgeRef.current,
-      { opacity: 0, y: 12, scale: 0.94 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.4)" }
-    ).fromTo(titleRef.current.querySelectorAll(".word"),
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.7, stagger: 0.07, ease: "power3.out" },
-      "-=0.2"
-    );
+    const titleEl = titleRef.current;
+    const badgeEl = badgeRef.current;
+    if (!titleEl || !badgeEl) return;
+    const init = async () => {
+      const gsap = (await import("gsap")).default;
+      const tl = gsap.timeline({ delay: 0.3 });
+      tl.fromTo(badgeEl,
+        { opacity: 0, y: 12, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.4)" }
+      ).fromTo(titleEl.querySelectorAll(".word"),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.07, ease: "power3.out" },
+        "-=0.2"
+      );
+    };
+    init();
   }, []);
-
-const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "communication."];
 
   return (
     <section
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden pt-[96px] md:pt-[120px] pb-16 md:pb-24 flex flex-col items-start justify-center"
-      style={{ backgroundColor: "#eef0f8" }}
+      style={{ backgroundColor: "#F8F9FA" }}
     >
       {/* Three.js canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" />
@@ -113,10 +126,10 @@ const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "commun
       />
 
       {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#eef0f8] to-transparent z-[4]" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F8F9FA] to-transparent z-[4]" />
 
       {/* ── Content — LEFT aligned like original ── */}
-      <motion.div
+      <m.div
         style={{ y, opacity }}
         className="relative z-10 container-page grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full"
       >
@@ -133,11 +146,8 @@ const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "commun
               backdropFilter: "blur(8px)",
             }}
           >
-            <motion.span
-              animate={{ scale: [1, 1.4, 1] }}
-              transition={{ duration: 1.8, repeat: Infinity }}
-            >⚡</motion.span>
-            <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: "#6366f1" }}>
+            <span className="anim-pulse-scale">⚡</span>
+            <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: "#6063EE" }}>
              Designed for Academic Operations
             </span>
           </div>
@@ -156,11 +166,11 @@ const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "commun
                   key={w}
                   className="word inline-block mr-[0.25em] opacity-0"
                   style={isGradient ? {
-                    background: "linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #a78bfa 100%)",
+                    background: "linear-gradient(135deg, #4648D4 0%, #6063EE 50%, #7B7FF0 100%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
-                  } : { color: "#0d0e1c" }}
+                  } : { color: "#1A1D26" }}
                 >
                   {w}
                 </span>
@@ -169,27 +179,27 @@ const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "commun
           </h1>
 
           {/* Sub — original text, new muted color */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.6 }}
             className="text-[14px] leading-relaxed max-w-sm"
-            style={{ color: "#6b7096" }}
+            style={{ color: "#61667A" }}
           >
             HermesWorkspace helps educational institutions manage communication,
             notices, meetings, academic coordination, and operational workflows
             through one connected platform.
-          </motion.p>
+          </m.p>
 
           {/* CTAs — original labels, new palette */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.5 }}
             className="flex flex-wrap gap-3"
           >
-            <motion.button
-              whileHover={{ scale: 1.03, boxShadow: "0 16px 40px rgba(99,102,241,0.35)" }}
+            <m.button
+              whileHover={{ scale: 1.03, boxShadow: "0 16px 40px rgba(96,99,238,0.35)" }}
               whileTap={{ scale: 0.97 }}
               onClick={() => {
                 const target = document.getElementById("inmotion");
@@ -205,30 +215,30 @@ const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "commun
               }}
               className="text-white text-[13px] font-bold px-6 py-3 rounded-xl"
               style={{
-                background: "linear-gradient(135deg, #4338ca, #6366f1)",
-                boxShadow: "0 4px 20px rgba(99,102,241,0.28)",
+                background: "linear-gradient(135deg, #4648D4, #6063EE)",
+                boxShadow: "0 4px 20px rgba(96,99,238,0.28)",
               }}
             >
               Explore Platform
-            </motion.button>
-            <motion.button
+            </m.button>
+            <m.button
               whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.9)" }}
               whileTap={{ scale: 0.97 }}
               onClick={() => router.push("/contact?scroll=inquiry")}
               className="text-[13px] font-semibold px-6 py-3 rounded-xl border transition-colors"
               style={{
                 backgroundColor: "rgba(255,255,255,0.6)",
-                borderColor: "rgba(99,102,241,0.25)",
-                color: "#4338ca",
+                borderColor: "rgba(96,99,238,0.25)",
+                color: "#4648D4",
                 backdropFilter: "blur(8px)",
               }}
             >
               Request Demo
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
 
           {/* Trust dots — original labels */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 0.5 }}
@@ -239,24 +249,24 @@ const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "commun
               "Designed for Academic Coordination",
               "Accessible Across Web & Mobile"
             ].map((t, i) => (
-              <span key={t} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#8b8fbd" }}>
-                <span className="size-1 rounded-full inline-block" style={{ backgroundColor: "#6366f1" }} />
+              <span key={t} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#A9ADC0" }}>
+                <span className="size-1 rounded-full inline-block" style={{ backgroundColor: "#6063EE" }} />
                 {t}
               </span>
             ))}
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Right — Phone Mockup, same as original but with lavender glow */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.7, duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="relative flex justify-center lg:justify-end"
         >
           <PhoneMockup />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }
@@ -267,7 +277,7 @@ function PhoneMockup() {
   return (
     <div className="relative w-[220px] sm:w-[260px]">
       {/* Lavender glow instead of green */}
-      <div className="absolute inset-0 rounded-[40px] blur-3xl scale-110" style={{ backgroundColor: "rgba(99,102,241,0.12)" }} />
+      <div className="absolute inset-0 rounded-[40px] blur-3xl scale-110" style={{ backgroundColor: "rgba(96,99,238,0.12)" }} />
 
       {/* Phone shell — light frosted glass */}
       <div
@@ -285,7 +295,7 @@ function PhoneMockup() {
               <div className="h-2 w-16 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
               <div className="h-1.5 w-10 rounded-full mt-1.5" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
             </div>
-            <div className="size-6 rounded-full border" style={{ backgroundColor: "rgba(99,102,241,0.2)", borderColor: "rgba(99,102,241,0.35)" }} />
+            <div className="size-6 rounded-full border" style={{ backgroundColor: "rgba(96,99,238,0.2)", borderColor: "rgba(96,99,238,0.35)" }} />
           </div>
 
           {/* Chart */}
@@ -293,13 +303,13 @@ function PhoneMockup() {
             <div className="h-1.5 w-14 rounded-full mb-3" style={{ backgroundColor: "rgba(255,255,255,0.2)" }} />
             <div className="flex items-end gap-1 h-12">
               {PHONE_BARS.map((h, i) => (
-                <motion.div
-                  key={`bar-${i}`}
+                <m.div
+                  key={`bar-${h}-${i}`}
                   initial={{ height: 0 }}
                   animate={{ height: `${h}%` }}
                   transition={{ delay: 1.2 + i * 0.07, duration: 0.5, ease: "easeOut" }}
                   className="flex-1 rounded-sm"
-                  style={{ backgroundColor: i === 7 ? "#6366f1" : i === 3 ? "rgba(99,102,241,0.4)" : "rgba(255,255,255,0.1)" }}
+                  style={{ backgroundColor: i === 7 ? "#6063EE" : i === 3 ? "rgba(96,99,238,0.4)" : "rgba(255,255,255,0.1)" }}
                 />
               ))}
             </div>
@@ -307,11 +317,11 @@ function PhoneMockup() {
 
           {/* Notification rows */}
           {[
-            { dot: "#6366f1" },
-            { dot: "#a78bfa" },
+            { dot: "#6063EE" },
+            { dot: "#7B7FF0" },
             { dot: "#818cf8" },
           ].map((n, i) => (
-            <motion.div
+            <m.div
               key={n.dot}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -324,14 +334,14 @@ function PhoneMockup() {
                 <div className="h-1.5 w-20 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.25)" }} />
                 <div className="h-1.5 w-14 rounded-full mt-1" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
               </div>
-            </motion.div>
+            </m.div>
           ))}
 
           {/* Bottom bar */}
           <div className="mt-auto flex justify-around pt-1">
             {[...Array(4)].map((_, i) => (
               <div key={`item-${i}`} className="flex flex-col items-center gap-1">
-                <div className="size-5 rounded-md" style={{ backgroundColor: i === 0 ? "rgba(99,102,241,0.4)" : "rgba(255,255,255,0.1)" }} />
+                <div className="size-5 rounded-md" style={{ backgroundColor: i === 0 ? "rgba(96,99,238,0.4)" : "rgba(255,255,255,0.1)" }} />
                 <div className="w-3 h-1 rounded-full" style={{ backgroundColor: "rgba(255,255,255,0.1)" }} />
               </div>
             ))}

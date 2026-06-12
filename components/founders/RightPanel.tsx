@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { IconArrowRight, IconArrowLeft, IconBrandLinkedin, IconBrandInstagram, IconBrandX } from "@tabler/icons-react";
 import { Founder } from "@/types/founder";
 
@@ -30,7 +30,7 @@ const itemVariants = {
 export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelProps) {
   return (
     <AnimatePresence mode="wait">
-      <motion.div
+      <m.div
         key={founder.id}
         variants={containerVariants}
         initial="hidden"
@@ -39,54 +39,51 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
         className="flex flex-col justify-between h-full py-8 pr-6 lg:pr-9 pl-4 text-right"
       >
         {/* Top header */}
-        <motion.div variants={itemVariants}>
+        <m.div variants={itemVariants}>
           <p className="text-[10px] tracking-[3px] uppercase text-[#9896A4] mb-1 pt-5">
             Every school. One platform.
           </p>
           <div
+            className="text-[#0D0D0F] font-display"
             style={{
-              fontFamily: "'Bebas Neue', sans-serif",
               fontSize: "clamp(28px, 4vw, 52px)",
               lineHeight: "0.9",
             }}
-            className="text-[#0D0D0F]"
           >
             MEET THE
             <br />
             <span style={{ color: founder.accentColor }}>FOUNDERS</span>
-            <span className="text-[#0D0D0F]">.</span>
+            <span className="text-[#0D0D0D]">.</span>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Quote */}
         <div className="my-auto">
-          <motion.div variants={itemVariants} className="flex justify-end">
+          <m.div variants={itemVariants} className="flex justify-end">
             <span
-              className="text-[80px] leading-none"
+              className="text-[80px] leading-none font-display"
               style={{
-                fontFamily: "'DM Serif Display', serif",
                 color: founder.accentColor,
                 opacity: 0.25,
               }}
             >
               "
             </span>
-          </motion.div>
-          <motion.p
+          </m.div>
+          <m.p
             variants={itemVariants}
-            className="text-[13px] leading-[1.65] text-[#444] italic max-w-[220px] ml-auto"
-            style={{ fontFamily: "'DM Serif Display', serif" }}
+            className="text-[13px] leading-[1.65] text-[#444] italic max-w-[220px] ml-auto font-display"
           >
             {founder.quote}
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Bottom: social + next preview + nav */}
         <div className="space-y-4">
           {/* Social icons */}
-          <motion.div variants={itemVariants} className="flex items-center justify-end gap-3">
+          <m.div variants={itemVariants} className="flex items-center justify-end gap-3">
             {founder.socialLinks.linkedin && (
-              <motion.a
+              <m.a
                 href={founder.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -96,10 +93,10 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
                 <IconBrandLinkedin size={12} />
-              </motion.a>
+              </m.a>
             )}
             {founder.socialLinks.twitter && (
-              <motion.a
+              <m.a
                 href={founder.socialLinks.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -109,10 +106,10 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
                 <IconBrandX size={12} />
-              </motion.a>
+              </m.a>
             )}
             {founder.socialLinks.instagram && (
-              <motion.a
+              <m.a
                 href={founder.socialLinks.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -122,12 +119,12 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
                 style={{ borderColor: "#D8D4CC", color: "#9896A4" }}
               >
                 <IconBrandInstagram size={12} />
-              </motion.a>
+              </m.a>
             )}
-          </motion.div>
+          </m.div>
 
           {/* Next founder preview */}
-          <motion.div
+          <m.div
             variants={itemVariants}
             className="border-t pt-3"
             style={{ borderColor: "#E8E4DC" }}
@@ -137,11 +134,11 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
               {nextFounder.firstName} {nextFounder.lastName}
             </p>
             <p className="text-[9px] tracking-[1px] uppercase text-[#9896A4]">{nextFounder.title}</p>
-          </motion.div>
+          </m.div>
 
           {/* Nav buttons */}
-          <motion.div variants={itemVariants} className="flex items-center justify-end gap-2">
-            <motion.button
+          <m.div variants={itemVariants} className="flex items-center justify-end gap-2">
+            <m.button
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.93 }}
               onClick={onPrev}
@@ -150,8 +147,8 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
               aria-label="Previous founder"
             >
               <IconArrowLeft size={14} />
-            </motion.button>
-            <motion.button
+            </m.button>
+            <m.button
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.93 }}
               onClick={onNext}
@@ -160,10 +157,10 @@ export function RightPanel({ founder, nextFounder, onNext, onPrev }: RightPanelP
               aria-label="Next founder"
             >
               <IconArrowRight size={14} />
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
         </div>
-      </motion.div>
+      </m.div>
     </AnimatePresence>
   );
 }

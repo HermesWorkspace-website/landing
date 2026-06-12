@@ -6,7 +6,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const BRAND = "#6063EE";
-const BRAND_PURPLE = "#A855F7";
+const BRAND_PURPLE = "#6063EE";
 const BG = "#0B0C1E";
 
 // Base URL: production domain or fallback to localhost in dev

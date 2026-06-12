@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const FEATURES = [
   {
@@ -25,7 +25,7 @@ export default function MissionSection() {
     <section
       id="mission"
       className="relative overflow-hidden border-t border-black/[0.04] bg-[#FAFAFA] py-28"
-      style={{ fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)" }}
+      style={{ fontFamily: "var(--font-body, Inter, sans-serif)" }}
     >
       {/* Ambient gradients */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -47,7 +47,7 @@ export default function MissionSection() {
 
 
         {/* Heading */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -67,12 +67,12 @@ export default function MissionSection() {
             operational workflows, and institutional infrastructure into one
             unified platform for modern schools.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Features */}
         <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[28px] border border-black/[0.05] bg-black/[0.04] sm:grid-cols-3">
           {FEATURES.map((f, i) => (
-            <motion.div
+            <m.div
               key={f.num}
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ export default function MissionSection() {
                   {f.text}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

@@ -12,7 +12,11 @@ export function useFounderSlider() {
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [startTime, setStartTime] = useState(() => Date.now());
+  const [startTime, setStartTime] = useState(0);
+
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
 
   const goTo = useCallback(
     (index: number) => {
@@ -57,7 +61,7 @@ export function useFounderSlider() {
     return () => {
       if (progressRef.current) clearInterval(progressRef.current);
     };
-  }, [activeIndex]);
+  }, [activeIndex, startTime]);
 
   return {
     founders: FOUNDERS,

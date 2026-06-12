@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Founder } from "@/types/founder";
 import { useRouter } from "next/navigation";
 interface LeftPanelProps {
@@ -28,7 +28,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
   const router = useRouter();
   return (
     <AnimatePresence mode="wait">
-      <motion.div
+      <m.div
         key={founder.id}
         variants={containerVariants}
         initial="hidden"
@@ -37,7 +37,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
         className="flex h-full min-h-0 flex-col justify-between py-6 pl-6 lg:pl-9 pr-4"
       >
         {/* Top meta row */}
-        <motion.div variants={itemVariants} className="flex shrink-0 items-center gap-3 pt-2">
+        <m.div variants={itemVariants} className="flex shrink-0 items-center gap-3 pt-2">
           <span
             className="text-[10px] tracking-[3px] uppercase px-2.5 py-1 rounded-[2px] font-medium"
             style={{
@@ -50,19 +50,19 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
           <span className="text-[10px] tracking-[2px] uppercase text-[#9896A4] hidden lg:inline">
             HermesWorkspace
           </span>
-        </motion.div>
+        </m.div>
 
         {/* Giant name block */}
         <div className={`flex min-h-0 flex-col justify-center ${founder.lastName ? "my-2" : "my-4"}`}>
-          <motion.p
+          <m.p
             variants={itemVariants}
             className="text-[11px] tracking-[4px] uppercase text-[#9896A4] mb-1"
           >
             Meet
-          </motion.p>
+          </m.p>
 
           <div className="overflow-hidden">
-            <motion.span
+            <m.span
               variants={itemVariants}
               className="block text-[#0D0D0F] leading-[0.86] break-words"
               style={{
@@ -73,12 +73,12 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
               }}
             >
               {founder.firstName}
-            </motion.span>
+            </m.span>
           </div>
 
           {founder.lastName && (
             <div className="overflow-hidden">
-              <motion.span
+              <m.span
                 variants={itemVariants}
                 className="block leading-[0.86] break-words"
                 style={{
@@ -88,11 +88,11 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
                 }}
               >
                 {founder.lastName}
-              </motion.span>
+              </m.span>
             </div>
           )}
 
-          <motion.div
+          <m.div
             variants={itemVariants}
             className="mt-2 flex flex-wrap items-center gap-2"
           >
@@ -106,20 +106,20 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
             >
               {founder.title}
             </span>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Bio + CTA */}
         <div className="shrink-0 space-y-3 pt-2">
-          <motion.p
+          <m.p
             variants={itemVariants}
             className="text-[12px] leading-[1.7] text-[#555] max-w-[240px]"
           >
             {founder.bio}
-          </motion.p>
+          </m.p>
 
           {/* Focus area pills */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-1.5">
+          <m.div variants={itemVariants} className="flex flex-wrap gap-1.5">
             {founder.focusAreas.map((area) => (
               <span
                 key={area}
@@ -133,10 +133,10 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
                 {area}
               </span>
             ))}
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={itemVariants} className="flex gap-2 pt-1">
-            <motion.button
+          <m.div variants={itemVariants} className="flex gap-2 pt-1">
+            <m.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => router.push("/about?scroll=team")}
@@ -144,10 +144,10 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
               style={{ background: founder.accentColor }}
             >
               Learn More
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
         </div>
-      </motion.div>
+      </m.div>
     </AnimatePresence>
   );
 }

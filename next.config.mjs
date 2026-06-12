@@ -4,6 +4,7 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const nextConfig = {
     allowedDevOrigins: ["pointing-factor-monorail.ngrok-free.dev"],
     images: {
+        formats: ['image/avif', 'image/webp'],
         qualities: [75, 92],
         remotePatterns: [
             {

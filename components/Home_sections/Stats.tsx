@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 
 function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string; prefix?: string }) {
   const [val, setVal] = useState(0);
@@ -62,7 +62,7 @@ export default function Stats() {
       <div className="container-page">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((s, i) => (
-            <motion.div
+            <m.div
               key={s.label}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -79,7 +79,7 @@ export default function Stats() {
               </div>
               <div className="text-[0.9375rem] font-semibold font-body text-brand-ink">{s.label}</div>
               <div className="text-xs text-brand-muted font-body">{s.sub}</div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

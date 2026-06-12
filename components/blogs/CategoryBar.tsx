@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface CategoryBarProps {
   categories: string[]
@@ -12,12 +12,7 @@ interface CategoryBarProps {
 export default function CategoryBar({ categories, id }: CategoryBarProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const confirmedCategory = searchParams.get('category') || 'All Posts'
-  const [active, setActive] = useState<string>(confirmedCategory)
-
-  useEffect(() => {
-    setActive(confirmedCategory)
-  }, [confirmedCategory])
+  const [active, setActive] = useState<string>(() => searchParams.get('category') || 'All Posts')
 
   const handleClick = (cat: string) => {
     setActive(cat)
@@ -36,7 +31,7 @@ export default function CategoryBar({ categories, id }: CategoryBarProps) {
       {/* Divider + label */}
       <div className="flex items-center gap-4 mb-5 px-4 md:px-8 xl:px-16 sm:mb-7">
         <div className="w-[3px] h-5 rounded-full bg-brand" />
-        <span className="font-mono text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink/40">
+        <span className="font-body text-[10.5px] font-bold uppercase tracking-[0.2em] text-brand-ink/40">
           Browse by topic
         </span>
         <div className="flex-1 h-[1px] bg-black/[0.06]" />
@@ -53,7 +48,7 @@ export default function CategoryBar({ categories, id }: CategoryBarProps) {
         {categories.map((cat) => {
           const isActive = active.toLowerCase() === cat.toLowerCase()
           return (
-            <motion.button
+            <m.button
               key={cat}
               type="button"
               onClick={() => handleClick(cat)}
@@ -63,7 +58,7 @@ export default function CategoryBar({ categories, id }: CategoryBarProps) {
             >
               {/* Active background */}
               {isActive && (
-                <motion.span
+                <m.span
                   layoutId={id ? `category-pill-${id}` : 'category-pill'}
                   className="absolute inset-0 rounded-full bg-brand"
                   transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
@@ -72,7 +67,7 @@ export default function CategoryBar({ categories, id }: CategoryBarProps) {
               <span className={`relative z-10 transition-colors duration-200 ${isActive ? 'text-white' : 'text-brand-ink/55 hover:text-brand-ink'}`}>
                 {cat}
               </span>
-            </motion.button>
+            </m.button>
           )
         })}
       </div>

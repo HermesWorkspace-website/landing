@@ -5,7 +5,7 @@ import LegalHeader from "./LegalHeader";
 
 const EMAIL_RE = /([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/g;
 
-function renderContent(text: string) {
+function ContentRenderer({ text }: { text: string }) {
   const parts = text.split(EMAIL_RE);
   return parts.map((part, i) =>
     EMAIL_RE.test(part) ? (
@@ -47,7 +47,7 @@ export default function LegalDocPage({ document }: LegalDocPageProps) {
       className="min-h-screen bg-[#f7f8f8] text-[#161922] font-body"
     >
       {/* Bulletproof native smooth scrolling fallback */}
-      <style dangerouslySetInnerHTML={{ __html: `html { scroll-behavior: smooth !important; }` }} />
+      <style>{`html { scroll-behavior: smooth !important; }`}</style>
       
       {/* ── Header with Drawer Menu ── */}
       <LegalHeader activeSlug={document.slug} />
@@ -123,7 +123,7 @@ export default function LegalDocPage({ document }: LegalDocPageProps) {
                   {section.title}
                 </h2>
                 <div className="mt-5 text-[16px] leading-8 text-[#34343a]">
-                  {renderContent(section.content)}
+                  <ContentRenderer text={section.content} />
                 </div>
               </section>
             ))}

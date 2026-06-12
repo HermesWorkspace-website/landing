@@ -59,7 +59,7 @@ const CHANNELS = [
   },
 ];
 
-const renderDescription = (text: string) => {
+function Description({ text }: { text: string }) {
   if (text.includes("HermesWorkspace")) {
     const parts = text.split("HermesWorkspace");
     return (
@@ -70,8 +70,8 @@ const renderDescription = (text: string) => {
       </>
     );
   }
-  return text;
-};
+  return <>{text}</>;
+}
 
 function ChannelCard({
   channel,
@@ -119,7 +119,7 @@ function ChannelCard({
 
       {/* Description */}
       <p className="text-[12.5px] leading-[1.7] text-[#666] flex-1">
-        {renderDescription(channel.description)}
+        <Description text={channel.description} />
       </p>
 
       {/* CTA */}

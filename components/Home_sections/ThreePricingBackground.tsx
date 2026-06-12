@@ -7,44 +7,17 @@ export default function ThreePricingBackground() {
     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
       {/* Rotating geometric rings — pure CSS, zero JS overhead */}
       <div
-        style={{
-          position: "absolute",
-          width: 480,
-          height: 480,
-          border: "1px solid rgba(16,185,129,0.14)",
-          borderRadius: "30%",
-          animation: "pricing-spin 24s linear infinite",
-        }}
+        className="absolute w-[480px] h-[480px] rounded-[30%] border border-emerald-500/15 animate-[pricing-spin_24s_linear_infinite]"
       />
       <div
-        style={{
-          position: "absolute",
-          width: 340,
-          height: 340,
-          border: "1px solid rgba(16,185,129,0.09)",
-          borderRadius: "20%",
-          animation: "pricing-spin 18s linear infinite reverse",
-        }}
+        className="absolute w-[340px] h-[340px] rounded-[20%] border border-emerald-500/10 animate-[pricing-spin_18s_linear_infinite_reverse]"
       />
       <div
-        style={{
-          position: "absolute",
-          width: 200,
-          height: 200,
-          border: "1px solid rgba(16,185,129,0.07)",
-          animation: "pricing-spin 13s linear infinite",
-        }}
+        className="absolute w-[200px] h-[200px] border border-emerald-500/[0.07] animate-[pricing-spin_13s_linear_infinite]"
       />
       {/* Ambient radial glow */}
       <div
-        style={{
-          position: "absolute",
-          width: 560,
-          height: 560,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%)",
-        }}
+        className="absolute w-[560px] h-[560px] rounded-full bg-[radial-gradient(circle,rgba(16,185,129,0.05)_0%,transparent_70%)]"
       />
       <style>{`
         @keyframes pricing-spin {

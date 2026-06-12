@@ -186,7 +186,7 @@ function CommunicationVisual() {
             className="flex gap-2 items-start"
           >
             <m.div
-              initial={{ scale: 0 }} animate={{ scale: 1 }}
+              initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: msg.delay, type: "spring", stiffness: 260, damping: 20 }}
               className="size-7 rounded-full bg-brand/[0.08] flex-shrink-0"
             />

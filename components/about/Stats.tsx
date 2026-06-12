@@ -26,6 +26,8 @@ const stats = [
   },
 ];
 
+import { animate } from "framer-motion";
+
 function useCounter(end: number, duration: number) {
   const ref = useRef<HTMLSpanElement>(null);
   const [count, setCount] = useState(0);
@@ -49,15 +51,12 @@ function useCounter(end: number, duration: number) {
 
   useEffect(() => {
     if (!started) return;
-    let startTime: number;
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(eased * end);
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+    const controls = animate(0, end, {
+      duration,
+      ease: "easeOut",
+      onUpdate: (v) => setCount(v),
+    });
+    return controls.stop;
   }, [started, end, duration]);
 
   return { count, ref };

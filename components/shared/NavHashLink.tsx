@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   normalizePath,
   parseNavHref,
@@ -17,7 +17,6 @@ export default function NavHashLink({
   onClick,
   ...props
 }: NavHashLinkProps) {
-  const pathname = usePathname();
   const router = useRouter();
   const hrefStr = typeof href === "string" ? href : href.toString();
   const { path, hash } = parseNavHref(hrefStr);
@@ -30,7 +29,7 @@ export default function NavHashLink({
 
     e.preventDefault();
 
-    if (pathsMatch(pathname, targetPath)) {
+    if (pathsMatch(window.location.pathname, targetPath)) {
       scrollToSection(hash);
       return;
     }

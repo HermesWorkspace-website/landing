@@ -72,10 +72,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       destroyed = true;
-      if (lenisInstance) {
-        lenisInstance.destroy();
-        lenisRef.current = null;
-      }
+      lenisInstance?.destroy();
     };
   }, [isMobile]);
 

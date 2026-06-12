@@ -150,7 +150,7 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
               bottom: 20,
               left: 20,
               fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: "0.06em",
               color: "rgba(15,23,42,0.18)",
             }}
@@ -185,7 +185,7 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
             <span
               style={{
                 fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: "0.06em",
                 color: "rgba(15,23,42,0.18)",
               }}

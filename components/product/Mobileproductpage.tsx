@@ -41,8 +41,8 @@
  *  - active:scale-95 tap feedback everywhere
  */
 
-import { useRef, useEffect, useState, ReactNode } from "react";
-import { m, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect, ReactNode } from "react";
+import { m, AnimatePresence, useInView, animate } from "framer-motion";
 import {
   Shield, BookOpen, Users, User,
   MessageSquare, Bell, Calendar, Settings, Monitor,
@@ -50,42 +50,15 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-/* ─────────────────────────────────────────────
-   Visibility hook — CSS-transition animations
-   ───────────────────────────────────────────── */
-function useVisible(rootMargin = "-30px") {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const marginRef = useRef(rootMargin);
-
-  useEffect(() => {
-    marginRef.current = rootMargin;
-  }, [rootMargin]);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.unobserve(el); } },
-      { rootMargin: marginRef.current }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return { ref, visible };
-}
-
-/* ─────────────────────────────────────────────
-   Fade-up wrapper
-   ───────────────────────────────────────────── */
 function FadeUp({ children, delay = 0, className = "" }: {
   children: ReactNode; delay?: number; className?: string;
 }) {
-  const { ref, visible } = useVisible();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-30px" });
   return (
     <div ref={ref} className={className} style={{
-      opacity: visible ? 1 : 0,
-      transform: visible ? "translateY(0)" : "translateY(24px)",
+      opacity: inView ? 1 : 0,
+      transform: inView ? "translateY(0)" : "translateY(24px)",
       transition: `opacity 0.65s cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 0.65s cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
     }}>
       {children}
@@ -119,14 +92,12 @@ function useCounter(end: number, duration: number) {
 
   useEffect(() => {
     if (!started) return;
-    let start: number;
-    const step = (ts: number) => {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / (duration * 1000), 1);
-      setCount((1 - Math.pow(1 - p, 3)) * end);
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+    const controls = animate(0, end, {
+      duration,
+      ease: "easeOut",
+      onUpdate: (v) => setCount(v),
+    });
+    return controls.stop;
   }, [started, end, duration]);
 
   return { count, ref };
@@ -281,6 +252,7 @@ function HeroVideoPlayer() {
           ref={videoRef}
           className="w-full h-full object-cover"
           playsInline
+          muted
           preload="metadata"
           aria-label="Product demo video showcasing HermesWorkspace platform features"
           onEnded={() => setPlaying(false)}
@@ -666,7 +638,8 @@ function StatItem({ value, suffix, label, desc, delay }: {
 }
 
 function MobileReliability() {
-  const { ref, visible } = useVisible("-40px");
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useInView(ref, { once: true, margin: "-40px" });
   return (
     <section ref={ref as any} className="py-14 px-5" style={{ backgroundColor: "#12141D" }}>
       <div

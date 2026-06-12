@@ -56,8 +56,8 @@ function MobileHero() {
     >
       {/* Ambient blobs */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-16 top-[15%] size-72 rounded-full bg-indigo-100/70 blur-3xl" style={{ animation: "ambientBreath 8s ease-in-out infinite" }} />
-        <div className="absolute -right-12 bottom-[8%] h-60 w-60 rounded-full bg-violet-100/60 blur-3xl" style={{ animation: "ambientBreath2 12s ease-in-out infinite" }} />
+        <div className="absolute -left-16 top-[15%] size-72 rounded-full bg-indigo-100/70 blur-3xl animate-[ambientBreath_8s_ease-in-out_infinite]" />
+        <div className="absolute -right-12 bottom-[8%] h-60 w-60 rounded-full bg-violet-100/60 blur-3xl animate-[ambientBreath2_12s_ease-in-out_infinite]" />
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -169,10 +169,13 @@ function MobileFoundersShowcase() {
     startTimeRef.current = Date.now();
   }, []);
 
+  const advanceRef = useRef(advance);
+  advanceRef.current = advance;
+
   useEffect(() => {
-    const t = setTimeout(() => advance(1), AUTO_DURATION);
+    const t = setTimeout(() => advanceRef.current(1), AUTO_DURATION);
     return () => clearTimeout(t);
-  }, [activeIndex, advance]);
+  }, [activeIndex]);
 
   const touchStartX = useRef(0);
   const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
@@ -456,13 +459,13 @@ function MobileFAQ() {
           transition={{ duration: 0.5, delay: 0.15 }}
         >
           {FAQS.map((f, i) => (
-            <div key={f.q} className="cursor-pointer border-b border-black/[0.06]" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
-              <div className="flex items-start justify-between gap-4 py-4">
+            <div key={f.q} className="border-b border-black/[0.06]">
+              <button type="button" onClick={() => setOpenIdx(openIdx === i ? null : i)} className="flex w-full items-start justify-between gap-4 py-4 cursor-pointer">
                 <h3 className="text-[0.875rem] font-medium text-[#0D0D0F]">{f.q}</h3>
                 <div className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border transition-all ${openIdx === i ? "border-indigo-500 bg-indigo-500/10 text-indigo-500" : "border-black/10 text-[#9896A4]"}`}>
                   {openIdx === i ? <Minus className="size-3" /> : <Plus className="size-3" />}
                 </div>
-              </div>
+              </button>
               <AnimatePresence>
                 {openIdx === i && (
                   <m.div

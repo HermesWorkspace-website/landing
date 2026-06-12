@@ -91,7 +91,9 @@ export default function InMotion() {
                 onPause={() => setPlaying(false)}
                 onPlay={() => setPlaying(true)}
                 src="https://ik.imagekit.io/hermesworkspace/Landing/assets/hermes-launch.mp4"
-              />
+              >
+                <track kind="captions" />
+              </video>
 
               {/* Overlay with play button — fades away when playing */}
               <m.div

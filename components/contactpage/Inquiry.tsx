@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useReducer } from "react";
 import { m, useInView, AnimatePresence } from "framer-motion";
 import {
   IconChevronDown,
@@ -50,7 +50,7 @@ const validateAll = (data: FormState): InquiryFieldErrors => {
 const label = (text: string, required = true) => (
   <span
     className="block mb-1.5 uppercase tracking-widest font-body font-bold"
-    style={{ fontSize: 9.5, color: "var(--ink-35)" }}
+    style={{ fontSize: 12, color: "var(--ink-35)" }}
   >
     {text}
     {required && (
@@ -64,13 +64,26 @@ export default function Inquiry() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
-  const [focused, setFocused] = useState<FieldKey | null>(null);
+  const [state, dispatch] = useReducer(
+    (s: any, a: any) => ({ ...s, ...(typeof a === 'function' ? a(s) : a) }),
+    {
+      focused: null as FieldKey | null,
+      form: INITIAL_FORM,
+      fieldErrors: {} as InquiryFieldErrors,
+      globalError: null as string | null,
+      sent: false,
+      loading: false,
+    }
+  );
+  const { focused, form, fieldErrors, globalError, sent, loading } = state;
   const touchedRef = useRef<Partial<Record<FieldKey, boolean>>>({});
-  const [form, setForm] = useState<FormState>(INITIAL_FORM);
-  const [fieldErrors, setFieldErrors] = useState<InquiryFieldErrors>({});
-  const [globalError, setGlobalError] = useState<string | null>(null);
-  const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const setFocused = (focused: FieldKey | null) => dispatch({ focused });
+  const setForm = (form: FormState | ((prev: FormState) => FormState)) => dispatch((s: any) => ({ form: typeof form === 'function' ? form(s.form) : form }));
+  const setFieldErrors = (fieldErrors: InquiryFieldErrors | ((prev: InquiryFieldErrors) => InquiryFieldErrors)) => dispatch((s: any) => ({ fieldErrors: typeof fieldErrors === 'function' ? fieldErrors(s.fieldErrors) : fieldErrors }));
+  const setGlobalError = (globalError: string | null) => dispatch({ globalError });
+  const setSent = (sent: boolean) => dispatch({ sent });
+  const setLoading = (loading: boolean) => dispatch({ loading });
 
   /** Validate a single field against the full schema */
   const validateSingle = (key: FieldKey, nextForm: FormState) => {
@@ -444,103 +457,109 @@ export default function Inquiry() {
           </m.div>
 
           {/* ── Info Panel ── */}
-          <m.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="space-y-6"
-          >
-            {[
-              {
-                icon: <IconMapPin size={16} />,
-                title: "Headquarters",
-                body: "HermesWorkspace, Ranchi\nJharkhand, India",
-              },
-              {
-                icon: <IconClock size={16} />,
-                title: "Support Hours",
-                body: "Mon – Fri, 9:00 AM – 8:00 PM IST\n24/7 Priority Support for Enterprise",
-              },
-              {
-                icon: <IconMail size={16} />,
-                title: "Email",
-                body: "support@hermesworkspace.com",
-              },
-              {
-                icon: <IconBolt size={16} />,
-                title: "Response Time",
-                body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours.",
-              },
-            ].map((item, i) => (
-              <m.div
-                key={`support-${item.title}`}
-                className="flex gap-4 group"
-                initial={{ opacity: 0, y: 16 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.35 + i * 0.1 }}
-              >
-                <m.div
-                  className="size-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                  style={{ background: "rgba(96,99,238,0.08)", color: "var(--brand)" }}
-                  whileHover={{ scale: 1.1, background: "rgba(96,99,238,0.14)" }}
-                >
-                  {item.icon}
-                </m.div>
-                <div>
-                  <div
-                    className="text-[12px] font-bold mb-0.5"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    {item.title}
-                  </div>
-                  <div
-                    className="text-[11px] font-body leading-[1.65] whitespace-pre-line"
-                    style={{ color: "var(--ink-60)" }}
-                  >
-                    {item.body}
-                  </div>
-                </div>
-              </m.div>
-            ))}
-
-            {/* Live stats */}
-            <div
-              className="mt-6 pt-6 grid grid-cols-2 gap-4"
-              style={{ borderTop: "1px solid var(--ink-06)" }}
-            >
-              {[
-                { val: 5, label: "Core Platform Modules", suffix: "" },
-  { val: 3, label: "Connected Experiences", suffix: "" },
-              ].map((s: { val: number; label: string; suffix: string; decimals?: number }, i) => (
-                <m.div
-                  key={`stat-${s.label}`}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={inView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.75 + i * 0.1 }}
-                >
-                  <div
-                    className="text-[2rem] font-black font-display leading-none"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    <AnimatedCounter
-                      target={s.val}
-                      suffix={s.suffix}
-                      decimals={s.decimals ?? 0}
-                      delay={800 + i * 100}
-                    />
-                  </div>
-                  <div
-                    className="text-[9px] uppercase tracking-widest font-body mt-1"
-                    style={{ color: "var(--ink-35)" }}
-                  >
-                    {s.label}
-                  </div>
-                </m.div>
-              ))}
-            </div>
-          </m.div>
+          <InquiryInfoPanel inView={inView} />
         </div>
       </div>
     </section>
+  );
+}
+
+function InquiryInfoPanel({ inView }: { inView: boolean }) {
+  return (
+    <m.div
+      initial={{ opacity: 0, x: 30 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.7, delay: 0.2 }}
+      className="space-y-6"
+    >
+      {[
+        {
+          icon: <IconMapPin size={16} />,
+          title: "Headquarters",
+          body: "HermesWorkspace, Ranchi\nJharkhand, India",
+        },
+        {
+          icon: <IconClock size={16} />,
+          title: "Support Hours",
+          body: "Mon – Fri, 9:00 AM – 8:00 PM IST\n24/7 Priority Support for Enterprise",
+        },
+        {
+          icon: <IconMail size={16} />,
+          title: "Email",
+          body: "support@hermesworkspace.com",
+        },
+        {
+          icon: <IconBolt size={16} />,
+          title: "Response Time",
+          body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours.",
+        },
+      ].map((item, i) => (
+        <m.div
+          key={`support-${item.title}`}
+          className="flex gap-4 group"
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.35 + i * 0.1 }}
+        >
+          <m.div
+            className="size-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+            style={{ background: "rgba(96,99,238,0.08)", color: "var(--brand)" }}
+            whileHover={{ scale: 1.1, background: "rgba(96,99,238,0.14)" }}
+          >
+            {item.icon}
+          </m.div>
+          <div>
+            <div
+              className="text-[12px] font-bold mb-0.5"
+              style={{ color: "var(--ink)" }}
+            >
+              {item.title}
+            </div>
+            <div
+              className="text-[11px] font-body leading-[1.65] whitespace-pre-line"
+              style={{ color: "var(--ink-60)" }}
+            >
+              {item.body}
+            </div>
+          </div>
+        </m.div>
+      ))}
+
+      {/* Live stats */}
+      <div
+        className="mt-6 pt-6 grid grid-cols-2 gap-4"
+        style={{ borderTop: "1px solid var(--ink-06)" }}
+      >
+        {[
+          { val: 5, label: "Core Platform Modules", suffix: "" },
+          { val: 3, label: "Connected Experiences", suffix: "" },
+        ].map((s: { val: number; label: string; suffix: string; decimals?: number }, i) => (
+          <m.div
+            key={`stat-${s.label}`}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.75 + i * 0.1 }}
+          >
+            <div
+              className="text-[2rem] font-black font-display leading-none"
+              style={{ color: "var(--ink)" }}
+            >
+              <AnimatedCounter
+                target={s.val}
+                suffix={s.suffix}
+                decimals={s.decimals ?? 0}
+                delay={800 + i * 100}
+              />
+            </div>
+            <div
+              className="text-[9px] uppercase tracking-widest font-body mt-1"
+              style={{ color: "var(--ink-35)" }}
+            >
+              {s.label}
+            </div>
+          </m.div>
+        ))}
+      </div>
+    </m.div>
   );
 }

@@ -1260,7 +1260,7 @@ function SectionHeader() {
         transition={{ duration: 0.6 }}
         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/[0.08] border border-brand/[0.12] mb-6"
       >
-        <div className="anim-spin" style={{ animationDuration: '8s' }}>
+        <div className="anim-spin [animation-duration:8s]">
           <Sparkles className="size-3.5 text-brand" />
         </div>
         <span className="text-[11px] font-bold text-brand tracking-widest uppercase">Platform Features</span>

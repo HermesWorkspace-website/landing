@@ -1,159 +1,56 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#FAFAFA",
-        fontFamily: "system-ui, -apple-system, sans-serif",
-        padding: "0 24px",
-        margin: 0,
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
-          maxWidth: 420,
-        }}
-      >
+    <main className="min-h-screen flex flex-col items-center justify-center bg-[#FAFAFA] font-sans px-6 m-0">
+      <div className="flex flex-col items-center text-center max-w-[420px]">
         <Link
           href="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            marginBottom: 32,
-            textDecoration: "none",
-            color: "inherit",
-          }}
+          className="flex items-center gap-3 mb-8 no-underline text-inherit"
           aria-label="HermesWorkspace home"
         >
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: 16,
-              overflow: "hidden",
-              background: "#161922",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-          >
-            <img
+          <div className="w-14 h-14 rounded-2xl overflow-hidden bg-[#161922] flex items-center justify-center shrink-0">
+            <Image
               src="/logo.png"
               alt="HermesWorkspace logo"
               width={56}
               height={56}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              className="w-full h-full object-cover"
             />
           </div>
-          <span
-            style={{
-              fontFamily: "'DM Sans', system-ui, sans-serif",
-              fontWeight: 700,
-              fontSize: 22,
-              letterSpacing: "-0.02em",
-              color: "#161922",
-            }}
-          >
+          <span className="font-['DM_Sans',system-ui,sans-serif] font-bold text-[22px] tracking-[-0.02em] text-[#161922]">
             HermesWorkspace
           </span>
         </Link>
 
-        <h1
-          style={{
-            fontSize: 48,
-            lineHeight: 1,
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            color: "#161922",
-            margin: "0 0 8px",
-          }}
-        >
+        <h1 className="text-5xl leading-none font-extrabold tracking-[-0.03em] text-[#161922] m-0 mb-2">
           Page not found
         </h1>
 
-        <p
-          style={{
-            fontSize: 15,
-            lineHeight: 1.6,
-            color: "#62666D",
-            margin: "0 0 36px",
-          }}
-        >
+        <p className="text-[15px] leading-relaxed text-[#62666D] m-0 mb-9">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
           Let&apos;s get you back on track.
         </p>
 
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 12,
-            justifyContent: "center",
-          }}
-        >
+        <div className="flex flex-wrap gap-3 justify-center">
           <Link
             href="/"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              height: 44,
-              padding: "0 24px",
-              borderRadius: 12,
-              background: "#6063EE",
-              color: "#fff",
-              fontSize: 13,
-              fontWeight: 700,
-              fontFamily: "inherit",
-              textDecoration: "none",
-              boxShadow: "0 4px 16px rgba(96,99,238,0.3)",
-            }}
+            className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-[#6063EE] text-white text-[13px] font-bold font-inherit no-underline shadow-[0_4px_16px_rgba(96,99,238,0.3)]"
           >
             Go Home
           </Link>
 
           <Link
             href="/contact"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              height: 44,
-              padding: "0 24px",
-              borderRadius: 12,
-              border: "1.5px solid #D0D6E0",
-              color: "#161922",
-              fontSize: 13,
-              fontWeight: 600,
-              fontFamily: "inherit",
-              textDecoration: "none",
-            }}
+            className="inline-flex items-center gap-2 h-11 px-6 rounded-xl border-[1.5px] border-solid border-[#D0D6E0] text-[#161922] text-[13px] font-semibold font-inherit no-underline"
           >
             Contact Support
           </Link>
         </div>
       </div>
 
-      <p
-        style={{
-          marginTop: 64,
-          fontSize: 11,
-          color: "#A0A5B0",
-          letterSpacing: "0.03em",
-        }}
-      >
+      <p className="mt-16 text-xs text-[#A0A5B0] tracking-[0.03em]">
         HermesWorkspace &middot; Every school. One platform.
       </p>
     </main>

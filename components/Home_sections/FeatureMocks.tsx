@@ -1,14 +1,14 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { m, useInView, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 // gsap dynamically imported inside useEffect
 // THREE dynamically imported inside useEffect
 import {
   MessageSquare, Video, Users, Bell, Activity,
-  Send, Mic, MicOff, VideoOff, Monitor,
+  Mic, MicOff, VideoOff, Monitor,
   GraduationCap, Shield, BookOpen, UserCheck,
-  Pin, Clock, Calendar, Presentation, FileText,
-  ArrowRight, Sparkles, Zap, Globe,
+  Pin, Calendar, Presentation, FileText,
+  ArrowRight, Sparkles, Zap,
 } from "lucide-react";
 
 /* -----------------------------------------------------
@@ -18,12 +18,14 @@ function ParticleBackground() {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let active = true;
     const dispose: (() => void)[] = [];
 
     (async () => {
       const el = mountRef.current;
       if (!el) return;
       const THREE = await import("three");
+      if (!active) return;
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(60, el.clientWidth / el.clientHeight, 0.1, 1000);
@@ -94,7 +96,7 @@ function ParticleBackground() {
       });
     })();
 
-    return () => { dispose.forEach(fn => fn()); };
+    return () => { active = false; dispose.forEach(fn => fn()); };
   }, []);
 
   return (

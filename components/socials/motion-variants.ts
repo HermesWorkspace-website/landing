@@ -12,14 +12,6 @@ export const fadeUp: Variants = {
   },
 };
 
-const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
 export const slideLeft: Variants = {
   hidden: { opacity: 0, x: -48 },
   show: {
@@ -44,16 +36,6 @@ export const staggerContainer: Variants = {
     transition: {
       staggerChildren: 0.1,
       delayChildren: 0.1,
-    },
-  },
-};
-
-const staggerFast: Variants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.07,
-      delayChildren: 0.05,
     },
   },
 };

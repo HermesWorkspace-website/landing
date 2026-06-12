@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { m, AnimatePresence } from "framer-motion";
-import { ArrowRight, Mail, Shield, Globe, Zap, MessageSquare, Phone, Clock, CheckCircle } from "lucide-react";
+import { ArrowRight, Mail, Shield, Globe, Zap, Clock, CheckCircle } from "lucide-react";
 
 const WORDS = ["Connect", "Collaborate", "Coordinate"];
 
@@ -18,12 +18,14 @@ export default function Hero() {
 
   // Three.js particles — unchanged
   useEffect(() => {
+    let active = true;
     const dispose: (() => void)[] = [];
 
     (async () => {
       if (!canvasRef.current) return;
       const canvas = canvasRef.current;
       const THREE = await import("three");
+      if (!active) return;
       const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
@@ -68,7 +70,7 @@ export default function Hero() {
       dispose.push(() => { cancelAnimationFrame(raf); window.removeEventListener("resize", handleResize); renderer.dispose(); });
     })();
 
-    return () => { dispose.forEach(fn => fn()); };
+    return () => { active = false; dispose.forEach(fn => fn()); };
   }, []);
 
   // GSAP parallax — unchanged

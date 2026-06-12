@@ -135,9 +135,9 @@ function FAQItem({
           onClick={toggle}
         >
       <div className="flex items-start justify-between gap-4 py-4">
-        <h4 className="pr-2 text-[13.5px] font-semibold leading-snug" style={{ color: INK }}>
+        <h3 className="pr-2 text-[13.5px] font-semibold leading-snug" style={{ color: INK }}>
           {q}
-        </h4>
+        </h3>
         <div
           className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border transition-all"
           style={{
@@ -189,8 +189,8 @@ function MobileHero() {
     <section className="relative overflow-x-hidden bg-white pt-[96px] pb-10 px-5">
       {/* CSS ambient */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-20%] top-[5%] size-80 rounded-full bg-green-100/70 blur-3xl" />
-        <div className="absolute right-[-15%] bottom-[8%] size-72 rounded-full bg-emerald-50/90 blur-3xl" />
+        <div className="absolute left-[-20%] top-[5%] size-80 rounded-full bg-green-100/70 blur-3xl" style={{ animation: "ambientBreath 8s ease-in-out infinite" }} />
+        <div className="absolute right-[-15%] bottom-[8%] size-72 rounded-full bg-emerald-50/90 blur-3xl" style={{ animation: "ambientBreath2 12s ease-in-out infinite" }} />
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -234,14 +234,12 @@ function MobileHero() {
                 { text: "Infrastructure For", accent: null },
                 { text: "Educational", accent: "Educational" },
                 { text: "Institutions", accent: null },
-              ].map((line, i) => (
+              ].map((line) => (
                 <m.span
                   key={line.text}
                   className="block"
                   style={{ color: INK }}
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.75, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  initial={{ opacity: 1, y: 0 }}
                 >
                   {line.accent && line.text.includes(line.accent) ? (
                     <>

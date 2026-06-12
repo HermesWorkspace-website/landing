@@ -284,7 +284,6 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="
               prose prose-lg max-w-none
               prose-headings:font-display prose-headings:text-brand-ink prose-headings:tracking-tight
-              prose-h1:text-[2rem] prose-h1:font-extrabold prose-h1:leading-[1.1] prose-h1:mb-4 prose-h1:mt-10
               prose-h2:text-[1.5rem] prose-h2:font-bold prose-h2:leading-[1.2] prose-h2:mb-3 prose-h2:mt-8
               prose-h3:text-[1.2rem] prose-h3:font-bold prose-h3:leading-[1.3] prose-h3:mb-2 prose-h3:mt-6
               prose-p:text-[#374151] prose-p:leading-[1.85] prose-p:text-[18px] prose-p:font-body prose-p:mb-5

@@ -44,9 +44,9 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
         >
         
       <div className="py-5 flex items-start justify-between gap-4">
-        <h4 className="font-body font-medium text-[0.9375rem] text-brand-ink group-hover:text-brand transition-colors pr-4">
+        <h3 className="font-body font-medium text-[0.9375rem] text-brand-ink group-hover:text-brand transition-colors pr-4">
           {q}
-        </h4>
+        </h3>
         <div className={`size-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${
           open ? "border-brand bg-brand/10 text-brand rotate-45" : "border-black/10 text-brand-muted"
         }`}>

@@ -8,7 +8,6 @@ const Hero = dynamic(() => import("@/components/Home_sections/homehero"), {
   loading: () => <div className="min-h-screen" />,
 });
 const MobilePage = dynamic(() => import("@/components/Home_sections/Mobile"), {
-  ssr: false,
   loading: () => <div className="h-screen w-full" />,
 });
 const Features = dynamic(() => import("@/components/Home_sections/Features"), {

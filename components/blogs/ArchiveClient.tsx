@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { m, AnimatePresence } from 'framer-motion'
 import {
-  IconSearch, IconX, IconClock, IconFilter, IconCheck, IconCalendar, IconChevronLeft
+  IconSearch, IconX, IconFilter, IconCheck, IconChevronLeft
 } from '@tabler/icons-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────

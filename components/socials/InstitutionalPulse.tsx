@@ -39,9 +39,9 @@ function FeaturedCard() {
         >
           Product Insight
         </m.span>
-        <h3 className="text-[22px] font-black text-white leading-tight mb-2">
+        <h2 className="text-[22px] font-black text-white leading-tight mb-2">
           How HermesWorkspace is rethinking institutional communication.
-        </h3>
+        </h2>
         <m.div
           className="flex items-center gap-1.5 text-[11px] text-[#9896A4] font-medium mt-2 group-hover:text-white transition-colors"
           whileHover={{ x: 4 }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { m } from "framer-motion";
 import { fadeUp, staggerContainer, slideRight } from "@/components/socials/motion-variants";
 import { ArrowRight, TrendingUp, Globe } from "lucide-react";
@@ -214,9 +214,14 @@ function AnalyticsCard() {
 }
 
 export function HeroSection() {
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsDesktop(window.innerWidth >= 768);
+  }, []);
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F9F8FF] pt-[96px] md:pt-[120px] pb-16 md:pb-24">
-      <ThreeCanvas />
+      {isDesktop && <ThreeCanvas />}
 
       {/* Gradient blobs */}
       <div className="absolute top-20 right-0 w-[600px] h-[600px] rounded-full bg-[#6063EE]/5 blur-3xl pointer-events-none" />
@@ -296,7 +301,7 @@ export function HeroSection() {
           animate="show"
           className="flex justify-center lg:justify-end"
         >
-          <AnalyticsCard />
+          {isDesktop && <AnalyticsCard />}
         </m.div>
       </div>
     </section>

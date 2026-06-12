@@ -701,12 +701,14 @@ export default function Hero() {
 
   // Three.js particles — all bugs fixed
   useEffect(() => {
+    let active = true;
     const dispose: (() => void)[] = [];
 
     (async () => {
       if (!canvasRef.current) return;
       const canvas = canvasRef.current;
       const THREE = await import("three");
+      if (!active) return;
 
       // FIX 1: read size from parentElement, not from canvas (which is 0×0 at mount)
       const parent = canvas.parentElement;
@@ -772,7 +774,7 @@ export default function Hero() {
       });
     })();
 
-    return () => { dispose.forEach(fn => fn()); };
+    return () => { active = false; dispose.forEach(fn => fn()); };
   }, []);
 
   return (

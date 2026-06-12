@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "framer-motion";
 import {
   IconChevronDown,
   IconCircleCheck,
@@ -35,32 +35,42 @@ const INITIAL_FORM: FormState = {
   message: "",
 };
 
+const validateAll = (data: FormState): InquiryFieldErrors => {
+  const result = InquirySchema.safeParse(data);
+  if (result.success) return {};
+  const flat = result.error.flatten().fieldErrors;
+  const out: InquiryFieldErrors = {};
+  (Object.keys(flat) as FieldKey[]).forEach((k) => {
+    const msgs = flat[k as keyof typeof flat];
+    if (msgs && msgs.length > 0) out[k] = msgs[0];
+  });
+  return out;
+};
+
+const label = (text: string, required = true) => (
+  <span
+    className="block mb-1.5 uppercase tracking-widest font-body font-bold"
+    style={{ fontSize: 9.5, color: "var(--ink-35)" }}
+  >
+    {text}
+    {required && (
+      <span style={{ color: "#EF4444", marginLeft: 2 }}>*</span>
+    )}
+  </span>
+);
+
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function Inquiry() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   const [focused, setFocused] = useState<FieldKey | null>(null);
-  const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
+  const touchedRef = useRef<Partial<Record<FieldKey, boolean>>>({});
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [fieldErrors, setFieldErrors] = useState<InquiryFieldErrors>({});
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  // ── Client-side validation helpers ───────────────────────────────────────
-  /** Run full schema and return a flat map of first error per field */
-  const validateAll = (data: FormState): InquiryFieldErrors => {
-    const result = InquirySchema.safeParse(data);
-    if (result.success) return {};
-    const flat = result.error.flatten().fieldErrors;
-    const out: InquiryFieldErrors = {};
-    (Object.keys(flat) as FieldKey[]).forEach((k) => {
-      const msgs = flat[k as keyof typeof flat];
-      if (msgs && msgs.length > 0) out[k] = msgs[0];
-    });
-    return out;
-  };
 
   /** Validate a single field against the full schema */
   const validateSingle = (key: FieldKey, nextForm: FormState) => {
@@ -81,12 +91,12 @@ export default function Inquiry() {
     const next = { ...form, [key]: value };
     setForm(next);
     // Only show live errors once the field has been blurred at least once
-    if (touched[key]) validateSingle(key, next);
+    if (touchedRef.current[key]) validateSingle(key, next);
   };
 
   const handleBlur = (key: FieldKey) => {
     setFocused(null);
-    setTouched((prev) => ({ ...prev, [key]: true }));
+    touchedRef.current = { ...touchedRef.current, [key]: true };
     validateSingle(key, form);
   };
 
@@ -96,7 +106,7 @@ export default function Inquiry() {
     const allTouched = Object.fromEntries(
       (Object.keys(form) as FieldKey[]).map((k) => [k, true])
     ) as Partial<Record<FieldKey, boolean>>;
-    setTouched(allTouched);
+    touchedRef.current = allTouched;
 
     const clientErrors = validateAll(form);
     if (Object.keys(clientErrors).length > 0) {
@@ -134,7 +144,7 @@ export default function Inquiry() {
       } else {
         setSent(true);
         setForm(INITIAL_FORM);
-        setTouched({});
+        touchedRef.current = {};
         setTimeout(() => setSent(false), 4500);
       }
     } catch {
@@ -157,12 +167,12 @@ export default function Inquiry() {
     boxShadow: fieldErrors[name]
       ? "0 0 0 3px rgba(239,68,68,0.10)"
       : focused === name
-      ? "0 0 0 3px rgba(90,95,232,0.12)"
+      ? "0 0 0 3px rgba(96,99,238,0.12)"
       : "none",
     borderRadius: 12,
     padding: "10px 14px",
     fontSize: 12,
-    fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)",
+    fontFamily: "var(--font-body, Inter, sans-serif)",
     fontWeight: 500,
     color: "var(--ink)",
     background: "#fff",
@@ -170,21 +180,9 @@ export default function Inquiry() {
     outline: "none",
   });
 
-  const label = (text: string, required = true) => (
-    <span
-      className="block mb-1.5 uppercase tracking-widest font-body font-bold"
-      style={{ fontSize: 9.5, color: "var(--ink-35)" }}
-    >
-      {text}
-      {required && (
-        <span style={{ color: "#EF4444", marginLeft: 2 }}>*</span>
-      )}
-    </span>
-  );
-
   const errMsg = (name: FieldKey) =>
     fieldErrors[name] ? (
-      <motion.p
+      <m.p
         key={fieldErrors[name]}
         initial={{ opacity: 0, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
@@ -193,7 +191,7 @@ export default function Inquiry() {
       >
         <IconAlertCircle size={10} />
         {fieldErrors[name]}
-      </motion.p>
+      </m.p>
     ) : null;
 
   // ── Render ────────────────────────────────────────────────────────────────
@@ -202,18 +200,18 @@ export default function Inquiry() {
       ref={ref}
       id="inquiry"
       className="py-20 relative overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #fff 0%, rgba(90,95,232,0.02) 100%)" }}
+      style={{ background: "linear-gradient(180deg, #fff 0%, rgba(96,99,238,0.02) 100%)" }}
     >
       <div
         className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse, rgba(90,95,232,0.04) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, rgba(96,99,238,0.04) 0%, transparent 70%)",
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 font-inter">
+      <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="mb-12"
@@ -233,11 +231,11 @@ export default function Inquiry() {
           >
             Send an Inquiry
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-14 items-start">
           {/* ── Form ── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
@@ -247,6 +245,7 @@ export default function Inquiry() {
               <div>
                 {label("Full Name")}
                 <input
+                  aria-label="Full Name"
                   placeholder="John Doe"
                   value={form.fullName}
                   onChange={(e) => handleChange("fullName", e.target.value)}
@@ -259,6 +258,7 @@ export default function Inquiry() {
               <div>
                 {label("Institution")}
                 <input
+                  aria-label="Institution"
                   placeholder="Global Tech University"
                   value={form.institution}
                   onChange={(e) => handleChange("institution", e.target.value)}
@@ -275,6 +275,7 @@ export default function Inquiry() {
               {label("Email Address")}
               <input
                 type="email"
+                aria-label="Email Address"
                 placeholder="john@institution.edu"
                 value={form.email}
                 onChange={(e) => handleChange("email", e.target.value)}
@@ -289,6 +290,7 @@ export default function Inquiry() {
             <div className="mb-4">
               {label("Phone Number", false)}
               <input
+                aria-label="Phone Number"
                 placeholder="+91 98765 43210"
                 value={form.phone}
                 onChange={(e) => handleChange("phone", e.target.value)}
@@ -304,6 +306,7 @@ export default function Inquiry() {
               {label("Inquiry Type")}
               <div className="relative">
                 <select
+                  aria-label="Inquiry Type"
                   value={form.inquiryType}
                   onChange={(e) => handleChange("inquiryType", e.target.value)}
                   onFocus={() => setFocused("inquiryType")}
@@ -333,6 +336,7 @@ export default function Inquiry() {
               {label("Message")}
               <textarea
                 rows={4}
+                aria-label="Message"
                 placeholder="How can we assist your institution?"
                 value={form.message}
                 onChange={(e) => handleChange("message", e.target.value)}
@@ -343,7 +347,7 @@ export default function Inquiry() {
               <div className="flex justify-between items-start mt-1">
                 <div>{errMsg("message")}</div>
                 <span
-                  className="text-[9px] font-mono shrink-0 ml-2"
+                  className="text-[9px] font-body shrink-0 ml-2"
                   style={{
                     color: form.message.length > 1900 ? "#EF4444" : "var(--ink-35)",
                   }}
@@ -356,7 +360,7 @@ export default function Inquiry() {
             {/* Global error banner */}
             <AnimatePresence>
               {globalError && (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
@@ -369,28 +373,28 @@ export default function Inquiry() {
                 >
                   <IconAlertCircle size={14} className="shrink-0 mt-px" />
                   {globalError}
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
 
             {/* Submit */}
-            <motion.button
+            <m.button
               onClick={handleSend}
               disabled={loading || sent}
               whileHover={
                 !loading && !sent
-                  ? { scale: 1.02, boxShadow: "0 12px 36px rgba(90,95,232,0.35)" }
+                  ? { scale: 1.02, boxShadow: "0 12px 36px rgba(96,99,238,0.35)" }
                   : {}
               }
               whileTap={{ scale: 0.98 }}
               className="w-full py-3.5 rounded-xl text-[13px] font-bold font-body text-white flex items-center justify-center gap-2.5 relative overflow-hidden"
               style={{
-                background: sent ? "#22C55E" : "var(--brand)",
+                background: sent ? "#1E8B4C" : "var(--brand)",
                 transition: "background 0.5s",
               }}
             >
               {/* Shimmer */}
-              <motion.div
+              <m.div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
@@ -402,22 +406,20 @@ export default function Inquiry() {
               />
               <AnimatePresence mode="wait">
                 {loading ? (
-                  <motion.div
+                  <m.div
                     key="loading"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className="flex items-center gap-2"
                   >
-                    <motion.div
-                      className="size-4 rounded-full border-2 border-white/30 border-t-white"
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                    <div
+                      className="size-4 rounded-full border-2 border-white/30 border-t-white anim-spin"
                     />
                     Sending...
-                  </motion.div>
+                  </m.div>
                 ) : sent ? (
-                  <motion.div
+                  <m.div
                     key="sent"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -425,9 +427,9 @@ export default function Inquiry() {
                     className="flex items-center gap-2"
                   >
                     <IconCircleCheck size={16} /> Inquiry Dispatched!
-                  </motion.div>
+                  </m.div>
                 ) : (
-                  <motion.div
+                  <m.div
                     key="default"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -435,18 +437,18 @@ export default function Inquiry() {
                     className="flex items-center gap-2"
                   >
                     Dispatch Inquiry <IconSend size={16} />
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
-            </motion.button>
-          </motion.div>
+            </m.button>
+          </m.div>
 
           {/* ── Info Panel ── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="space-y-6 font-inter"
+            className="space-y-6"
           >
             {[
               {
@@ -470,20 +472,20 @@ export default function Inquiry() {
                 body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours.",
               },
             ].map((item, i) => (
-              <motion.div
-                key={`item-${i}`}
+              <m.div
+                key={`support-${item.title}`}
                 className="flex gap-4 group"
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.35 + i * 0.1 }}
               >
-                <motion.div
+                <m.div
                   className="size-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                  style={{ background: "rgba(90,95,232,0.08)", color: "var(--brand)" }}
-                  whileHover={{ scale: 1.1, background: "rgba(90,95,232,0.14)" }}
+                  style={{ background: "rgba(96,99,238,0.08)", color: "var(--brand)" }}
+                  whileHover={{ scale: 1.1, background: "rgba(96,99,238,0.14)" }}
                 >
                   {item.icon}
-                </motion.div>
+                </m.div>
                 <div>
                   <div
                     className="text-[12px] font-bold mb-0.5"
@@ -498,7 +500,7 @@ export default function Inquiry() {
                     {item.body}
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
 
             {/* Live stats */}
@@ -510,8 +512,8 @@ export default function Inquiry() {
                 { val: 5, label: "Core Platform Modules", suffix: "" },
   { val: 3, label: "Connected Experiences", suffix: "" },
               ].map((s: { val: number; label: string; suffix: string; decimals?: number }, i) => (
-                <motion.div
-                  key={`item-${i}`}
+                <m.div
+                  key={`stat-${s.label}`}
                   initial={{ opacity: 0, scale: 0.85 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.5, delay: 0.75 + i * 0.1 }}
@@ -533,10 +535,10 @@ export default function Inquiry() {
                   >
                     {s.label}
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

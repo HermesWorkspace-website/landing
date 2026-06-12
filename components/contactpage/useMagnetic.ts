@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useMotionValue, useSpring } from "framer-motion";
 
 export default function useMagnetic(strength = 0.3) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLButtonElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 300, damping: 20 });

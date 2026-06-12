@@ -2,18 +2,34 @@ import type { Metadata } from "next";
 import FounderClient from "./FounderClient";
 import JsonLd from "@/components/shared/JsonLd";
 
+const BASE_URL = "https://hermesworkspace.com";
+const OG_IMAGE = `${BASE_URL}/opengraph-image?v=3`;
+
 export const metadata: Metadata = {
   title: "Founders — Apurav Agarwal & Lakshya Kumar | HermesWorkspace",
   description:
     "Meet Apurav Agarwal (CEO) and Lakshya Kumar (CTO), the founders of HermesWorkspace. Two engineers building India's institutional communication infrastructure from Ranchi, Jharkhand.",
   alternates: {
-    canonical: "https://hermesworkspace.com/founder",
+    canonical: `${BASE_URL}/founder`,
   },
   openGraph: {
     title: "Founders — Apurav Agarwal & Lakshya Kumar | HermesWorkspace",
     description:
       "The story of two engineers building India's school infrastructure from Ranchi.",
-    url: "https://hermesworkspace.com/founder",
+    url: `${BASE_URL}/founder`,
+    siteName: "HermesWorkspace",
+    locale: "en_IN",
+    type: "website",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "HermesWorkspace Founders" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@hermesworkspace",
+    creator: "@hermesworkspace",
+    title: "Founders — Apurav Agarwal & Lakshya Kumar | HermesWorkspace",
+    description:
+      "The story of two engineers building India's school infrastructure from Ranchi.",
+    images: [OG_IMAGE],
   },
 };
 

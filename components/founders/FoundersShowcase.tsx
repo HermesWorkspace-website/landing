@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useIsMobile } from "@/lib/useIsMobile";
 import { useFounderSlider } from "./use-founder-slider";
 import { LeftPanel } from "./LeftPanel";
 import { CenterPortrait } from "./CenterPortrait";
@@ -8,14 +9,7 @@ import { ProgressBar } from "./ProgressBar";
 import MobileFoundersShowcase from "./mobileFounderShowcase";
 
 export function FoundersShowcase() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   const { founders, activeIndex, progress, goTo, goNext, goPrev } =
     useFounderSlider();
@@ -30,8 +24,7 @@ export function FoundersShowcase() {
   return (
     <section id="founders">
       <div
-        className="relative w-full h-screen overflow-hidden select-none"
-        style={{ background: "#ffffff", fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+        className="relative w-full h-screen overflow-hidden select-none font-body" style={{ background: "#ffffff" }}
       >
         {/* Main editorial grid */}
         <div

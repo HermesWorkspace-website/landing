@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { m, useInView, AnimatePresence } from 'framer-motion'
 import { IconClock, IconArrowUpRight, IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import type { Article } from '@/components/blogs/types'
 
@@ -23,6 +23,12 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
 const DEFAULT_COLOR = { bg: 'bg-brand/10', text: 'text-brand' }
 
 const AUTOPLAY_INTERVAL = 5000 // ms
+
+const variants = {
+  enter: (d: number) => ({ opacity: 0, x: d > 0 ? 60 : -60 }),
+  center: { opacity: 1, x: 0 },
+  exit: (d: number) => ({ opacity: 0, x: d > 0 ? -60 : 60 }),
+}
 
 export function FeaturedPost({ posts }: FeaturedPostProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -72,18 +78,12 @@ export function FeaturedPost({ posts }: FeaturedPostProps) {
   const post = slides[active]
   const c = CATEGORY_COLORS[post.category] ?? DEFAULT_COLOR
 
-  const variants = {
-    enter: (d: number) => ({ opacity: 0, x: d > 0 ? 60 : -60 }),
-    center: { opacity: 1, x: 0 },
-    exit: (d: number) => ({ opacity: 0, x: d > 0 ? -60 : 60 }),
-  }
-
   return (
     <section
       id="featured-post"
       className="px-4 md:px-8 xl:px-16 pt-2 pb-0 scroll-mt-24 md:scroll-mt-28"
     >
-      <motion.div
+      <m.div
         ref={ref}
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -95,7 +95,7 @@ export function FeaturedPost({ posts }: FeaturedPostProps) {
         {/* ── Slide ── */}
         <div className="overflow-hidden rounded-2xl">
           <AnimatePresence custom={direction} mode="wait">
-            <motion.div
+            <m.div
               key={post.slug}
               custom={direction}
               variants={variants}
@@ -167,17 +167,17 @@ export function FeaturedPost({ posts }: FeaturedPostProps) {
                         </span>
                       </div>
 
-                      <motion.div
+                      <m.div
                         whileHover={{ scale: 1.1, rotate: 8 }}
                         className="w-9 h-9 rounded-full bg-brand-ink/[0.05] group-hover:bg-brand flex items-center justify-center transition-colors duration-300"
                       >
                         <IconArrowUpRight size={16} className="text-brand-ink/40 group-hover:text-white transition-colors duration-300" />
-                      </motion.div>
+                      </m.div>
                     </div>
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
 
@@ -186,6 +186,7 @@ export function FeaturedPost({ posts }: FeaturedPostProps) {
           <div className="flex items-center justify-between mt-6 px-1">
             {/* Prev */}
             <button
+              type="button"
               onClick={prev}
               aria-label="Previous post"
               className="w-8 h-8 rounded-full border border-brand-ink/10 bg-white hover:border-brand/40 hover:bg-brand/5 flex items-center justify-center text-brand-ink/40 hover:text-brand transition-all duration-200"
@@ -195,9 +196,10 @@ export function FeaturedPost({ posts }: FeaturedPostProps) {
 
             {/* Dots */}
             <div className="flex items-center gap-2">
-              {slides.map((_, i) => (
+              {slides.map((slide, i) => (
                 <button
-                  key={i}
+                  key={slide.slug}
+                  type="button"
                   onClick={() => goTo(i, i > active ? 1 : -1)}
                   aria-label={`Go to slide ${i + 1}`}
                   className="relative h-[6px] rounded-full transition-all duration-300 focus:outline-none"
@@ -208,6 +210,7 @@ export function FeaturedPost({ posts }: FeaturedPostProps) {
 
             {/* Next */}
             <button
+              type="button"
               onClick={next}
               aria-label="Next post"
               className="w-8 h-8 rounded-full border border-brand-ink/10 bg-white hover:border-brand/40 hover:bg-brand/5 flex items-center justify-center text-brand-ink/40 hover:text-brand transition-all duration-200"
@@ -216,28 +219,29 @@ export function FeaturedPost({ posts }: FeaturedPostProps) {
             </button>
           </div>
         )}
-      </motion.div>
+      </m.div>
     </section>
   )
 }
 
 // ── TopBlogs kept for backward compat ────────────────────────────────────────
-export function TopBlogs({ posts }: { posts: Article[] }) {
+function TopBlogs({ posts }: { posts: Article[] }) {
   if (!posts.length) return null
   return <FeaturedPost posts={posts} />
 }
 
+const PILL_COLORS: Record<string, { bg: string; text: string }> = {
+  Infrastructure:      { bg: 'bg-purple-500/10', text: 'text-purple-600'  },
+  Technology:          { bg: 'bg-brand/10',       text: 'text-brand'       },
+  Operations:          { bg: 'bg-amber-500/10',   text: 'text-amber-600'   },
+  Communication:       { bg: 'bg-green-500/10',   text: 'text-green-600'   },
+  'Parent Engagement': { bg: 'bg-red-500/10',     text: 'text-red-600'     },
+  'Product Updates':   { bg: 'bg-orange-500/10',  text: 'text-orange-600'  },
+}
+
 // CategoryPill utility
 function CategoryPill({ category }: { category: string }) {
-  const COLORS: Record<string, { bg: string; text: string }> = {
-    Infrastructure:      { bg: 'bg-purple-500/10', text: 'text-purple-600'  },
-    Technology:          { bg: 'bg-brand/10',       text: 'text-brand'       },
-    Operations:          { bg: 'bg-amber-500/10',   text: 'text-amber-600'   },
-    Communication:       { bg: 'bg-green-500/10',   text: 'text-green-600'   },
-    'Parent Engagement': { bg: 'bg-red-500/10',     text: 'text-red-600'     },
-    'Product Updates':   { bg: 'bg-orange-500/10',  text: 'text-orange-600'  },
-  }
-  const c = COLORS[category] ?? { bg: 'bg-brand/10', text: 'text-brand' }
+  const c = PILL_COLORS[category] ?? { bg: 'bg-brand/10', text: 'text-brand' }
   return (
     <span className={`inline-flex items-center px-2.5 py-[3px] rounded-full text-[11px] font-medium border border-current/20 ${c.bg} ${c.text}`}>
       {category}
@@ -251,14 +255,14 @@ function CompactCard({ post, index }: { post: Article; index: number }) {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 + index * 0.1 }}
     >
       <Link href={`/blog/${post.slug}`} className="group block h-full">
-        <motion.div
+        <m.div
           whileHover={{ y: -3 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
           className="h-full flex gap-4 p-5 rounded-2xl bg-white border border-brand-ink/[0.06] hover:border-brand/20 hover:shadow-card-hover transition-all duration-300"
@@ -287,8 +291,8 @@ function CompactCard({ post, index }: { post: Article; index: number }) {
               </span>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </Link>
-    </motion.div>
+    </m.div>
   )
 }

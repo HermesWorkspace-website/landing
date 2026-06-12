@@ -9,9 +9,6 @@
  */
 
 import { Suspense } from 'react';
-import { getPayload } from 'payload';
-
-import config from '@/payload.config';
 import type { Tag } from '@/payload-types';
 import HeroSection from '@/components/blogs/Bloghero';
 import { FeaturedPost } from '@/components/blogs/FeaturedPost';
@@ -21,66 +18,7 @@ import CTA from '@/components/blogs/CTA';
 import type { Article, BlogAuthor, BlogTag } from '@/components/blogs/types';
 import MobileBlogPage from '@/components/blogs/MobileBlogPage';
 
-import { unstable_cache } from 'next/cache';
-const payload = await getPayload({ config })
-
-const [posts, tags] = await Promise.all([
-  payload.find({
-    collection: 'posts',
-    where: {
-      status: {
-        equals: 'published',
-      },
-    },
-    limit: 0,
-  }),
-  payload.find({
-    collection: 'tags',
-    limit: 0,
-  }),
-])
-
-
-export const getCachedPosts = unstable_cache(
-  async ({ tag, page = 1, limit = 100 }: { tag?: string; page?: number; limit?: number }) => {
-    try {
-      const payload = await getPayload({ config });
-      return payload.find({
-        collection: 'posts',
-        where: {
-          status: { equals: 'published' },
-          ...(tag ? { 'tags.slug': { equals: tag } } : {}),
-        },
-        sort: '-publishedAt',
-        depth: 2,
-        limit,
-        page,
-      });
-    } catch {
-      return { docs: [], totalDocs: 0, totalPages: 0, page: 1, pagingCounter: 1, hasPrevPage: false, hasNextPage: false, prevPage: null, nextPage: null };
-    }
-  },
-  ['blog-posts-v2'],
-  { revalidate: 30 }
-);
-
-export const getCachedTags = unstable_cache(
-  async () => {
-    try {
-      const payload = await getPayload({ config });
-      const { docs } = await payload.find({
-        collection: 'tags',
-        limit: 50,
-        depth: 0,
-      });
-      return docs as Tag[];
-    } catch {
-      return [] as Tag[];
-    }
-  },
-  ['blog-tags'],
-  { revalidate: 30 }
-);
+import { getCachedPosts, getCachedTags } from '@/components/blogs/cache';
 
 type BlogSearchParams = {
   category?: string;
@@ -102,25 +40,23 @@ const totalCategories = tags.length
   const searchQuery = (params.search || '').trim().toLowerCase();
 
   const articles: Article[] = postsResult.docs.map((post) => {
-    const resolvedTags: BlogTag[] = (post.tags ?? [])
-      .filter((t): t is Tag => typeof t === 'object' && t !== null)
-      .map((t) => ({
-        id: String(t.id),
-        name: t.name,
-        slug: t.slug ?? '',
-      }));
+    const resolvedTags: BlogTag[] = (post.tags ?? []).flatMap((t) =>
+      typeof t === 'object' && t !== null
+        ? [{ id: String((t as Tag).id), name: (t as Tag).name, slug: (t as Tag).slug ?? '' }]
+        : []
+    );
 
     return {
       id: String(post.id),
       slug: post.slug,
       title: post.title,
       excerpt: post.excerpt ?? '',
-      featured: post.featured ?? false,
+      featured: (post as any).featured ?? false,
       category: resolvedTags[0]?.name ?? 'General',
       tags: resolvedTags,
       readTime: (post as { readTime?: number }).readTime ?? 5,
       date: post.publishedAt
-        ? new Date(post.publishedAt).toLocaleDateString('en-IN')
+        ? new Date(post.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
         : '',
       cover:
         typeof post.coverImage === 'object' && post.coverImage !== null
@@ -159,7 +95,7 @@ const totalCategories = tags.length
 
  const categories = [
   'All Posts',
-  ...tags.map((t) => t.name).filter(Boolean).sort(),
+  ...tags.flatMap((t) => t.name ? [t.name] : []).sort(),
 ]
 
   return (
@@ -177,7 +113,7 @@ const totalCategories = tags.length
               )}
 
               {/* 3. Category filter */}
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="h-11 bg-white" />}>
                 <CategoryBar categories={categories} id="desktop" />
               </Suspense>
 
@@ -190,7 +126,7 @@ const totalCategories = tags.length
         </main>
         {/* Mobile layout */}
         <div className="block md:hidden">
-          <MobileBlogPage searchParams={searchParams} />
+          <MobileBlogPage searchParams={searchParams} initialPosts={postsResult} initialTags={tags} />
         </div>
       </>
   );

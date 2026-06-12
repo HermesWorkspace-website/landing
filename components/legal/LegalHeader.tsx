@@ -45,6 +45,7 @@ export default function LegalHeader({ activeSlug }: LegalHeaderProps) {
           </Link>
           
           <button
+            type="button"
             onClick={() => setMenuOpen(true)}
             className="flex items-center gap-2 rounded-lg border border-[#d0d6e0]/70 bg-[#f7f8f8]/50 px-3.5 py-1.5 text-[13px] font-medium text-[#62666d] transition hover:bg-[#f3f4f5] hover:text-[#161922]"
           >
@@ -61,6 +62,8 @@ export default function LegalHeader({ activeSlug }: LegalHeaderProps) {
         <div
           className="fixed inset-0 z-40 bg-black/20 backdrop-blur-xs transition-opacity duration-300"
           onClick={() => setMenuOpen(false)}
+          onKeyUp={() => setMenuOpen(false)}
+          role="presentation"
         />
       )}
       <div
@@ -73,6 +76,7 @@ export default function LegalHeader({ activeSlug }: LegalHeaderProps) {
             Documents
           </span>
           <button
+            type="button"
             onClick={() => setMenuOpen(false)}
             className="rounded-lg p-1.5 text-[#62666d] hover:bg-[#eef0ff] hover:text-[#161922] transition-colors"
           >
@@ -90,7 +94,7 @@ export default function LegalHeader({ activeSlug }: LegalHeaderProps) {
               onClick={() => setMenuOpen(false)}
               className={`rounded-lg px-4 py-2.5 text-[14px] font-medium transition-all ${
                 item.slug === activeSlug
-                  ? "bg-[#eef0ff] text-[#5e6ad2] shadow-sm font-semibold"
+                  ? "bg-[#6063EE]/8 text-[#6063EE] shadow-sm font-semibold"
                   : "text-[#62666d] hover:bg-[#f3f4f5] hover:text-[#161922]"
               }`}
             >

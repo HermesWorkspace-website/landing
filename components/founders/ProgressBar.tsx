@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Founder } from "../../types/founder";
 
 
@@ -50,7 +50,7 @@ export function ProgressBar({ founders, activeIndex, progress, onDotClick }: Pro
               style={{ background: "#E8E4DC" }}
             >
               {i === activeIndex ? (
-                <motion.div
+                <m.div
                   className="h-full rounded-full origin-left"
                   style={{
                     background: founder.accentColor,

@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useInView, Variants } from 'framer-motion'
+import { m, useInView, Variants } from 'framer-motion'
 import { IconArrowUpRight } from '@tabler/icons-react'
 import type { Article } from '@/components/blogs/types'
 
@@ -41,7 +41,7 @@ function PostCard({ post, index }: { post: Article; index: number }) {
   const c = CATEGORY_COLORS[post.category] ?? DEFAULT_COLOR
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       custom={index}
       variants={cardVariants}
@@ -50,7 +50,7 @@ function PostCard({ post, index }: { post: Article; index: number }) {
       className="group"
     >
       <Link href={`/blog/${post.slug}`} className="block h-full">
-        <motion.article
+        <m.article
           whileHover={{ y: -4 }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
           className="h-full flex flex-col"
@@ -58,11 +58,11 @@ function PostCard({ post, index }: { post: Article; index: number }) {
           {/* ── Cover image ── */}
           <div className="relative w-full rounded-2xl overflow-hidden shrink-0">
             {post.cover ? (
-              <img
+              <Image
                 src={post.cover}
                 alt={post.title}
-                loading="lazy"
-                decoding="async"
+                width={800}
+                height={450}
                 className="w-full h-auto transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.04]"
               />
             ) : (
@@ -97,9 +97,9 @@ function PostCard({ post, index }: { post: Article; index: number }) {
           <p className="font-body text-[13.5px] text-brand-muted leading-relaxed line-clamp-2">
             {post.excerpt}
           </p>
-        </motion.article>
+        </m.article>
       </Link>
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -117,7 +117,7 @@ export function LatestPosts({ post }: LatestPostsProps) {
     <section className="px-4 md:px-8 xl:px-16 pt-6 pb-12">
       {/* ── Header ── */}
       <div ref={headerRef} className="flex items-center justify-between gap-4 mb-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -128,28 +128,28 @@ export function LatestPosts({ post }: LatestPostsProps) {
             <h2 className="text-[22px] md:text-[32px] font-bold tracking-[-0.025em] text-brand-ink leading-tight font-display">
               Latest Perspectives
             </h2>
-            <p className="font-mono text-[11px] md:text-[12.5px] text-brand-ink/40 mt-0.5 truncate">
+            <p className="font-body text-[11px] md:text-[12.5px] text-brand-ink/40 mt-0.5 truncate">
               The pulse of modern workspace management
             </p>
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="shrink-0"
         >
           <Link href="/blog/archive">
-            <motion.span
+            <m.span
               whileHover={{ x: 3 }}
               className="font-body inline-flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 rounded-full border border-brand/30 bg-brand/5 text-[11px] sm:text-[12px] font-semibold text-brand hover:bg-brand/10 hover:text-brand-dark transition-colors whitespace-nowrap"
             >
               All archives
               <IconArrowUpRight size={12} />
-            </motion.span>
+            </m.span>
           </Link>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* ── Uniform 3-column card grid ── */}

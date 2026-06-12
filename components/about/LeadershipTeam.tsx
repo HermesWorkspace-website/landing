@@ -3,18 +3,12 @@
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import { FOUNDER_PHOTO_QUALITY, FOUNDER_PHOTO_SIZES } from "@/components/founders/FounderPhoto";
-import { motion, useInView } from "framer-motion";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import gsap from "gsap";
+import { m, useInView } from "framer-motion";
 import {
   IconBrandLinkedin,
   IconBrandInstagram,
   IconBrandX
 } from "@tabler/icons-react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const team = [
   {
@@ -83,7 +77,7 @@ export default function LeadershipTeam() {
 
         {/* Section Header */}
         <div className="flex items-start justify-between mb-20 flex-wrap gap-4">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
@@ -91,13 +85,13 @@ export default function LeadershipTeam() {
             <p className="text-[11px] font-bold text-[#6B7280] tracking-widest uppercase mb-2">
               The People Behind It
             </p>
-            <h2 className="text-[2rem] lg:text-[2.4rem] font-bold text-[#0A1628] tracking-tight leading-tight">
+            <h2 className="text-[2rem] lg:text-[2.4rem] font-bold text-[#1A1D26] tracking-tight leading-tight">
               The Founders
             </h2>
             <p className="text-[13px] text-[#6B7280] mt-2">
               Two people. One mission. Built from scratch.
             </p>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Editorial entries */}
@@ -123,7 +117,7 @@ function EditorialEntry({
   const isEven = index % 2 === 0;
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -135,7 +129,7 @@ function EditorialEntry({
           }`}
       >
         {/* ── Photo block ── */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: isEven ? -30 : 30 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -177,78 +171,78 @@ function EditorialEntry({
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
 
             {/* Green accent bar */}
-            <motion.div
+            <m.div
               initial={{ scaleY: 0, originY: "top" }}
               animate={isInView ? { scaleY: 1 } : {}}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#22C55E] rounded-full"
+              className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#6063EE] rounded-full"
             />
 
             {/* Name overlay at bottom */}
             <div className="absolute bottom-0 left-0 right-0 z-10 p-4">
               <p className="text-[15px] font-bold text-white leading-tight">{member.name}</p>
-              <p className="text-[11px] text-[#22C55E] font-medium mt-0.5">{member.role}</p>
+              <p className="text-[11px] text-[#6063EE] font-medium mt-0.5">{member.role}</p>
             </div>
 
             {/* Hover shimmer */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: "-100%" }}
               whileHover={{ opacity: 1, x: "100%" }}
               transition={{ duration: 0.6 }}
               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none"
             />
           </div>
-        </motion.div>
+        </m.div>
 
         {/* ── Text block ── */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: isEven ? 30 : -30 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col justify-start gap-4 flex-1 pt-2"
         >
           {/* Role badge */}
-          <div className="inline-flex w-fit items-center gap-1.5 bg-[#22C55E]/8 border border-[#22C55E]/20 rounded-full px-3 py-1">
-            <div className="size-1.5 rounded-full bg-[#22C55E]" />
-            <span className="text-[10px] font-semibold text-[#22C55E] tracking-wider uppercase">
+          <div className="inline-flex w-fit items-center gap-1.5 bg-[#6063EE]/8 border border-[#6063EE]/20 rounded-full px-3 py-1">
+            <div className="size-1.5 rounded-full bg-[#6063EE]" />
+            <span className="text-[10px] font-semibold text-[#6063EE] tracking-wider uppercase">
               {member.role}
             </span>
           </div>
 
           {/* Name */}
-          <h3 className="text-[1.8rem] font-bold text-[#0A1628] tracking-tight leading-tight">
+          <h3 className="text-[1.8rem] font-bold text-[#1A1D26] tracking-tight leading-tight">
             {member.name}
           </h3>
 
           {/* Bio paragraphs */}
           <div className="flex flex-col gap-3">
             {member.bio.split("\n\n").map((para, i) => (
-              <motion.p
-                key={i}
+              <m.p
+                key={para}
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
                 className="text-[13px] text-[#4B5563] leading-[1.9]"
               >
                 {para}
-              </motion.p>
+              </m.p>
             ))}
           </div>
 
           {/* Pull quote */}
-          <motion.blockquote
+          <m.blockquote
             initial={{ opacity: 0, x: -10 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-2 border-l-[3px] border-[#22C55E] pl-4"
+            className="mt-2 border-l-[3px] border-[#6063EE] pl-4"
           >
-            <p className="text-[13px] font-semibold text-[#0A1628] italic leading-relaxed">
+            <p className="text-[13px] font-semibold text-[#1A1D26] italic leading-relaxed">
               &ldquo;{member.quote}&rdquo;
             </p>
-          </motion.blockquote>
+          </m.blockquote>
 
           {/* Social links */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.85 }}
@@ -260,7 +254,7 @@ function EditorialEntry({
               rel="noopener noreferrer"
               className="group flex size-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#0A66C2] hover:bg-[#0A66C2]"
             >
-              <IconBrandLinkedin className="size-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
+              <IconBrandLinkedin className="size-4 text-[#1A1D26] transition-colors duration-300 group-hover:text-white" />
             </a>
 
             <a
@@ -269,7 +263,7 @@ function EditorialEntry({
               rel="noopener noreferrer"
               className="group flex size-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-pink-500 hover:bg-pink-500"
             >
-              <IconBrandInstagram className="size-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
+              <IconBrandInstagram className="size-4 text-[#1A1D26] transition-colors duration-300 group-hover:text-white" />
             </a>
 
             <a
@@ -278,11 +272,11 @@ function EditorialEntry({
               rel="noopener noreferrer"
               className="group flex size-10 items-center justify-center rounded-full border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-black hover:bg-black"
             >
-              <IconBrandX className="size-4 text-[#0A1628] transition-colors duration-300 group-hover:text-white" />
+              <IconBrandX className="size-4 text-[#1A1D26] transition-colors duration-300 group-hover:text-white" />
             </a>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

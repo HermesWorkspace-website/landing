@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 
@@ -29,7 +29,7 @@ export default function HeroSection() {
       ref={containerRef}
       className="hero-viewport relative overflow-hidden bg-white"
       style={{
-        fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)",
+        fontFamily: "var(--font-body, Inter, sans-serif)",
       }}
     >
       {/* Ambient background */}
@@ -47,7 +47,7 @@ export default function HeroSection() {
       </div>
 
       {/* Watermark */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.6 }}
@@ -56,10 +56,10 @@ export default function HeroSection() {
         <span className="select-none text-[18vw] font-black tracking-[-0.08em] text-black/[0.025]">
           FOUNDERS
         </span>
-      </motion.div>
+      </m.div>
 
       {/* Left sidebar — xl only */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.6, duration: 1 }}
@@ -72,10 +72,10 @@ export default function HeroSection() {
         <p className="max-w-[140px] text-xs leading-6 text-brand-muted">
           Institutional infrastructure designed for modern educational operations.
         </p>
-      </motion.div>
+      </m.div>
 
       {/* Right sidebar — xl only */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.8, duration: 1 }}
@@ -89,14 +89,14 @@ export default function HeroSection() {
           reliability, and scale."
         </p>
         <div className="mt-5 h-px w-16 bg-gradient-to-r from-transparent via-brand to-transparent" />
-      </motion.div>
+      </m.div>
 
       {/* ── Main content ── */}
       <div
         className="hero-viewport__main relative z-10 container-page flex flex-col items-center justify-center text-center w-full"
       >
         {/* Mobile eyebrow */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
@@ -106,7 +106,7 @@ export default function HeroSection() {
           <span className="text-[11px] tracking-[0.28em] uppercase text-indigo-500 font-medium">
             Leadership & Vision
           </span>
-        </motion.div>
+        </m.div>
 
         {/* Headline */}
         <h1
@@ -117,20 +117,20 @@ export default function HeroSection() {
         >
           {["Building The Future", "Of Institutional", "Communication."].map((line, i) => (
             <span key={`item-${i}`} className="block overflow-hidden">
-              <motion.span
+              <m.span
                 className={`inline-block ${i >= 1 ? "gradient-text-brand" : ""}`}
                 initial={{ y: 64, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 + i * 0.18, duration: 1, ease: [0.22, 1, 0.36, 1] }}
               >
                 {line}
-              </motion.span>
+              </m.span>
             </span>
           ))}
         </h1>
 
         {/* Sub-copy */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
@@ -138,16 +138,16 @@ export default function HeroSection() {
         >
           HermesWorkspace was founded to modernize how educational institutions
           communicate, coordinate, and operate through scalable digital infrastructure.
-        </motion.p>
+        </m.p>
 
         {/* CTA */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.05, duration: 0.7 }}
           className="mt-10"
         >
-          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+          <m.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
             <Button
               variant="default"
               size="lg"
@@ -160,8 +160,8 @@ export default function HeroSection() {
               Meet our Founders
               <ArrowDown className="size-4" />
             </Button>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );

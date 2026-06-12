@@ -37,7 +37,7 @@
  */
 
 import React, { useState, useRef, useEffect, ReactNode } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import {
   ArrowRight,
   Mail,
@@ -121,21 +121,23 @@ function FadeUp({ children, delay = 0, className = "" }: {
   );
 }
 
+const scrollToInquiry = () => {
+  const el = document.getElementById("m-inquiry");
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 /* ══════════════════════════════════════════════
-   1. HERO
-   ══════════════════════════════════════════════ */
+    1. HERO
+    ══════════════════════════════════════════════ */
 function MobileHero() {
-  const scrollToInquiry = () => {
-    const el = document.getElementById("m-inquiry");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  const router = useRouter();
 
   return (
     <section className="relative overflow-x-hidden bg-white px-5 pt-[96px] pb-10">
       {/* Static gradient blob — replaces Three.js canvas */}
       <div
         className="pointer-events-none absolute right-0 top-0 size-72 rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(90,95,232,0.06) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, rgba(96,99,238,0.06) 0%, transparent 70%)" }}
       />
       {/* Faint grid */}
       <div
@@ -151,14 +153,14 @@ function MobileHero() {
           {/* Badge */}
           <div
             className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2"
-            style={{ background: "rgba(90,95,232,0.08)", border: "1px solid rgba(90,95,232,0.2)" }}
+            style={{ background: "rgba(96,99,238,0.08)", border: "1px solid rgba(96,99,238,0.2)" }}
           >
             <span
               className="size-1.5 animate-pulse rounded-full"
               style={{ background: "var(--brand)" }}
             />
             <span
-              className="text-[10px] font-bold font-syne uppercase tracking-[0.18em]"
+              className="text-[10px] font-bold font-display uppercase tracking-[0.18em]"
               style={{ color: "var(--brand)" }}
             >
               Contact Support
@@ -203,8 +205,8 @@ function MobileHero() {
               href="mailto:support@hermesworkspace.com"
               className="inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-xl border text-[13px] font-bold font-body active:scale-[0.98] transition-transform"
               style={{
-                background: "rgba(90,95,232,0.08)",
-                borderColor: "rgba(90,95,232,0.25)",
+                background: "rgba(96,99,238,0.08)",
+                borderColor: "rgba(96,99,238,0.25)",
                 color: "var(--ink)",
               }}
             >
@@ -242,7 +244,7 @@ function MobileHero() {
           <div className="flex items-start gap-3">
             <div
               className="size-9 rounded-xl flex items-center justify-center shrink-0"
-              style={{ background: "rgba(90,95,232,0.08)" }}
+              style={{ background: "rgba(96,99,238,0.08)" }}
             >
               <Globe className="size-4" style={{ color: "var(--brand)" }} />
             </div>
@@ -264,7 +266,7 @@ function MobileHero() {
                   <span
                     key={tag}
                     className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                    style={{ background: "rgba(90,95,232,0.07)", color: "var(--brand)" }}
+                    style={{ background: "rgba(96,99,238,0.07)", color: "var(--brand)" }}
                   >
                     {tag}
                   </span>
@@ -282,7 +284,7 @@ function MobileHero() {
           <div className="flex items-start gap-3">
             <div
               className="size-9 rounded-xl flex items-center justify-center shrink-0"
-              style={{ background: "rgba(90,95,232,0.08)" }}
+              style={{ background: "rgba(96,99,238,0.08)" }}
             >
               <Mail className="size-4" style={{ color: "var(--brand)" }} />
             </div>
@@ -312,7 +314,7 @@ function MobileHero() {
           <div className="flex items-start gap-3">
             <div
               className="size-9 rounded-xl flex items-center justify-center shrink-0"
-              style={{ background: "rgba(90,95,232,0.08)" }}
+              style={{ background: "rgba(96,99,238,0.08)" }}
             >
               <Clock className="size-4" style={{ color: "var(--brand)" }} />
             </div>
@@ -329,7 +331,7 @@ function MobileHero() {
                   <div
                     key={s.label}
                     className="rounded-xl p-2 text-center"
-                    style={{ background: "rgba(90,95,232,0.05)" }}
+                    style={{ background: "rgba(96,99,238,0.05)" }}
                   >
                     <p className="text-[11px] font-bold" style={{ color: "var(--brand)" }}>
                       {s.time}
@@ -372,19 +374,19 @@ function MobileHero() {
 const FEATURES = [
   {
     icon: <Users className="size-4" />,
-    color: "#5A5FE8",
+    color: "#6063EE",
     title: "Structured School Communication",
     desc: "Role-based channels for administrators, teachers, students, and parents across classes and departments.",
   },
   {
     icon: <Handshake className="size-4" />,
-    color: "#a855f7",
+    color: "#6063EE",
     title: "Academic Operations",
     desc: "Manage meetings, notices, events, and institutional coordination from one centralized platform.",
   },
   {
     icon: <Newspaper className="size-4" />,
-    color: "#10b981",
+    color: "#6063EE",
     title: "Secure Digital Infrastructure",
     desc: "Verified notice delivery, secure access control, and scalable cloud infrastructure.",
   },
@@ -396,11 +398,11 @@ function MobileFeatures() {
       <FadeUp>
         <div
           className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full"
-          style={{ background: "rgba(90,95,232,0.07)", border: "1px solid rgba(90,95,232,0.15)" }}
+          style={{ background: "rgba(96,99,238,0.07)", border: "1px solid rgba(96,99,238,0.15)" }}
         >
           <Sparkles className="size-3" style={{ color: "var(--brand)" }} />
           <span
-            className="text-[9px] font-bold font-syne uppercase tracking-[0.18em]"
+            className="text-[9px] font-bold font-display uppercase tracking-[0.18em]"
             style={{ color: "var(--brand)" }}
           >
             What we offer
@@ -427,7 +429,7 @@ function MobileFeatures() {
               >
                 {card.icon}
               </div>
-              <h3 className="text-[14px] font-bold font-syne mb-2" style={{ color: "var(--ink)" }}>
+              <h3 className="text-[14px] font-bold font-display mb-2" style={{ color: "var(--ink)" }}>
                 {card.title}
               </h3>
               <p className="text-[12.5px] font-body leading-[1.65]" style={{ color: "var(--ink-60)" }}>
@@ -485,26 +487,26 @@ const ErrMsg = ({ name, fieldErrors }: { name: FieldKey; fieldErrors: InquiryFie
     </p>
   ) : null;
 
+const validateAll = (data: FormState): InquiryFieldErrors => {
+  const result = InquirySchema.safeParse(data);
+  if (result.success) return {};
+  const flat = result.error.flatten().fieldErrors;
+  const out: InquiryFieldErrors = {};
+  (Object.keys(flat) as FieldKey[]).forEach((k) => {
+    const msgs = flat[k as keyof typeof flat];
+    if (msgs && msgs.length > 0) out[k] = msgs[0];
+  });
+  return out;
+};
+
 function MobileInquiry() {
   const [focused, setFocused] = useState<FieldKey | null>(null);
-  const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
+  const touchedRef = useRef<Partial<Record<FieldKey, boolean>>>({});
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [fieldErrors, setFieldErrors] = useState<InquiryFieldErrors>({});
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const validateAll = (data: FormState): InquiryFieldErrors => {
-    const result = InquirySchema.safeParse(data);
-    if (result.success) return {};
-    const flat = result.error.flatten().fieldErrors;
-    const out: InquiryFieldErrors = {};
-    (Object.keys(flat) as FieldKey[]).forEach((k) => {
-      const msgs = flat[k as keyof typeof flat];
-      if (msgs && msgs.length > 0) out[k] = msgs[0];
-    });
-    return out;
-  };
 
   const validateSingle = (key: FieldKey, nextForm: FormState) => {
     const result = InquirySchema.safeParse(nextForm);
@@ -520,12 +522,12 @@ function MobileInquiry() {
   const handleChange = (key: FieldKey, value: string) => {
     const next = { ...form, [key]: value };
     setForm(next);
-    if (touched[key]) validateSingle(key, next);
+    if (touchedRef.current[key]) validateSingle(key, next);
   };
 
   const handleBlur = (key: FieldKey) => {
     setFocused(null);
-    setTouched((prev) => ({ ...prev, [key]: true }));
+    touchedRef.current = { ...touchedRef.current, [key]: true };
     validateSingle(key, form);
   };
 
@@ -533,7 +535,7 @@ function MobileInquiry() {
     const allTouched = Object.fromEntries(
       (Object.keys(form) as FieldKey[]).map((k) => [k, true])
     ) as Partial<Record<FieldKey, boolean>>;
-    setTouched(allTouched);
+    touchedRef.current = allTouched;
     const clientErrors = validateAll(form);
     if (Object.keys(clientErrors).length > 0) {
       setFieldErrors(clientErrors);
@@ -565,7 +567,7 @@ function MobileInquiry() {
       } else {
         setSent(true);
         setForm(INITIAL_FORM);
-        setTouched({});
+        touchedRef.current = {};
         setTimeout(() => setSent(false), 4500);
       }
     } catch {
@@ -581,12 +583,12 @@ function MobileInquiry() {
     boxShadow: fieldErrors[name]
       ? "0 0 0 3px rgba(239,68,68,0.10)"
       : focused === name
-      ? "0 0 0 3px rgba(90,95,232,0.12)"
+      ? "0 0 0 3px rgba(96,99,238,0.12)"
       : "none",
     borderRadius: 12,
     padding: "11px 14px",
     fontSize: 13,
-    fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)",
+    fontFamily: "var(--font-body, Inter, sans-serif)",
     fontWeight: 500,
     color: "var(--ink)",
     background: "#fff",
@@ -599,7 +601,7 @@ function MobileInquiry() {
     <section
       id="m-inquiry"
       className="px-5 py-14 relative overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #fff 0%, rgba(90,95,232,0.02) 100%)" }}
+      style={{ background: "linear-gradient(180deg, #fff 0%, rgba(96,99,238,0.02) 100%)" }}
     >
       <FadeUp>
         <div className="flex items-center gap-2 mb-2">
@@ -632,6 +634,7 @@ function MobileInquiry() {
               <input
                 type="text"
                 placeholder="Your name"
+                aria-label="Full Name"
                 value={form.fullName}
                 onChange={(e) => handleChange("fullName", e.target.value)}
                 onFocus={() => setFocused("fullName")}
@@ -645,6 +648,7 @@ function MobileInquiry() {
               <input
                 type="text"
                 placeholder="School name"
+                aria-label="Institution"
                 value={form.institution}
                 onChange={(e) => handleChange("institution", e.target.value)}
                 onFocus={() => setFocused("institution")}
@@ -661,6 +665,7 @@ function MobileInquiry() {
             <input
               type="email"
               placeholder="you@school.edu"
+              aria-label="Email"
               value={form.email}
               onChange={(e) => handleChange("email", e.target.value)}
               onFocus={() => setFocused("email")}
@@ -676,6 +681,7 @@ function MobileInquiry() {
             <input
               type="tel"
               placeholder="+91 XXXXX XXXXX"
+              aria-label="Phone"
               value={form.phone}
               onChange={(e) => handleChange("phone", e.target.value)}
               onFocus={() => setFocused("phone")}
@@ -690,6 +696,7 @@ function MobileInquiry() {
             <FieldLabel text="Inquiry Type" />
             <div className="relative">
               <select
+                aria-label="Inquiry Type"
                 value={form.inquiryType}
                 onChange={(e) => handleChange("inquiryType", e.target.value)}
                 onFocus={() => setFocused("inquiryType")}
@@ -712,10 +719,11 @@ function MobileInquiry() {
           {/* Message */}
           <div className="mb-4">
             <FieldLabel text="Message" />
-            <textarea
-              rows={4}
-              placeholder="How can we assist your institution?"
-              value={form.message}
+              <textarea
+                rows={4}
+                placeholder="How can we assist your institution?"
+                aria-label="Message"
+                value={form.message}
               onChange={(e) => handleChange("message", e.target.value)}
               onFocus={() => setFocused("message")}
               onBlur={() => handleBlur("message")}
@@ -724,7 +732,7 @@ function MobileInquiry() {
             <div className="flex justify-between items-start mt-1">
               <ErrMsg name="message" fieldErrors={fieldErrors} />
               <span
-                className="text-[9px] font-mono shrink-0 ml-2"
+                className="text-[9px] font-body shrink-0 ml-2"
                 style={{ color: form.message.length > 1900 ? "#EF4444" : "var(--ink-35)" }}
               >
                 {form.message.length}/2000
@@ -735,7 +743,7 @@ function MobileInquiry() {
           {/* Global error */}
           <AnimatePresence>
             {globalError && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -748,7 +756,7 @@ function MobileInquiry() {
               >
                 <IconAlertCircle size={14} className="shrink-0 mt-px" />
                 {globalError}
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
 
@@ -758,28 +766,26 @@ function MobileInquiry() {
             disabled={loading || sent}
             className="w-full py-3.5 rounded-xl text-[13px] font-bold font-body text-white flex items-center justify-center gap-2.5 active:scale-95 transition-transform"
             style={{
-              background: sent ? "#22C55E" : "var(--brand)",
+              background: sent ? "#1E8B4C" : "var(--brand)",
               transition: "background 0.5s, transform 0.1s",
             }}
           >
             <AnimatePresence mode="wait">
               {loading ? (
-                <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
-                  <motion.div
-                    className="size-4 rounded-full border-2 border-white/30 border-t-white"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                <m.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
+                  <div
+                    className="size-4 rounded-full border-2 border-white/30 border-t-white anim-spin"
                   />
                   Sending...
-                </motion.div>
+                </m.div>
               ) : sent ? (
-                <motion.div key="sent" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
+                <m.div key="sent" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
                   <IconCircleCheck size={16} /> Inquiry Dispatched!
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.div key="default" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
+                <m.div key="default" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
                   Dispatch Inquiry <IconSend size={16} />
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </button>
@@ -801,7 +807,7 @@ function MobileInquiry() {
             <div key={item.title} className="flex gap-3">
               <div
                 className="size-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                style={{ background: "rgba(90,95,232,0.08)", color: "var(--brand)" }}
+                style={{ background: "rgba(96,99,238,0.08)", color: "var(--brand)" }}
               >
                 {item.icon}
               </div>
@@ -854,7 +860,7 @@ function MobileRealtime() {
       {/* Minimal ambient — no heavy blurs */}
       <div
         className="absolute top-0 left-0 right-0 h-40 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(90,95,232,0.12) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(96,99,238,0.12) 0%, transparent 70%)" }}
       />
 
       {/* Live badge */}
@@ -864,9 +870,9 @@ function MobileRealtime() {
       >
         <span
           className="size-2 rounded-full animate-pulse"
-          style={{ background: "#22C55E" }}
+          style={{ background: "#6063EE" }}
         />
-        <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest font-syne">
+        <span className="text-[9px] font-bold text-green-500 uppercase tracking-widest font-display">
           Platform Status: Live
         </span>
       </div>
@@ -898,9 +904,9 @@ function MobileRealtime() {
       {/* Feature bullets */}
       <div className="space-y-3 mb-8">
         {[
-          { icon: <CheckCircle className="size-4" />, label: "Centralized School Announcements", color: "#22C55E" },
+          { icon: <CheckCircle className="size-4" />, label: "Centralized School Announcements", color: "#6063EE" },
           { icon: <Lock className="size-4" />, label: "Secure Role-Based Access Control", color: "var(--brand-light)" },
-          { icon: <Server className="size-4" />, label: "Scalable Cloud Infrastructure", color: "#a855f7" },
+          { icon: <Server className="size-4" />, label: "Scalable Cloud Infrastructure", color: "#6063EE" },
         ].map((item, i) => (
           <div key={item.label} className="flex items-center gap-3">
             <span style={{ color: item.color }}>{item.icon}</span>
@@ -984,9 +990,9 @@ function MobileRealtime() {
         >
           <span
             className="size-1.5 rounded-full animate-pulse"
-            style={{ background: "#22C55E" }}
+            style={{ background: "#6063EE" }}
           />
-          <span className="text-[8px] font-syne" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <span className="text-[8px] font-display" style={{ color: "rgba(255,255,255,0.3)" }}>
             LIVE · 4 CLUSTERS CONNECTED
           </span>
         </div>
@@ -1009,14 +1015,14 @@ const FAQS = [
 
 function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; toggle: () => void }) {
   return (
-    <div className="border-b cursor-pointer" style={{ borderColor: "var(--ink-06)" }} onClick={toggle}>
+    <button type="button" className="w-full text-left p-0 bg-transparent border-0 border-b cursor-pointer" style={{ borderColor: "var(--ink-06)" }} onClick={toggle}>
       <div className="py-4 flex items-start justify-between gap-3">
         <h4 className="font-body font-medium text-[14px] pr-3" style={{ color: "var(--ink)" }}>{q}</h4>
         <div
           className="size-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all"
           style={{
             borderColor: open ? "var(--brand)" : "var(--ink-12)",
-            background: open ? "rgba(90,95,232,0.1)" : "transparent",
+            background: open ? "rgba(96,99,238,0.1)" : "transparent",
             color: open ? "var(--brand)" : "var(--ink-35)",
             transform: open ? "rotate(45deg)" : "none",
           }}
@@ -1026,7 +1032,7 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
       </div>
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -1036,10 +1042,10 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
             <p className="pb-4 text-[13px] font-body leading-relaxed pr-6" style={{ color: "var(--ink-60)" }}>
               {a}
             </p>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </div>
+    </button>
   );
 }
 
@@ -1049,7 +1055,7 @@ function MobileFAQ() {
     <section className="py-14 px-5 bg-white">
       <FadeUp>
         <span
-          className="text-[9px] font-bold font-syne uppercase tracking-widest block mb-2"
+          className="text-[9px] font-bold font-display uppercase tracking-widest block mb-2"
           style={{ color: "var(--brand)" }}
         >
           FAQ
@@ -1082,10 +1088,6 @@ function MobileFAQ() {
    ══════════════════════════════════════════════ */
 function MobileCTA() {
   const router = useRouter();
-  const scrollToInquiry = () => {
-    const el = document.getElementById("m-inquiry");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   return (
     <section className="px-5 pb-20 pt-4">
@@ -1099,23 +1101,23 @@ function MobileCTA() {
             className="absolute top-0 left-1/2 -translate-x-1/2 h-px pointer-events-none"
             style={{
               width: "60%",
-              background: "linear-gradient(90deg, transparent, rgba(90,95,232,0.6), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(96,99,238,0.6), transparent)",
             }}
           />
           {/* Subtle radial */}
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(90,95,232,0.18) 0%, transparent 60%)" }}
+            style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(96,99,238,0.18) 0%, transparent 60%)" }}
           />
 
           {/* Badge */}
           <div
             className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full"
-            style={{ background: "rgba(90,95,232,0.15)", border: "1px solid rgba(90,95,232,0.3)" }}
+            style={{ background: "rgba(96,99,238,0.15)", border: "1px solid rgba(96,99,238,0.3)" }}
           >
             <Sparkles className="size-3" style={{ color: "var(--brand-light)" }} />
             <span
-              className="text-[9px] font-bold font-syne uppercase tracking-widest"
+              className="text-[9px] font-bold font-display uppercase tracking-widest"
               style={{ color: "var(--brand-light)" }}
             >
               Every School. One Platform.

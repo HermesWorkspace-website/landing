@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { m, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const PHASES = [
   { pct: 15,  label: "Initializing workspace"         },
@@ -11,57 +12,50 @@ const PHASES = [
   { pct: 100, label: "Ready"                          },
 ] as const;
 
-const DELAYS = [380, 500, 520, 460, 0];
+const MIN_VISIBLE_MS = 600;
 
 export default function LoadingScreen({ onComplete }: { onComplete?: () => void }) {
   const [phase, setPhase]     = useState(0);
   const [exiting, setExiting] = useState(false);
+  const onCompleteRef        = useRef(onComplete);
+  onCompleteRef.current       = onComplete;
 
   useEffect(() => {
     if (phase >= PHASES.length - 1) {
       const t = setTimeout(() => {
         setExiting(true);
-        setTimeout(() => onComplete?.(), 680);
-      }, 420);
+        setTimeout(() => onCompleteRef.current?.(), 450);
+      }, 300);
       return () => clearTimeout(t);
     }
-    const t = setTimeout(() => setPhase(p => p + 1), DELAYS[phase]);
+    const t = setTimeout(() => setPhase(p => p + 1), MIN_VISIBLE_MS / PHASES.length);
     return () => clearTimeout(t);
-  }, [phase, onComplete]);
+  }, [phase]);
 
   const { pct, label } = PHASES[phase];
 
   return (
     <AnimatePresence>
       {!exiting && (
-        <motion.div
+        <m.div
           key="hw-loader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999,
-            background: "#FAFAFA",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "0 24px",
-          }}
+          className="fixed inset-0 z-[9999] bg-[#FAFAFA] flex flex-col items-center justify-center px-6"
         >
           {/* ── Logo ──────────────────────────────────────────────── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             style={{ marginBottom: 24 }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/logo.png"
               alt="HermesWorkspace"
+              width={120}
+              height={120}
               style={{
                 // Responsive: 96px on mobile, 120px on desktop
                 width: "clamp(88px, 14vw, 120px)",
@@ -71,15 +65,15 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
                 filter: "invert(1)",
               }}
             />
-          </motion.div>
+          </m.div>
 
           {/* ── Brand name ────────────────────────────────────────── */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              fontFamily: "var(--font-body, system-ui, sans-serif)",
+              fontFamily: "var(--font-body, Inter, sans-serif)",
               fontSize: "clamp(15px, 2.5vw, 18px)",
               fontWeight: 600,
               letterSpacing: "-0.01em",
@@ -89,10 +83,10 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
             }}
           >
             HermesWorkspace
-          </motion.p>
+          </m.p>
 
           {/* ── Progress bar ──────────────────────────────────────── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.45, duration: 0.4 }}
@@ -113,7 +107,7 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
                 overflow: "hidden",
               }}
             >
-              <motion.div
+              <m.div
                 animate={{ width: `${pct}%` }}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                 style={{
@@ -127,14 +121,14 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
 
             {/* Phase label */}
             <AnimatePresence mode="wait">
-              <motion.span
+              <m.span
                 key={phase}
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                 style={{
-                  fontFamily: "var(--font-body, system-ui, sans-serif)",
+                  fontFamily: "var(--font-body, Inter, sans-serif)",
                   fontSize: "clamp(10px, 2vw, 12px)",
                   letterSpacing: "0.01em",
                   color: "rgba(15,23,42,0.38)",
@@ -142,12 +136,12 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
                 }}
               >
                 {label}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
-          </motion.div>
+          </m.div>
 
           {/* ── Version (bottom left) ─────────────────────────────── */}
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -155,17 +149,17 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
               position: "fixed",
               bottom: 20,
               left: 20,
-              fontFamily: "var(--font-mono, monospace)",
+              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
               fontSize: 10,
               letterSpacing: "0.06em",
               color: "rgba(15,23,42,0.18)",
             }}
           >
             v1.0.1
-          </motion.span>
+          </m.span>
 
           {/* ── Secure dot (bottom right) ─────────────────────────── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -178,9 +172,8 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
               gap: 5,
             }}
           >
-            <motion.div
-              animate={{ opacity: [1, 0.25, 1] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            <div
+              className="anim-pulse-opacity"
               style={{
                 width: 5,
                 height: 5,
@@ -191,7 +184,7 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
             />
             <span
               style={{
-                fontFamily: "var(--font-mono, monospace)",
+                fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
                 fontSize: 10,
                 letterSpacing: "0.06em",
                 color: "rgba(15,23,42,0.18)",
@@ -199,8 +192,8 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
             >
               Secure
             </span>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

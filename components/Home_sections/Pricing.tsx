@@ -1,14 +1,9 @@
 "use client";
-import React, { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import { Check, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ThreePricingBackground from "./ThreePricingBackground";
 import Link from "next/link";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const tiers = [
   {
@@ -65,68 +60,13 @@ const tiers = [
 ];
 
 export default function Pricing() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header animation
-      gsap.from(".pricing-header", {
-        opacity: 0,
-        y: 24,
-        duration: 0.75,
-        ease: "power2.out",
-        scrollTrigger: { trigger: ref.current || undefined, start: "top 80%" },
-      });
-
-      // Cards stagger animation
-      gsap.from(".pricing-card-gsap", {
-        opacity: 0,
-        y: 32,
-        duration: 0.75,
-        stagger: 0.12,
-        ease: "power2.out",
-        scrollTrigger: { trigger: ref.current || undefined, start: "top 70%" },
-      });
-
-      // Feature items and badge stagger per card
-      gsap.utils.toArray(".pricing-card-gsap").forEach((card: any, index: number) => {
-        const q = gsap.utils.selector(card);
-        
-        // Sync badge with the parent card
-        const badge = q(".pricing-badge");
-        if (badge.length) {
-          gsap.from(badge, {
-            opacity: 0,
-            scale: 0.5,
-            duration: 0.6,
-            delay: index * 0.12 + 0.1, // Pop up right as the card starts sliding in
-            ease: "back.out(1.5)",
-            scrollTrigger: { trigger: ref.current || undefined, start: "top 70%" },
-          });
-        }
-
-        gsap.from(q(".feature-item"), {
-          opacity: 0,
-          x: -10,
-          duration: 0.4,
-          stagger: 0.05,
-          delay: index * 0.12 + 0.3,
-          ease: "power2.out",
-          scrollTrigger: { trigger: ref.current || undefined, start: "top 70%" },
-        });
-      });
-    }, ref);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={ref} id="pricing" className="relative py-section overflow-hidden">
+    <section id="pricing" className="relative py-section overflow-hidden">
       <ThreePricingBackground />
-      
+
       <div className="container-page relative z-10">
         {/* Header */}
-        <div className="pricing-header text-center max-w-[520px] mx-auto mb-12">
+        <div className="text-center max-w-[520px] mx-auto mb-12">
           <span className="section-eyebrow">Pricing</span>
           <h2 className="font-display text-display-xl font-extrabold text-brand-ink mt-3 tracking-[-0.03em]">
             Transparent pricing.
@@ -140,24 +80,25 @@ export default function Pricing() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch pt-4 pb-8">
-          {tiers.map((tier, i) => (
+          {tiers.map((tier) => (
             <div
-              key={`item-${i}`}
-              className={`pricing-card-gsap pricing-card relative h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${
-                tier.featured ? "featured md:-mt-4" : "md:mt-4"
+              key={tier.name}
+              className={`relative flex flex-col p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${
+                tier.featured
+                  ? "bg-[#1A1C1D] border-transparent shadow-[0_20px_60px_rgba(0,0,0,0.25)] md:-mt-4"
+                  : "bg-white border-black/10 md:mt-4"
               }`}
             >
               {tier.featured && (
-                <div className="absolute -top-3 left-0 w-full flex justify-center z-10 pointer-events-none">
-                  <div className="pricing-badge pointer-events-auto">
-                    <span className="inline-flex items-center gap-1 bg-brand text-white text-[10px] font-semibold px-3 py-1 rounded-full shadow-glow font-body">
-                      <Sparkles className="size-3 text-yellow-300" />
-                      Most Popular
-                    </span>
-                  </div>
+                <div className="absolute -top-3 left-0 w-full flex justify-center z-10">
+                  <span className="inline-flex items-center gap-1 bg-brand text-white text-[10px] font-semibold px-3 py-1 rounded-full font-body">
+                    <Sparkles className="size-3 text-yellow-300" />
+                    Most Popular
+                  </span>
                 </div>
               )}
 
+              {/* Tier info */}
               <div className="mb-6">
                 <div
                   className={`text-[11px] font-semibold uppercase tracking-widest mb-1 font-body ${
@@ -174,7 +115,7 @@ export default function Pricing() {
                   {tier.name}
                 </div>
                 <p
-                  className={`mt-4 text-sm font-body ${
+                  className={`mt-4 text-sm font-body leading-relaxed ${
                     tier.featured ? "text-white/60" : "text-brand-muted"
                   }`}
                 >
@@ -182,47 +123,44 @@ export default function Pricing() {
                 </p>
               </div>
 
+              {/* CTA */}
               <Button
                 asChild
-                variant={tier.featured ? "outline" : "default"}
-                className={`w-full justify-center gap-2 mb-6 group/btn transition-transform active:scale-[0.98] ${
+                className={`w-full justify-center gap-2 mb-6 ${
                   tier.featured
                     ? "bg-white text-brand-ink hover:bg-white/90"
                     : tier.name === "Olympus"
-                    ? "bg-transparent border border-black/10 text-brand-ink hover:bg-black/[0.03]"
-                    : ""
+                    ? "bg-transparent border border-black/10 text-brand-ink hover:bg-black/[0.04]"
+                    : "bg-brand-ink text-white hover:opacity-90"
                 }`}
               >
                 <Link href="/contact?scroll=inquiry">
-                  {tier.cta}{" "}
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                  {tier.cta}
+                  <ArrowRight className="size-4" />
                 </Link>
               </Button>
 
+              {/* Divider */}
               <div
                 className={`h-px mb-5 ${
                   tier.featured ? "bg-white/10" : "bg-black/[0.06]"
                 }`}
               />
 
+              {/* Features */}
               <ul className="space-y-3 flex-1">
                 {tier.features.map((f) => (
                   <li
                     key={f}
-                    className={`feature-item flex items-start gap-2.5 text-sm font-body ${
+                    className={`flex items-start gap-2.5 text-sm font-body ${
                       tier.featured ? "text-white/80" : "text-brand-ink/75"
                     }`}
                   >
-                    <motion.div
-                      whileHover={{ scale: 1.2, rotate: 10 }}
-                      className="shrink-0"
-                    >
-                      <Check
-                        className={`size-4 mt-0.5 ${
-                          tier.featured ? "text-green-400" : "text-green-600"
-                        }`}
-                      />
-                    </motion.div>
+                    <Check
+                      className={`size-4 mt-0.5 shrink-0 ${
+                        tier.featured ? "text-green-400" : "text-green-600"
+                      }`}
+                    />
                     {f}
                   </li>
                 ))}
@@ -230,12 +168,10 @@ export default function Pricing() {
             </div>
           ))}
         </div>
-        
-        <div className="text-center mt-12">
-          <p className="text-center text-sm text-brand-muted mt-10 font-body">
-            Institutional deployment pricing may vary based on operational requirements. GST applicable as per government regulations.
-          </p>
-        </div>
+
+        <p className="text-center text-sm text-brand-muted mt-10 font-body">
+          Institutional deployment pricing may vary based on operational requirements. GST applicable as per government regulations.
+        </p>
       </div>
     </section>
   );

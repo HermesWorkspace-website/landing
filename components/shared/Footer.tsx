@@ -128,7 +128,7 @@ function Column({
   );
 }
 
-export default function Footer() {
+function Footer() {
   const year = new Date().getFullYear();
 
   return (
@@ -139,7 +139,7 @@ export default function Footer() {
         className="pointer-events-none absolute -top-32 right-0 w-[520px] h-[520px] rounded-full opacity-[0.06] hidden md:block"
         style={{
           background:
-            "radial-gradient(circle, var(--color-brand, #6366f1) 0%, transparent 70%)",
+            "radial-gradient(circle, var(--color-brand, #6063EE) 0%, transparent 70%)",
         }}
       />
 
@@ -149,14 +149,14 @@ export default function Footer() {
           <div className="size-8 rounded-xl overflow-hidden bg-white/10 ring-1 ring-white/10 flex items-center justify-center">
             <Image src="/logo.png" alt="HermesWorkspace" width={32} height={32} className="w-full h-full object-cover" />
           </div>
-          <span className="font-logo font-bold text-[15px] text-white tracking-[-0.02em]">HermesWorkspace</span>
+          <span className="font-display font-bold text-[15px] text-white tracking-[-0.02em]">HermesWorkspace</span>
         </Link>
         <p className="text-[13px] leading-[1.65] text-white/40 font-body max-w-[280px]">
           Every school. One platform. School communication &amp; management built for India.
         </p>
         <div className="flex items-center gap-2.5">
           {socials.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
+            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
               className="size-9 rounded-full ring-1 ring-white/10 flex items-center justify-center text-white/40 hover:text-white hover:ring-white/25 transition-all">
               {s.icon}
             </a>
@@ -175,14 +175,14 @@ export default function Footer() {
               <div className="size-9 rounded-xl overflow-hidden bg-white/10 ring-1 ring-white/10 flex items-center justify-center group-hover:ring-white/25 transition-all">
                 <Image src="/logo.png" alt="HermesWorkspace" width={36} height={36} className="w-full h-full object-cover" />
               </div>
-              <span className="font-logo font-bold text-[16px] text-white tracking-[-0.02em]">HermesWorkspace</span>
+              <span className="font-display font-bold text-[16px] text-white tracking-[-0.02em]">HermesWorkspace</span>
             </Link>
             <p className="text-[14px] leading-[1.65] text-white/45 font-body max-w-[260px]">
               Every school. One platform. School communication &amp; management built.
             </p>
             <div className="flex items-center gap-2.5 mt-1">
               {socials.map((s) => (
-                <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
                   className="size-9 rounded-full ring-1 ring-white/10 flex items-center justify-center text-white/40 hover:text-white hover:ring-white/30 hover:bg-white/[0.06] transition-all duration-200">
                   {s.icon}
                 </a>
@@ -279,3 +279,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default React.memo(Footer);

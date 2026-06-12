@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 
 // Replaced Three.js WebGL renderer with pure CSS animation.

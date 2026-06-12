@@ -94,26 +94,26 @@ function FadeUp({ children, delay = 0, className = "" }: { children: ReactNode; 
   );
 }
 
-/* ══════════════════════════════════════════════
-   1. HERO — mobile
-   ══════════════════════════════════════════════ */
-function MobileHero() {
-  const scrollToEcosystem = () => {
-    const el = document.getElementById("m-ecosystem");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+const scrollToEcosystem = () => {
+  const el = document.getElementById("m-ecosystem");
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
 
+/* ══════════════════════════════════════════════
+    1. HERO — mobile
+    ══════════════════════════════════════════════ */
+function MobileHero() {
   return (
     <section className="relative bg-[#F9F8FF] pt-24 pb-14 px-5 overflow-hidden">
       {/* Subtle static background blob — no Three.js */}
       <div
         className="absolute top-0 right-0 size-64 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(107,92,231,0.07) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, rgba(96,99,238,0.07) 0%, transparent 70%)" }}
       />
 
       {/* Badge */}
       <div
-        className="inline-block text-[10px] tracking-[2.5px] uppercase text-[#6B5CE7] font-semibold bg-[#EAE8FF] px-3 py-1.5 rounded-[3px] mb-5"
+        className="inline-block text-[10px] tracking-[2.5px] uppercase text-[#6063EE] font-semibold bg-[#EAE8FF] px-3 py-1.5 rounded-[3px] mb-5"
         style={{ opacity: 1 }}
       >
         HermesWorkspace Digital Presence
@@ -121,8 +121,7 @@ function MobileHero() {
 
       {/* Headline */}
       <h1
-        className="font-black text-[38px] leading-[1.05] tracking-tight text-[#0D0D0F] mb-5"
-        style={{ fontFamily: "var(--font-playfair, Georgia, serif)" }}
+        className="font-display font-black text-[38px] leading-[1.05] tracking-tight text-[#0D0D0F] mb-5"
       >
         Sharing the future
         <br />
@@ -130,7 +129,7 @@ function MobileHero() {
         <br />
         communication
         <br />
-        <span className="text-[#6B5CE7]">in real time.</span>
+        <span className="text-[#6063EE]">in real time.</span>
       </h1>
 
       <p className="text-[14px] leading-[1.75] text-[#666] mb-8">
@@ -143,7 +142,7 @@ function MobileHero() {
       <div className="flex flex-col gap-3">
         <button type="button"
           onClick={scrollToEcosystem}
-          className="flex items-center justify-center gap-2 bg-[#6B5CE7] text-white text-[13px] font-semibold px-5 py-3.5 rounded-[5px] active:scale-95 transition-transform"
+          className="flex items-center justify-center gap-2 bg-[#6063EE] text-white text-[13px] font-semibold px-5 py-3.5 rounded-[5px] active:scale-95 transition-transform"
         >
           Explore Platforms
           <ArrowRight size={14} />
@@ -181,14 +180,14 @@ function MobileHero() {
         <svg viewBox="0 0 240 40" className="w-full h-10 mb-4">
           <defs>
             <linearGradient id="mSpark" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#6B5CE7" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#6B5CE7" stopOpacity="0" />
+              <stop offset="0%" stopColor="#6063EE" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#6063EE" stopOpacity="0" />
             </linearGradient>
           </defs>
           <path
             d="M0,32 C20,29 40,22 60,24 C80,26 100,14 120,11 C140,8 160,16 180,7 C200,0 220,4 240,2"
             fill="none"
-            stroke="#6B5CE7"
+            stroke="#6063EE"
             strokeWidth="2"
             strokeLinecap="round"
           />
@@ -199,13 +198,13 @@ function MobileHero() {
         </svg>
 
         <div className="flex items-center gap-2 bg-[#EAE8FF] rounded-xl px-3 py-2.5">
-          <div className="size-7 rounded-lg bg-[#6B5CE7] flex items-center justify-center shrink-0">
+          <div className="size-7 rounded-lg bg-[#6063EE] flex items-center justify-center shrink-0">
             <TrendingUp size={13} className="text-white" />
           </div>
-          <div className="flex-1 h-1.5 bg-[#6B5CE7]/25 rounded-full overflow-hidden">
-            <div className="h-full bg-[#6B5CE7] rounded-full w-[72%]" />
+          <div className="flex-1 h-1.5 bg-[#6063EE]/25 rounded-full overflow-hidden">
+            <div className="h-full bg-[#6063EE] rounded-full w-[72%]" />
           </div>
-          <span className="text-[10px] font-semibold text-[#6B5CE7] whitespace-nowrap">
+          <span className="text-[10px] font-semibold text-[#6063EE] whitespace-nowrap">
             Institutional Narratives
           </span>
         </div>
@@ -239,13 +238,10 @@ function MobileStats() {
   return (
     <section className="bg-[#0D0D0F] py-16 px-5">
       <FadeUp>
-        <h2
-          className="text-[28px] font-black text-white leading-[1.1] tracking-tight mb-12 text-center"
-          style={{ fontFamily: "var(--font-playfair, Georgia, serif)" }}
-        >
+        <h2 className="font-display text-[28px] font-black text-white leading-[1.1] tracking-tight mb-12 text-center">
           Designed for modern institutions.
           <br />
-          <span className="text-[#6B5CE7]">Built for long-term clarity.</span>
+          <span className="text-[#6063EE]">Built for long-term clarity.</span>
         </h2>
       </FadeUp>
 
@@ -256,8 +252,12 @@ function MobileStats() {
               <p className="text-[52px] font-black text-white leading-none tracking-tight mb-2">
                 {stat.value}
               </p>
-              <p className="text-[10px] tracking-[2px] uppercase text-[#9896A4] mb-1">{stat.label}</p>
-              <p className="text-[12px] text-[#666] leading-relaxed max-w-[220px] mx-auto">{stat.sublabel}</p>
+              <p className="text-[10px] tracking-[2px] uppercase text-[#9896A4] mb-1">
+                {stat.label}
+              </p>
+              <p className="text-[12px] text-[#666] leading-relaxed max-w-[220px] mx-auto">
+                {stat.sublabel}
+              </p>
             </div>
           </FadeUp>
         ))}
@@ -267,7 +267,7 @@ function MobileStats() {
         <div className="flex justify-center">
           <Link
             href="/contact"
-            className="bg-[#6B5CE7] text-white text-[13px] font-semibold px-8 py-3.5 rounded-full active:scale-95 transition-transform"
+            className="bg-[#6063EE] text-white text-[13px] font-semibold px-8 py-3.5 rounded-full active:scale-95 transition-transform"
           >
             Join the Network
           </Link>
@@ -399,7 +399,7 @@ function MobileTrust() {
       <FadeUp>
         <h2 className="text-[28px] font-black text-[#0D0D0F] leading-[1.1] tracking-tight mb-3">
           Building systems that improve institutional{" "}
-          <span className="text-[#6B5CE7]">clarity.</span>
+          <span className="text-[#6063EE]">clarity.</span>
         </h2>
         <p className="text-[13px] leading-[1.8] text-[#666] mb-6">
           HermesWorkspace was created to simplify how institutions communicate,
@@ -410,7 +410,7 @@ function MobileTrust() {
         <ul className="space-y-2 mb-8">
           {TRUST_PILLARS.map((p) => (
             <li key={p} className="flex items-center gap-3 text-[#0D0D0F]">
-              <span className="block w-3 h-px bg-[#6B5CE7] shrink-0" />
+              <span className="block w-3 h-px bg-[#6063EE] shrink-0" />
               <span className="text-[10px] tracking-[2px] uppercase font-medium">{p}</span>
             </li>
           ))}
@@ -421,14 +421,12 @@ function MobileTrust() {
       <FadeUp delay={100}>
         <div className="bg-white rounded-3xl border border-[#E8E5F0] p-7 shadow-sm">
           <div
-            className="text-[48px] leading-none text-[#6B5CE7] opacity-20 mb-3 select-none"
-            style={{ fontFamily: "Georgia, serif" }}
+            className="text-[48px] leading-none text-[#6063EE] opacity-20 mb-3 select-none font-display"
           >
             "
           </div>
           <blockquote
-            className="text-[16px] leading-[1.6] font-medium text-[#0D0D0F] mb-6"
-            style={{ fontFamily: "var(--font-playfair, Georgia, serif)", fontStyle: "italic" }}
+            className="text-[16px] leading-[1.6] font-medium text-[#0D0D0F] mb-6 font-display italic"
           >
             We believe institutional technology should reduce complexity —
             helping educators and organizations focus on people,
@@ -436,7 +434,7 @@ function MobileTrust() {
           </blockquote>
           <div className="flex items-center gap-3">
             <div className="size-9 rounded-full bg-[#EAE8FF] flex items-center justify-center shrink-0">
-              <span className="text-[10px] font-black text-[#6B5CE7]">HW</span>
+              <span className="text-[10px] font-black text-[#6063EE]">HW</span>
             </div>
             <div>
               <p className="text-[12px] font-semibold text-[#0D0D0F]">Founding Members</p>
@@ -457,7 +455,7 @@ const PULSE_CARDS = [
     icon: Cpu,
     label: "Founder Notes",
     title: "Building systems that reduce operational complexity.",
-    color: "#6B5CE7",
+    color: "#6063EE",
     bg: "#EAE8FF",
   },
   {
@@ -471,7 +469,7 @@ const PULSE_CARDS = [
     icon: BarChart3,
     label: "Communication Systems",
     title: "Unified workflows replacing fragmented, generic institutional tools.",
-    color: "#6B5CE7",
+    color: "#6063EE",
     bg: "#EAE8FF",
   },
 ];
@@ -493,16 +491,16 @@ function MobilePulse() {
         <div className="relative rounded-2xl overflow-hidden bg-[#0D0D0F] mb-4 p-6 min-h-[180px] flex flex-col justify-end">
           {/* Lightweight grid decoration */}
           <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" viewBox="0 0 300 180">
-            {[0,1,2,3,4,5].map((i) => (
-              <line key={`v${i}`} x1={i*50} y1="0" x2={i*50} y2="180" stroke="white" strokeWidth="0.4" />
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <line key={`v${i}`} x1={i * 50} y1="0" x2={i * 50} y2="180" stroke="white" strokeWidth="0.4" />
             ))}
-            {[0,1,2,3].map((i) => (
-              <line key={`h${i}`} x1="0" y1={i*45} x2="300" y2={i*45} stroke="white" strokeWidth="0.4" />
+            {[0, 1, 2, 3].map((i) => (
+              <line key={`h${i}`} x1="0" y1={i * 45} x2="300" y2={i * 45} stroke="white" strokeWidth="0.4" />
             ))}
           </svg>
-          <div className="absolute top-4 right-4 size-20 rounded-full bg-[#6B5CE7]/15 blur-2xl pointer-events-none" />
+          <div className="absolute top-4 right-4 size-20 rounded-full bg-[#6063EE]/15 blur-2xl pointer-events-none" />
 
-          <span className="self-start text-[8px] tracking-[2px] uppercase text-[#6B5CE7] bg-[#6B5CE7]/20 px-2 py-1 rounded-[2px] mb-2 font-medium">
+          <span className="self-start text-[8px] tracking-[2px] uppercase text-[#6063EE] bg-[#6063EE]/20 px-2 py-1 rounded-[2px] mb-2 font-medium">
             Product Insight
           </span>
           <h3 className="text-[18px] font-black text-white leading-tight">
@@ -549,18 +547,17 @@ function MobileCta() {
       {/* Soft blob */}
       <div
         className="absolute left-1/2 -translate-x-1/2 size-72 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(107,92,231,0.06) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, rgba(96,99,238,0.06) 0%, transparent 70%)" }}
       />
       <FadeUp>
-        <p className="text-[9px] tracking-[2.5px] uppercase text-[#6B5CE7] font-semibold mb-4">
+        <p className="text-[9px] tracking-[2.5px] uppercase text-[#6063EE] font-semibold mb-4">
           Build With HermesWorkspace
         </p>
         <h2
-          className="text-[30px] font-black text-[#0D0D0F] leading-[1.05] tracking-tight mb-5"
-          style={{ fontFamily: "var(--font-playfair, Georgia, serif)" }}
+          className="text-[30px] font-black text-[#0D0D0F] leading-[1.05] tracking-tight mb-5 font-display"
         >
           Building the future of{" "}
-          <span className="text-[#6B5CE7]">institutional communication</span>{" "}
+          <span className="text-[#6063EE]">institutional communication</span>{" "}
           across India.
         </h2>
         <p className="text-[13px] text-[#666] leading-relaxed mb-8">
@@ -572,17 +569,17 @@ function MobileCta() {
         <div className="flex flex-col gap-3">
           <a
             href="mailto:connect@hermesworkspace.com"
-            className="flex items-center justify-center gap-2 bg-[#6B5CE7] text-white text-[13px] font-semibold px-6 py-3.5 rounded-full active:scale-95 transition-transform"
+            className="flex items-center justify-center gap-2 bg-[#6063EE] text-white text-[13px] font-semibold px-6 py-3.5 rounded-full active:scale-95 transition-transform"
           >
             Connect With Us
             <ArrowRight size={14} />
           </a>
-          <a
+          <Link
             href="/about"
             className="flex items-center justify-center gap-2 text-[#0D0D0F] text-[13px] font-medium px-6 py-3.5 rounded-full border border-[#D8D4CC] active:scale-95 transition-transform"
           >
             Learn About HermesWorkspace
-          </a>
+          </Link>
         </div>
 
         <p className="text-[10px] text-[#9896A4] mt-7 text-center">

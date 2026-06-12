@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { legalDocuments, type LegalDocument, type LegalSlug } from "@/lib/legal-documents";
@@ -13,14 +10,14 @@ function renderContent(text: string) {
   return parts.map((part, i) =>
     EMAIL_RE.test(part) ? (
       <a
-        key={i}
+        key={`email-${part}`}
         href={`mailto:${part}`}
-        className="text-[#5e6ad2] underline decoration-[rgba(94,106,210,0.28)] underline-offset-4 transition-colors hover:text-[#414bb3]"
+        className="text-[#6063EE] underline decoration-[rgba(96,99,238,0.28)] underline-offset-4 transition-colors hover:text-[#4648D4]"
       >
         {part}
       </a>
     ) : (
-      <span key={i}>{part}</span>
+      <span key={`text-${part}`}>{part}</span>
     )
   );
 }
@@ -47,12 +44,7 @@ const documentNav: { type: LegalSlug; label: string; href: string }[] = [
 export default function LegalDocPage({ document }: LegalDocPageProps) {
   return (
     <main
-      className="min-h-screen bg-[#f7f8f8] text-[#161922]"
-      style={{
-        fontFamily:
-          '"SF Pro Display Medium", "Inter Variable", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-        fontFeatureSettings: '"cv01", "ss03"',
-      }}
+      className="min-h-screen bg-[#f7f8f8] text-[#161922] font-body"
     >
       {/* Bulletproof native smooth scrolling fallback */}
       <style dangerouslySetInnerHTML={{ __html: `html { scroll-behavior: smooth !important; }` }} />
@@ -75,7 +67,7 @@ export default function LegalDocPage({ document }: LegalDocPageProps) {
                   href={item.href}
                   className={`py-1.5 text-[13px] transition-colors ${
                     item.type === document.slug
-                      ? "font-medium text-[#5e6ad2]"
+                      ? "font-medium text-[#6063EE]"
                       : "text-[#62666d] hover:text-[#161922]"
                   }`}
                 >
@@ -92,22 +84,7 @@ export default function LegalDocPage({ document }: LegalDocPageProps) {
                 <a
                   key={section.id}
                   href={`#${section.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = window.document.getElementById(section.id);
-                    if (element) {
-                      const headerOffset = 80;
-                      const elementPosition = element.getBoundingClientRect().top;
-                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                      
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                      });
-                    }
-                    window.history.pushState(null, "", `#${section.id}`);
-                  }}
-                  className="py-1 text-[13px] leading-5 text-[#62666d] transition-colors hover:text-[#161922]"
+                  className="block py-1.5 text-sm text-brand-muted hover:text-brand transition-colors"
                 >
                   {section.title}
                 </a>
@@ -119,7 +96,7 @@ export default function LegalDocPage({ document }: LegalDocPageProps) {
         {/* ── Article ── */}
         <article className="min-w-0">
           <div className="border-b border-[#d0d6e0] pb-10">
-            <p className="text-[13px] font-medium text-[#5e6ad2]">
+            <p className="text-[13px] font-medium text-[#6063EE]">
               {document.eyebrow}
             </p>
             <h1 className="mt-4 text-[42px] font-medium leading-none text-[#161922] sm:text-[56px]">
@@ -130,7 +107,7 @@ export default function LegalDocPage({ document }: LegalDocPageProps) {
             </p>
             <div className="mt-8 space-y-5 text-[17px] leading-8 text-[#34343a]">
               {document.intro.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
+                <p key={`intro-${paragraph}`}>{paragraph}</p>
               ))}
             </div>
           </div>

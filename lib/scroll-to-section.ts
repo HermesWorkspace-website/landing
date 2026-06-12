@@ -8,7 +8,7 @@ const SECTION_ALIASES: Record<string, string[]> = {
   team: ["team"],
 };
 
-export function getHeaderOffset(): number {
+function getHeaderOffset(): number {
   if (typeof window === "undefined") return 96;
   return window.innerWidth >= 768 ? 96 : 56;
 }
@@ -26,11 +26,11 @@ function pickVisibleElement(matches: NodeListOf<Element>): HTMLElement | null {
   return (visible ?? matches[matches.length - 1]) as HTMLElement;
 }
 
-export function resolveSectionIds(id: string): string[] {
+function resolveSectionIds(id: string): string[] {
   return SECTION_ALIASES[id] ?? [id];
 }
 
-export function getScrollTarget(id: string): HTMLElement | null {
+function getScrollTarget(id: string): HTMLElement | null {
   for (const sectionId of resolveSectionIds(id)) {
     const matches = document.querySelectorAll(`#${CSS.escape(sectionId)}`);
     const target = pickVisibleElement(matches);
@@ -94,7 +94,7 @@ export function setPendingScrollTarget(id: string): void {
   sessionStorage.setItem(PENDING_SCROLL_KEY, id);
 }
 
-export function consumePendingScrollTarget(): string | null {
+function consumePendingScrollTarget(): string | null {
   if (typeof window === "undefined") return null;
   const id = sessionStorage.getItem(PENDING_SCROLL_KEY);
   if (id) sessionStorage.removeItem(PENDING_SCROLL_KEY);
@@ -119,7 +119,7 @@ export function stripHashFromUrl(): void {
   window.history.replaceState({}, "", `${window.location.pathname}${query}`);
 }
 
-export function cleanScrollQueryParam(): void {
+function cleanScrollQueryParam(): void {
   const params = new URLSearchParams(window.location.search);
   if (!params.has("scroll")) return;
   params.delete("scroll");

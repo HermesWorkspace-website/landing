@@ -3,7 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import {
   IconSearch, IconX, IconClock, IconFilter, IconCheck, IconCalendar, IconChevronLeft
 } from '@tabler/icons-react'
@@ -50,7 +50,7 @@ const CATEGORY_COLORS: Record<string, { pill: string; bg: string; text: string; 
     pill: 'bg-green-500/10 text-green-600',
     bg: 'bg-green-500/10',
     text: 'text-green-600',
-    accent: '#22C55E'
+    accent: '#6063EE'
   },
 
   "Parent Engagement": {
@@ -85,7 +85,7 @@ function ArticleCard({ article }: { article: ArchiveArticle }) {
 
   return (
     <Link href={`/blog/${article.slug}`} className="block group">
-      <motion.article
+      <m.article
         whileHover={{ y: -4 }}
         transition={{ duration: 0.28, ease: 'easeOut' }}
         className="h-full flex flex-col"
@@ -93,10 +93,11 @@ function ArticleCard({ article }: { article: ArchiveArticle }) {
         {/* ── Cover image ── */}
         <div className="relative w-full rounded-2xl overflow-hidden">
           {article.cover ? (
-            <img
+            <Image
               src={article.cover}
               alt={article.coverAlt}
-              loading="lazy"
+              width={800}
+              height={450}
               className="w-full h-auto transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.04]"
             />
           ) : (
@@ -131,7 +132,7 @@ function ArticleCard({ article }: { article: ArchiveArticle }) {
         <p className="font-body text-[13.5px] text-brand-muted leading-relaxed line-clamp-2">
           {article.excerpt}
         </p>
-      </motion.article>
+      </m.article>
     </Link>
   )
 }
@@ -281,7 +282,7 @@ const regularPosts = useMemo(
     }
 
     return base
-  }, [articles,regularPosts, activeCategories, debouncedQuery])
+  }, [regularPosts, activeCategories, debouncedQuery])
 
   const isSearching = debouncedQuery.trim().length > 0 && searchFocused
 
@@ -298,7 +299,7 @@ const regularPosts = useMemo(
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <p className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-brand-ink/40 mb-2">
+              <p className="font-body text-[11px] font-bold uppercase tracking-[0.18em] text-brand-ink/40 mb-2">
                 Complete Archive
               </p>
               <h1
@@ -331,7 +332,7 @@ const regularPosts = useMemo(
                     className="font-body flex-1 text-[13.5px] text-brand-ink placeholder:text-brand-ink/30 bg-transparent outline-none min-w-0"
                   />
                   {query && (
-                    <button onClick={() => { setQuery(''); setDebouncedQuery('') }}
+                    <button type="button" onClick={() => { setQuery(''); setDebouncedQuery('') }}
                       className="text-brand-ink/40 hover:text-brand transition-colors">
                       <IconX size={14} />
                     </button>
@@ -341,7 +342,7 @@ const regularPosts = useMemo(
                 {/* Suggestions Dropdown */}
                 <AnimatePresence>
                   {isSearching && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: 6, scale: 0.98 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.98 }}
@@ -380,7 +381,7 @@ const regularPosts = useMemo(
                           </div>
                         </>
                       )}
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -388,6 +389,7 @@ const regularPosts = useMemo(
               {/* Filter Button */}
               <div className="relative">
                 <button
+                  type="button"
                   onClick={() => setShowFilter((p) => !p)}
                   className={`font-body flex items-center gap-2 px-3.5 py-2.5 rounded-xl border text-[13px] font-semibold transition-all shadow-sm ${
                     activeCategories.length > 0
@@ -406,7 +408,7 @@ const regularPosts = useMemo(
 
                 <AnimatePresence>
                   {showFilter && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: 6, scale: 0.97 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.97 }}
@@ -424,6 +426,7 @@ const regularPosts = useMemo(
                           return (
                             <button
                               key={cat}
+                              type="button"
                               onClick={() => toggleCategory(cat)}
                               className={`font-body w-full flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg text-[12.5px] transition-colors ${
                                 active ? 'bg-brand/10 text-brand' : 'text-brand-ink/70 hover:bg-neutral-50'
@@ -444,13 +447,14 @@ const regularPosts = useMemo(
                       </div>
                       {activeCategories.length > 0 && (
                         <button
+                          type="button"
                           onClick={() => { setActiveCategories([]); setShowFilter(false) }}
                           className="font-body w-full mt-2 pt-2 border-t border-neutral-100 text-[12px] text-brand-ink/40 hover:text-brand transition-colors text-center"
                         >
                           Clear all filters
                         </button>
                       )}
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -460,7 +464,7 @@ const regularPosts = useMemo(
           {/* Active filter tags row */}
           <AnimatePresence>
             {activeCategories.length > 0 && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
@@ -471,6 +475,7 @@ const regularPosts = useMemo(
                   return (
                     <button
                       key={cat}
+                      type="button"
                       onClick={() => toggleCategory(cat)}
                       className={`font-body inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold ${pill}`}
                     >
@@ -479,7 +484,7 @@ const regularPosts = useMemo(
                     </button>
                   )
                 })}
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
@@ -492,7 +497,7 @@ const regularPosts = useMemo(
   {featuredPosts.length > 0 && (
     <section className="mb-20">
       <div className="mb-10">
-        <p className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-brand">
+        <p className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-brand">
           Featured Content
         </p>
 
@@ -507,7 +512,7 @@ const regularPosts = useMemo(
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {featuredPosts.map((article, i) => (
-          <motion.div
+          <m.div
             key={article.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -517,7 +522,7 @@ const regularPosts = useMemo(
             }}
           >
             <ArticleCard article={article} />
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>
@@ -527,7 +532,7 @@ const regularPosts = useMemo(
   <div className="my-16 flex items-center gap-4">
     <div className="flex-1 h-px bg-neutral-200" />
 
-    <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-ink/40">
+    <span className="font-body text-[11px] uppercase tracking-[0.2em] text-brand-ink/40">
       All Blogs
     </span>
 
@@ -553,7 +558,7 @@ const regularPosts = useMemo(
   ) : (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
       {filteredArticles.map((article, i) => (
-        <motion.div
+        <m.div
           key={article.id}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -564,7 +569,7 @@ const regularPosts = useMemo(
           }}
         >
           <ArticleCard article={article} />
-        </motion.div>
+        </m.div>
       ))}
     </div>
   )}
@@ -574,4 +579,3 @@ const regularPosts = useMemo(
   )
 }
 
-export default ArchiveClient

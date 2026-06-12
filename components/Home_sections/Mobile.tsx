@@ -26,7 +26,7 @@
  */
 
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { m, AnimatePresence, useInView } from "framer-motion";
 import {
   ArrowRight, Zap, Video, MessageSquare, Bell,
   Users, Activity, Calendar, Presentation,
@@ -42,12 +42,12 @@ function FadeUp({ children, delay = 0, className = "" }: {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   return (
-    <motion.div ref={ref} className={className}
+    <m.div ref={ref} className={className}
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -73,40 +73,31 @@ function MobileHero() {
       <div className="container-page relative z-10 flex flex-col items-center text-center gap-5">
 
         {/* Badge */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <m.div initial={{ opacity: 1, y: 0 }}>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/[0.08] border border-brand/[0.12] text-[11px] font-semibold text-brand font-body">
             <Zap className="size-3 fill-brand" />
             v1.0.1 Live Now
           </span>
-        </motion.div>
+        </m.div>
 
         {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        <m.h1 initial={{ opacity: 1, y: 0 }}
           className="font-display font-extrabold leading-[1.08] tracking-[-0.03em] text-brand-ink"
           style={{ fontSize: "clamp(2rem, 9vw, 2.8rem)" }}
         >
           Every school.<br />
           <span className="gradient-text-brand">Connected Through<br />One Platform.</span>
-        </motion.h1>
+        </m.h1>
 
         {/* Sub */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.22 }}
+        <m.p initial={{ opacity: 1, y: 0 }}
           className="text-[0.9375rem] text-brand-muted font-body leading-relaxed max-w-[320px]"
         >
           HermesWorkspace centralizes communication, notices, classes, meetings, and academic coordination — built for Indian schools.
-        </motion.p>
+        </m.p>
 
         {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.34 }}
+        <m.div initial={{ opacity: 1, y: 0 }}
           className="flex flex-col gap-3 w-full max-w-[280px]"
         >
           <Link href="/contact?scroll=inquiry"
@@ -120,28 +111,25 @@ function MobileHero() {
           >
             <Video className="size-4 text-brand" /> Explore Platform
           </button>
-        </motion.div>
+        </m.div>
 
         {/* Trust strip */}
-        {/* <motion.div
+        {/* <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           className="flex items-center gap-2 text-xs text-brand-muted font-body"
         >
           <div className="flex -space-x-1.5">
-            {["#6063EE", "#A855F7", "#22C55E", "#F59E0B"].map((c, i) => (
+            {["#6063EE", "#7B7FF0", "#4648D4", "#8A8DF5"].map((c, i) => (
               <div key={`item-${i}`} className="size-5 rounded-full border-2 border-white" style={{ background: c }} />
             ))}
           </div>
           <span>Built for Indian schools</span>
-        </motion.div> */}
+        </m.div> */}
 
         {/* Minimal dashboard preview — static, no mock UI overhead */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        <m.div initial={{ opacity: 1, y: 0 }}
           className="w-full mt-2 rounded-2xl border border-black/[0.06] bg-white shadow-[0_8px_40px_rgba(96,99,238,0.10)] overflow-hidden"
         >
           {/* Fake browser bar */}
@@ -153,7 +141,7 @@ function MobileHero() {
           <div className="grid grid-cols-3 gap-2 p-3">
             {[
               { label: "Students", val: "2000+", color: "bg-blue-500/[0.07]" },
-              { label: "Teachers", val: "50+", color: "bg-purple-500/[0.07]" },
+              { label: "Teachers", val: "50+", color: "bg-brand/[0.07]" },
               { label: "Engage", val: "94%", color: "bg-green-500/[0.07]" },
             ].map(s => (
               <div key={s.label} className={`${s.color} rounded-xl p-2.5 text-center`}>
@@ -169,13 +157,13 @@ function MobileHero() {
               { label: "Maths · Class XII", color: "bg-brand/[0.05] border-brand/10", dot: "bg-brand", text: "text-brand" },
             ].map(item => (
               <div key={item.label} className={`flex items-center gap-2 rounded-xl px-3 py-2 border ${item.color}`}>
-                <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.4, repeat: Infinity }}
-                  className={`size-1.5 rounded-full shrink-0 ${item.dot}`} />
+                <div
+                  className={`size-1.5 rounded-full shrink-0 ${item.dot} anim-pulse-opacity`} />
                 <span className={`text-[10px] font-bold font-body ${item.text}`}>{item.label}</span>
               </div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
@@ -196,7 +184,7 @@ function MobileStats() {
     <section className="py-10 border-y border-black/[0.05] bg-white">
       <div className="container-page grid grid-cols-2 gap-5">
         {MOBILE_STATS_ITEMS.map((s, i) => (
-          <FadeUp key={`item-${i}`} delay={i * 0.07}>
+          <FadeUp key={s.label} delay={i * 0.07}>
             <div className="font-display font-extrabold text-brand-ink text-[1.6rem] tracking-tight leading-tight">{s.val}</div>
             <div className="text-xs text-brand-muted font-body mt-1">{s.label}</div>
           </FadeUp>
@@ -210,13 +198,13 @@ function MobileStats() {
 // 3. FEATURES — icon list, no mock UIs (too heavy for mobile)
 // ═══════════════════════════════════════════════════════════════════════════════
 const FEATURES = [
-  { icon: MessageSquare, label: "Messages", desc: "Parent–teacher, staff, and class group chats with read receipts.", color: "bg-purple-500/[0.08] text-purple-600" },
+  { icon: MessageSquare, label: "Messages", desc: "Parent–teacher, staff, and class group chats with read receipts.", color: "bg-brand/[0.08] text-brand" },
   { icon: Video, label: "Classes", desc: "Live classes up to 150 students each.", color: "bg-brand/[0.08] text-brand" },
-  { icon: Calendar, label: "Meetings", desc: "Staff meetings, Teacher meeting, Parents-Teachers meeting", color: "bg-amber-500/[0.08] text-amber-600" },
-  { icon: Presentation, label: "Webinars", desc: "Large-scale webinars for orientations and guest lectures up to 500 attendees.", color: "bg-rose-500/[0.08] text-rose-600" },
-  { icon: Bell, label: "Notice Board", desc: "Push school announcements to every one's phone in seconds.", color: "bg-blue-500/[0.08] text-blue-600" },
-  { icon: Users, label: "Members", desc: "Manage students, teachers, admins with role-based access and bulk onboarding.", color: "bg-green-500/[0.08] text-green-600" },
-  { icon: Activity, label: "Activity", desc: "Teachers can create and manage activities, competitions, and events for students to discover and participate in.", color: "bg-violet-500/[0.08] text-violet-600" },
+  { icon: Calendar, label: "Meetings", desc: "Staff meetings, Teacher meeting, Parents-Teachers meeting", color: "bg-brand/[0.08] text-brand" },
+  { icon: Presentation, label: "Webinars", desc: "Large-scale webinars for orientations and guest lectures up to 500 attendees.", color: "bg-brand/[0.08] text-brand" },
+  { icon: Bell, label: "Notice Board", desc: "Push school announcements to every one's phone in seconds.", color: "bg-brand/[0.08] text-brand" },
+  { icon: Users, label: "Members", desc: "Manage students, teachers, admins with role-based access and bulk onboarding.", color: "bg-brand/[0.08] text-brand" },
+  { icon: Activity, label: "Activity", desc: "Teachers can create and manage activities, competitions, and events for students to discover and participate in.", color: "bg-brand/[0.08] text-brand" },
 ];
 
 function MobileFeatures() {
@@ -307,7 +295,7 @@ function MobileWorkflow() {
                 <div className="flex gap-4">
                   {/* Step dot */}
                   <div className="relative z-10 size-9 rounded-full bg-brand/[0.08] border border-brand/[0.15] flex items-center justify-center shrink-0">
-                    <span className="font-mono text-[10px] font-bold text-brand">{s.num}</span>
+                    <span className="font-body text-[10px] font-bold text-brand">{s.num}</span>
                   </div>
                   {/* Content */}
                   <div className="bg-white rounded-2xl border border-black/[0.05] p-4 shadow-sm flex-1">
@@ -317,8 +305,8 @@ function MobileWorkflow() {
                     <h3 className="font-display font-bold text-brand-ink text-[0.9375rem] mb-1">{s.title}</h3>
                     <p className="text-xs text-brand-muted font-body leading-relaxed">{s.desc}</p>
                   </div>
-                </div>
-              </FadeUp>
+              </div>
+            </FadeUp>
             ))}
           </div>
         </div>
@@ -451,8 +439,8 @@ function MobileFAQ() {
 
         <div className="divide-y divide-black/[0.06]">
           {FAQS.map((f, i) => (
-            <FadeUp key={f.q} delay={i * 0.05}>
-              <div className="cursor-pointer" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
+              <FadeUp key={f.q} delay={i * 0.05}>
+                <button type="button" className="w-full text-left p-0 bg-transparent border-0 cursor-pointer" onClick={() => setOpenIdx(openIdx === i ? null : i)}>
                 <div className="py-4 flex items-start justify-between gap-3">
                   <span className={`font-body font-medium text-[0.9rem] transition-colors ${openIdx === i ? "text-brand" : "text-brand-ink"}`}>
                     {f.q}
@@ -463,7 +451,7 @@ function MobileFAQ() {
                 </div>
                 <AnimatePresence initial={false}>
                   {openIdx === i && (
-                    <motion.div
+                    <m.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -471,10 +459,10 @@ function MobileFAQ() {
                       className="overflow-hidden"
                     >
                       <p className="pb-4 text-sm text-brand-muted font-body leading-relaxed pr-6">{f.a}</p>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </button>
             </FadeUp>
           ))}
         </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import HomeClient from "./HomeClient";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.hermesworkspace.com"),
+  metadataBase: new URL("https://hermesworkspace.com"),
 
   title: {
     default: "HermesWorkspace | School Communication & Management Platform",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.hermesworkspace.com",
+    canonical: "https://hermesworkspace.com",
   },
 
   robots: {
@@ -43,29 +43,30 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: "https://www.hermesworkspace.com",
+    url: "https://hermesworkspace.com",
     siteName: "HermesWorkspace",
     title: "HermesWorkspace | School Communication & Management Platform",
     description:
       "A modern communication and management workspace for educational institutions.",
     locale: "en_IN",
-
     images: [
       {
-        url: "/og-image.png",
+        url: "https://hermesworkspace.com/opengraph-image?v=3",
         width: 1200,
         height: 630,
-        alt: "HermesWorkspace",
+        alt: "HermesWorkspace — Every school. One platform.",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "HermesWorkspace",
+    site: "@hermesworkspace",
+    creator: "@hermesworkspace",
+    title: "HermesWorkspace | School Communication & Management Platform",
     description:
       "Modern communication and management platform for educational institutions.",
-    images: ["/og-image.png"],
+    images: ["https://hermesworkspace.com/opengraph-image?v=3"],
   },
 
   category: "education",
@@ -75,7 +76,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "HermesWorkspace",
-      url: "https://www.hermesworkspace.com",
+      url: "https://hermesworkspace.com",
     },
   ],
 
@@ -83,7 +84,7 @@ export const metadata: Metadata = {
   publisher: "HermesWorkspace",
 
   other: {
-    "theme-color": "#0A0A0A",
+    "theme-color": "#6063EE",
   },
 };
 

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, MessageSquare, Video,
   Bell, Users, BookOpen, Zap, Presentation, User, CalendarDays,
@@ -9,21 +9,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import * as THREE from "three";
 
 // ─── FLOATING CARD ───────────────────────────────────────────────────────────
 function FloatingCard({
   children, className, delay = 0,
 }: { children: React.ReactNode; className?: string; delay?: number }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20, scale: 0.92 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
       className={`glass rounded-2xl px-4 py-3 shadow-[0_8px_40px_rgba(96,99,238,0.12),0_2px_8px_rgba(0,0,0,0.06)] border border-white/80 backdrop-blur-xl ${className}`}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -72,21 +71,22 @@ function LiveTimer() {
 }
 
 // ─── OVERVIEW VISUAL ──────────────────────────────────────────────────────────
+const OVERVIEW_STATS = [
+  { label: "Students", value: 1842, gradient: "from-blue-500/10 to-brand/10" },
+  { label: "Live Classes", value: 12, gradient: "from-brand/8 to-brand/[0.04]" },
+  { label: "Engagement", value: 94, suffix: "%", gradient: "from-green-500/10 to-emerald-500/10" },
+];
+
 function OverviewVisual() {
-  const stats = [
-    { label: "Students", value: 1842, gradient: "from-blue-500/10 to-brand/10" },
-    { label: "Live Classes", value: 12, gradient: "from-purple-500/10 to-pink-500/10" },
-    { label: "Engagement", value: 94, suffix: "%", gradient: "from-green-500/10 to-emerald-500/10" },
-  ];
   return (
     <div className="grid grid-cols-2 gap-3 h-full">
       <div className="col-span-2 grid grid-cols-3 gap-3">
-        {stats.map((s, i) => (
-          <motion.div
-            key={i}
+        {OVERVIEW_STATS.map((s, sIdx) => (
+          <m.div
+            key={s.label}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.12, ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
+            transition={{ delay: sIdx * 0.12, ease: [0.22, 1, 0.36, 1], duration: 0.6 }}
             whileHover={{ y: -3, transition: { duration: 0.2 } }}
             className={`rounded-2xl bg-gradient-to-br ${s.gradient} border border-black/[0.03] p-4 cursor-default`}
           >
@@ -94,18 +94,18 @@ function OverviewVisual() {
               <AnimatedCounter target={s.value} suffix={s.suffix} />
             </div>
             <div className="text-[10px] text-brand-ink/50 mt-1 font-semibold uppercase tracking-wider">{s.label}</div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
-      <motion.div
+      <m.div
         initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4, duration: 0.6 }}
         className="rounded-2xl bg-white border border-black/[0.05] p-4 shadow-sm"
       >
         <div className="text-sm font-semibold text-brand-ink mb-3">Academic Calendar</div>
         <div className="space-y-2.5">
           {[100, 65, 45].map((w, i) => (
-            <motion.div
-              key={i}
+            <m.div
+              key={`progress-${i}`}
               initial={{ width: 0 }}
               animate={{ width: `${w}%` }}
               transition={{ delay: 0.6 + i * 0.1, duration: 0.8, ease: "easeOut" }}
@@ -113,8 +113,8 @@ function OverviewVisual() {
             />
           ))}
         </div>
-      </motion.div>
-      <motion.div
+      </m.div>
+      <m.div
         initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5, duration: 0.6 }}
         className="rounded-2xl bg-white border border-black/[0.05] p-4 shadow-sm"
       >
@@ -122,22 +122,20 @@ function OverviewVisual() {
         {[
           { subject: "Physics · Class X", color: "red" },
           { subject: "Maths · Class XII", color: "brand" },
-        ].map((item, i) => (
-          <motion.div
-            key={i}
+        ].map((item, itemIdx) => (
+          <m.div
+            key={item.subject}
             initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.7 + i * 0.12 }}
+            transition={{ delay: 0.7 + itemIdx * 0.12 }}
             className={`flex items-center gap-2 rounded-xl px-3 py-2 mb-2 ${item.color === "red" ? "bg-red-500/[0.05] border border-red-500/10" : "bg-brand/[0.05] border border-brand/10"}`}
           >
-            <motion.span
-              animate={{ opacity: [1, 0.3, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className={`size-1.5 rounded-full ${item.color === "red" ? "bg-red-500" : "bg-brand"}`}
+            <span
+              className={`size-1.5 rounded-full ${item.color === "red" ? "bg-red-500" : "bg-brand"} anim-pulse-opacity-fast`}
             />
             <span className={`text-[10px] font-bold ${item.color === "red" ? "text-red-500" : "text-brand"}`}>{item.subject}</span>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
     </div>
   );
 }
@@ -154,62 +152,61 @@ function CommunicationVisual() {
   return (
     <div className="h-full flex rounded-2xl overflow-hidden border border-black/[0.05] bg-white">
       <div className="w-[48px] bg-[#FAFAFA] border-r border-black/[0.05] flex flex-col items-center py-3 gap-2">
-        {["10", "11", "T", "SC"].map((w, i) => (
-          <motion.div
-            key={i}
+        {["10", "11", "T", "SC"].map((w, idx) => (
+          <m.div
+            key={`class-${w}`}
             initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.08 }}
+            transition={{ delay: idx * 0.08 }}
             whileHover={{ scale: 1.1 }}
-            className={`size-9 rounded-xl flex items-center justify-center text-[10px] font-bold cursor-pointer transition-all ${i === 0 ? "bg-brand text-white shadow-lg shadow-brand/30" : "bg-black/[0.05] text-brand-ink/40 hover:bg-black/10"}`}
+            className={`size-9 rounded-xl flex items-center justify-center text-[10px] font-bold cursor-pointer transition-all ${idx === 0 ? "bg-brand text-white shadow-lg shadow-brand/30" : "bg-black/[0.05] text-brand-ink/40 hover:bg-black/10"}`}
           >
             {w}
-          </motion.div>
+          </m.div>
         ))}
       </div>
       <div className="w-[160px] border-r border-black/[0.05] bg-[#FCFCFC] p-3">
         <div className="text-xs font-bold text-brand-ink mb-3">Class 10</div>
         {["10A", "10B", "General", "Science"].map((c, i) => (
-          <motion.div
-            key={i}
+          <m.div
+            key={`section-${c}`}
             initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 + i * 0.07 }}
             className={`px-2 py-1.5 rounded-lg text-xs mb-1 cursor-pointer transition-all ${i === 0 ? "bg-brand/[0.09] text-brand font-semibold" : "text-brand-ink/50 hover:bg-black/[0.03] hover:text-brand-ink/70"}`}
           >
             # {c}
-          </motion.div>
+          </m.div>
         ))}
       </div>
       <div className="flex-1 p-4 flex flex-col justify-end gap-3 overflow-hidden">
-        {COMM_MESSAGES.map((m, i) => (
-          <motion.div
-            key={i}
+        {COMM_MESSAGES.map((msg) => (
+          <m.div
+            key={msg.text}
             initial={{ opacity: 0, y: 12, x: -6 }} animate={{ opacity: 1, y: 0, x: 0 }}
-            transition={{ delay: m.delay, ease: [0.22, 1, 0.36, 1], duration: 0.5 }}
+            transition={{ delay: msg.delay, ease: [0.22, 1, 0.36, 1], duration: 0.5 }}
             className="flex gap-2 items-start"
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0 }} animate={{ scale: 1 }}
-              transition={{ delay: m.delay, type: "spring", stiffness: 260, damping: 20 }}
+              transition={{ delay: msg.delay, type: "spring", stiffness: 260, damping: 20 }}
               className="size-7 rounded-full bg-brand/[0.08] flex-shrink-0"
             />
             <div className="rounded-2xl rounded-tl-md bg-black/[0.03] px-4 py-2.5 text-xs text-brand-ink leading-relaxed max-w-[85%]">
-              {m.text}
+              {msg.text}
             </div>
-          </motion.div>
+          </m.div>
         ))}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }} className="flex gap-2 items-center">
+        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6 }} className="flex gap-2 items-center">
           <div className="size-7 rounded-full bg-brand/[0.08]" />
           <div className="rounded-2xl rounded-tl-md bg-black/[0.03] px-4 py-2.5 flex gap-1 items-center">
-            {[0, 1, 2].map((i) => (
-              <motion.span
-                key={i}
-                animate={{ y: [0, -4, 0] }}
-                transition={{ duration: 0.7, repeat: Infinity, delay: i * 0.15 }}
-                className="size-1.5 rounded-full bg-brand-ink/25"
+            {[0, 1, 2].map((dotIdx) => (
+              <span
+                key={`typing-dot-${dotIdx}`}
+                className="size-1.5 rounded-full bg-brand-ink/25 anim-float-y"
+                style={{ animationDelay: `${dotIdx * 0.15}s` }}
               />
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );
@@ -228,32 +225,26 @@ function ClassesVisual() {
   return (
     <div className="h-full flex gap-3">
       <div className="flex-1 rounded-2xl bg-[#0F172A] relative overflow-hidden">
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-0 bg-gradient-to-br from-brand/25 to-purple-900/40 mix-blend-overlay"
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-brand/25 to-transparent"
         />
-        <motion.div
-          animate={{ x: [0, 20, 0], y: [0, -15, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        <div
           className="absolute top-1/4 left-1/4 size-40 bg-brand/20 rounded-full blur-3xl"
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-          <motion.div
-            animate={{ scale: [1, 1.04, 1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="size-16 rounded-full border-2 border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-md"
+          <div
+            className="size-16 rounded-full border-2 border-white/20 flex items-center justify-center bg-white/10 backdrop-blur-md anim-pulse-scale-subtle"
           >
             <Users className="size-7 text-white/70" />
-          </motion.div>
+          </div>
           <span className="text-white/50 text-[10px] font-bold tracking-widest uppercase">Dr. Satish Kumar</span>
         </div>
         <div className="absolute top-3 left-3 flex items-center gap-2">
           <div className="flex items-center gap-1.5 bg-red-500 rounded-full px-2.5 py-1">
-            <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1, repeat: Infinity }} className="size-1.5 rounded-full bg-white" />
+            <span className="size-1.5 rounded-full bg-white anim-pulse-opacity-blink" />
             <span className="text-[9px] font-bold text-white">LIVE</span>
           </div>
-          <div className="bg-black/50 backdrop-blur-md rounded-full px-2.5 py-1 text-[9px] font-mono text-white/80">
+          <div className="bg-black/50 backdrop-blur-md rounded-full px-2.5 py-1 text-[9px] font-body text-white/80">
             <LiveTimer />
           </div>
         </div>
@@ -263,14 +254,14 @@ function ClassesVisual() {
             <div className="text-white/50 text-[10px] mt-0.5">Class 12-B · Science</div>
           </div>
           <div className="flex gap-1.5">
-            {[<Mic key="mic" className="size-3" />, <Monitor key="monitor" className="size-3" />, <PhoneCall key="phone" className="size-3" />].map((icon, i) => (
-              <motion.div
-                key={i}
+            {[<Mic key="mic" className="size-3" />, <Monitor key="monitor" className="size-3" />, <PhoneCall key="phone" className="size-3" />].map((icon, iconIdx) => (
+              <m.div
+                key={`meeting-icon-${iconIdx}`}
                 whileHover={{ scale: 1.15, backgroundColor: "rgba(255,255,255,0.2)" }}
                 className="size-7 rounded-lg bg-white/10 border border-white/10 flex items-center justify-center text-white/60 cursor-pointer backdrop-blur-md"
               >
                 {icon}
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -279,28 +270,27 @@ function ClassesVisual() {
         <div className="text-[9px] font-bold text-brand-ink/40 uppercase tracking-wider mb-2">Participants (42)</div>
         <div className="flex-1 space-y-1.5 overflow-hidden">
           {CLASS_PARTICIPANTS.map((p, i) => (
-            <motion.div
-              key={i}
+            <m.div
+              key={p.name}
               initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ x: -2 }}
               className="flex items-center justify-between p-2 rounded-xl bg-white border border-black/[0.04] shadow-sm"
             >
               <span className="text-[10px] font-medium text-brand-ink truncate">{p.name}</span>
-              <motion.div
-                animate={p.mic ? { scale: [1, 1.3, 1] } : {}}
-                transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
-                className={`size-1.5 rounded-full flex-shrink-0 ${p.mic ? "bg-green-500" : "bg-brand-ink/15"}`}
+              <div
+                className={`size-1.5 rounded-full flex-shrink-0 ${p.mic ? "bg-green-500 anim-pulse-scale" : "bg-brand-ink/15"}`}
+                style={p.mic ? { animationDelay: `${i * 0.3}s` } : undefined}
               />
-            </motion.div>
+            </m.div>
           ))}
         </div>
-        <motion.div
+        <m.div
           whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
           className="mt-2 h-8 rounded-xl bg-brand text-white text-[10px] font-bold flex items-center justify-center cursor-pointer shadow-md shadow-brand/25"
         >
           + Invite
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );
@@ -319,32 +309,32 @@ function MeetingsVisual() {
     <div className="h-full grid grid-cols-12 gap-3">
       <div className="col-span-4 rounded-2xl bg-[#F8FAFC] border border-black/[0.05] p-3">
         <div className="text-[10px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today's Schedule</div>
-        {MEETINGS_LIST.map((m, i) => (
-          <motion.div
-            key={i}
+        {MEETINGS_LIST.map((meeting, i) => (
+          <m.div
+            key={meeting.title}
             initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ x: 3, backgroundColor: "white" }}
             className="p-2.5 rounded-xl bg-white border border-black/[0.03] shadow-sm mb-2 cursor-pointer transition-all"
           >
-            <div className="text-[11px] font-bold text-brand-ink truncate">{m.title}</div>
+            <div className="text-[11px] font-bold text-brand-ink truncate">{meeting.title}</div>
             <div className="flex items-center justify-between mt-1">
-              <span className="text-[9px] text-brand-muted">{m.time}</span>
-              <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-brand/[0.07] text-brand font-semibold">{m.type}</span>
+              <span className="text-[9px] text-brand-muted">{meeting.time}</span>
+              <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-brand/[0.07] text-brand font-semibold">{meeting.type}</span>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
       <div className="col-span-8 rounded-2xl bg-white border border-black/[0.05] p-4 flex flex-col">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <motion.span animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="size-2 rounded-full bg-green-500" />
+            <span className="size-2 rounded-full bg-green-500 anim-pulse-scale" />
             <span className="text-sm font-bold text-brand-ink">Weekly Faculty Sync</span>
           </div>
           <div className="flex -space-x-2">
-            {["#6063EE", "#A855F7", "#22C55E", "#F59E0B", "#3B82F6"].map((c, i) => (
-              <motion.div
-                key={i}
+            {["#6063EE", "#7B7FF0", "#4648D4", "#8A8DF5", "#6063EE"].map((c, i) => (
+              <m.div
+                key={`avatar-${c}`}
                 initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 + i * 0.06 }}
                 className="size-6 rounded-full border-2 border-white"
@@ -354,25 +344,25 @@ function MeetingsVisual() {
             <div className="size-6 rounded-full border-2 border-white bg-black/[0.05] flex items-center justify-center text-[8px] text-brand-muted">+8</div>
           </div>
         </div>
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
           className="flex-1 rounded-xl bg-brand/[0.02] border border-dashed border-brand/20 flex flex-col items-center justify-center gap-2 relative overflow-hidden"
         >
-          <motion.div animate={{ opacity: [0.03, 0.07, 0.03] }} transition={{ duration: 4, repeat: Infinity }} className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent anim-breathe" />
           <div className="size-10 rounded-xl bg-brand/[0.08] flex items-center justify-center"><Monitor className="size-4 text-brand" /></div>
           <div className="text-[11px] text-brand-ink/60 font-semibold">Screen Sharing Active</div>
           <div className="text-[10px] text-brand-muted italic">"Reviewing Q3 Academic Progress"</div>
-        </motion.div>
+        </m.div>
         <div className="mt-3 flex gap-2">
-          <motion.div
+          <m.div
             whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             className="h-9 flex-1 rounded-xl bg-brand text-white text-[11px] font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-lg shadow-brand/20"
           >
             <PhoneCall className="size-3.5" /> Join Audio
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.05, backgroundColor: "rgba(0,0,0,0.07)" }} className="h-9 w-10 rounded-xl bg-black/[0.04] flex items-center justify-center cursor-pointer">
+          </m.div>
+          <m.div whileHover={{ scale: 1.05, backgroundColor: "rgba(0,0,0,0.07)" }} className="h-9 w-10 rounded-xl bg-black/[0.04] flex items-center justify-center cursor-pointer">
             <span className="size-1.5 rounded-full bg-brand-ink/20" />
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </div>
@@ -382,65 +372,65 @@ function MeetingsVisual() {
 // ─── WEBINARS VISUAL ──────────────────────────────────────────────────────────
 const WEBINAR_STAT_BARS = [
   { label: "Students", val: 840, max: 1200, color: "bg-brand" },
-  { label: "Teachers", val: 320, max: 1200, color: "bg-purple-500" },
-  { label: "Parents",  val: 120, max: 1200, color: "bg-green-500" },
+  { label: "Teachers", val: 320, max: 1200, color: "bg-brand" },
+  { label: "Parents", val: 120, max: 1200, color: "bg-green-500" },
 ];
 const WEBINAR_QA_ITEMS = [
   { q: "How will this affect board exams?", from: "Rahul S." },
-  { q: "Is there a certificate issued?",    from: "Priya M." },
-  { q: "Can parents attend too?",           from: "Ajay T."  },
+  { q: "Is there a certificate issued?", from: "Priya M." },
+  { q: "Can parents attend too?", from: "Ajay T." },
 ];
 
 function WebinarsVisual() {
   return (
     <div className="h-full flex flex-col gap-3">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
         className="h-28 rounded-2xl relative overflow-hidden flex-shrink-0"
         style={{ background: "linear-gradient(135deg,#5052d0,#7C3AED)" }}
       >
-        <motion.div animate={{ x: [0, 20, 0], y: [0, -10, 0] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-[-30%] right-[-10%] w-52 h-52 bg-white/10 rounded-full blur-2xl" />
+        <div className="absolute top-[-30%] right-[-10%] w-52 h-52 bg-white/10 rounded-full blur-2xl" />
         <div className="relative z-10 p-5">
           <div className="text-[10px] font-bold uppercase tracking-widest text-white/70 mb-1">Featured Webinar</div>
           <div className="text-lg font-extrabold text-white leading-tight max-w-[220px]">Atomic Theory with Dr. Sharma</div>
           <div className="mt-2 flex items-center gap-3">
             <div className="flex items-center gap-1.5 text-white/80 text-[10px]"><Users className="size-3" /></div>
-            <motion.div animate={{ opacity: [1, 0.6, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="h-5 px-2.5 rounded-full bg-white/20 backdrop-blur-md text-[9px] font-bold text-white flex items-center">LIVE SOON</motion.div>
+            <div className="h-5 px-2.5 rounded-full bg-white/20 backdrop-blur-md text-[9px] font-bold text-white flex items-center anim-pulse-opacity">LIVE SOON</div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
       <div className="flex-1 grid grid-cols-2 gap-3">
-        <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="rounded-2xl bg-white border border-black/[0.05] p-4">
+        <m.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="rounded-2xl bg-white border border-black/[0.05] p-4">
           <div className="text-xs font-bold text-brand-ink mb-4">Registration Stats</div>
-          {WEBINAR_STAT_BARS.map((s, i) => (
-            <div key={i} className="mb-3">
+          {WEBINAR_STAT_BARS.map((s) => (
+            <div key={s.label} className="mb-3">
               <div className="flex justify-between text-[9px] mb-1">
                 <span className="text-brand-muted">{s.label}</span>
                 <span className="font-bold text-brand-ink">{s.val.toLocaleString()}</span>
               </div>
               <div className="h-1.5 w-full bg-black/[0.04] rounded-full overflow-hidden">
-                <motion.div initial={{ width: 0 }} animate={{ width: `${(s.val / s.max) * 100}%` }} transition={{ duration: 1.1, delay: 0.4 + i * 0.15, ease: "easeOut" }} className={`h-full ${s.color} rounded-full`} />
+                <m.div initial={{ width: 0 }} animate={{ width: `${(s.val / s.max) * 100}%` }} transition={{ duration: 1.1, delay: 0.4 + WEBINAR_STAT_BARS.indexOf(s) * 0.15, ease: "easeOut" }} className={`h-full ${s.color} rounded-full`} />
               </div>
             </div>
           ))}
-        </motion.div>
-        <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="rounded-2xl bg-white border border-black/[0.05] p-4 flex flex-col">
+        </m.div>
+        <m.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="rounded-2xl bg-white border border-black/[0.05] p-4 flex flex-col">
           <div className="text-xs font-bold text-brand-ink mb-3">Live Q&A</div>
           <div className="flex-1 space-y-2 overflow-hidden">
-            {WEBINAR_QA_ITEMS.map((q, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + i * 0.15 }} className="p-2 rounded-xl bg-[#F8FAFC] border border-black/[0.03]">
+            {WEBINAR_QA_ITEMS.map((q) => (
+              <m.div key={q.q} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + WEBINAR_QA_ITEMS.indexOf(q) * 0.15 }} className="p-2 rounded-xl bg-[#F8FAFC] border border-black/[0.03]">
                 <div className="text-[10px] font-bold text-brand-ink leading-tight">{q.q}</div>
                 <div className="text-[8px] text-brand-muted mt-1">From {q.from}</div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
           <div className="mt-2 pt-2 border-t border-black/[0.04] flex items-center justify-between">
             <span className="text-[9px] text-brand-muted">Active Speakers: 3</span>
-            <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2, repeat: Infinity }} className="size-5 rounded-full bg-brand/10 flex items-center justify-center">
+            <div className="size-5 rounded-full bg-brand/10 flex items-center justify-center anim-pulse-scale">
               <span className="size-1.5 rounded-full bg-brand" />
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );
@@ -455,25 +445,25 @@ function InstitutionVisual() {
       <div className="w-48 flex-shrink-0 rounded-2xl bg-white border border-black/[0.05] p-4 flex flex-col">
         <div className="text-sm font-bold text-brand-ink mb-3">Directory</div>
         {INSTITUTION_DEPARTMENTS.map((d, i) => (
-          <motion.div
-            key={i}
+          <m.div
+            key={d}
             initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.09 }}
             whileHover={i !== 0 ? { x: 4 } : {}}
             className={`px-3 py-2 rounded-xl text-[11px] font-medium mb-1 cursor-pointer transition-all ${i === 0 ? "bg-brand text-white shadow-lg shadow-brand/25" : "text-brand-muted hover:bg-black/[0.03]"}`}
           >
             {d}
-          </motion.div>
+          </m.div>
         ))}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-auto p-3 rounded-xl bg-brand/[0.05] border border-brand/10 text-center">
+        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-auto p-3 rounded-xl bg-brand/[0.05] border border-brand/10 text-center">
           <div className="text-[9px] font-bold text-brand uppercase tracking-tight">Campus Status</div>
           <div className="text-xs font-bold text-brand-ink mt-1">Operational</div>
-        </motion.div>
+        </m.div>
       </div>
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex-1 rounded-2xl bg-white border border-black/[0.05] p-5 flex flex-col">
+      <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="flex-1 rounded-2xl bg-white border border-black/[0.05] p-5 flex flex-col">
         <div className="flex items-center gap-4 mb-5">
-          <motion.div whileHover={{ scale: 1.05, rotate: 2 }} className="size-14 rounded-2xl bg-gradient-to-br from-brand/10 to-brand/25 border border-brand/10 flex items-center justify-center">
+          <m.div whileHover={{ scale: 1.05, rotate: 2 }} className="size-14 rounded-2xl bg-gradient-to-br from-brand/10 to-brand/25 border border-brand/10 flex items-center justify-center">
             <Users className="size-7 text-brand" />
-          </motion.div>
+          </m.div>
           <div>
             <div className="text-base font-bold text-brand-ink">Dr. Ananya Sharma</div>
             <div className="text-xs text-brand-muted">Senior Administrator · Academic Head</div>
@@ -485,26 +475,26 @@ function InstitutionVisual() {
         </div>
         <div className="grid grid-cols-2 gap-3 flex-1">
           {[
-            { label: "Office Location",  val: "Admin Block · Level 2" },
-            { label: "Contact Extension",val: "EXT-402" },
-            { label: "Department",       val: "Academic Administration" },
-            { label: "Working Hours",    val: "9:00 AM – 5:00 PM" },
+            { label: "Office Location", val: "Admin Block · Level 2" },
+            { label: "Contact Extension", val: "EXT-402" },
+            { label: "Department", val: "Academic Administration" },
+            { label: "Working Hours", val: "9:00 AM – 5:00 PM" },
           ].map((info, i) => (
-            <motion.div key={i} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 + i * 0.08 }} className="p-3 rounded-2xl bg-[#F8FAFC] border border-black/[0.03]">
+            <m.div key={info.label} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 + i * 0.08 }} className="p-3 rounded-2xl bg-[#F8FAFC] border border-black/[0.03]">
               <div className="text-[9px] font-bold text-brand-muted uppercase mb-1">{info.label}</div>
               <div className="text-xs font-bold text-brand-ink">{info.val}</div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
         <div className="mt-4 flex gap-3">
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} className="h-10 flex-1 rounded-xl bg-brand/[0.07] border border-brand/15 flex items-center justify-center text-[11px] font-bold text-brand cursor-pointer gap-1.5">
+          <m.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} className="h-10 flex-1 rounded-xl bg-brand/[0.07] border border-brand/15 flex items-center justify-center text-[11px] font-bold text-brand cursor-pointer gap-1.5">
             <MessageSquare className="size-3.5" /> Message Admin
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.05 }} className="h-10 w-12 rounded-xl bg-black/[0.04] flex items-center justify-center cursor-pointer">
+          </m.div>
+          <m.div whileHover={{ scale: 1.05 }} className="h-10 w-12 rounded-xl bg-black/[0.04] flex items-center justify-center cursor-pointer">
             <Bell className="size-4 text-brand-ink/30" />
-          </motion.div>
+          </m.div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }
@@ -521,44 +511,44 @@ function EventsVisual() {
           <div className="text-sm font-bold text-brand-ink">October 2026</div>
           <div className="flex gap-1">
             {[<ChevronLeft key="l" className="size-3" />, <ChevronRight key="r" className="size-3" />].map((icon, i) => (
-              <motion.div key={i} whileHover={{ scale: 1.15, backgroundColor: "rgba(96,99,238,0.1)" }} className="size-5 rounded-md bg-black/[0.04] flex items-center justify-center text-brand-ink/50 cursor-pointer">{icon}</motion.div>
+              <m.div key={icon.key ?? `cal-nav-${i}`} whileHover={{ scale: 1.15, backgroundColor: "rgba(96,99,238,0.1)" }} className="size-5 rounded-md bg-black/[0.04] flex items-center justify-center text-brand-ink/50 cursor-pointer">{icon}</m.div>
             ))}
           </div>
         </div>
         <div className="flex-1">
           <div className="grid grid-cols-7 mb-1">
-            {["S","M","T","W","T","F","S"].map((d, i) => <div key={i} className="text-[9px] font-bold text-brand-muted text-center py-1">{d}</div>)}
+            {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => <div key={i} className="text-[9px] font-bold text-brand-muted text-center py-1">{d}</div>)}
           </div>
           <div className="grid grid-cols-7 gap-1">
             {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => (
-              <motion.div
+              <m.div
                 key={d} whileHover={{ scale: 1.12 }}
                 className={`aspect-square rounded-lg flex flex-col items-center justify-center text-[10px] relative cursor-pointer transition-all ${d === EVENT_TODAY ? "bg-brand text-white font-bold shadow-md shadow-brand/30" : EVENT_DAYS.includes(d) && d !== EVENT_TODAY ? "text-brand font-bold bg-brand/[0.04]" : "text-brand-ink/35 hover:bg-black/[0.04]"}`}
               >
                 {d}
                 {EVENT_DAYS.includes(d) && d !== EVENT_TODAY && (
-                  <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 2, repeat: Infinity, delay: d * 0.1 }} className="absolute bottom-0.5 size-1 rounded-full bg-brand" />
+                  <div className="absolute bottom-0.5 size-1 rounded-full bg-brand anim-pulse-scale" style={{ animationDelay: `${d * 0.1}s` }} />
                 )}
                 {d === EVENT_TODAY && <div className="absolute bottom-0.5 size-1 rounded-full bg-white/80" />}
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
       </div>
       <div className="col-span-5 flex flex-col gap-3">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex-1 rounded-2xl bg-[#F8FAFC] border border-black/[0.05] p-4">
+        <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex-1 rounded-2xl bg-[#F8FAFC] border border-black/[0.05] p-4">
           <div className="text-[9px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today's Highlight</div>
-          <motion.div whileHover={{ y: -2 }} className="p-3 rounded-2xl bg-white border border-black/[0.04] shadow-sm cursor-pointer">
+          <m.div whileHover={{ y: -2 }} className="p-3 rounded-2xl bg-white border border-black/[0.04] shadow-sm cursor-pointer">
             <div className="size-7 rounded-xl bg-amber-500/10 flex items-center justify-center mb-2 text-base">🏆</div>
             <div className="text-xs font-bold text-brand-ink mb-1">Annual Sports Meet</div>
             <div className="text-[10px] text-brand-muted leading-tight">Registration closes by 4:00 PM. Main ground.</div>
-          </motion.div>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="rounded-2xl bg-brand p-4 text-white">
+          </m.div>
+        </m.div>
+        <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="rounded-2xl bg-brand p-4 text-white">
           <div className="text-[9px] font-bold opacity-70 uppercase tracking-widest mb-1">Next Event</div>
           <div className="text-sm font-bold">Foundation Day Celebration</div>
           <div className="text-[10px] opacity-60 mt-0.5">3 Days Left · Main Auditorium</div>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );
@@ -566,9 +556,9 @@ function EventsVisual() {
 
 // ─── NOTICES VISUAL ───────────────────────────────────────────────────────────
 const NOTICE_LIST = [
-  { title: "Winter Break Schedule Released",  date: "Oct 24", urgency: "High",   color: "#EF4444" },
-  { title: "Updated Uniform Policy 2025-26",  date: "Oct 23", urgency: "Normal", color: "#6063EE" },
-  { title: "Annual Science Exhibition",       date: "Oct 22", urgency: "Info",   color: "#3B82F6" },
+  { title: "Winter Break Schedule Released", date: "Oct 24", urgency: "High", color: "#EF4444" },
+  { title: "Updated Uniform Policy 2025-26", date: "Oct 23", urgency: "Normal", color: "#6063EE" },
+  { title: "Annual Science Exhibition", date: "Oct 22", urgency: "Info", color: "#3B82F6" },
 ];
 
 function NoticesVisual() {
@@ -576,12 +566,12 @@ function NoticesVisual() {
     <div className="h-full flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <div className="text-sm font-bold text-brand-ink">Official Notice Board</div>
-        <motion.div animate={{ scale: [1, 1.04, 1] }} transition={{ duration: 2, repeat: Infinity }} className="px-3 py-1 rounded-full bg-brand/[0.09] text-brand text-[10px] font-bold">7 NEW TODAY</motion.div>
+        <div className="px-3 py-1 rounded-full bg-brand/[0.09] text-brand text-[10px] font-bold anim-pulse-scale-subtle">7 NEW TODAY</div>
       </div>
       <div className="flex-1 grid grid-cols-3 gap-3">
         {NOTICE_LIST.map((n, i) => (
-          <motion.div
-            key={i}
+          <m.div
+            key={n.title}
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
             whileHover={{ y: -5, boxShadow: "0 12px 32px rgba(0,0,0,0.08)" }}
@@ -592,50 +582,50 @@ function NoticesVisual() {
             <div className="text-xs font-bold text-brand-ink leading-snug flex-1">{n.title}</div>
             <div className="mt-3 flex items-center justify-between">
               <span className="text-[9px] font-bold uppercase tracking-wide" style={{ color: n.urgency === "High" ? "#EF4444" : "#6B7280" }}>{n.urgency}</span>
-              <motion.div whileHover={{ x: 3 }} className="size-5 rounded-lg bg-black/[0.04] flex items-center justify-center">
+              <m.div whileHover={{ x: 3 }} className="size-5 rounded-lg bg-black/[0.04] flex items-center justify-center">
                 <ArrowRight className="size-2.5 text-brand-ink/30" />
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="h-11 rounded-2xl bg-brand/[0.03] border border-dashed border-brand/20 flex items-center px-4 justify-between">
+      <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="h-11 rounded-2xl bg-brand/[0.03] border border-dashed border-brand/20 flex items-center px-4 justify-between">
         <div className="flex items-center gap-2">
-          <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="size-1.5 rounded-full bg-brand" />
+          <div className="size-1.5 rounded-full bg-brand anim-pulse-opacity" />
           <span className="text-[10px] font-medium text-brand-ink/60">Pinned: Transport route update for Sector 4 residents…</span>
         </div>
         <span className="text-[9px] font-bold text-brand">VIEW ALL</span>
-      </motion.div>
+      </m.div>
     </div>
   );
 }
 
 // ─── DASHBOARD MOCK ───────────────────────────────────────────────────────────
+const DASHBOARD_NAV_ITEMS = [
+  { icon: <BookOpen className="size-3.5" />, label: "Overview" },
+  { icon: <MessageSquare className="size-3.5" />, label: "Communication" },
+  { icon: <Video className="size-3.5" />, label: "Online Classes" },
+  { icon: <User className="size-3.5" />, label: "Meetings" },
+  { icon: <Presentation className="size-3.5" />, label: "Webinars" },
+  { icon: <Users className="size-3.5" />, label: "Institution" },
+  { icon: <CalendarDays className="size-3.5" />, label: "Events" },
+  { icon: <Bell className="size-3.5" />, label: "Notices" },
+];
+
+const DASHBOARD_VISUALS: Record<string, React.ReactNode> = {
+  Overview: <OverviewVisual />,
+  Communication: <CommunicationVisual />,
+  "Online Classes": <ClassesVisual />,
+  Meetings: <MeetingsVisual />,
+  Webinars: <WebinarsVisual />,
+  Institution: <InstitutionVisual />,
+  Events: <EventsVisual />,
+  Notices: <NoticesVisual />,
+};
+
 function DashboardMock() {
   const [activeSection, setActiveSection] = useState("Overview");
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
-
-  const navItems = [
-    { icon: <BookOpen className="size-3.5" />,     label: "Overview"       },
-    { icon: <MessageSquare className="size-3.5" />, label: "Communication"  },
-    { icon: <Video className="size-3.5" />,         label: "Online Classes" },
-    { icon: <User className="size-3.5" />,          label: "Meetings"       },
-    { icon: <Presentation className="size-3.5" />,  label: "Webinars"       },
-    { icon: <Users className="size-3.5" />,         label: "Institution"    },
-    { icon: <CalendarDays className="size-3.5" />,  label: "Events"         },
-    { icon: <Bell className="size-3.5" />,          label: "Notices"        },
-  ];
-
-  const visuals: Record<string, React.ReactNode> = {
-    Overview:        <OverviewVisual />,
-    Communication:   <CommunicationVisual />,
-    "Online Classes":<ClassesVisual />,
-    Meetings:        <MeetingsVisual />,
-    Webinars:        <WebinarsVisual />,
-    Institution:     <InstitutionVisual />,
-    Events:          <EventsVisual />,
-    Notices:         <NoticesVisual />,
-  };
 
   return (
     <div className="mock-window w-full max-w-[820px] mx-auto relative">
@@ -646,38 +636,38 @@ function DashboardMock() {
         <div className="flex-1 mx-3"><div className="mock-bar w-44 mx-auto" /></div>
       </div>
       <div className="flex min-h-[440px]">
-        <motion.div
+        <m.div
           onHoverStart={() => setIsSidebarExpanded(true)}
           onHoverEnd={() => setIsSidebarExpanded(false)}
           animate={{ width: isSidebarExpanded ? 176 : 52 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="border-r border-black/[0.05] bg-[#FAFAFA] flex flex-col gap-0.5 pt-3 px-1.5 shrink-0 overflow-hidden"
         >
-          {navItems.map((item, i) => {
+          {DASHBOARD_NAV_ITEMS.map((item, i) => {
             const isActive = activeSection === item.label;
             return (
-              <motion.button
-                key={i}
+              <m.button
+                key={item.label}
                 onClick={() => setActiveSection(item.label)}
                 whileHover={{ x: 2 }} whileTap={{ scale: 0.97 }}
                 className={`flex items-center gap-2.5 rounded-xl px-2 py-2 transition-all duration-200 w-full text-left ${isActive ? "bg-brand/[0.09] text-brand" : "text-brand-ink/35 hover:text-brand-ink/60 hover:bg-black/[0.03]"}`}
               >
                 <span className="flex-shrink-0">{item.icon}</span>
-                <motion.span
+                <m.span
                   animate={{ opacity: isSidebarExpanded ? 1 : 0 }}
                   transition={{ duration: 0.2 }}
                   className="text-[11px] font-medium font-body whitespace-nowrap overflow-hidden"
                   style={{ width: isSidebarExpanded ? "auto" : 0 }}
                 >
                   {item.label}
-                </motion.span>
-              </motion.button>
+                </m.span>
+              </m.button>
             );
           })}
-        </motion.div>
+        </m.div>
         <div className="flex-1 min-w-0 p-4 md:p-5 bg-[#FCFCFC] relative overflow-hidden">
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={activeSection}
               initial={{ opacity: 0, x: 24, scale: 0.98 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -685,8 +675,8 @@ function DashboardMock() {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="h-full"
             >
-              {visuals[activeSection]}
-            </motion.div>
+              {DASHBOARD_VISUALS[activeSection]}
+            </m.div>
           </AnimatePresence>
         </div>
       </div>
@@ -700,82 +690,89 @@ const HERO_WORDS = ["Connect", "Collaborate", "Coordinate"];
 export default function Hero() {
   // FIX 7: removed unused useRouter
   const sectionRef = useRef<HTMLElement>(null);
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
-  const [wordIndex, setWordIndex] = useState(0);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wordIndexRef = useRef(0);
 
   // Rotating headline word
   useEffect(() => {
-    const id = setInterval(() => setWordIndex((v) => (v + 1) % HERO_WORDS.length), 2800);
+    const id = setInterval(() => { wordIndexRef.current = (wordIndexRef.current + 1) % HERO_WORDS.length; }, 2800);
     return () => clearInterval(id);
   }, []);
 
   // Three.js particles — all bugs fixed
   useEffect(() => {
-    if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
+    const dispose: (() => void)[] = [];
 
-    // FIX 1: read size from parentElement, not from canvas (which is 0×0 at mount)
-    const parent = canvas.parentElement;
-    const w = parent?.offsetWidth  ?? window.innerWidth;
-    const h = parent?.offsetHeight ?? window.innerHeight;
+    (async () => {
+      if (!canvasRef.current) return;
+      const canvas = canvasRef.current;
+      const THREE = await import("three");
 
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(w, h);
+      // FIX 1: read size from parentElement, not from canvas (which is 0×0 at mount)
+      const parent = canvas.parentElement;
+      const w = parent?.offsetWidth ?? window.innerWidth;
+      const h = parent?.offsetHeight ?? window.innerHeight;
 
-    const scene  = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 100);
-    camera.position.z = 5;
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(w, h);
 
-    // Particles
-    const count     = 120;
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      positions[i * 3]     = (Math.random() - 0.5) * 14;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const mat = new THREE.PointsMaterial({ color: 0x6063ee, size: 0.032, opacity: 0.37, transparent: true });
-    const points = new THREE.Points(geo, mat);
-    scene.add(points);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 100);
+      camera.position.z = 5;
 
-    // FIX 2: grid color changed to light indigo (fits white bg)
-    const gridHelper = new THREE.GridHelper(20, 20, 0xc7d2fe, 0xc7d2fe);
-    (gridHelper.material as THREE.LineBasicMaterial).transparent = true;
-    (gridHelper.material as THREE.LineBasicMaterial).opacity = 0.18;
-    gridHelper.rotation.x = Math.PI / 2;
-    gridHelper.position.z = -2;
-    scene.add(gridHelper);
+      // Particles
+      const count = 120;
+      const positions = new Float32Array(count * 3);
+      for (let i = 0; i < count; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 14;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      const mat = new THREE.PointsMaterial({ color: 0x6063ee, size: 0.032, opacity: 0.37, transparent: true });
+      const points = new THREE.Points(geo, mat);
+      scene.add(points);
 
-    let raf: number;
-    const animate = () => {
-      raf = requestAnimationFrame(animate);
-      points.rotation.z += 0.00018;
-      points.rotation.y += 0.00008;
-      renderer.render(scene, camera);
-    };
-    animate();
+      // FIX 2: grid color changed to light indigo (fits white bg)
+      const gridHelper = new THREE.GridHelper(20, 20, 0xc7d2fe, 0xc7d2fe);
+(gridHelper.material as { transparent: boolean; opacity: number }).transparent = true;
+(gridHelper.material as { transparent: boolean; opacity: number }).opacity = 0.18;
+      gridHelper.rotation.x = Math.PI / 2;
+      gridHelper.position.z = -2;
+      scene.add(gridHelper);
 
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-      const rw = canvas.parentElement.offsetWidth;
-      const rh = canvas.parentElement.offsetHeight;
-      renderer.setSize(rw, rh);
-      camera.aspect = rw / rh;
-      camera.updateProjectionMatrix();
-    };
-    window.addEventListener("resize", handleResize);
+      let raf: number;
+      const animate = () => {
+        raf = requestAnimationFrame(animate);
+        points.rotation.z += 0.00018;
+        points.rotation.y += 0.00008;
+        renderer.render(scene, camera);
+      };
+      animate();
 
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", handleResize);
-      // FIX 8: dispose geometry and material to prevent GPU leak
-      geo.dispose();
-      mat.dispose();
-      renderer.dispose();
-    };
+      const handleResize = () => {
+        if (!canvas.parentElement) return;
+        const rw = canvas.parentElement.offsetWidth;
+        const rh = canvas.parentElement.offsetHeight;
+        renderer.setSize(rw, rh);
+        camera.aspect = rw / rh;
+        camera.updateProjectionMatrix();
+      };
+      window.addEventListener("resize", handleResize);
+
+      dispose.push(() => {
+        cancelAnimationFrame(raf);
+        window.removeEventListener("resize", handleResize);
+        // FIX 8: dispose geometry and material to prevent GPU leak
+        geo.dispose();
+        mat.dispose();
+        renderer.dispose();
+      });
+    })();
+
+    return () => { dispose.forEach(fn => fn()); };
   }, []);
 
   return (
@@ -787,7 +784,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none opacity-[0.25] z-[2]"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 50% -20%, rgba(90,95,232,0.15) 0%, transparent 50%),
+            radial-gradient(circle at 50% -20%, rgba(96,99,238,0.15) 0%, transparent 50%),
             radial-gradient(circle at 100% 80%, rgba(168,85,247,0.1) 0%, transparent 40%),
             linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px)
@@ -802,49 +799,49 @@ export default function Hero() {
       <div className="hero-intro-screen relative z-10 min-h-screen flex items-center pt-24 pb-16">
         <div className="container-page flex flex-col items-center text-center w-full">
 
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <m.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
             <Badge variant="brand" className="mb-3 gap-2 py-1 px-4">
               <Zap className="size-3 fill-brand text-brand" />
               v1.0.1 Live Now
             </Badge>
-          </motion.div>
+          </m.div>
 
           <h1 className="font-display text-[clamp(2.6rem,6vw,5.2rem)] font-extrabold leading-[1.04] tracking-[-0.04em] text-brand-ink max-w-[900px]">
             {["Every school.", "Connected Through", "One Platform."].map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-3">
-                <motion.span
+                <m.span
                   className={`inline-block ${i >= 1 ? "gradient-text-brand" : ""}`}
                   initial={{ y: 56, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 + i * 0.18, duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {word}
-                </motion.span>
+                </m.span>
               </span>
             ))}
           </h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
             className="mt-3 max-w-[560px] text-[1.0625rem] text-brand-muted leading-[1.75] font-body"
           >
             HermesWorkspace centralizes communication, notices, online classes, meetings,
             events, and academic coordination — built for the way Indian schools actually work.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.05, duration: 0.7 }}
             className="mt-9 flex flex-wrap items-center justify-center gap-3"
           >
-            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+            <m.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
               <Link href="/contact?scroll=inquiry">
                 <Button variant="default" size="lg" className="gap-2 shadow-[0_4px_24px_rgba(96,99,238,0.35)] hover:shadow-[0_8px_36px_rgba(96,99,238,0.45)]">
                   Request Live Demo <ArrowRight className="size-4" />
                 </Button>
               </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
+            </m.div>
+            <m.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
               <Button
                 onClick={() => {
                   const target = document.getElementById("features");
@@ -857,12 +854,12 @@ export default function Hero() {
               >
                 <Video className="size-4 text-brand" /> Explore Platform
               </Button>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 70, scale: 0.93, rotateX: 12 }}
         animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
         transition={{ delay: 1.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
@@ -879,7 +876,7 @@ export default function Hero() {
                 <div className="text-[11px] font-semibold text-brand-ink font-body">Online Session Active</div>
                 <div className="text-[10px] text-brand-muted font-body">Physics · Class X</div>
               </div>
-              <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ duration: 1, repeat: Infinity }} className="size-2 rounded-full bg-red-500 ml-1 flex-shrink-0" />
+              <span className="size-2 rounded-full bg-red-500 ml-1 flex-shrink-0 anim-pulse-opacity-blink" />
             </FloatingCard>
           </div>
           <div className="float-card absolute top-10 -right-4 md:-right-12 hidden md:block z-20">
@@ -893,7 +890,7 @@ export default function Hero() {
           </div>
           <div className="float-card absolute top-[45%] -left-4 md:-left-14 hidden lg:block z-20">
             <FloatingCard className="flex items-center gap-3" delay={2.45}>
-              <div className="size-9 rounded-xl bg-purple-500/10 flex items-center justify-center flex-shrink-0"><Presentation className="size-4 text-purple-500" /></div>
+              <div className="size-9 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0"><Presentation className="size-4 text-brand" /></div>
               <div>
                 <div className="text-[11px] font-semibold text-brand-ink font-body">Upcoming Webinar</div>
                 <div className="text-[10px] text-brand-muted font-body">Atomic Theory by Dr. Sharma</div>
@@ -901,7 +898,7 @@ export default function Hero() {
             </FloatingCard>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

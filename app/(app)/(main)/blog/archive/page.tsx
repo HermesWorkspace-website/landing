@@ -1,10 +1,10 @@
 import React from 'react'
-import { getCachedPosts } from '@/components/blogs/blogs'
+import { getCachedPosts } from '@/components/blogs/cache'
 import { ArchiveClient } from '@/components/blogs/ArchiveClient'
 import type { ArchiveArticle } from '@/components/blogs/ArchiveClient'
 import type { Tag } from '@/payload-types'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 export default async function ArchivePage() {
   const postsResult = await getCachedPosts({})
@@ -48,7 +48,7 @@ export default async function ArchivePage() {
       coverAlt,
       authorName,
       authorAvatar,
-      featured: post.featured ?? false,
+      featured: (post as any).featured ?? false,
     }
   })
 

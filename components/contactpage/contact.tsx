@@ -1,29 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
+import { useIsMobile } from "@/lib/useIsMobile";
 import Hero from "./contacthero";
-import Features from "./Features";
-import Inquiry from "./Inquiry";
-import Realtime from "./Realtime";
-import FAQ from "./FAQ";
-import CTA from "./CTA";
 import { MobileContactPage } from "./Mobilecontactpage";
 
-export default function ContactPage() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [ready, setReady] = useState(false);
+const Features = dynamic(() => import("./Features"), { ssr: false });
+const Inquiry = dynamic(() => import("./Inquiry"), { ssr: false });
+const Realtime = dynamic(() => import("./Realtime"), { ssr: false });
+const FAQSection = dynamic(() => import("./FAQ"), { ssr: false });
+const CTASection = dynamic(() => import("./CTA"), { ssr: false });
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setReady(true);
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+export default function ContactPage() {
+  const isMobile = useIsMobile();
 
   // Only run GSAP on desktop
   useEffect(() => {
-    if (!ready || isMobile) return;
+    if (isMobile) return;
     (async () => {
       try {
         const gsap = (await import("gsap")).default;
@@ -55,19 +48,21 @@ export default function ContactPage() {
         // GSAP not available
       }
     })();
-  }, [ready, isMobile]);
-
-  if (!ready) return null;
-  if (isMobile) return <MobileContactPage />;
+  }, [isMobile]);
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden contact-page">
-      <Hero />
-      <Features />
-      <Inquiry />
-      <Realtime />
-      <FAQ />
-      <CTA />
-    </div>
+    <>
+      <div className="md:hidden">
+        <MobileContactPage />
+      </div>
+      <div className="hidden md:block min-h-screen bg-white overflow-x-hidden contact-page">
+        <Hero />
+        <Features />
+        <Inquiry />
+        <Realtime />
+        <FAQSection />
+        <CTASection />
+      </div>
+    </>
   );
 }

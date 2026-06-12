@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -19,10 +19,10 @@ export default function CTASection() {
       ref={ref}
       id="cta"
       className="py-22"
-      style={{ fontFamily: "var(--font-body, 'Plus Jakarta Sans', sans-serif)" }}
+      style={{ fontFamily: "var(--font-body, Inter, sans-serif)" }}
     >
       <div className="container-page">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 32, scale: 0.98 }}
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -63,7 +63,7 @@ export default function CTASection() {
 
           <div className="relative z-10 max-w-[760px]">
             {/* Top metadata */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 }}
@@ -74,10 +74,10 @@ export default function CTASection() {
               <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-brand/80">
                 Building Modern Educational Infrastructure
               </span>
-            </motion.div>
+            </m.div>
 
             {/* Heading */}
-            <motion.h2
+            <m.h2
               initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.18 }}
@@ -86,10 +86,10 @@ export default function CTASection() {
               Designed for modern
               <br />
               educational operations.
-            </motion.h2>
+            </m.h2>
 
             {/* Description */}
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.26 }}
@@ -98,10 +98,10 @@ export default function CTASection() {
               HermesWorkspace is building modern infrastructure for
               communication, academic coordination, and institutional
               operations across educational institutions.
-            </motion.p>
+            </m.p>
 
             {/* Buttons */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 14 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.34 }}
@@ -133,10 +133,10 @@ export default function CTASection() {
                   Contact Leadership
                 </a>
               </Button>
-            </motion.div>
+            </m.div>
 
             {/* Bottom metadata */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.45 }}
@@ -151,9 +151,9 @@ export default function CTASection() {
               <span className="size-1 rounded-full bg-white/20" />
 
               <span>Scalable Infrastructure</span>
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

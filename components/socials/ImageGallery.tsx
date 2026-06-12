@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { m, useInView, useScroll, useTransform } from "framer-motion";
 import { staggerContainer, scaleIn } from "@/components/socials/motion-variants";
 
 // Placeholder gradient images with architectural grid feel
@@ -9,7 +9,7 @@ const IMAGES = [
   {
     label: "Infrastructure Lab",
     gradient: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-    pattern: { cols: 6, rows: 8, color: "#6B5CE7" },
+    pattern: { cols: 6, rows: 8, color: "#6063EE" },
     aspect: "aspect-[4/5]",
   },
   {
@@ -32,7 +32,7 @@ function GridImage({ img, index }: { img: (typeof IMAGES)[0]; index: number }) {
   const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       variants={scaleIn}
       whileHover={{ scale: 1.02, zIndex: 10 }}
@@ -41,7 +41,7 @@ function GridImage({ img, index }: { img: (typeof IMAGES)[0]; index: number }) {
       style={{ background: img.gradient }}
     >
       {/* Grid pattern */}
-      <motion.div style={{ y }} className="absolute inset-0">
+      <m.div style={{ y }} className="absolute inset-0">
         <svg className="w-full h-full opacity-20" viewBox="0 0 200 300">
           {Array.from({ length: img.pattern.cols }).map((_, c) =>
             Array.from({ length: img.pattern.rows }).map((_, r) => (
@@ -59,7 +59,7 @@ function GridImage({ img, index }: { img: (typeof IMAGES)[0]; index: number }) {
             ))
           )}
         </svg>
-      </motion.div>
+      </m.div>
 
       {/* Glow */}
       <div
@@ -71,17 +71,17 @@ function GridImage({ img, index }: { img: (typeof IMAGES)[0]; index: number }) {
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
         <span className="text-[11px] tracking-[2px] uppercase text-white/80 font-medium">{img.label}</span>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
-export function ImageGallery() {
+function ImageGallery() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section className="bg-white py-5" ref={ref}>
-      <motion.div
+      <m.div
         variants={staggerContainer}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
@@ -90,7 +90,7 @@ export function ImageGallery() {
         {IMAGES.map((img, i) => (
           <GridImage key={img.label} img={img} index={i} />
         ))}
-      </motion.div>
+      </m.div>
     </section>
   );
 }

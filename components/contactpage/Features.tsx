@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { Users, Handshake, Newspaper, Sparkles } from "lucide-react";
 
 interface FeatureCard {
@@ -14,22 +14,22 @@ interface FeatureCard {
 const featureCards: FeatureCard[] = [
   {
     icon: <Users className="size-5" />,
-    colorFrom: "#5A5FE8",
+    colorFrom: "#6063EE",
     colorTo: "#7B7FF0",
     title: "Structured School Communication",
     desc: "Role-based communication channels for administrators, teachers, students, and parents across classes, sections, and departments.",
   },
   {
     icon: <Handshake className="size-5" />,
-    colorFrom: "#a855f7",
-    colorTo: "#c084fc",
+    colorFrom: "#6063EE",
+    colorTo: "#7B7FF0",
     title: "Academic Operations",
     desc: "Manage meetings, notices, events, announcements, resources, and institutional coordination from one centralized platform.",
   },
   {
     icon: <Newspaper className="size-5" />,
-    colorFrom: "#10b981",
-    colorTo: "#34d399",
+    colorFrom: "#6063EE",
+    colorTo: "#7B7FF0",
     title: "Secure Digital Infrastructure",
     desc: "Built for institutional reliability with verified notice delivery, secure access control, and scalable cloud infrastructure.",
   },
@@ -44,27 +44,27 @@ export default function Features() {
   return (
     <>
       <section ref={ref} id="features" className="max-w-7xl mx-auto px-6 py-24">
-        <motion.div
+        <m.div
           className="text-center mb-14"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full" style={{ background: "rgba(90,95,232,0.07)", border: "1px solid rgba(90,95,232,0.15)" }}>
+          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full" style={{ background: "rgba(96,99,238,0.07)", border: "1px solid rgba(96,99,238,0.15)" }}>
             <Sparkles className="size-3" style={{ color: "var(--brand)" }} />
-            <span className="text-[9px] font-bold font-syne uppercase tracking-[0.18em]" style={{ color: "var(--brand)" }}>
+            <span className="text-[9px] font-bold font-display uppercase tracking-[0.18em]" style={{ color: "var(--brand)" }}>
               What we offer
             </span>
           </div>
           <h2 className="text-[2.2rem] font-black font-display tracking-tight" style={{ color: "var(--ink)" }}>
             Everything your school needs
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {featureCards.map((card, i) => (
-            <motion.div
-              key={`item-${i}`}
+            <m.div
+              key={card.title}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.14, ease: [0.22, 1, 0.36, 1] }}
@@ -77,13 +77,13 @@ export default function Features() {
               whileHover={{ y: -8, boxShadow: "0 20px 50px rgba(0,0,0,0.1)" }}
             >
               {/* Gradient overlay on hover */}
-              <motion.div
+              <m.div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 style={{ background: `linear-gradient(135deg, ${card.colorFrom}08, ${card.colorTo}05)` }}
               />
 
               {/* Top colored bar */}
-              <motion.div
+              <m.div
                 className="absolute top-0 left-0 right-0 h-0.5"
                 style={{ background: `linear-gradient(90deg, ${card.colorFrom}, ${card.colorTo})` }}
                 initial={{ scaleX: 0 }}
@@ -92,16 +92,16 @@ export default function Features() {
               />
 
               <div className="p-7 relative">
-                <motion.div
+                <m.div
                   className="size-11 rounded-xl flex items-center justify-center mb-5"
                   style={{ background: `${card.colorFrom}12`, color: card.colorFrom }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 400 }}
                 >
                   {card.icon}
-                </motion.div>
+                </m.div>
 
-                <h3 className="text-[15px] font-bold font-syne mb-2.5" style={{ color: "var(--ink)" }}>
+                <h3 className="text-[15px] font-bold font-display mb-2.5" style={{ color: "var(--ink)" }}>
                   {card.title}
                 </h3>
                 <p className="text-[13px] font-body leading-[1.65] mb-5" style={{ color: "var(--ink-60)" }}>
@@ -109,7 +109,7 @@ export default function Features() {
                 </p>
 
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </section>

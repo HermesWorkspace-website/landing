@@ -1,42 +1,32 @@
 "use client";
 
-import MobileAbout from "@/components/about/Mobileabout";
+import dynamic from "next/dynamic";
 import Hero from "@/components/about/aboutHero";
-import OurStory from "@/components/about/OurStory";
-import Philosophy from "@/components/about/Philosophy";
-import Ecosystem from "@/components/about/Ecosystem";
-import LeadershipTeam from "@/components/about/LeadershipTeam";
-import Stats from "@/components/about/Stats";
-import FAQ from "@/components/about/FAQ";
-import CTA from "@/components/about/CTA";
-import { useEffect, useState } from "react";
+import MobileAbout from "@/components/about/Mobileabout";
+const OurStory = dynamic(() => import("@/components/about/OurStory"), { ssr: false });
+const Philosophy = dynamic(() => import("@/components/about/Philosophy"), { ssr: false });
+const Ecosystem = dynamic(() => import("@/components/about/Ecosystem"), { ssr: false });
+const LeadershipTeam = dynamic(() => import("@/components/about/LeadershipTeam"), { ssr: false });
+const Stats = dynamic(() => import("@/components/about/Stats"), { ssr: false });
+const FAQSection = dynamic(() => import("@/components/about/FAQ"), { ssr: false });
+const CTASection = dynamic(() => import("@/components/about/CTA"), { ssr: false });
 
 export default function AboutClient() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    setReady(true);
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  if (!ready) return null;
-
-  if (isMobile) return <MobileAbout />;
-
   return (
-    <main className="overflow-x-hidden">
-      <Hero />
-      <OurStory />
-      <Philosophy />
-      <Ecosystem />
-      <LeadershipTeam />
-      <Stats />
-      <FAQ />
-      <CTA />
-    </main>
+    <>
+      <div className="md:hidden">
+        <MobileAbout />
+      </div>
+      <main className="hidden md:block overflow-x-hidden min-h-screen">
+        <Hero />
+        <OurStory />
+        <Philosophy />
+        <Ecosystem />
+        <LeadershipTeam />
+        <Stats />
+        <FAQSection />
+        <CTASection />
+      </main>
+    </>
   );
 }

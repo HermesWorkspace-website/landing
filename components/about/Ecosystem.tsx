@@ -1,14 +1,9 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { m, useInView, useScroll, useTransform } from "framer-motion";
+// gsap + ScrollTrigger dynamically imported inside useEffect
 import { Lock, Video } from "lucide-react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const features = [
   {
@@ -30,54 +25,61 @@ export default function Ecosystem() {
 
   useEffect(() => {
     if (!mockupRef.current) return;
-    gsap.fromTo(
-      mockupRef.current,
-      { opacity: 0, scale: 0.9, rotateY: 5 },
-      {
-        opacity: 1,
-        scale: 1,
-        rotateY: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: mockupRef.current,
-          start: "top 75%",
-        },
-      }
-    );
+    const init = async () => {
+      const gsap = (await import("gsap")).default;
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.fromTo(
+        mockupRef.current,
+        { opacity: 0, scale: 0.9, rotateY: 5 },
+        {
+          opacity: 1,
+          scale: 1,
+          rotateY: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: mockupRef.current,
+            start: "top 75%",
+          },
+        }
+      );
+    };
+    init();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="bg-[#0A1628] py-20 px-6 overflow-hidden relative"
+      className="bg-[#12141D] py-20 px-6 overflow-hidden relative"
     >
       {/* Background particles/glow */}
-      <div className="absolute top-0 left-0 size-72 bg-[#22C55E]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 size-96 bg-[#22C55E]/3 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 size-72 bg-[#6063EE]/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 size-96 bg-[#6063EE]/3 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
         {/* Left text */}
         <div>
-     <motion.p
+     <m.p
   initial={{ opacity: 0, y: 10 }}
   animate={isInView ? { opacity: 1, y: 0 } : {}}
   transition={{ duration: 0.5 }}
   className="text-[11px] font-semibold tracking-widest uppercase text-[#6063EE] mb-4"
 >
   Institutional Infrastructure
-</motion.p>
+</m.p>
 
-<motion.h2
+<m.h2
   initial={{ opacity: 0, y: 24 }}
   animate={isInView ? { opacity: 1, y: 0 } : {}}
   transition={{ duration: 0.7, delay: 0.1 }}
   className="text-[2rem] lg:text-[2.8rem] font-bold text-white leading-[1.08] tracking-tight mb-6 max-w-xl"
 >
   One operational system for modern educational institutions.
-</motion.h2>
+</m.h2>
 
-<motion.p
+<m.p
   initial={{ opacity: 0, y: 18 }}
   animate={isInView ? { opacity: 1, y: 0 } : {}}
   transition={{ duration: 0.6, delay: 0.2 }}
@@ -87,18 +89,18 @@ export default function Ecosystem() {
   meetings, notices, analytics, and institutional workflows into one
   connected platform designed for operational clarity, scalability,
   and long-term digital transformation.
-</motion.p>
+</m.p>
         </div>
 
         {/* Right — mockup */}
-        <motion.div ref={mockupRef} style={{ y: mockupY }} className="opacity-0">
-          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#0D1E35]">
+        <m.div ref={mockupRef} style={{ y: mockupY }} className="opacity-0">
+          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#1A1D28]">
             {/* Fake dashboard header */}
-            <div className="bg-[#071221] px-4 py-3 flex items-center gap-2 border-b border-white/5">
+            <div className="bg-[#12141D] px-4 py-3 flex items-center gap-2 border-b border-white/5">
               <div className="flex gap-1.5">
                 <div className="size-2.5 rounded-full bg-red-400/60" />
                 <div className="size-2.5 rounded-full bg-yellow-400/60" />
-                <div className="size-2.5 rounded-full bg-[#22C55E]/60" />
+                <div className="size-2.5 rounded-full bg-[#6063EE]/60" />
               </div>
               <div className="mx-auto flex-1 mx-8 h-5 bg-white/5 rounded-md" />
             </div>
@@ -106,11 +108,11 @@ export default function Ecosystem() {
             {/* Fake dashboard body */}
             <div className="p-5 space-y-3">
               {/* Chart bars */}
-              <div className="bg-[#071221] rounded-xl p-4 border border-white/5">
+              <div className="bg-[#12141D] rounded-xl p-4 border border-white/5">
                 <p className="text-[10px] text-gray-500 mb-3 font-medium uppercase tracking-wider">Operational Analytics</p>
                 <div className="flex items-end gap-2 h-20">
                   {[45, 70, 55, 90, 65, 80, 72, 88, 60, 95].map((h, i) => (
-                    <motion.div
+                    <m.div
                       key={`item-${i}`}
                       initial={{ height: 0 }}
                       animate={isInView ? { height: `${h}%` } : {}}
@@ -118,7 +120,7 @@ export default function Ecosystem() {
                       className="flex-1 rounded-sm"
                       style={{
                         backgroundColor:
-                          i === 9 ? "#22C55E" : i === 3 ? "#22C55E80" : "rgba(255,255,255,0.08)",
+                          i === 9 ? "#6063EE" : i === 3 ? "#6063EE80" : "rgba(255,255,255,0.08)",
                       }}
                     />
                   ))}
@@ -132,7 +134,7 @@ export default function Ecosystem() {
   { label: "Academic Operations", val: "Connected" },
   { label: "Institutional Infrastructure", val: "Modernized" },
 ].map((s) => (
-                  <div key={s.label} className="bg-[#071221] rounded-lg p-3 border border-white/5">
+                  <div key={s.label} className="bg-[#12141D] rounded-lg p-3 border border-white/5">
                     <p className="text-[9px] text-gray-500 mb-1">{s.label}</p>
                     <p className="text-[15px] font-bold text-white">{s.val}</p>
                   </div>
@@ -141,15 +143,15 @@ export default function Ecosystem() {
 
               {/* List rows */}
               {[...Array(3)].map((_, i) => (
-                <div key={`item-${i}`} className="h-7 bg-[#071221] rounded-lg border border-white/5 flex items-center px-3 gap-2">
-                  <div className="size-3 rounded-sm bg-[#22C55E]/30" />
+                <div key={`item-${i}`} className="h-7 bg-[#12141D] rounded-lg border border-white/5 flex items-center px-3 gap-2">
+                  <div className="size-3 rounded-sm bg-[#6063EE]/30" />
                   <div className="flex-1 h-2 bg-white/5 rounded-full" />
                   <div className="w-10 h-2 bg-white/10 rounded-full" />
                 </div>
               ))}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

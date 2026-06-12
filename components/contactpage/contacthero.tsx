@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { ArrowRight, Mail, Shield, Globe, Zap, MessageSquare, Phone, Clock, CheckCircle } from "lucide-react";
-import * as THREE from "three";
 
 const WORDS = ["Connect", "Collaborate", "Coordinate"];
 
@@ -19,50 +18,57 @@ export default function Hero() {
 
   // Three.js particles — unchanged
   useEffect(() => {
-    if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 100);
-    camera.position.z = 5;
-    const count = 120;
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      positions[i * 3]     = (Math.random() - 0.5) * 14;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const mat = new THREE.PointsMaterial({ color: 0x5a5fe8, size: 0.04, transparent: true, opacity: 0.5 });
-    const points = new THREE.Points(geo, mat);
-    scene.add(points);
-    const gridHelper = new THREE.GridHelper(20, 20, 0x0a1628, 0x0a1628);
-    (gridHelper.material as THREE.LineBasicMaterial).transparent = true;
-    (gridHelper.material as THREE.LineBasicMaterial).opacity = 0.04;
-    gridHelper.rotation.x = Math.PI / 2;
-    gridHelper.position.z = -2;
-    scene.add(gridHelper);
-    let raf: number;
-    const animate = () => {
-      raf = requestAnimationFrame(animate);
-      points.rotation.z += 0.0008;
-      points.rotation.y += 0.0003;
-      renderer.render(scene, camera);
-    };
-    animate();
-    const handleResize = () => {
-      if (!canvas.parentElement) return;
-      const w = canvas.parentElement.offsetWidth;
-      const h = canvas.parentElement.offsetHeight;
-      renderer.setSize(w, h);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-    };
-    window.addEventListener("resize", handleResize);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", handleResize); renderer.dispose(); };
+    const dispose: (() => void)[] = [];
+
+    (async () => {
+      if (!canvasRef.current) return;
+      const canvas = canvasRef.current;
+      const THREE = await import("three");
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, canvas.offsetWidth / canvas.offsetHeight, 0.1, 100);
+      camera.position.z = 5;
+      const count = 120;
+      const positions = new Float32Array(count * 3);
+      for (let i = 0; i < count; i++) {
+        positions[i * 3]     = (Math.random() - 0.5) * 14;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      const mat = new THREE.PointsMaterial({ color: 0x5a5fe8, size: 0.04, transparent: true, opacity: 0.5 });
+      const points = new THREE.Points(geo, mat);
+      scene.add(points);
+      const gridHelper = new THREE.GridHelper(20, 20, 0x0a1628, 0x0a1628);
+(gridHelper.material as { transparent: boolean; opacity: number }).transparent = true;
+(gridHelper.material as { transparent: boolean; opacity: number }).opacity = 0.04;
+      gridHelper.rotation.x = Math.PI / 2;
+      gridHelper.position.z = -2;
+      scene.add(gridHelper);
+      let raf: number;
+      const animate = () => {
+        raf = requestAnimationFrame(animate);
+        points.rotation.z += 0.0008;
+        points.rotation.y += 0.0003;
+        renderer.render(scene, camera);
+      };
+      animate();
+      const handleResize = () => {
+        if (!canvas.parentElement) return;
+        const w = canvas.parentElement.offsetWidth;
+        const h = canvas.parentElement.offsetHeight;
+        renderer.setSize(w, h);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      };
+      window.addEventListener("resize", handleResize);
+      dispose.push(() => { cancelAnimationFrame(raf); window.removeEventListener("resize", handleResize); renderer.dispose(); });
+    })();
+
+    return () => { dispose.forEach(fn => fn()); };
   }, []);
 
   // GSAP parallax — unchanged
@@ -90,7 +96,7 @@ export default function Hero() {
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" style={{ opacity: 0.7 }} />
 
       {/* Glow */}
-      <div className="absolute inset-0 pointer-events-none z-[2]" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(90,95,232,0.04), transparent)" }} />
+      <div className="absolute inset-0 pointer-events-none z-[2]" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(96,99,238,0.04), transparent)" }} />
 
       {/* Grid */}
       <div className="absolute inset-0 pointer-events-none z-[2] opacity-[0.045]" style={{ backgroundImage: `linear-gradient(rgba(120,120,120,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(120,120,120,0.18) 1px, transparent 1px)`, backgroundSize: "78px 78px" }} />
@@ -106,93 +112,93 @@ export default function Hero() {
           <div className="flex flex-col items-start text-left">
 
             {/* Badge */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 16, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full"
-              style={{ background: "rgba(90,95,232,0.08)", border: "1px solid rgba(90,95,232,0.2)" }}
+              style={{ background: "rgba(96,99,238,0.08)", border: "1px solid rgba(96,99,238,0.2)" }}
             >
-              <motion.span className="size-1.5 rounded-full" style={{ background: "var(--brand)" }} animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, repeat: Infinity }} />
-              <span className="text-[10px] font-bold font-syne tracking-[0.18em] uppercase" style={{ color: "var(--brand)" }}>Contact Support</span>
-            </motion.div>
+              <span className="size-1.5 rounded-full anim-pulse-scale" style={{ background: "var(--brand)" }} />
+              <span className="text-[10px] font-bold font-display tracking-[0.18em] uppercase" style={{ color: "var(--brand)" }}>Contact Support</span>
+            </m.div>
 
             {/* Headline */}
             <div className="mb-6">
-              <motion.h1 className="font-display leading-[1.02] tracking-[-0.04em]" style={{ fontSize: "clamp(3rem,5vw,5.2rem)" }}>
-                <motion.span className="block" style={{ color: "var(--ink)" }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
+              <m.h1 className="font-display leading-[1.02] tracking-[-0.04em]" style={{ fontSize: "clamp(3rem,5vw,5.2rem)" }}>
+                <m.span className="block" style={{ color: "var(--ink)" }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
                   <AnimatePresence mode="wait">
-                    <motion.span key={wordIndex} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }} className="inline-block" style={{ color: "var(--brand)" }}>
+                    <m.span key={wordIndex} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }} className="inline-block" style={{ color: "var(--brand)" }}>
                       {WORDS[wordIndex]}
-                    </motion.span>
+                    </m.span>
                   </AnimatePresence>
-                </motion.span>
-                <motion.span className="block" style={{ color: "var(--ink)" }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>With</motion.span>
-                <motion.span className="block" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}>
+                </m.span>
+                <m.span className="block" style={{ color: "var(--ink)" }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>With</m.span>
+                <m.span className="block" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}>
                   <span className="shimmer-text">Institutional</span>
-                </motion.span>
-                <motion.span className="block" style={{ color: "var(--ink)", opacity: 0.18 }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 0.18, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}>Precision.</motion.span>
-              </motion.h1>
+                </m.span>
+                <m.span className="block" style={{ color: "var(--ink)", opacity: 0.18 }} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 0.18, y: 0 }} transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}>Precision.</m.span>
+              </m.h1>
             </div>
 
             {/* Body */}
-            <motion.p className="text-[15px] leading-[1.75] font-body max-w-[480px] mb-10" style={{ color: "var(--ink-60)" }} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5 }}>
+            <m.p className="text-[15px] leading-[1.75] font-body max-w-[480px] mb-10" style={{ color: "var(--ink-60)" }} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.5 }}>
               Built for academic coordination. Reach the HermesWorkspace team for onboarding, partnerships, institutional support, and platform inquiries.
-            </motion.p>
+            </m.p>
 
             {/* CTAs */}
-            <motion.div className="flex flex-wrap items-center gap-4" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.65 }}>
-              <motion.button
-                whileHover={{ scale: 1.04, boxShadow: "0 12px 40px rgba(90,95,232,0.4)" }}
+            <m.div className="flex flex-wrap items-center gap-4" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.65 }}>
+              <m.button
+                whileHover={{ scale: 1.04, boxShadow: "0 12px 40px rgba(96,99,238,0.4)" }}
                 whileTap={{ scale: 0.96 }}
                 onClick={() => { const t = document.getElementById("inquiry"); if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 60, behavior: "smooth" }); }}
                 className="flex items-center gap-2.5 text-white px-7 py-3.5 rounded-xl text-[13px] font-bold font-body"
-                style={{ background: "var(--brand)", boxShadow: "0 4px 20px rgba(90,95,232,0.3)" }}
+                style={{ background: "var(--brand)", boxShadow: "0 4px 20px rgba(96,99,238,0.3)" }}
               >
                 Request Demo
-                <motion.div animate={{ x: [0, 4, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                <div className="anim-float-x">
                   <ArrowRight className="size-4" />
-                </motion.div>
-              </motion.button>
+                </div>
+              </m.button>
               <a href="mailto:support@hermesworkspace.com">
-                <motion.button whileHover={{ scale: 1.02, x: 2 }} whileTap={{ scale: 0.98 }} className="flex items-center gap-2 text-[13px] font-semibold font-body" style={{ color: "var(--ink-60)" }}>
+                <m.button whileHover={{ scale: 1.02, x: 2 }} whileTap={{ scale: 0.98 }} className="flex items-center gap-2 text-[13px] font-semibold font-body" style={{ color: "var(--ink-60)" }}>
                   <Mail className="size-4" style={{ color: "var(--brand)" }} />
                   Contact Support
-                </motion.button>
+                </m.button>
               </a>
-            </motion.div>
+            </m.div>
 
             {/* Trust bar */}
-            <motion.div className="flex flex-wrap items-center gap-6 mt-6 pt-8" style={{ borderTop: "1px solid var(--ink-06)" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
+            <m.div className="flex flex-wrap items-center gap-6 mt-6 pt-8" style={{ borderTop: "1px solid var(--ink-06)" }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
               {[
                 { icon: <Shield className="size-3.5" />, label: "Secure Institutional Access" },
                 { icon: <Globe className="size-3.5" />, label: "Web & Mobile Accessibility" },
                 { icon: <Zap className="size-3.5" />, label: "Built for Academic Coordination" },
               ].map((item) => (
-                <motion.div key={item.label} className="flex items-center gap-1.5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
+                <m.div key={item.label} className="flex items-center gap-1.5" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
                   <span style={{ color: "var(--brand)" }}>{item.icon}</span>
                   <span className="text-[11px] font-semibold font-body" style={{ color: "var(--ink-60)" }}>{item.label}</span>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* ── RIGHT — contact info cards ── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col gap-4"
           >
             {/* Live chat card */}
-            <motion.div
-              whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(90,95,232,0.1)" }}
+            <m.div
+              whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(96,99,238,0.1)" }}
               transition={{ type: "spring", stiffness: 300 }}
               className="bg-white border rounded-2xl p-5 shadow-sm"
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(96,99,238,0.08)" }}>
                   <Globe className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div className="flex-1">
@@ -208,22 +214,22 @@ export default function Hero() {
   operational infrastructure.</p>
                   <div className="mt-3 flex gap-2">
                     {["Education", "Operations", "Infrastructure"].map((tag) => (
-                      <span key={tag} className="text-[10px] font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(90,95,232,0.07)", color: "var(--brand)" }}>{tag}</span>
+                      <span key={tag} className="text-[10px] font-semibold px-2.5 py-1 rounded-full" style={{ background: "rgba(96,99,238,0.07)", color: "var(--brand)" }}>{tag}</span>
                     ))}
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Phone card */}
-            <motion.div
-              whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(90,95,232,0.1)" }}
+            <m.div
+              whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(96,99,238,0.1)" }}
               transition={{ type: "spring", stiffness: 300 }}
               className="bg-white border rounded-2xl p-5 shadow-sm"
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(96,99,238,0.08)" }}>
                   <Mail className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div>
@@ -234,17 +240,17 @@ export default function Hero() {
                   <p className="text-[14px] font-bold mt-2" style={{ color: "var(--brand)" }}>connect@hermesworkspace.com</p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Response time card */}
-            <motion.div
-              whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(90,95,232,0.1)" }}
+            <m.div
+              whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(96,99,238,0.1)" }}
               transition={{ type: "spring", stiffness: 300 }}
               className="bg-white border rounded-2xl p-5 shadow-sm"
               style={{ borderColor: "var(--ink-06)" }}
             >
               <div className="flex items-start gap-4">
-                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(90,95,232,0.08)" }}>
+                <div className="size-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(96,99,238,0.08)" }}>
                   <Clock className="size-5" style={{ color: "var(--brand)" }} />
                 </div>
                 <div className="flex-1">
@@ -256,7 +262,7 @@ export default function Hero() {
                       { label: "Email", time: "Within 24hrs" },
                       { label: "Demo", time: "1-2 Business Days" },
                     ].map((s) => (
-                      <div key={s.label} className="rounded-xl p-2.5 text-center" style={{ background: "rgba(90,95,232,0.05)" }}>
+                      <div key={s.label} className="rounded-xl p-2.5 text-center" style={{ background: "rgba(96,99,238,0.05)" }}>
                         <p className="text-[11px] font-bold" style={{ color: "var(--brand)" }}>{s.time}</p>
                         <p className="text-[10px] mt-0.5" style={{ color: "var(--ink-60)" }}>{s.label}</p>
                       </div>
@@ -264,10 +270,10 @@ export default function Hero() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Trust checkmarks */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
@@ -278,7 +284,7 @@ export default function Hero() {
                 "Supporting modern institutional operations",
                 "Free Demo available for qualifing institutions",
               ].map((text) => (
-                <motion.div
+                <m.div
                   key={text}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -287,10 +293,10 @@ export default function Hero() {
                 >
                   <CheckCircle className="size-3.5 flex-shrink-0 text-emerald-500" />
                   <span className="text-[12px]" style={{ color: "var(--ink-60)" }}>{text}</span>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
         </div>
       </div>

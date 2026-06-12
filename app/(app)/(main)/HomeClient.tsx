@@ -1,11 +1,16 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Hero from "@/components/Home_sections/homehero";
 import Stats from "@/components/Home_sections/Stats";
-import { useEffect, useState } from "react";
-import { WithLoader } from "@/components/LoadingScreen/useLoader";
 
+const Hero = dynamic(() => import("@/components/Home_sections/homehero"), {
+  ssr: false,
+  loading: () => <div className="min-h-screen" />,
+});
+const MobilePage = dynamic(() => import("@/components/Home_sections/Mobile"), {
+  ssr: false,
+  loading: () => <div className="h-screen w-full" />,
+});
 const Features = dynamic(() => import("@/components/Home_sections/Features"), {
   ssr: false,
   loading: () => <div className="py-section" />,
@@ -26,46 +31,22 @@ const CTA = dynamic(() => import("@/components/Home_sections/CTA"), {
   ssr: false,
   loading: () => <div className="py-section" />,
 });
-const MobilePage = dynamic(
-  () => import("@/components/Home_sections/Mobile"),
-  { ssr: false }
-);
-
-function HomeContent() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    setReady(true);
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  if (!ready) return null;
-
-  if (isMobile) {
-    return (
-      <main className="relative overflow-x-hidden">
-        <MobilePage />
-      </main>
-    );
-  }
-
-  return (
-    <main className="relative overflow-x-hidden">
-      <Hero />
-      <Stats />
-      <Features />
-      <WorkflowBento />
-      <Pricing />
-      <FAQ />
-      <CTA />
-    </main>
-  );
-}
 
 export default function HomeClient() {
-  return <HomeContent />;
+  return (
+    <>
+      <div className="md:hidden">
+        <MobilePage />
+      </div>
+      <main className="hidden md:block relative overflow-x-hidden min-h-screen">
+        <Hero />
+        <Stats />
+        <Features />
+        <WorkflowBento />
+        <Pricing />
+        <FAQ />
+        <CTA />
+      </main>
+    </>
+  );
 }

@@ -9,7 +9,7 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
 import { FOUNDERS } from "./founders-data";
@@ -35,7 +35,8 @@ export default function MobileFoundersShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [progress, setProgress] = useState(0);
-  const [startTime, setStartTime] = useState(() => Date.now());
+  const startTimeRef = useRef<number | null>(null);
+  if (!startTimeRef.current) startTimeRef.current = Date.now();
 
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -51,7 +52,7 @@ export default function MobileFoundersShowcase() {
         return next;
       });
       setProgress(0);
-      setStartTime(Date.now());
+      startTimeRef.current = Date.now();
     },
     []
   );
@@ -65,12 +66,12 @@ export default function MobileFoundersShowcase() {
   // Progress ticker
   useEffect(() => {
     progressRef.current = setInterval(() => {
-      setProgress(Math.min(((Date.now() - startTime) / AUTO_DURATION) * 100, 100));
+      setProgress(Math.min(((Date.now() - startTimeRef.current!) / AUTO_DURATION) * 100, 100));
     }, 50);
     return () => {
       if (progressRef.current) clearInterval(progressRef.current);
     };
-  }, [activeIndex, startTime]);
+  }, [activeIndex]);
 
   // Swipe support
   const touchStartX = useRef(0);
@@ -88,7 +89,7 @@ export default function MobileFoundersShowcase() {
       className="relative w-full overflow-hidden"
       style={{
         backgroundColor: "#ffffff",
-        fontFamily: "'Plus Jakarta Sans', sans-serif",
+        fontFamily: "var(--font-body, Inter, sans-serif)",
         height: "100svh",
       }}
       onTouchStart={onTouchStart}
@@ -101,15 +102,14 @@ export default function MobileFoundersShowcase() {
           style={{ backgroundColor: founder.accentColor }}
         />
         <span
-          className="text-[10px] font-bold tracking-[0.2em] uppercase"
-          style={{ color: "#0D0D0F", fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+          className="text-[10px] font-body font-bold tracking-[0.2em] uppercase" style={{ color: "#0D0D0F" }}
         >
           HermesWorkspace
         </span>
       </div>
 
       <AnimatePresence mode="wait" custom={direction}>
-        <motion.div
+        <m.div
           key={founder.id}
           custom={direction}
           initial={{ opacity: 0, x: direction > 0 ? 80 : -80 }}
@@ -119,7 +119,7 @@ export default function MobileFoundersShowcase() {
           className="absolute inset-0 flex flex-col items-center overflow-x-hidden overflow-y-auto px-6 pt-20 pb-36"
         >
           {/* Founder index label */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -128,10 +128,10 @@ export default function MobileFoundersShowcase() {
           >
             Founder {String(founder.id).padStart(2, "0")} /{" "}
             {String(FOUNDERS.length).padStart(2, "0")}
-          </motion.p>
+          </m.p>
 
           {/* Portrait card */}
-          <motion.div
+          <m.div
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.15, duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
@@ -153,10 +153,10 @@ export default function MobileFoundersShowcase() {
               </span>
               <div className="h-px w-6 bg-white/70" />
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Role badge */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
@@ -171,11 +171,11 @@ export default function MobileFoundersShowcase() {
             >
               {founder.role}
             </span>
-          </motion.div>
+          </m.div>
 
           {/* Name — Bebas Neue, matches desktop */}
           <div className="mb-2 w-full min-w-0 max-w-full px-1 text-center">
-            <motion.span
+            <m.span
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
@@ -189,9 +189,9 @@ export default function MobileFoundersShowcase() {
               }}
             >
               {founder.firstName}
-            </motion.span>
+            </m.span>
             {founder.lastName && (
-              <motion.span
+              <m.span
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.32, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
@@ -203,12 +203,12 @@ export default function MobileFoundersShowcase() {
                 }}
               >
                 {founder.lastName}
-              </motion.span>
+              </m.span>
             )}
           </div>
 
           {/* Title line */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.38 }}
@@ -228,10 +228,10 @@ export default function MobileFoundersShowcase() {
               className="h-[2px] w-6 shrink-0 rounded-full"
               style={{ background: founder.accentColor }}
             />
-          </motion.div>
+          </m.div>
 
           {/* Bio */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.42 }}
@@ -239,10 +239,10 @@ export default function MobileFoundersShowcase() {
             style={{ color: "#555" }}
           >
             {founder.bio}
-          </motion.p>
+          </m.p>
 
           {/* Focus area pills */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.48 }}
@@ -261,25 +261,24 @@ export default function MobileFoundersShowcase() {
                 {area}
               </span>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Quote */}
-          <motion.blockquote
+          <m.blockquote
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.52 }}
-            className="text-center text-[12px] italic leading-relaxed max-w-[280px] mb-6 border-l-2 pl-4 text-left"
+            className="font-display text-center text-[12px] italic leading-relaxed max-w-[280px] mb-6 border-l-2 pl-4 text-left"
             style={{
               borderColor: founder.accentColor,
               color: "#666",
-              fontFamily: "'DM Serif Display', serif",
             }}
           >
             &ldquo;{founder.quote}&rdquo;
-          </motion.blockquote>
+          </m.blockquote>
 
           {/* Social icons */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.56 }}
@@ -321,8 +320,8 @@ export default function MobileFoundersShowcase() {
                 <IconBrandInstagram size={13} />
               </a>
             )}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </AnimatePresence>
 
       {/* Bottom progress + nav */}
@@ -341,7 +340,7 @@ export default function MobileFoundersShowcase() {
                 setDirection(dir);
                 setActiveIndex(i);
                 setProgress(0);
-                setStartTime(Date.now());
+                startTimeRef.current = Date.now();
               }}
               className="flex-1 flex flex-col gap-1"
               aria-label={`Go to ${f.firstName} ${f.lastName}`}
@@ -370,7 +369,7 @@ export default function MobileFoundersShowcase() {
                 style={{ background: "#E8E4DC" }}
               >
                 {i === activeIndex ? (
-                  <motion.div
+                  <m.div
                     className="h-full rounded-full origin-left"
                     style={{
                       background: f.accentColor,

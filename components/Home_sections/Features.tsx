@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import {
   MessageSquare, Video, Bell, Users, Activity,
   Calendar, Presentation, ShieldCheck, Globe2,
@@ -16,7 +16,7 @@ const features = [
     icon: <MessageSquare className="size-5" />,
     title: "Messages",
     desc: "Parent–teacher, staff room, and class group chats — all in one place with read receipts and instant delivery.",
-    color: "bg-purple-500/[0.07] text-purple-600",
+    color: "bg-brand/[0.07] text-brand",
     size: "col-span-2",
     mock: <MessagesMock />,
   },
@@ -32,7 +32,7 @@ const features = [
     icon: <Calendar className="size-5" />,
     title: "Meetings",
     desc: "Schedule and manage staff meetings, PTA sessions, and board reviews — with calendar sync and reminders.",
-    color: "bg-amber-500/[0.07] text-amber-600",
+    color: "bg-brand/[0.07] text-brand",
     size: "col-span-1",
     mock: <MeetingsMock />,
   },
@@ -40,7 +40,7 @@ const features = [
     icon: <Presentation className="size-5" />,
     title: "Webinars",
     desc: "Host large-scale webinars for career guidance, parent orientations, and guest lectures — with registration and recordings.",
-    color: "bg-rose-500/[0.07] text-rose-600",
+    color: "bg-brand/[0.07] text-brand",
     size: "col-span-2",
     mock: <WebinarsMock />,
   },
@@ -48,7 +48,7 @@ const features = [
     icon: <Users className="size-5" />,
     title: "Members",
     desc: "Manage students, teachers, admins, and alumni — all with role-based access, profiles, and bulk onboarding.",
-    color: "bg-green-500/[0.07] text-green-600",
+    color: "bg-brand/[0.07] text-brand",
     size: "col-span-2",
     mock: <MembersMock />,
   },
@@ -56,7 +56,7 @@ const features = [
     icon: <Bell className="size-5" />,
     title: "Notice",
     desc: "Push school announcements to every parent's phone in seconds — with delivery tracking and priority tags.",
-    color: "bg-blue-500/[0.07] text-blue-600",
+    color: "bg-brand/[0.07] text-brand",
     size: "col-span-1",
     mock: <NoticeMock />,
   },
@@ -87,7 +87,7 @@ export default function Features() {
     <section ref={ref} id="features" className="relative py-section overflow-hidden">
       <div className="container-page">
         {/* Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
@@ -101,17 +101,17 @@ export default function Features() {
           <p className="mt-4 text-body-lg text-brand-muted font-body leading-relaxed">
             One subscription. Every tool your teachers, students, and parents rely on daily.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Bento Grid */}
-        <motion.div
+        <m.div
           variants={container}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         >
           {features.map((f, i) => (
-            <motion.div
+            <m.div
               key={f.title}
               variants={item}
               className={`bento p-6 flex flex-col gap-4 ${
@@ -138,12 +138,12 @@ export default function Features() {
               <div className="mt-1">
                 {f.mock}
               </div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Bottom trust strip */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -158,7 +158,7 @@ export default function Features() {
               <span>{t.label}</span>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

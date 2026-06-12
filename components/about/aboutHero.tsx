@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { m, useScroll, useTransform } from "framer-motion";
+import { useIsMobile } from "@/lib/useIsMobile";
 // gsap dynamically imported inside useEffect
 // THREE dynamically imported inside useEffect
 
@@ -10,11 +11,7 @@ export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
-  const [isDesktop, setIsDesktop] = useState(true);
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsDesktop(window.innerWidth >= 768);
-  }, []);
+  const isDesktop = !useIsMobile();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 80]);
   const opacity = useTransform(scrollY, [0, 350], [1, 0]);

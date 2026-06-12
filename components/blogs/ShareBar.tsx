@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import React from 'react';
 
 interface ShareBarProps {
@@ -70,13 +70,21 @@ const SHARE_BUTTONS: { id: 'x' | 'linkedin' | 'facebook' | 'whatsapp' | 'telegra
 
 const getUrl = () => (typeof window !== 'undefined' ? window.location.href : '')
 
+function subscribeShare(cb: () => void) {
+  return () => {};
+}
+
+function getShareSnapshot() {
+  return typeof navigator !== 'undefined' && typeof navigator.share === 'function';
+}
+
+function getShareServerSnapshot() {
+  return false;
+}
+
 export function ShareBar({ title, compact = false, vertical = false }: ShareBarProps) {
   const [copied, setCopied] = useState(false)
-  const [supportsNativeShare, setSupportsNativeShare] = useState(false)
-
-  useEffect(() => {
-    setSupportsNativeShare(typeof navigator !== 'undefined' && typeof navigator.share === 'function')
-  }, [])
+  const supportsNativeShare = useSyncExternalStore(subscribeShare, getShareSnapshot, getShareServerSnapshot)
 
   const share = (platform: 'x' | 'linkedin' | 'facebook' | 'whatsapp' | 'telegram' | 'mail' | 'copy' | 'native') => {
     const url = getUrl()

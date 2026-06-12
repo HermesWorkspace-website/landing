@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { m } from "framer-motion";
 import { fadeUp, staggerContainer, slideRight } from "@/components/socials/motion-variants";
 import { ArrowRight, TrendingUp, Globe } from "lucide-react";
 import Link from "next/link";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const MotionLink = m.create(Link);
 
@@ -214,11 +215,7 @@ function AnalyticsCard() {
 }
 
 export function HeroSection() {
-  const [isDesktop, setIsDesktop] = useState(true);
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsDesktop(window.innerWidth >= 768);
-  }, []);
+  const isDesktop = !useIsMobile();
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F9F8FF] pt-[96px] md:pt-[120px] pb-16 md:pb-24">
       {isDesktop && <ThreeCanvas />}

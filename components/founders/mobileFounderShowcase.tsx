@@ -57,11 +57,22 @@ export default function MobileFoundersShowcase() {
     []
   );
 
+  const advanceRef = useRef(advance);
+  advanceRef.current = advance;
+
   // Auto-advance
   useEffect(() => {
-    const t = setTimeout(() => advance(1), AUTO_DURATION);
+    const t = setTimeout(() => advanceRef.current(1), AUTO_DURATION);
     return () => clearTimeout(t);
-  }, [activeIndex, advance]);
+  }, [activeIndex]);
+
+  const handleDotClick = (i: number) => {
+    const dir = i > activeIndex ? 1 : -1;
+    setDirection(dir);
+    setActiveIndex(i);
+    setProgress(0);
+    startTimeRef.current = Date.now();
+  };
 
   // Progress ticker
   useEffect(() => {
@@ -335,13 +346,7 @@ export default function MobileFoundersShowcase() {
             <button
               type="button"
               key={f.id}
-              onClick={() => {
-                const dir = i > activeIndex ? 1 : -1;
-                setDirection(dir);
-                setActiveIndex(i);
-                setProgress(0);
-                startTimeRef.current = Date.now();
-              }}
+              onClick={() => handleDotClick(i)}
               className="flex-1 flex flex-col gap-1"
               aria-label={`Go to ${f.firstName} ${f.lastName}`}
             >

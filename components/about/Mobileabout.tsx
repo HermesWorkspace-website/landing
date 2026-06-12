@@ -189,8 +189,8 @@ function MobileHero() {
     <section className="relative overflow-x-hidden bg-white pt-[96px] pb-10 px-5">
       {/* CSS ambient */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-20%] top-[5%] size-80 rounded-full bg-green-100/70 blur-3xl" style={{ animation: "ambientBreath 8s ease-in-out infinite" }} />
-        <div className="absolute right-[-15%] bottom-[8%] size-72 rounded-full bg-emerald-50/90 blur-3xl" style={{ animation: "ambientBreath2 12s ease-in-out infinite" }} />
+        <div className="absolute left-[-20%] top-[5%] size-80 rounded-full bg-green-100/70 blur-3xl animate-[ambientBreath_8s_ease-in-out_infinite]" />
+        <div className="absolute right-[-15%] bottom-[8%] size-72 rounded-full bg-emerald-50/90 blur-3xl animate-[ambientBreath2_12s_ease-in-out_infinite]" />
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -601,8 +601,8 @@ function MobileLeadershipTeam() {
 
                 {/* Rotating accent rings */}
                 <div
-                  className="absolute rounded-full border pointer-events-none anim-spin"
-                  style={{ width: 200, height: 200, top: "50%", left: "50%", marginTop: -100, marginLeft: -100, borderColor: `${member.accentColor}25`, animationDuration: '28s' }}
+                  className="absolute w-[200px] h-[200px] top-1/2 left-1/2 -mt-[100px] -ml-[100px] rounded-full border pointer-events-none anim-spin [animation-duration:28s]"
+                  style={{ borderColor: `${member.accentColor}25` }}
                 />
 
                 {/* Founder label */}

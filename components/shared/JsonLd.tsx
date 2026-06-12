@@ -10,8 +10,8 @@ export default function JsonLd({ data }: JsonLdProps) {
     <script
       type="application/ld+json"
       suppressHydrationWarning
-      // eslint-disable-next-line react/no-danger -- Safe because it is a stringified JSON schema object (JSON-LD)
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    >
+      {JSON.stringify(data)}
+    </script>
   );
 }

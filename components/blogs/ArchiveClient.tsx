@@ -494,7 +494,20 @@ const regularPosts = useMemo(
       <main className="max-w-6xl mx-auto px-6 md:px-10 py-12">
 
   {/* Featured Blogs Section */}
-  {featuredPosts.length > 0 && (
+  <FeaturedBlogsSection featuredPosts={featuredPosts} />
+
+  {/* All Blogs Section */}
+  <AllBlogsSection filteredArticles={filteredArticles} />
+
+</main>
+    </div>
+  )
+}
+
+function FeaturedBlogsSection({ featuredPosts }: { featuredPosts: ArchiveArticle[] }) {
+  if (featuredPosts.length === 0) return null;
+
+  return (
     <section className="mb-20">
       <div className="mb-10">
         <p className="font-body text-[11px] font-bold uppercase tracking-[0.2em] text-brand">
@@ -526,56 +539,57 @@ const regularPosts = useMemo(
         ))}
       </div>
     </section>
-  )}
-
-  {/* All Blogs Divider */}
-  <div className="my-16 flex items-center gap-4">
-    <div className="flex-1 h-px bg-neutral-200" />
-
-    <span className="font-body text-[11px] uppercase tracking-[0.2em] text-brand-ink/40">
-      All Blogs
-    </span>
-
-    <div className="flex-1 h-px bg-neutral-200" />
-  </div>
-
-  {/* All Blogs Heading */}
-  <div className="mb-10">
-    <h2 className="font-display text-4xl font-bold text-brand-ink">
-      All Blogs
-    </h2>
-
-    <p className="mt-3 text-brand-muted">
-      Showing {filteredArticles.length} articles
-    </p>
-  </div>
-
-  {/* All Blogs Grid */}
-  {filteredArticles.length === 0 ? (
-    <div className="py-24 text-center text-neutral-400 text-[15px]">
-      No articles match your search or filters.
-    </div>
-  ) : (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-      {filteredArticles.map((article, i) => (
-        <m.div
-          key={article.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.45,
-            delay: Math.min(i * 0.05, 0.4),
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
-          <ArticleCard article={article} />
-        </m.div>
-      ))}
-    </div>
-  )}
-
-</main>
-    </div>
-  )
+  );
 }
 
+function AllBlogsSection({ filteredArticles }: { filteredArticles: ArchiveArticle[] }) {
+  return (
+    <>
+      {/* All Blogs Divider */}
+      <div className="my-16 flex items-center gap-4">
+        <div className="flex-1 h-px bg-neutral-200" />
+
+        <span className="font-body text-[11px] uppercase tracking-[0.2em] text-brand-ink/40">
+          All Blogs
+        </span>
+
+        <div className="flex-1 h-px bg-neutral-200" />
+      </div>
+
+      {/* All Blogs Heading */}
+      <div className="mb-10">
+        <h2 className="font-display text-4xl font-bold text-brand-ink">
+          All Blogs
+        </h2>
+
+        <p className="mt-3 text-brand-muted">
+          Showing {filteredArticles.length} articles
+        </p>
+      </div>
+
+      {/* All Blogs Grid */}
+      {filteredArticles.length === 0 ? (
+        <div className="py-24 text-center text-neutral-400 text-[15px]">
+          No articles match your search or filters.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+          {filteredArticles.map((article, i) => (
+            <m.div
+              key={article.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.45,
+                delay: Math.min(i * 0.05, 0.4),
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <ArticleCard article={article} />
+            </m.div>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}

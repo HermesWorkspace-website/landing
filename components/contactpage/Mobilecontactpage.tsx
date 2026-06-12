@@ -36,7 +36,7 @@
  *  - Active tap feedback on all buttons
  */
 
-import React, { useState, useRef, useEffect, ReactNode } from "react";
+import React, { useState, useRef, useEffect, ReactNode, useReducer } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import {
   ArrowRight,
@@ -503,13 +503,26 @@ const validateAll = (data: FormState): InquiryFieldErrors => {
 };
 
 function MobileInquiry() {
-  const [focused, setFocused] = useState<FieldKey | null>(null);
   const touchedRef = useRef<Partial<Record<FieldKey, boolean>>>({});
-  const [form, setForm] = useState<FormState>(INITIAL_FORM);
-  const [fieldErrors, setFieldErrors] = useState<InquiryFieldErrors>({});
-  const [globalError, setGlobalError] = useState<string | null>(null);
-  const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [state, dispatch] = useReducer(
+    (s: any, a: any) => ({ ...s, ...(typeof a === 'function' ? a(s) : a) }),
+    {
+      focused: null as FieldKey | null,
+      form: INITIAL_FORM,
+      fieldErrors: {} as InquiryFieldErrors,
+      globalError: null as string | null,
+      sent: false,
+      loading: false,
+    }
+  );
+  const { focused, form, fieldErrors, globalError, sent, loading } = state;
+
+  const setFocused = (focused: FieldKey | null) => dispatch({ focused });
+  const setForm = (form: FormState | ((prev: FormState) => FormState)) => dispatch((s: any) => ({ form: typeof form === 'function' ? form(s.form) : form }));
+  const setFieldErrors = (fieldErrors: InquiryFieldErrors | ((prev: InquiryFieldErrors) => InquiryFieldErrors)) => dispatch((s: any) => ({ fieldErrors: typeof fieldErrors === 'function' ? fieldErrors(s.fieldErrors) : fieldErrors }));
+  const setGlobalError = (globalError: string | null) => dispatch({ globalError });
+  const setSent = (sent: boolean) => dispatch({ sent });
+  const setLoading = (loading: boolean) => dispatch({ loading });
 
   const validateSingle = (key: FieldKey, nextForm: FormState) => {
     const result = InquirySchema.safeParse(nextForm);
@@ -796,40 +809,46 @@ function MobileInquiry() {
       </FadeUp>
 
       {/* Contact info panel */}
-      <FadeUp delay={120} className="mt-10">
-        <div
-          className="pt-8 flex flex-col gap-5"
-          style={{ borderTop: "1px solid var(--ink-06)" }}
-        >
-          {[
-            { icon: <IconMapPin size={15} />, title: "Headquarters", body: "HermesWorkspace, Ranchi\nJharkhand, India" },
-            { icon: <IconClock size={15} />, title: "Support Hours", body: "Mon – Fri, 9:00 AM – 8:00 PM IST\n24/7 Priority Support for Enterprise" },
-            { icon: <IconMail size={15} />, title: "Email", body: "support@hermesworkspace.com" },
-            { icon: <IconBolt size={15} />, title: "Response Time", body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours." },
-          ].map((item, i) => (
-            <div key={item.title} className="flex gap-3">
-              <div
-                className="size-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
-                style={{ background: "rgba(96,99,238,0.08)", color: "var(--brand)" }}
-              >
-                {item.icon}
+      <MobileContactInfoPanel />
+    </section>
+  );
+}
+
+function MobileContactInfoPanel() {
+  return (
+    <FadeUp delay={120} className="mt-10">
+      <div
+        className="pt-8 flex flex-col gap-5"
+        style={{ borderTop: "1px solid var(--ink-06)" }}
+      >
+        {[
+          { icon: <IconMapPin size={15} />, title: "Headquarters", body: "HermesWorkspace, Ranchi\nJharkhand, India" },
+          { icon: <IconClock size={15} />, title: "Support Hours", body: "Mon – Fri, 9:00 AM – 8:00 PM IST\n24/7 Priority Support for Enterprise" },
+          { icon: <IconMail size={15} />, title: "Email", body: "support@hermesworkspace.com" },
+          { icon: <IconBolt size={15} />, title: "Response Time", body: "Initial response within 2 academic hours.\nTier 1 resolution within 12 hours." },
+        ].map((item, i) => (
+          <div key={item.title} className="flex gap-3">
+            <div
+              className="size-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+              style={{ background: "rgba(96,99,238,0.08)", color: "var(--brand)" }}
+            >
+              {item.icon}
+            </div>
+            <div>
+              <div className="text-[12px] font-bold mb-0.5" style={{ color: "var(--ink)" }}>
+                {item.title}
               </div>
-              <div>
-                <div className="text-[12px] font-bold mb-0.5" style={{ color: "var(--ink)" }}>
-                  {item.title}
-                </div>
-                <div
-                  className="text-[11px] font-body leading-[1.65] whitespace-pre-line"
-                  style={{ color: "var(--ink-60)" }}
-                >
-                  {item.body}
-                </div>
+              <div
+                className="text-[11px] font-body leading-[1.65] whitespace-pre-line"
+                style={{ color: "var(--ink-60)" }}
+              >
+                {item.body}
               </div>
             </div>
-          ))}
-        </div>
-      </FadeUp>
-    </section>
+          </div>
+        ))}
+      </div>
+    </FadeUp>
   );
 }
 

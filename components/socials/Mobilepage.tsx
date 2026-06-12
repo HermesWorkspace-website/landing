@@ -38,7 +38,8 @@
  *  - Full interactivity (links, email, smooth scroll)
  */
 
-import { useRef, useEffect, useState, ReactNode } from "react";
+import { useRef, ReactNode } from "react";
+import { useInView, m } from "framer-motion";
 import {
   IconBrandLinkedin,
   IconBrandInstagram,
@@ -50,42 +51,18 @@ import { ArrowRight, TrendingUp, BarChart3, Layers, Cpu } from "lucide-react";
 import Link from "next/link";
 
 /* ─────────────────────────────────────────────
-   Tiny hook: fires once when element enters view
-   ───────────────────────────────────────────── */
-function useVisible(rootMargin = "-40px") {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  const marginRef = useRef(rootMargin);
-
-  useEffect(() => {
-    marginRef.current = rootMargin;
-  }, [rootMargin]);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.unobserve(el); } },
-      { rootMargin: marginRef.current }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return { ref, visible };
-}
-
-/* ─────────────────────────────────────────────
    Fade-up wrapper (CSS animation, no JS lib)
    ───────────────────────────────────────────── */
 function FadeUp({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
-  const { ref, visible } = useVisible();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
   return (
     <div
       ref={ref}
       className={className}
       style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(28px)",
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0)" : "translateY(28px)",
         transition: `opacity 0.6s cubic-bezier(0.76,0,0.24,1) ${delay}ms, transform 0.6s cubic-bezier(0.76,0,0.24,1) ${delay}ms`,
       }}
     >
@@ -191,7 +168,7 @@ function MobileHero() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeDasharray="500"
-            style={{ animation: "sparklineDraw 2s ease-out forwards" }}
+            className="animate-[sparklineDraw_2s_ease-out_forwards]"
           />
           <path
             d="M0,32 C20,29 40,22 60,24 C80,26 100,14 120,11 C140,8 160,16 180,7 C200,0 220,4 240,2 L240,40 L0,40 Z"

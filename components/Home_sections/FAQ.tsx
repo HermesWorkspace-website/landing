@@ -99,8 +99,7 @@ export default function FAQ() {
 
   return (
     <>
-      {/* eslint-disable-next-line react/no-danger -- Safe because it is a stringified JSON schema object (JSON-LD) */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema), }} />
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       <section id="faqs" ref={ref} className="py-section">
         <div className="container-page max-w-[800px]">
           <m.div

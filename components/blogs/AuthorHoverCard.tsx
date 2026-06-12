@@ -161,20 +161,18 @@ export function AuthorHoverCard({ author, sidebar = false }: AuthorHoverCardProp
           {(twitterUrl || linkedinUrl) && (
             <div className="flex items-center gap-2 pt-1">
               {twitterUrl && (
-                <a href={twitterUrl} target="_blank" rel="noopener noreferrer"
+                <button type="button"
                   onMouseDown={(e) => { e.preventDefault(); window.open(twitterUrl, '_blank', 'noopener,noreferrer') }}
-                  onClick={(e) => e.preventDefault()}
                   className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-lg bg-neutral-100 hover:bg-neutral-900 hover:text-white text-neutral-600 text-[11.5px] font-medium transition-colors">
                   <IconBrandX size={12} /> Twitter
-                </a>
+                </button>
               )}
               {linkedinUrl && (
-                <a href={linkedinUrl} target="_blank" rel="noopener noreferrer"
+                <button type="button"
                   onMouseDown={(e) => { e.preventDefault(); window.open(linkedinUrl, '_blank', 'noopener,noreferrer') }}
-                  onClick={(e) => e.preventDefault()}
                   className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-lg bg-neutral-100 hover:bg-[#0077B5] hover:text-white text-neutral-600 text-[11.5px] font-medium transition-colors">
                   <IconBrandLinkedin size={12} /> LinkedIn
-                </a>
+                </button>
               )}
             </div>
           )}

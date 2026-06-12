@@ -218,10 +218,9 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-brand-bg pt-16">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
+      <script type="application/ld+json">
+        {JSON.stringify(articleSchema)}
+      </script>
       <ReadingProgress />
 
       <div className="mx-auto w-full max-w-[1400px] px-6 py-6 md:px-10 xl:px-12">

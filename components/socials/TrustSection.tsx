@@ -161,8 +161,8 @@ export function TrustSection() {
             {/* Author */}
             <div className="flex items-center gap-3">
               <m.div
-                initial={{ scale: 0 }}
-                animate={inView ? { scale: 1 } : { scale: 0 }}
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.95, opacity: 0 }}
                 transition={{ delay: 0.7, type: "spring", stiffness: 300 }}
                 className="size-10 rounded-full bg-[#EAE8FF] flex items-center justify-center"
               >

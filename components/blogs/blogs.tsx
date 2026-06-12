@@ -31,8 +31,10 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<BlogSearchParams>;
 }) {
-  const params = await searchParams;
-  const [postsResult, tags] = await Promise.all([getCachedPosts({}), getCachedTags()]);
+  const [params, [postsResult, tags]] = await Promise.all([
+    searchParams,
+    Promise.all([getCachedPosts({}), getCachedTags()]),
+  ]);
   const totalPosts      = postsResult.totalDocs
 const totalCategories = tags.length
 

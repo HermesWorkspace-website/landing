@@ -964,6 +964,27 @@ html {
   50% { opacity: 0.7; }
 }
 
+@keyframes browserDot {
+  0%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
+  80% { opacity: 0.3; }
+}
+
+@keyframes ambientBreath {
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+  50% { transform: scale(1.06) translate(-6px, 4px); opacity: 0.85; }
+}
+
+@keyframes ambientBreath2 {
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.9; }
+  50% { transform: scale(0.94) translate(8px, -3px); opacity: 0.7; }
+}
+
+@keyframes sparklineDraw {
+  from { stroke-dashoffset: 500; }
+  to { stroke-dashoffset: 0; }
+}
+
 .anim-pulse-opacity {
   animation: pulse-opacity 1.8s ease-in-out infinite;
 }

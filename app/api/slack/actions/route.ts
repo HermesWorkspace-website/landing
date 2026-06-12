@@ -147,9 +147,7 @@ async function handleCloseTicket(
         text: `✅ Closed by ${closedByUser} — ${inquiry.fullName} (${inquiry.institution})`,
         attachments: updatedAttachments,
       });
-      console.log(
-        `[Slack Actions] ✓ Message updated for inquiry ${inquiryId} by ${closedByUser}`
-      );
+      // Message updated successfully
     } catch (err) {
       // Non-fatal — DB already updated, just log
       console.error("[Slack Actions] chat.update failed:", err);

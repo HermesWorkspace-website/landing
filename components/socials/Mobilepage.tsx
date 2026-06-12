@@ -190,6 +190,8 @@ function MobileHero() {
             stroke="#6063EE"
             strokeWidth="2"
             strokeLinecap="round"
+            strokeDasharray="500"
+            style={{ animation: "sparklineDraw 2s ease-out forwards" }}
           />
           <path
             d="M0,32 C20,29 40,22 60,24 C80,26 100,14 120,11 C140,8 160,16 180,7 C200,0 220,4 240,2 L240,40 L0,40 Z"

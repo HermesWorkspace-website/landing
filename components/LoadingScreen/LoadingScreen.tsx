@@ -12,7 +12,7 @@ const PHASES = [
   { pct: 100, label: "Ready"                          },
 ] as const;
 
-const MIN_VISIBLE_MS = 600;
+const MIN_VISIBLE_MS = 250;
 
 export default function LoadingScreen({ onComplete }: { onComplete?: () => void }) {
   const [phase, setPhase]     = useState(0);

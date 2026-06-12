@@ -134,7 +134,9 @@ function MobileHero() {
         >
           {/* Fake browser bar */}
           <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-black/[0.05] bg-[#FAFAFA]">
-            {["#ff5f57","#febc2e","#28c840"].map(c => <div key={c} className="size-2 rounded-full" style={{ background: c }} />)}
+            {["#ff5f57","#febc2e","#28c840"].map((c, i) => (
+              <div key={c} className="size-2 rounded-full" style={{ background: c, animation: `browserDot 2s ease-in-out ${i * 0.3}s infinite` }} />
+            ))}
             <div className="ml-2 flex-1 h-4 rounded bg-black/[0.04]" />
           </div>
           {/* Stats row */}

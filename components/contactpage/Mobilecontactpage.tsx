@@ -151,7 +151,10 @@ function MobileHero() {
       <div className="relative z-10 w-full min-w-0 max-w-full">
         <div className="flex w-full min-w-0 max-w-full flex-col items-start text-left">
           {/* Badge */}
-          <div
+          <m.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
             className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2"
             style={{ background: "rgba(96,99,238,0.08)", border: "1px solid rgba(96,99,238,0.2)" }}
           >
@@ -165,7 +168,7 @@ function MobileHero() {
             >
               Contact Support
             </span>
-          </div>
+          </m.div>
 
           {/* Headline — stacked like desktop mobile hero */}
           <div className="mb-5 w-full min-w-0 max-w-full">
@@ -1017,7 +1020,7 @@ function FAQItem({ q, a, open, toggle }: { q: string; a: string; open: boolean; 
   return (
     <button type="button" className="w-full text-left p-0 bg-transparent border-0 border-b cursor-pointer" style={{ borderColor: "var(--ink-06)" }} onClick={toggle}>
       <div className="py-4 flex items-start justify-between gap-3">
-        <h4 className="font-body font-medium text-[14px] pr-3" style={{ color: "var(--ink)" }}>{q}</h4>
+        <h3 className="font-body font-medium text-[14px] pr-3" style={{ color: "var(--ink)" }}>{q}</h3>
         <div
           className="size-6 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all"
           style={{

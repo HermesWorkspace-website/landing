@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { m, useScroll, useTransform } from "framer-motion";
 // gsap dynamically imported inside useEffect
 // THREE dynamically imported inside useEffect
@@ -10,18 +10,25 @@ export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsDesktop(window.innerWidth >= 768);
+  }, []);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 80]);
   const opacity = useTransform(scrollY, [0, 350], [1, 0]);
 
   // Three.js floating particles
   useEffect(() => {
+    let active = true;
     const dispose: (() => void)[] = [];
 
     (async () => {
       if (!canvasRef.current) return;
       const canvas = canvasRef.current;
       const THREE = await import("three");
+      if (!active) return;
       const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
@@ -78,7 +85,7 @@ export default function Hero() {
       });
     })();
 
-    return () => { dispose.forEach(fn => fn()); };
+    return () => { active = false; dispose.forEach(fn => fn()); };
   }, []);
 
   // GSAP title split animation
@@ -102,6 +109,8 @@ export default function Hero() {
     };
     init();
   }, []);
+
+  if (!isDesktop) return null;
 
   return (
     <section ref={sectionRef} className="relative min-h-screen bg-white overflow-hidden pt-[96px] md:pt-[120px] pb-16 md:pb-24 flex items-center">

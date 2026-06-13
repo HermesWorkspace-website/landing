@@ -5,9 +5,9 @@ import type { Post, Tag } from '@/payload-types';
 import { dbg } from './debug-log';
 
 let _payload: Awaited<ReturnType<typeof getPayload>> | null = null;
-let _payloadPromise: Promise<typeof _payload> | null = null;
+let _payloadPromise: Promise<Awaited<ReturnType<typeof getPayload>>> | null = null;
 
-export async function getPayloadClient() {
+export async function getPayloadClient(): Promise<Awaited<ReturnType<typeof getPayload>>> {
   if (_payload) {
     dbg('getPayloadClient', 'returning existing instance (warm)');
     return _payload;
@@ -32,7 +32,7 @@ export async function getPayloadClient() {
       throw err;
     });
 
-  return _payloadPromise;
+  return _payloadPromise!;
 }
 
 export const getCachedPost = unstable_cache(

@@ -29,7 +29,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI!,
       // Keep pool small for serverless/hosted Postgres (Neon, Supabase, etc.)
       // to avoid exhausting connection limits
-      max: 5,
+      max: 2,
       // Discard idle connections after 20s — before the host drops them
       idleTimeoutMillis: 20_000,
       // Fail fast (10s) if no connection is available, instead of hanging

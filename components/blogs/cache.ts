@@ -46,5 +46,5 @@ export const getCachedTags = unstable_cache(
     }
   },
   ['blog-tags'],
-  { revalidate: 30 }
+  { revalidate: 3600 }
 );

@@ -46,6 +46,8 @@ const documentNav = [
   { slug: "contact", label: "Contact", href: "/legal/contact" },
 ];
 
+export const dynamic = 'force-static';
+
 export default function LegalOverviewPage() {
   const documents = Object.values(legalDocuments);
 

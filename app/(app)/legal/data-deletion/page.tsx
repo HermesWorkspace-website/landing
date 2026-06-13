@@ -27,6 +27,8 @@ export const metadata = {
   },
 };
 
+export const dynamic = 'force-static';
+
 export default function DataDeletionPage() {
   return <LegalDocPage document={legalDocuments["data-deletion"]} />;
 }

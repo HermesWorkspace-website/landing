@@ -27,6 +27,8 @@ export const metadata = {
   },
 };
 
+export const dynamic = 'force-static';
+
 export default function GrievancePage() {
   return <LegalDocPage document={legalDocuments.grievance} />;
 }

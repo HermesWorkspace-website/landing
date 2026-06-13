@@ -43,7 +43,7 @@ export const getCachedPost = unstable_cache(
     const { docs } = await payload.find({
       collection: 'posts',
       where: { slug: { equals: slug }, status: { equals: 'published' } },
-      depth: 3,
+      depth: 2,
       limit: 1,
     });
     return docs[0] as Post | undefined;

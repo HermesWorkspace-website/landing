@@ -27,6 +27,8 @@ export const metadata = {
   },
 };
 
+export const dynamic = 'force-static';
+
 export default function InformationPage() {
   return <LegalDocPage document={legalDocuments.information} />;
 }

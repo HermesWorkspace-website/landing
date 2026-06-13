@@ -19,7 +19,7 @@ import type { Article, BlogAuthor, BlogTag } from '@/components/blogs/types';
 import MobileBlogPage from '@/components/blogs/MobileBlogPage';
 
 import { getCachedPosts, getCachedTags } from '@/components/blogs/cache';
-import { dbg, resetRequestId, getRequestId } from '@/lib/debug-log';
+import { dbg, perf, resetRequestId, getRequestId } from '@/lib/debug-log';
 
 type BlogSearchParams = {
   category?: string;
@@ -33,15 +33,15 @@ export default async function BlogPage({
   searchParams: Promise<BlogSearchParams>;
 }) {
   resetRequestId();
+  const pageTimer = perf('BlogPage:total');
   dbg('BlogPage', 'render start');
-  const fetchStart = Date.now();
 
+  const fetchTimer = perf('BlogPage:Promise.all(fetch)');
   const [params, [postsResult, tags]] = await Promise.all([
     searchParams,
     Promise.all([getCachedPosts({}), getCachedTags()]),
   ]);
-
-  dbg('BlogPage', 'data fetched', { duration: Date.now() - fetchStart, totalPosts: postsResult.totalDocs, rawTagsType: typeof tags, rawTagsIsArray: Array.isArray(tags), rawTagsLength: Array.isArray(tags) ? tags.length : 'N/A' });
+  fetchTimer.end({ totalPosts: postsResult.totalDocs, tagsCount: Array.isArray(tags) ? tags.length : 0 });
 
   const totalPosts      = postsResult.totalDocs
 const safeTags = Array.isArray(tags) ? tags : [];
@@ -51,6 +51,7 @@ const totalCategories = safeTags.length
   const searchQuery = (params.search || '').trim().toLowerCase();
   dbg('BlogPage', 'search params', { activeCategory, searchQuery });
 
+  const processTimer = perf('BlogPage:processArticles');
   const articles: Article[] = postsResult.docs.map((post) => {
     const resolvedTags: BlogTag[] = (post.tags ?? []).flatMap((t) =>
       typeof t === 'object' && t !== null
@@ -104,6 +105,7 @@ const totalCategories = safeTags.length
       article.category.toLowerCase().includes(searchQuery);
     return categoryMatch && searchMatch;
   });
+  processTimer.end({ articlesCount: articles.length, filteredCount: filteredLatest.length });
 
   const categories = [
     'All Posts',
@@ -118,6 +120,8 @@ const totalCategories = safeTags.length
     filteredLatestCount: filteredLatest.length,
     totalPosts,
   });
+
+  pageTimer.end();
 
   const requestId = getRequestId();
 

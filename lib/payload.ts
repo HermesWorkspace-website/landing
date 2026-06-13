@@ -2,7 +2,7 @@ import { getPayload } from 'payload';
 import config from '@/payload.config';
 import { unstable_cache } from 'next/cache';
 import type { Post, Tag } from '@/payload-types';
-import { dbg } from './debug-log';
+import { dbg, perf } from './debug-log';
 
 let _payload: Awaited<ReturnType<typeof getPayload>> | null = null;
 let _payloadPromise: Promise<Awaited<ReturnType<typeof getPayload>>> | null = null;
@@ -17,18 +17,20 @@ export async function getPayloadClient(): Promise<Awaited<ReturnType<typeof getP
     return _payloadPromise;
   }
 
-  dbg('getPayloadClient', 'cold start - initializing Payload');
-  const start = Date.now();
+  const timer = perf('getPayloadClient');
+  const initTimer = perf('getPayload({ config })');
 
   _payloadPromise = getPayload({ config })
     .then((p) => {
       _payload = p;
-      dbg('getPayloadClient', 'initialization complete', { duration: Date.now() - start });
+      initTimer.end();
+      timer.end();
       return p;
     })
     .catch((err) => {
       _payloadPromise = null;
-      dbg('getPayloadClient', 'initialization FAILED', { error: String(err), duration: Date.now() - start });
+      initTimer.end({ error: String(err) });
+      timer.end({ error: String(err) });
       throw err;
     });
 

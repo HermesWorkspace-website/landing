@@ -28,3 +28,18 @@ export function dbg(context: string, message: string, data?: Record<string, unkn
     console.log(`${prefix} ${message}`);
   }
 }
+
+export function perf(label: string): { end: (extra?: Record<string, unknown>) => void } {
+  const start = Date.now();
+  const rid = _requestId || generateCorrelationId();
+  const ts = new Date().toISOString().slice(11, 23);
+  const prefix = `[perf][${rid}][${ts}]`;
+  console.log(`${prefix}[${label}] START at ${start}`);
+  return {
+    end: (extra?: Record<string, unknown>) => {
+      const duration = Date.now() - start;
+      const extraStr = extra ? ` ${JSON.stringify(extra)}` : '';
+      console.log(`${prefix}[${label}] END duration=${duration}ms${extraStr}`);
+    },
+  };
+}

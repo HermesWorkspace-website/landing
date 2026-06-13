@@ -2,13 +2,15 @@ import { getPayloadClient } from "@/lib/payload";
 import config from '@/payload.config';
 import type { Tag } from '@/payload-types';
 import { unstable_cache } from 'next/cache';
-import { dbg } from '@/lib/debug-log';
+import { dbg, perf } from '@/lib/debug-log';
 
 export const getCachedPosts = unstable_cache(
   async ({ tag, page = 1, limit = 100 }: { tag?: string; page?: number; limit?: number }) => {
     dbg('getCachedPosts', 'cache miss - executing query', { tag, page, limit });
-    const start = Date.now();
+    const payloadTimer = perf('getCachedPosts:getPayloadClient');
     const payload = await getPayloadClient();
+    payloadTimer.end();
+    const queryTimer = perf('getCachedPosts:payload.find');
     const result = await payload.find({
       collection: 'posts',
       where: {
@@ -20,7 +22,7 @@ export const getCachedPosts = unstable_cache(
       limit,
       page,
     });
-    dbg('getCachedPosts', 'query complete', { docsCount: result.docs.length, duration: Date.now() - start });
+    queryTimer.end({ docsCount: result.docs.length });
     return result;
   },
   ['blog-posts-v2'],
@@ -30,14 +32,16 @@ export const getCachedPosts = unstable_cache(
 export const getCachedTags = unstable_cache(
   async () => {
     dbg('getCachedTags', 'cache miss - executing query');
-    const start = Date.now();
     try {
+      const payloadTimer = perf('getCachedTags:getPayloadClient');
       const payload = await getPayloadClient();
+      payloadTimer.end();
+      const queryTimer = perf('getCachedTags:payload.find');
       const { docs } = await payload.find({ collection: 'tags', limit: 50, depth: 0 });
-      dbg('getCachedTags', 'query complete', { tagsCount: docs.length, duration: Date.now() - start });
+      queryTimer.end({ tagsCount: docs.length });
       return docs as Tag[];
     } catch (err) {
-      dbg('getCachedTags', 'query FAILED', { error: String(err), duration: Date.now() - start });
+      dbg('getCachedTags', 'query FAILED', { error: String(err) });
       throw err;
     }
   },

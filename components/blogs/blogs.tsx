@@ -19,6 +19,7 @@ import type { Article, BlogAuthor, BlogTag } from '@/components/blogs/types';
 import MobileBlogPage from '@/components/blogs/MobileBlogPage';
 
 import { getCachedPosts, getCachedTags } from '@/components/blogs/cache';
+import { dbg, resetRequestId, getRequestId } from '@/lib/debug-log';
 
 type BlogSearchParams = {
   category?: string;
@@ -31,15 +32,24 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<BlogSearchParams>;
 }) {
+  resetRequestId();
+  dbg('BlogPage', 'render start');
+  const fetchStart = Date.now();
+
   const [params, [postsResult, tags]] = await Promise.all([
     searchParams,
     Promise.all([getCachedPosts({}), getCachedTags()]),
   ]);
+
+  dbg('BlogPage', 'data fetched', { duration: Date.now() - fetchStart, totalPosts: postsResult.totalDocs, rawTagsType: typeof tags, rawTagsIsArray: Array.isArray(tags), rawTagsLength: Array.isArray(tags) ? tags.length : 'N/A' });
+
   const totalPosts      = postsResult.totalDocs
-const totalCategories = tags.length
+const safeTags = Array.isArray(tags) ? tags : [];
+const totalCategories = safeTags.length
 
   const activeCategory = params.category || 'All Posts';
   const searchQuery = (params.search || '').trim().toLowerCase();
+  dbg('BlogPage', 'search params', { activeCategory, searchQuery });
 
   const articles: Article[] = postsResult.docs.map((post) => {
     const resolvedTags: BlogTag[] = (post.tags ?? []).flatMap((t) =>
@@ -95,10 +105,21 @@ const totalCategories = tags.length
     return categoryMatch && searchMatch;
   });
 
- const categories = [
-  'All Posts',
-  ...tags.flatMap((t) => t.name ? [t.name] : []).sort(),
-]
+  const categories = [
+    'All Posts',
+    ...safeTags.flatMap((t) => t.name ? [t.name] : []).sort(),
+  ]
+
+  dbg('BlogPage', 'before render', {
+    categoriesCount: categories.length,
+    categoriesList: categories,
+    selectedCategory: params.category || 'All Posts',
+    safeTagsLength: safeTags.length,
+    filteredLatestCount: filteredLatest.length,
+    totalPosts,
+  });
+
+  const requestId = getRequestId();
 
   return (
     <>           {/* ── Desktop layout (original, unchanged) ── */}
@@ -116,7 +137,7 @@ const totalCategories = tags.length
 
               {/* 3. Category filter */}
               <Suspense fallback={<div className="h-11 bg-white" />}>
-                <CategoryBar categories={categories} id="desktop" />
+                <CategoryBar categories={categories} id="desktop" requestId={requestId} />
               </Suspense>
 
               {/* 4. Latest posts */}
@@ -128,7 +149,7 @@ const totalCategories = tags.length
         </main>
         {/* Mobile layout */}
         <div className="block md:hidden">
-          <MobileBlogPage searchParams={searchParams} initialPosts={postsResult} initialTags={tags} />
+          <MobileBlogPage searchParams={searchParams} initialPosts={postsResult} initialTags={safeTags} />
         </div>
       </>
   );

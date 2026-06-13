@@ -3,24 +3,41 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { m } from 'framer-motion'
+import { dbg } from '@/lib/debug-log'
 
 interface CategoryBarProps {
   categories: string[]
   id?: string
+  requestId?: string
 }
 
-export default function CategoryBar({ categories, id }: CategoryBarProps) {
+export default function CategoryBar({ categories, id, requestId }: CategoryBarProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [active, setActive] = useState<string>(() => searchParams.get('category') || 'All Posts')
 
+  useEffect(() => {
+    dbg('CategoryBar', 'mounted', { categoriesCount: categories.length, categoriesList: categories, active, id, requestId: requestId || 'client-gen' });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    dbg('CategoryBar', 'categories prop changed', { categoriesCount: categories.length, categoriesList: categories, id });
+  }, [categories, id]);
+
+  useEffect(() => {
+    dbg('CategoryBar', 'active state changed', { active, id });
+  }, [active, id]);
+
   const handleClick = (cat: string) => {
+    dbg('CategoryBar', 'handleClick', { category: cat, previousActive: active, id });
     setActive(cat)
     const params = new URLSearchParams(searchParams.toString())
     if (cat.toLowerCase() === 'all posts') params.delete('category')
     else params.set('category', cat)
     const query = params.toString()
-    router.push(query ? `/blog?${query}` : '/blog', { scroll: false })
+    const targetUrl = query ? `/blog?${query}` : '/blog'
+    dbg('CategoryBar', 'navigating', { targetUrl, id });
+    router.push(targetUrl, { scroll: false })
     setTimeout(() => {
       document.getElementById('blog-posts')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 80)

@@ -2,29 +2,49 @@ import { getPayload } from 'payload';
 import config from '@/payload.config';
 import { unstable_cache } from 'next/cache';
 import type { Post, Tag } from '@/payload-types';
+import { dbg } from './debug-log';
 
 let _payload: Awaited<ReturnType<typeof getPayload>> | null = null;
+let _payloadPromise: Promise<typeof _payload> | null = null;
 
 export async function getPayloadClient() {
-  if (_payload) return _payload;
-  _payload = await getPayload({ config });
-  return _payload;
+  if (_payload) {
+    dbg('getPayloadClient', 'returning existing instance (warm)');
+    return _payload;
+  }
+  if (_payloadPromise) {
+    dbg('getPayloadClient', 'awaiting in-flight initialization (warm)');
+    return _payloadPromise;
+  }
+
+  dbg('getPayloadClient', 'cold start - initializing Payload');
+  const start = Date.now();
+
+  _payloadPromise = getPayload({ config })
+    .then((p) => {
+      _payload = p;
+      dbg('getPayloadClient', 'initialization complete', { duration: Date.now() - start });
+      return p;
+    })
+    .catch((err) => {
+      _payloadPromise = null;
+      dbg('getPayloadClient', 'initialization FAILED', { error: String(err), duration: Date.now() - start });
+      throw err;
+    });
+
+  return _payloadPromise;
 }
 
 export const getCachedPost = unstable_cache(
   async (slug: string) => {
-    try {
-      const payload = await getPayloadClient();
-      const { docs } = await payload.find({
-        collection: 'posts',
-        where: { slug: { equals: slug }, status: { equals: 'published' } },
-        depth: 3,
-        limit: 1,
-      });
-      return docs[0] as Post | undefined;
-    } catch {
-      return undefined;
-    }
+    const payload = await getPayloadClient();
+    const { docs } = await payload.find({
+      collection: 'posts',
+      where: { slug: { equals: slug }, status: { equals: 'published' } },
+      depth: 3,
+      limit: 1,
+    });
+    return docs[0] as Post | undefined;
   },
   ['blog-post'],
   { revalidate: 300, tags: ['blog-post'] }
@@ -33,23 +53,19 @@ export const getCachedPost = unstable_cache(
 export const getCachedRelatedPosts = unstable_cache(
   async (tagIds: string[], currentSlug: string) => {
     if (!tagIds.length) return [];
-    try {
-      const payload = await getPayloadClient();
-      const { docs } = await payload.find({
-        collection: 'posts',
-        where: {
-          status: { equals: 'published' },
-          slug: { not_equals: currentSlug },
-          'tags.id': { in: tagIds },
-        },
-        depth: 2,
-        limit: 6,
-        sort: '-publishedAt',
-      });
-      return docs as Post[];
-    } catch {
-      return [];
-    }
+    const payload = await getPayloadClient();
+    const { docs } = await payload.find({
+      collection: 'posts',
+      where: {
+        status: { equals: 'published' },
+        slug: { not_equals: currentSlug },
+        'tags.id': { in: tagIds },
+      },
+      depth: 2,
+      limit: 6,
+      sort: '-publishedAt',
+    });
+    return docs as Post[];
   },
   ['blog-related'],
   { revalidate: 300, tags: ['blog-related'] }

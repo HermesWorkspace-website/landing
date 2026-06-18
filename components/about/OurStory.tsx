@@ -34,7 +34,7 @@ export default function OurStory() {
   }, []);
 
   return (
-    <section id="mission" ref={sectionRef} className="bg-white py-24 px-6">
+    <section id="our-story" ref={sectionRef} className="bg-white py-24 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         {/* Left */}
         <div>
@@ -52,7 +52,7 @@ export default function OurStory() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-[2rem] lg:text-[2.4rem] font-bold text-[#1A1D26] leading-tight tracking-tight"
           >
-            Built for Clarity and Scale
+            A School Communication & Management Platform
           </m.h2>
           <div ref={lineRef} className="mt-5 h-[2px] w-full bg-[#1A1D26]/10 rounded-full" />
         </div>

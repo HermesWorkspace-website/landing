@@ -6,6 +6,8 @@ const SECTION_ALIASES: Record<string, string[]> = {
   features: ["features", "m-features"],
   founders: ["founders", "team"],
   team: ["team"],
+  "our-story": ["our-story", "mission"],
+  mission: ["our-story"],
 };
 
 function getHeaderOffset(): number {

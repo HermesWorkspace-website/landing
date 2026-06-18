@@ -43,7 +43,7 @@ function FeaturedCard() {
           How HermesWorkspace is rethinking institutional communication.
         </h2>
         <m.div
-          className="flex items-center gap-1.5 text-[11px] text-[#9896A4] font-medium mt-2 group-hover:text-white transition-colors"
+          className="flex items-center gap-1.5 text-[11px] text-[#7A7A85] font-medium mt-2 group-hover:text-white transition-colors"
           whileHover={{ x: 4 }}
         >
           Explore Story <ArrowUpRight size={12} />
@@ -66,12 +66,12 @@ function ArticleCard() {
         <div className="size-8 rounded-lg bg-[#EAE8FF] flex items-center justify-center">
           <Cpu size={14} className="text-[#6063EE]" />
         </div>
-        <span className="text-[9px] tracking-[2px] uppercase text-[#9896A4]">Founder Notes</span>
+        <span className="text-[9px] tracking-[2px] uppercase text-[#7A7A85]">Founder Notes</span>
       </div>
       <h3 className="text-[15px] font-bold text-[#0D0D0F] mb-2 leading-snug">
         Building systems that reduce operational complexity.
       </h3>
-      <p className="text-[12px] text-[#888] leading-relaxed">
+      <p className="text-[12px] text-[#6A6A75] leading-relaxed">
         Thoughts on communication infrastructure, academic coordination,
 and designing operational systems for modern institutions.
       </p>
@@ -118,7 +118,7 @@ function MetricsMiniCards() {
             >
               <Icon size={13} style={{ color: card.color }} />
             </div>
-            <p className="text-[10px] tracking-[1px] uppercase text-[#9896A4] mb-1">{card.label}</p>
+            <p className="text-[10px] tracking-[1px] uppercase text-[#7A7A85] mb-1">{card.label}</p>
             <p className="text-[13px] font-black text-[#0D0D0F]">{card.value}</p>
 
             {/* Animated progress bar */}
@@ -158,12 +158,12 @@ function SmallCard() {
         </svg>
       </div>
       <div>
-        <span className="text-[9px] tracking-[2px] uppercase text-[#9896A4]">Inside HermesWorkspace</span>
+        <span className="text-[9px] tracking-[2px] uppercase text-[#7A7A85]">Inside HermesWorkspace</span>
         <h3 className="text-[13px] font-bold text-[#0D0D0F] mt-0.5 leading-snug">
           Documenting product development, operational thinking, and the future of connected institutional systems.
         </h3>
       </div>
-      <ArrowUpRight size={14} className="text-[#9896A4] group-hover:text-[#6063EE] transition-colors ml-auto shrink-0" />
+      <ArrowUpRight size={14} className="text-[#7A7A85] group-hover:text-[#6063EE] transition-colors ml-auto shrink-0" />
     </m.article>
   );
 }
@@ -185,7 +185,7 @@ export function InstitutionalPulse() {
           <m.h2 variants={fadeUp} className="text-[clamp(30px,4vw,48px)] font-black text-[#0D0D0F] tracking-tight mb-3">
             Inside HermesWorkspace
           </m.h2>
-          <m.p variants={fadeUp} className="text-[14px] text-[#888]">
+          <m.p variants={fadeUp} className="text-[14px] text-[#6A6A75]">
             Stories, product thinking, and operational insights shaping the future of modern institutions.
           </m.p>
         </m.div>

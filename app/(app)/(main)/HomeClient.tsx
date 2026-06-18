@@ -8,11 +8,11 @@ const Hero = dynamic(() => import("@/components/Home_sections/homehero"), {
   loading: () => <div className="min-h-screen" />,
 });
 const MobilePage = dynamic(() => import("@/components/Home_sections/Mobile"), {
-  loading: () => <div className="h-screen w-full" />,
+  loading: () => <div id="features" className="h-screen w-full" />,
 });
 const Features = dynamic(() => import("@/components/Home_sections/Features"), {
   ssr: false,
-  loading: () => <div className="py-section" />,
+  loading: () => <div id="features" className="py-section" />,
 });
 const WorkflowBento = dynamic(
   () => import("@/components/Home_sections/WorkflowBento"),

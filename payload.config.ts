@@ -35,6 +35,7 @@ export default buildConfig({
       // Fail fast (10s) if no connection is available, instead of hanging
       connectionTimeoutMillis: 10_000,
     },
+    push: false,
   }),
   // ── Sharp: enables server-side image resizing in the admin panel ──────────
   sharp,

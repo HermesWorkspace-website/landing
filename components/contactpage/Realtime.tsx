@@ -92,7 +92,7 @@ export default function Realtime() {
 
           <m.p
             className="text-[14px] font-body leading-[1.75] mb-10 max-w-[400px]"
-            style={{ color: "rgba(255,255,255,0.5)" }}
+            style={{ color: "rgba(255,255,255,0.65)" }}
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.22 }}

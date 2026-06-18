@@ -93,7 +93,6 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-[96px] md:pt-[120px] pb-16 md:pb-24">
-
       {/* Canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" style={{ opacity: 0.7 }} />
 

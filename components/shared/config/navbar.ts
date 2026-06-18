@@ -8,9 +8,9 @@ export const navbarSections = {
   ],
 
   about: [
-    { label: "Our Story", href: "#mission" },
+    { label: "Our Story", href: "#our-story" },
     { label: "Philosophy", href: "#vision" },
-    { label: "Team", href: "#team" },
+    { label: "Our Founders", href: "#our-founders" },
     { label: "FAQ", href: "#faqs" },
     { label: "Contact", href: "#cta" }
   ],
@@ -23,16 +23,15 @@ export const navbarSections = {
   ],
 
   contact: [
-    { label: "Support", href: "#hero" },
     { label: "Features", href: "#features" },
     { label: "Inquiry", href: "#inquiry" },
     { label: "FAQ", href: "#faqs" },
     { label: "Contact", href: "#cta"}
   ],
   founder: [
-    { label: "Founders", href: "#founders" },
-    { label: "Mission", href: "#mission" },
-    { label: "FAQ", href: "#faqs" },
+    { label: "Why They Started", href: "#why-they-started" },
+    { label: "CEO", href: "#apurav" },
+    { label: "CTO", href: "#lakshya" },
     { label: "Contact", href: "#cta" }
   ],
    product: [

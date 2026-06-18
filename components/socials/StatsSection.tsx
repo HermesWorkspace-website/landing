@@ -86,7 +86,7 @@ function StatCounter({ value, suffix, label, sublabel, started }: StatCounterPro
       >
         {count.toFixed(1).replace(/\.0$/, "")}{suffix}
       </m.p>
-      <p className="text-[11px] tracking-[2px] uppercase text-[#9896A4] mt-3 mb-1">{label}</p>
+      <p className="text-[11px] tracking-[2px] uppercase text-[#7A7A85] mt-3 mb-1">{label}</p>
       <p className="text-[12px] text-[#666] max-w-[160px] mx-auto leading-relaxed">{sublabel}</p>
     </m.div>
   );

@@ -7,7 +7,7 @@ import { useIsMobile } from "@/lib/useIsMobile";
 // THREE dynamically imported inside useEffect
 import { useRouter } from "next/navigation";
 
-const TITLE_WORDS = ["Modern", "infrastructure", "for", "institutional", "communication."];
+const TITLE_WORDS = ["School", "Communication", "Platform", "for", "Modern", "Institutions"];
 
 export default function Hero() {
   const router = useRouter();
@@ -112,7 +112,6 @@ export default function Hero() {
     >
       {/* Three.js canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" />
-
       {/* Grid mesh */}
       <div
         className="absolute inset-0 pointer-events-none z-[2]"
@@ -154,7 +153,7 @@ export default function Hero() {
           >
             <span className="anim-pulse-scale">⚡</span>
             <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: "#6063EE" }}>
-             Designed for Academic Operations
+             Educational Communication Platform
             </span>
           </div>
 
@@ -165,8 +164,8 @@ export default function Hero() {
             style={{ fontSize: "clamp(2.4rem, 5vw, 3.8rem)" }}
           >
             {TITLE_WORDS.map((w, i) => {
-              // "institutional" and "communication." get the purple gradient
-              const isGradient = i >= 3;
+              // "Modern" and "Institutions" get the purple gradient
+              const isGradient = i >= 4;
               return (
                 <span
                   key={w}
@@ -255,7 +254,7 @@ export default function Hero() {
               "Designed for Academic Coordination",
               "Accessible Across Web & Mobile"
             ].map((t, i) => (
-              <span key={t} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#A9ADC0" }}>
+              <span key={t} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#6A6A75" }}>
                 <span className="size-1 rounded-full inline-block" style={{ backgroundColor: "#6063EE" }} />
                 {t}
               </span>

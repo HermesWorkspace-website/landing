@@ -14,6 +14,32 @@ interface PostsResult {
   totalDocs: number;
 }
 
+function LatestPostsSkeleton() {
+  return (
+    <section className="px-4 md:px-8 xl:px-16 pt-6 pb-12">
+      <div className="flex items-center justify-between gap-4 mb-8">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-[3px] h-5 rounded-full bg-brand shrink-0" />
+          <div>
+            <div className="h-8 w-48 bg-brand-ink/5 rounded-lg animate-pulse" />
+            <div className="h-3 w-64 bg-brand-ink/5 rounded mt-2 animate-pulse" />
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-10">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="animate-pulse">
+            <div className="aspect-video bg-brand-ink/5 rounded-2xl" />
+            <div className="mt-4 h-4 w-20 bg-brand-ink/5 rounded" />
+            <div className="mt-3 h-5 w-full bg-brand-ink/5 rounded" />
+            <div className="mt-2 h-4 w-3/4 bg-brand-ink/5 rounded" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default async function MobileBlogPage({
   searchParams,
   initialPosts,
@@ -28,9 +54,6 @@ export default async function MobileBlogPage({
   const tags = initialTags ?? [];
   const totalPosts = postsResult.totalDocs;
   const totalCategories = tags.length;
-
-  const activeCategory = params.category || 'All Posts';
-  const searchQuery = (params.search || '').trim().toLowerCase();
 
   const articles: Article[] = postsResult.docs.map((post: any) => {
     const resolvedTags: BlogTag[] = (post.tags ?? []).flatMap((t: any) =>
@@ -61,12 +84,7 @@ export default async function MobileBlogPage({
   const carouselPosts = [...featuredPinned, ...nonFeatured].slice(0, 6);
   const carouselSlugs = new Set(carouselPosts.map((p) => p.slug));
 
-  const filteredLatest = articles.filter((article) => {
-    if (carouselSlugs.has(article.slug)) return false;
-    const categoryMatch = activeCategory.toLowerCase() === 'all posts' || article.category.toLowerCase() === activeCategory.toLowerCase();
-    const searchMatch = !searchQuery || article.title.toLowerCase().includes(searchQuery) || article.excerpt.toLowerCase().includes(searchQuery) || article.category.toLowerCase().includes(searchQuery);
-    return categoryMatch && searchMatch;
-  });
+  const latestArticles = articles.filter((a) => !carouselSlugs.has(a.slug));
 
   const categories = ['All Posts', ...tags.flatMap((t) => t.name ? [t.name] : []).sort()];
 
@@ -87,7 +105,9 @@ export default async function MobileBlogPage({
         </Suspense>
 
         {/* Latest posts */}
-        <LatestPosts post={filteredLatest} />
+        <Suspense fallback={<LatestPostsSkeleton />}>
+          <LatestPosts post={latestArticles} />
+        </Suspense>
       </div>
 
       <CTA/>

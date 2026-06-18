@@ -1,10 +1,11 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useMemo } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { m, useInView, Variants } from 'framer-motion'
-import { IconArrowUpRight } from '@tabler/icons-react'
+import { IconArrowUpRight, IconSearchOff } from '@tabler/icons-react'
 import type { Article } from '@/components/blogs/types'
 
 interface LatestPostsProps {
@@ -34,7 +35,6 @@ const cardVariants: Variants = {
   }),
 }
 
-// ── Card matching reference design: large image, category + dash + date, bold title, excerpt ──
 function PostCard({ post, index }: { post: Article; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-50px' })
@@ -55,7 +55,6 @@ function PostCard({ post, index }: { post: Article; index: number }) {
           transition={{ duration: 0.28, ease: 'easeOut' }}
           className="h-full flex flex-col"
         >
-          {/* ── Cover image ── */}
           <div className="relative w-full rounded-2xl overflow-hidden shrink-0">
             {post.cover ? (
               <Image
@@ -74,7 +73,6 @@ function PostCard({ post, index }: { post: Article; index: number }) {
             )}
           </div>
 
-          {/* ── Meta row: category pill · dot · date ── */}
           <div className="flex flex-wrap items-center gap-2 mt-4 mb-3">
             <span
               className={`inline-flex items-center px-2.5 py-[3px] rounded-full text-[11px] font-medium border border-current/20 ${c.bg} ${c.text}`}
@@ -88,12 +86,10 @@ function PostCard({ post, index }: { post: Article; index: number }) {
             </span>
           </div>
 
-          {/* ── Title ── */}
           <h3 className="font-display text-[18px] font-bold leading-[1.3] tracking-[-0.02em] text-brand-ink mb-2 group-hover:underline group-hover:text-brand decoration-brand/60 decoration-[1.5px] underline-offset-[3px] transition-colors duration-200 line-clamp-3">
             {post.title}
           </h3>
 
-          {/* ── Excerpt ── */}
           <p className="font-body text-[13.5px] text-brand-muted leading-relaxed line-clamp-2">
             {post.excerpt}
           </p>
@@ -103,19 +99,55 @@ function PostCard({ post, index }: { post: Article; index: number }) {
   )
 }
 
-// ── Main export ───────────────────────────────────────────────────────────────
+function EmptyState({ category }: { category: string }) {
+  return (
+    <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
+      <IconSearchOff size={48} className="text-brand-ink/20 mb-4" />
+      <h3 className="text-lg font-bold text-brand-ink font-display mb-2">
+        No posts found
+      </h3>
+      <p className="text-sm text-brand-muted font-body max-w-sm">
+        {category.toLowerCase() === 'all posts'
+          ? 'No articles published yet. Check back soon.'
+          : `No articles in "${category}" yet. Try a different category.`}
+      </p>
+      {category.toLowerCase() !== 'all posts' && (
+        <Link
+          href="/blog"
+          className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-dark transition-colors"
+        >
+          <IconArrowUpRight size={14} />
+          View all posts
+        </Link>
+      )}
+    </div>
+  )
+}
+
 export function LatestPosts({ post }: LatestPostsProps) {
+  const searchParams = useSearchParams()
+  const activeCategory = searchParams?.get('category') || 'All Posts'
+  const searchQuery = (searchParams?.get('search') || '').trim().toLowerCase()
+
+  const filtered = useMemo(() => {
+    return post.filter((article) => {
+      const categoryMatch =
+        activeCategory.toLowerCase() === 'all posts' ||
+        article.category.toLowerCase() === activeCategory.toLowerCase()
+      const searchMatch =
+        !searchQuery ||
+        article.title.toLowerCase().includes(searchQuery) ||
+        article.excerpt.toLowerCase().includes(searchQuery) ||
+        article.category.toLowerCase().includes(searchQuery)
+      return categoryMatch && searchMatch
+    }).slice(0, 12)
+  }, [post, activeCategory, searchQuery])
+
   const headerRef = useRef<HTMLDivElement>(null)
   const inView = useInView(headerRef, { once: true, margin: '-60px' })
 
-  // Show up to 12 posts (4 full rows of 3)
-  const posts = post.slice(0, 12)
-
-  if (!posts.length) return null
-
   return (
     <section className="px-4 md:px-8 xl:px-16 pt-6 pb-12">
-      {/* ── Header ── */}
       <div ref={headerRef} className="flex items-center justify-between gap-4 mb-8">
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -152,11 +184,12 @@ export function LatestPosts({ post }: LatestPostsProps) {
         </m.div>
       </div>
 
-      {/* ── Uniform 3-column card grid ── */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-10">
-        {posts.map((p, i) => (
-          <PostCard key={p.slug} post={p} index={i} />
-        ))}
+        {filtered.length > 0
+          ? filtered.map((p, i) => (
+              <PostCard key={p.slug} post={p} index={i} />
+            ))
+          : <EmptyState category={activeCategory} />}
       </div>
     </section>
   )

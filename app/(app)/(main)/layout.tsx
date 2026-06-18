@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 import { WithLoader } from "@/components/LoadingScreen/useLoader";
 import LazyMotionProvider from "@/components/shared/LazyMotionProvider";
-
 const SmoothScroll = dynamic(() => import("@/components/shared/SmoothScroll"));
 const ScrollOnNavigate = dynamic(() => import("@/components/shared/ScrollOnNavigate"));
 const Navbar = dynamic(() => import("@/components/shared/Navbar"));
 const Footer = dynamic(() => import("@/components/shared/Footer"));
+import ScrollProgressLoader from "@/components/layout/ScrollProgressLoader";
 
 export default function MainLayout({
   children,
@@ -14,8 +14,10 @@ export default function MainLayout({
 }) {
   return (
     <WithLoader>
+      
       <LazyMotionProvider>
         <Navbar />
+        <ScrollProgressLoader />
 
         <SmoothScroll>
           <ScrollOnNavigate />

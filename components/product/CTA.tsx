@@ -55,9 +55,9 @@ export default function CTA() {
               </div>
             </m.button>
             <m.button whileHover={{ scale: 1.02, borderColor: "rgba(255,255,255,0.4)" }} whileTap={{ scale: 0.97 }}
-              onClick={() => router.push("/?scroll=pricing")}
+              onClick={() => router.push("/founder")}
               className="flex items-center justify-center gap-2 border border-white/20 text-white text-[13px] font-medium px-7 py-3.5 rounded-xl hover:bg-white/5 transition-colors">
-              See Pricing
+              Meet the Team
             </m.button>
           </m.div>
         </div>

@@ -1,10 +1,12 @@
 export interface Founder {
   id: number;
+  founderId: string;
   firstName: string;
   lastName: string;
   role: string;
   title: string;
-  bio: string;
+  summaryBio: string;
+  fullBio: string[];
   quote: string;
   focusAreas: string[];
   accentColor: string;
@@ -16,4 +18,15 @@ export interface Founder {
     github?: string;
     instagram?: string;
   };
+
+  principles?: {
+    title: string;
+    body: string;
+  }[];
+
+  vision?: {
+    heading: string;
+    paragraphs: string[];
+  };
+
 }

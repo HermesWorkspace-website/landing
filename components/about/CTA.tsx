@@ -116,11 +116,11 @@ export default function CTA() {
               style={{ x: x2, y: y2 }}
               whileHover={{ scale: 1.04, background: "rgba(255,255,255,0.08)" }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => router.push("/?scroll=pricing")}
+              onClick={() => router.push("/product")}
               className="px-8 py-3.5 rounded-xl text-[13px] font-bold font-body text-white transition-colors"
             >
               <span style={{ border: "1px solid rgba(255,255,255,0.2)", padding: "0", display: "contents" }}>
-                View All Plans
+                Explore the School Platform
               </span>
             </m.button>
           </m.div>

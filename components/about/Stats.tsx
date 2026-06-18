@@ -88,7 +88,7 @@ function StatItem({ value, suffix, label, desc, index }: {
         <span className="text-[2rem] font-black text-[#6063EE] leading-none mb-1">{suffix}</span>
       </div>
       <p className="text-[10px] font-bold text-[#6B7280] tracking-widest uppercase">{label}</p>
-      <p className="text-[12px] text-[#9CA3AF] leading-relaxed max-w-xs">{desc}</p>
+      <p className="text-[12px] text-[#6A6A75] leading-relaxed max-w-xs">{desc}</p>
     </m.div>
   );
 }

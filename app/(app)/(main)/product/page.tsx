@@ -80,13 +80,34 @@ const productFaqSchema = {
     },
   ],
 };
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "HermesWorkspace",
+  applicationCategory: "BusinessApplication",
+  applicationSubCategory: "School Communication Platform",
+  operatingSystem: "Web, Android, iOS",
+  url: "https://hermesworkspace.com/product",
+  description:
+    "Educational communication and institutional coordination platform built for schools.",
+  publisher: {
+    "@type": "Organization",
+    name: "HermesWorkspace",
+    url: "https://hermesworkspace.com",
+  },
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "INR",
+  },
+};
 
 export const revalidate = 3600;
 
 export default function ProductPage() {
   return (
     <>
-      <JsonLd data={[breadcrumbSchema, productFaqSchema]} />
+      <JsonLd data={[breadcrumbSchema, productFaqSchema, softwareApplicationSchema]} />
       <ProductClient />
     </>
   );

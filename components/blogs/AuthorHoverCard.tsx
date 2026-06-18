@@ -65,7 +65,7 @@ export function AuthorHoverCard({ author, sidebar = false }: AuthorHoverCardProp
         <div className="min-w-0">
           <p className="text-[14px] font-bold text-neutral-900 leading-tight">{author.name}</p>
           {author.bio && (
-            <p className="text-[11.5px] text-neutral-400 leading-snug mt-0.5 line-clamp-1">{author.bio}</p>
+            <p className="text-[11.5px] text-neutral-500 leading-snug mt-0.5 line-clamp-1">{author.bio}</p>
           )}
           {(twitterUrl || linkedinUrl) && (
             <div className="flex items-center gap-1.5 mt-1.5">
@@ -146,7 +146,7 @@ export function AuthorHoverCard({ author, sidebar = false }: AuthorHoverCardProp
             </div>
             <div>
               <p className="text-[14px] font-semibold text-neutral-900 leading-tight">{author.name}</p>
-              <p className="text-[11px] text-neutral-400 font-medium mt-0.5 uppercase tracking-wide">Author</p>
+              <p className="text-[11px] text-neutral-500 font-medium mt-0.5 uppercase tracking-wide">Author</p>
             </div>
           </div>
 

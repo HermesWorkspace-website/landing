@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { scrollToSection } from "@/lib/scroll-to-section";
 
 // ─── FLOATING CARD ───────────────────────────────────────────────────────────
 function FloatingCard({
@@ -782,7 +783,9 @@ export default function Hero() {
     <section ref={sectionRef} className="relative overflow-hidden bg-brand-bg">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-[1] pointer-events-none" />
 
+
       <div
+      
         className="absolute inset-0 pointer-events-none opacity-[0.25] z-[2]"
         style={{
           backgroundImage: `
@@ -796,7 +799,6 @@ export default function Hero() {
           WebkitMaskImage: "radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%)",
         }}
       />
-
       {/* FIX 3: hero-intro-screen gets explicit min-height + centering as a fallback */}
       <div className="hero-intro-screen relative z-10 min-h-screen flex items-center pt-24 pb-16">
         <div className="container-page flex flex-col items-center text-center w-full">
@@ -845,13 +847,7 @@ export default function Hero() {
             </m.div>
             <m.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
               <Button
-                onClick={() => {
-                  const target = document.getElementById("features");
-                  if (target) {
-                    const top = target.getBoundingClientRect().top + window.scrollY - 60;
-                    window.scrollTo({ top, behavior: "smooth" });
-                  }
-                }}
+                onClick={() => scrollToSection("features")}
                 variant="outline" size="lg" className="gap-2"
               >
                 <Video className="size-4 text-brand" /> Explore Platform

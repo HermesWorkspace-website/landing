@@ -80,7 +80,7 @@ const foundersSchema = {
 
 export const revalidate = 3600;
 
-export default function FounderPage() {
+export default async function FounderPage() {
   return (
     <>
       <JsonLd data={[breadcrumbSchema, foundersSchema]} />

@@ -7,7 +7,6 @@ import { getPayloadClient } from "@/lib/payload";
 import config from '@/payload.config'
 import type { Post } from '@/payload-types'
 import { getCachedPost, getCachedRelatedPosts } from '@/lib/payload'
-import { ReadingProgress } from '@/components/blogs/Readingprogress'
 import { ShareBar } from '@/components/blogs/ShareBar'
 import { AuthorHoverCard } from '@/components/blogs/AuthorHoverCard'
 import { IconArrowLeft, IconTag, IconClock, IconCalendar } from '@tabler/icons-react'
@@ -221,16 +220,14 @@ export default async function BlogPostPage({ params }: PageProps) {
       <script type="application/ld+json">
         {JSON.stringify(articleSchema)}
       </script>
-      <ReadingProgress />
-
       <div className="mx-auto w-full max-w-[1400px] px-6 py-6 md:px-10 xl:px-12">
         {/* Back Link */}
         <Link
-          href="/blog"
+          href="/blog/archive"
           className="group mb-8 inline-flex items-center gap-1.5 text-[12px] font-medium text-brand-muted transition-colors hover:text-brand-ink"
         >
           <IconArrowLeft size={13} className="mr-1 inline-block transition-transform group-hover:-translate-x-0.5" />
-          Back to Blog
+          Back to All Blogs
         </Link>
 
         {/* Unified 2-Column Grid */}

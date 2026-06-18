@@ -18,7 +18,10 @@ export default function LoadingScreen({ onComplete }: { onComplete?: () => void 
   const [phase, setPhase]     = useState(0);
   const [exiting, setExiting] = useState(false);
   const onCompleteRef        = useRef(onComplete);
-  onCompleteRef.current       = onComplete;
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     if (phase >= PHASES.length - 1) {

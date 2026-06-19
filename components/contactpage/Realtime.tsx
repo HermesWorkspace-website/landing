@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { m, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "motion/react";
 import { CheckCircle, Lock, Server } from "lucide-react";
 
 interface AlertItem {

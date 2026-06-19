@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { ArrowRight, Download } from "lucide-react";
 import { staggerContainer, fadeUp } from "@/components/socials/motion-variants";
 

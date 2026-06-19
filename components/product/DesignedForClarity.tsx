@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { m, useInView, useScroll, useTransform } from "framer-motion";
+import { m, useInView, useScroll, useTransform } from "motion/react";
 // gsap + ScrollTrigger dynamically imported inside useEffect
 import { CheckCircle } from "lucide-react";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { m, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "motion/react";
 import { ArrowRight, Mail, Shield, Globe, Zap, Clock, CheckCircle } from "lucide-react";
 
 const WORDS = ["Connect", "Collaborate", "Coordinate"];

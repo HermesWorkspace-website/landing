@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { m } from 'framer-motion'
+import { m } from "motion/react"
 
 export interface ArchiveArticle {
   id: string

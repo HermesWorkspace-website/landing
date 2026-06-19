@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import { Variants } from "motion/react";
 
 const EASE_OUT: [number, number, number, number] = [0.76, 0, 0.24, 1];
 const EASE_SPRING: [number, number, number, number] = [0.34, 1.56, 0.64, 1];

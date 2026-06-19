@@ -42,7 +42,7 @@
  */
 
 import { useRef, useState, useEffect, ReactNode } from "react";
-import { m, AnimatePresence, useInView, animate } from "framer-motion";
+import { m, AnimatePresence, useInView, animate } from "motion/react";
 import {
   Shield, BookOpen, Users, User,
   MessageSquare, Bell, Calendar, Settings, Monitor,

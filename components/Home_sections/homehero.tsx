@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { m, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "motion/react";
 import {
   ArrowRight, MessageSquare, Video,
   Bell, Users, BookOpen, Zap, Presentation, User, CalendarDays,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { m, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "motion/react";
 import { useIsMobile } from "@/lib/useIsMobile";
 // gsap dynamically imported inside useEffect
 // THREE dynamically imported inside useEffect

@@ -74,9 +74,9 @@ function MobileFounderSection({ founder, idx }: { founder: Founder; idx: number 
           ))}
         </div>
         <div className="flex items-center gap-2 ml-3 shrink-0 pt-0.5">
-          {founder.socialLinks.linkedin && <MobileLink href={founder.socialLinks.linkedin} label="LinkedIn"><IconBrandLinkedin size={13}/></MobileLink>}
-          {founder.socialLinks.twitter && <MobileLink href={founder.socialLinks.twitter} label="X"><IconBrandX size={13}/></MobileLink>}
-          {founder.socialLinks.instagram && <MobileLink href={founder.socialLinks.instagram} label="Instagram"><IconBrandInstagram size={13}/></MobileLink>}
+          {founder.socialLinks.linkedin && <MobileLink href={founder.socialLinks.linkedin} label="LinkedIn"><IconBrandLinkedin size={20}/></MobileLink>}
+          {founder.socialLinks.twitter && <MobileLink href={founder.socialLinks.twitter} label="X"><IconBrandX size={20}/></MobileLink>}
+          {founder.socialLinks.instagram && <MobileLink href={founder.socialLinks.instagram} label="Instagram"><IconBrandInstagram size={20}/></MobileLink>}
         </div>
       </div>
 
@@ -141,8 +141,8 @@ function Div() {
 function MobileLink({ href, label, children }: { href:string; label:string; children:React.ReactNode }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-      className="flex items-center justify-center rounded-full border"
-      style={{borderColor:"#ddd",color:"#7A7A85",minWidth:44,minHeight:44,width:44,height:44}}>
+      className="flex items-center justify-center rounded-full border transition-all hover:-translate-y-0.5 hover:border-[#6063EE]"
+      style={{borderColor:"#ddd",color:"#7A7A85",minWidth:48,minHeight:48,width:48,height:48}}>
       {children}
     </a>
   );

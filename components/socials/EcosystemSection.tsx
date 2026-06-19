@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { IconArrowRight, IconBrandLinkedin, IconBrandInstagram, IconBrandYoutube, IconBrandX } from "@tabler/icons-react";
 import { staggerContainer, fadeUp, scaleIn } from "@/components/socials/motion-variants";
 

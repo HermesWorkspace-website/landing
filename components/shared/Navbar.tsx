@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { m, AnimatePresence } from "framer-motion";
-import { IconMenu2, IconX, IconArrowRight, IconHeadset } from "@tabler/icons-react";
+import { m, AnimatePresence } from "motion/react";
+import { IconMenu2, IconX, IconArrowRight } from "@tabler/icons-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
@@ -128,18 +128,6 @@ function Navbar() {
 
           {/* Desktop CTA cluster */}
           <div className="hidden md:flex items-center gap-3">
-            {/* Support / contact icon — Razorpay-style headset button */}
-            <NavHashLink href="/contact#inquiry">
-              <button
-                type="button"
-                aria-label="Contact support"
-                title="Contact support"
-                className="size-9 flex items-center justify-center rounded-full border border-black/[0.14] bg-black/[0.03] text-brand-ink/85 hover:text-brand hover:border-brand/50 hover:bg-brand/[0.08] transition-colors"
-              >
-                <IconHeadset className="size-[18px]" strokeWidth={2} />
-              </button>
-            </NavHashLink>
-
             <NavHashLink href="/contact#inquiry">
               <Button variant="default" size="sm" className="gap-1.5">
                 Get Early Access <IconArrowRight className="size-3.5" />
@@ -253,19 +241,7 @@ function Navbar() {
                   );
                 })}
 
-                {/* Contact support row — mirrors desktop headset icon */}
-                <m.div
-                  initial={{ x: 20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.04 + mainLinks.length * 0.04, duration: 0.28 }}
-                >
-                  <NavHashLink href="/contact#inquiry" onClick={() => setOpen(false)}>
-                    <span className="flex items-center gap-2.5 h-11 px-3 rounded-lg text-[15px] font-medium text-brand-ink/70 hover:text-brand-ink hover:bg-black/[0.04] transition-colors">
-                      <IconHeadset className="size-[18px]" strokeWidth={1.75} />
-                      Contact Support
-                    </span>
-                  </NavHashLink>
-                </m.div>
+
               </div>
 
               {/* CTA pinned at bottom */}

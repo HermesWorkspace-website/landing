@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 
 function Counter({ to, suffix = "", prefix = "" }: { to: number; suffix?: string; prefix?: string }) {
   const [val, setVal] = useState(0);

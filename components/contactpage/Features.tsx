@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { Users, Handshake, Newspaper, Sparkles } from "lucide-react";
 
 interface FeatureCard {

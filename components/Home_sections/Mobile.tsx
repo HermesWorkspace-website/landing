@@ -26,7 +26,7 @@
  */
 
 import React, { useState, useRef } from "react";
-import { m, AnimatePresence, useInView } from "framer-motion";
+import { m, AnimatePresence, useInView } from "motion/react";
 import {
   ArrowRight, Zap, Video, MessageSquare, Bell,
   Users, Activity, Calendar, Presentation,

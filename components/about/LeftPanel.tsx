@@ -1,6 +1,6 @@
 "use client";
 
-import { m, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "motion/react";
 import { Founder } from "@/types/founder";
 import { useRouter } from "next/navigation";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 // gsap dynamically imported inside useEffect
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";

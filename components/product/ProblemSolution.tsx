@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { XCircle, CheckCircle } from "lucide-react";
 
 const problems = [

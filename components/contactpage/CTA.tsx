@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { Sparkles } from "lucide-react";
 import useMagnetic from "./useMagnetic";
 import { useRouter } from "next/navigation";

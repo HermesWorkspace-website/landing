@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 

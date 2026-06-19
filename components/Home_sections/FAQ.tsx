@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { m, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "motion/react";
 import { Plus, Minus } from "lucide-react";
 
 

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { m, useInView, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { m, useInView, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from "motion/react";
 // gsap dynamically imported inside useEffect
 // THREE dynamically imported inside useEffect
 import {

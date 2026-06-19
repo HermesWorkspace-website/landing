@@ -3,7 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { m, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from "motion/react"
 import {
   IconSearch, IconX, IconFilter, IconCheck, IconChevronLeft
 } from '@tabler/icons-react'

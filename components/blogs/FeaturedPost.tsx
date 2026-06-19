@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { m, useInView, AnimatePresence } from 'framer-motion'
+import { m, useInView, AnimatePresence } from "motion/react"
 import { IconClock, IconArrowUpRight, IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import type { Article } from '@/components/blogs/types'
 

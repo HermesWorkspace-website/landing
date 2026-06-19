@@ -41,23 +41,23 @@ export function FounderIdentity({ founder, index = 0 }: FounderIdentityProps) {
         <div className="flex gap-2 mt-2">
           {founder.socialLinks.linkedin && (
             <a href={founder.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-              className="flex size-7 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5"
+              className="flex w-12 h-12 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5 hover:border-[#6063EE]"
               style={{ borderColor: "#ddd", color: "#7A7A85" }}>
-              <IconBrandLinkedin size={11} />
+              <IconBrandLinkedin size={20} />
             </a>
           )}
           {founder.socialLinks.twitter && (
             <a href={founder.socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="X"
-              className="flex size-7 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5"
+              className="flex w-12 h-12 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5 hover:border-[#6063EE]"
               style={{ borderColor: "#ddd", color: "#7A7A85" }}>
-              <IconBrandX size={11} />
+              <IconBrandX size={20} />
             </a>
           )}
           {founder.socialLinks.instagram && (
             <a href={founder.socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-              className="flex size-7 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5"
+              className="flex w-12 h-12 items-center justify-center rounded-full border transition-all hover:-translate-y-0.5 hover:border-[#6063EE]"
               style={{ borderColor: "#ddd", color: "#7A7A85" }}>
-              <IconBrandInstagram size={11} />
+              <IconBrandInstagram size={20} />
             </a>
           )}
         </div>

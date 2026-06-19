@@ -162,7 +162,7 @@ export function EcosystemSection() {
           >
             Digital Ecosystem
           </m.h2>
-          <m.p variants={fadeUp} className="text-[14px] text-[#888] max-w-md">
+          <m.p variants={fadeUp} className="text-[14px] text-[#6A6A75] max-w-md">
             How <span className="font-display font-semibold text-[#0D0D0F]">HermesWorkspace</span> communicates product vision, institutional thinking, and operational innovation across modern digital platforms.
           </m.p>
         </m.div>

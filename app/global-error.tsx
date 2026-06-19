@@ -59,7 +59,11 @@ export default function GlobalError({
             </Link>
           </div>
 
+<<<<<<< HEAD
           <p className="mt-16 text-xs text-[#A0A5B0] tracking-[0.03em]">
+=======
+          <p className="mt-16 text-xs text-[#6A6A75] tracking-[0.03em]">
+>>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
             HermesWorkspace &middot; Every school. One platform.
           </p>
         </div>

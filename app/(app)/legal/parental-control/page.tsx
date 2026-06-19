@@ -27,6 +27,8 @@ export const metadata = {
   },
 };
 
+export const dynamic = 'force-static';
+
 export default function ParentalControlPage() {
   return <LegalDocPage document={legalDocuments["parental-control"]} />;
 }

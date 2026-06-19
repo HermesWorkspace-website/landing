@@ -129,7 +129,7 @@ function Column({
 }
 
 function Footer() {
-  const year = new Date().getFullYear();
+  const [year] = useState(() => new Date().getFullYear());
 
   return (
     <footer className="relative bg-brand-ink overflow-hidden mt-2">

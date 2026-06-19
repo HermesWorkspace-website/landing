@@ -94,6 +94,16 @@ export default function CTA() {
                   </span>
                 </m.button>
               </Link>
+              <Link href="/product">
+                <m.button
+                  whileHover={{ scale: 1.04, borderColor: "rgba(255,255,255,0.4)" }}
+                  whileTap={{ scale: 0.97 }}
+                  className="px-8 py-3.5 rounded-xl text-[13px] font-bold font-body text-white transition-colors"
+                  style={{ border: "1px solid rgba(255,255,255,0.2)" }}
+                >
+                  Explore the Platform
+                </m.button>
+              </Link>
             </m.div>
 
             {/* Contact row */}

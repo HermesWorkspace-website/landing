@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { m, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { scrollToSection } from "@/lib/scroll-to-section";
 // gsap dynamically imported inside useEffect
 // THREE dynamically imported inside useEffect
 
@@ -117,7 +118,6 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full pointer-events-none"
         style={{ opacity: 0.7 }}
       />
-
       {/* Radial gradient overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_0%,rgba(34,197,94,0.04),transparent)]" />
 
@@ -165,15 +165,7 @@ export default function Hero() {
             <m.button
               whileHover={{ scale: 1.02, backgroundColor: "#0D1F38" }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => {
-                const section = document.getElementById("mission");
-                if (section) {
-                  section.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }
-              }}
+              onClick={() => scrollToSection("our-story")}
               className="flex items-center gap-2 bg-[#1A1D26] text-white text-[13px] font-semibold px-5 py-2.5 rounded-md"
             >
               Get Started
@@ -263,7 +255,7 @@ function ResourceAllocationCard() {
           ))}
         </div>
         <p className="text-[12px] font-semibold text-white">Institutional Activity</p>
-        <p className="text-[10px] text-gray-400 mt-0.5">Connected communication and coordination across modern academic workflows.</p>
+        <p className="text-[10px] text-gray-500 mt-0.5">Connected communication and coordination across modern academic workflows.</p>
       </div>
     </m.div>
   );

@@ -146,7 +146,7 @@ export function ShareBar({ title, compact = false, vertical = false }: ShareBarP
             type="button"
             onClick={() => share('native')}
             aria-label="Share"
-            className="w-7 h-7 rounded-md flex items-center justify-center text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 transition-colors"
+            className="w-7 h-7 rounded-md flex items-center justify-center text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors"
           >
             <ShareIcon />
           </button>
@@ -157,7 +157,7 @@ export function ShareBar({ title, compact = false, vertical = false }: ShareBarP
             type="button"
             onClick={() => share(id)}
             aria-label={`Share on ${label}`}
-            className="w-7 h-7 rounded-md flex items-center justify-center text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 transition-colors"
+            className="w-7 h-7 rounded-md flex items-center justify-center text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors"
           >
             <Icon />
           </button>
@@ -169,7 +169,7 @@ export function ShareBar({ title, compact = false, vertical = false }: ShareBarP
           className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${
             copied
               ? 'text-emerald-600 bg-emerald-50'
-              : 'text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100'
+              : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100'
           }`}
         >
           {copied ? <CheckIcon /> : <CopyIcon />}
@@ -225,7 +225,7 @@ export function ShareBar({ title, compact = false, vertical = false }: ShareBarP
   /* ── Default inline row ── */
   return (
     <div className="flex items-center gap-2">
-      <span className="text-[11px] font-semibold text-neutral-400 uppercase tracking-wider mr-1">Share</span>
+      <span className="text-[11px] font-semibold text-neutral-500 uppercase tracking-wider mr-1">Share</span>
       <div className="flex items-center gap-1">
         {supportsNativeShare && (
           <button
@@ -233,7 +233,7 @@ export function ShareBar({ title, compact = false, vertical = false }: ShareBarP
             onClick={() => share('native')}
             title="Share"
             aria-label="Share"
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 transition-colors border border-transparent hover:border-neutral-200"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors border border-transparent hover:border-neutral-200"
           >
             <ShareIcon />
           </button>
@@ -245,7 +245,7 @@ export function ShareBar({ title, compact = false, vertical = false }: ShareBarP
             onClick={() => share(id)}
             title={`Share on ${label}`}
             aria-label={`Share on ${label}`}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 transition-colors border border-transparent hover:border-neutral-200"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors border border-transparent hover:border-neutral-200"
           >
             <Icon />
           </button>
@@ -259,7 +259,7 @@ export function ShareBar({ title, compact = false, vertical = false }: ShareBarP
             className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors border ${
               copied
                 ? 'text-emerald-600 bg-emerald-50 border-emerald-200'
-                : 'text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 border-transparent hover:border-neutral-200'
+                : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 border-transparent hover:border-neutral-200'
             }`}
           >
             {copied ? <CheckIcon /> : <CopyIcon />}

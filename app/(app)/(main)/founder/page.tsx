@@ -78,7 +78,9 @@ const foundersSchema = {
   ],
 };
 
-export default function FounderPage() {
+export const revalidate = 3600;
+
+export default async function FounderPage() {
   return (
     <>
       <JsonLd data={[breadcrumbSchema, foundersSchema]} />

@@ -192,7 +192,7 @@ function MobileHero() {
         {/* Trust dots */}
         <div className="flex flex-col gap-2">
           {["Built for Educational Institutions", "Designed for Academic Coordination", "Accessible Across Web & Mobile"].map((t, i) => (
-            <span key={`item-${i}`} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#A9ADC0" }}>
+            <span key={`item-${i}`} className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: "#6A6A75" }}>
               <span className="size-1 rounded-full inline-block shrink-0" style={{ backgroundColor: "#6063EE" }} />
               {t}
             </span>
@@ -512,7 +512,7 @@ function MobileDesignedForClarity() {
         <h2 className="text-[1.65rem] font-bold text-white leading-tight tracking-tight mb-4">
           Built Around Institutional Communication
         </h2>
-        <p className="text-[13px] mb-7 leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <p className="text-[13px] mb-7 leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
           HermesWorkspace is designed specifically for how schools communicate,
           coordinate, and operate daily — bringing classes, notices, meetings,
           and institutional updates into one structured digital environment.
@@ -631,7 +631,7 @@ function StatItem({ value, suffix, label, desc, delay }: {
         </span>
         <span className="text-[1.2rem] font-black leading-none mb-1" style={{ color: "#6063EE" }}>{suffix}</span>
       </div>
-      <p className="text-[9px] font-bold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.5)" }}>{label}</p>
+      <p className="text-[9px] font-bold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.65)" }}>{label}</p>
       <p className="text-[12px] leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>{desc}</p>
     </div>
   );
@@ -659,7 +659,7 @@ function MobileReliability() {
         <h2 className="text-[1.65rem] font-bold text-white leading-tight tracking-tight mb-3">
           Reliable communication for modern institutions.
         </h2>
-        <p className="text-[13px] mb-6 leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+        <p className="text-[13px] mb-6 leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
           HermesWorkspace helps schools replace fragmented communication systems
           with one connected platform for classes, notices, meetings, and coordination.
         </p>
@@ -710,7 +710,7 @@ function MobileCTA() {
           <h2 className="text-[1.6rem] font-bold text-white tracking-tight leading-tight mb-4">
             Modernize institutional operations with HermesWorkspace.
           </h2>
-          <p className="text-[13px] mb-8 leading-relaxed max-w-xs mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <p className="text-[13px] mb-8 leading-relaxed max-w-xs mx-auto" style={{ color: "rgba(255,255,255,0.65)" }}>
             HermesWorkspace helps schools replace scattered WhatsApp groups,
             unverified notices, and fragmented communication through one
             centralized system built specifically for education.

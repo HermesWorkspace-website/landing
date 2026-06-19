@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { IconBrandLinkedin, IconBrandInstagram } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import { scrollToSection } from "@/lib/scroll-to-section";
 
 // ─── shared token ────────────────────────────────────────────────────────────
 const INK = "#1A1D26";
@@ -274,7 +275,7 @@ function MobileHero() {
           >
             <m.button
               whileTap={{ scale: 0.97 }}
-              onClick={() => document.getElementById("mission")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => scrollToSection("our-story")}
               className="inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-xl px-7 text-[13px] font-bold text-white sm:w-auto"
               style={{ background: INK }}
             >
@@ -330,7 +331,7 @@ function MobileHero() {
 
 function MobileOurStory() {
   return (
-    <section id="mission" className="bg-white py-16 px-5 border-t border-gray-100">
+    <section id="our-story" className="bg-white py-16 px-5 border-t border-gray-100">
       <FadeUp>
         <Eyebrow>The Foundation</Eyebrow>
         <h2 className="text-[1.7rem] font-bold leading-tight tracking-tight mb-5" style={{ color: INK }}>
@@ -464,7 +465,7 @@ function MobileEcosystem() {
         <h2 className="text-[1.7rem] font-bold leading-[1.1] tracking-tight text-white mb-5">
           One operational system for modern educational institutions.
         </h2>
-        <p className="text-[13.5px] leading-[1.85] mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <p className="text-[13.5px] leading-[1.85] mb-8" style={{ color: "rgba(255,255,255,0.65)" }}>
           HermesWorkspace centralizes communication, academic coordination, meetings, notices,
           and institutional workflows into one connected platform designed for clarity and scale.
         </p>

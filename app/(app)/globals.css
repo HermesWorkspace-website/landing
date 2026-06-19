@@ -415,16 +415,6 @@ h4 { font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; }
   }
 }
 
-@keyframes drawLine {
-  from {
-    stroke-dashoffset: 1000;
-  }
-
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 @keyframes blink {
 
   0%,
@@ -665,7 +655,11 @@ details summary::-webkit-details-marker {
   --brand-light: #7B7FF0;
   --brand-dark: #4648D4;
   --ink: #1A1C1D;
+<<<<<<< HEAD
   --ink-60: rgba(26, 28, 29, 0.6);
+=======
+  --ink-60: rgba(26, 28, 29, 0.7);
+>>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
   --ink-35: rgba(26, 28, 29, 0.35);
   --ink-12: rgba(26, 28, 29, 0.12);
   --ink-06: rgba(26, 28, 29, 0.06);

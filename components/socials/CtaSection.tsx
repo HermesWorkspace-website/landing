@@ -108,7 +108,7 @@ export function CtaSection() {
           {/* Trust note */}
           <m.p
             variants={fadeUp}
-            className="text-[11px] text-[#9896A4] mt-8"
+            className="text-[11px] text-[#7A7A85] mt-8"
           >
             HermesWorkspace · support@hermesworkspace.com · connect@hermesworkspace.com
           </m.p>

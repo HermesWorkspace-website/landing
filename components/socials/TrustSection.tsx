@@ -170,7 +170,7 @@ export function TrustSection() {
               </m.div>
               <div>
                 <p className="text-[13px] font-semibold text-[#0D0D0F]">Founding Members</p>
-                <p className="text-[11px] text-[#9896A4]">HermesWorkspace</p>
+                <p className="text-[11px] text-[#7A7A85]">HermesWorkspace</p>
               </div>
             </div>
           </m.div>

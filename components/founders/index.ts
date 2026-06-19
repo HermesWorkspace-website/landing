@@ -1,7 +1,13 @@
 export { FoundersShowcase } from "./FoundersShowcase";
-export { FounderAvatar } from "./FounderAvatar";
-export { LeftPanel } from "./LeftPanel";
-export { RightPanel } from "./RightPanel";
-export { CenterPortrait } from "./CenterPortrait";
+export { FounderIdentity } from "./FounderIdentity";
+export { FounderBiography } from "./FounderBiography";
+export { FounderSignature } from "./FounderSignature";
+export { FounderPrinciples } from "./FounderPrinciples";
+export { FounderVision } from "./FounderVision";
+export { FounderPhoto } from "./FounderPhoto";
+export { FounderHero } from "./FounderHero";
+export { FounderFoundation } from "./FounderFoundation";
+export { default as MobileFoundersShowcase } from "./MobileFoundersShowcase";
+export { default as CTA } from "./CTA";
 export { ProgressBar } from "./ProgressBar";
-
+export { RightPanel } from "./RightPanel";

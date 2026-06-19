@@ -53,6 +53,8 @@ const aboutPageSchema = {
   publisher: { "@id": "https://hermesworkspace.com/#organization" },
 };
 
+export const revalidate = 3600;
+
 export default function AboutPage() {
   return (
     <>

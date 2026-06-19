@@ -8,12 +8,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── Static pages ──
   const staticPages: MetadataRoute.Sitemap = [
     { url: base, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
+<<<<<<< HEAD
     { url: `${base}/product`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/founder`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/socials`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+=======
+    { url: `${base}/product`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/founder`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${base}/socials`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
+    {url: `${base}/blog/archive`, lastModified: now, changeFrequency: "weekly", priority: 0.7,},
+>>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
     { url: `${base}/legal`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/legal/terms`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/legal/privacy`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },

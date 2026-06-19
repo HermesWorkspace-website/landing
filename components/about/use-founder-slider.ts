@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { FOUNDERS } from "./founders-data";
+import { FOUNDERS } from "@/components/founders/founders-data";
 
-const SLIDE_DURATION = 6000; // ms
+const SLIDE_DURATION = 6000;
 
 export function useFounderSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -38,7 +38,6 @@ export function useFounderSlider() {
     goTo((activeIndex - 1 + FOUNDERS.length) % FOUNDERS.length);
   }, [activeIndex, goTo]);
 
-  // Auto-advance
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       goNext();
@@ -48,7 +47,6 @@ export function useFounderSlider() {
     };
   }, [goNext]);
 
-  // Progress ticker
   useEffect(() => {
     progressRef.current = setInterval(() => {
       const elapsed = Date.now() - startTime;

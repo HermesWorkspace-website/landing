@@ -9,9 +9,8 @@ interface HeroSectionProps {
 
 export default function HeroSection({ totalPosts, totalCategories }: HeroSectionProps) {
   return (
-    <section className="relative bg-white border-b border-slate-100">
+    <section className="relative bg-white border-b border-slate-100 pb-2 pt-8">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(96,99,238,0.06),transparent_55%)] pointer-events-none" />
-
       <div className="relative mx-auto w-full max-w-7xl px-6 pt-14 pb-8 sm:px-8 sm:pt-16 sm:pb-10 lg:px-16 lg:pt-20 lg:pb-12">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 

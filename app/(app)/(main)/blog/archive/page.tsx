@@ -1,8 +1,30 @@
 import React from 'react'
 import { getCachedPosts } from '@/components/blogs/cache'
 import { ArchiveClient } from '@/components/blogs/ArchiveClient'
+<<<<<<< HEAD
 import type { ArchiveArticle } from '@/components/blogs/ArchiveClient'
 import type { Tag } from '@/payload-types'
+=======
+import type { ArchiveArticle } from '@/components/blogs/ArticleCard'
+import type { Tag } from '@/payload-types'
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog Archive",
+  description:
+    "Explore HermesWorkspace's archive of educational technology articles, school communication insights, institutional coordination strategies, and product updates.",
+  alternates: {
+    canonical: "/blog/archive",
+  },
+  openGraph: {
+    title: "Blog Archive | HermesWorkspace",
+    description:
+      "Explore HermesWorkspace's archive of educational technology articles, school communication insights, institutional coordination strategies, and product updates.",
+    url: "/blog/archive",
+    type: "website",
+  },
+};
+>>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
 
 export const revalidate = 60
 

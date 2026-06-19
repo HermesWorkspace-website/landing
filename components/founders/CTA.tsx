@@ -1,160 +1,131 @@
 "use client";
-
 import React, { useRef } from "react";
 import { m, useInView } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Sparkles } from "lucide-react";
+import useMagnetic from "@/components/contactpage/useMagnetic";
+import { useRouter } from "next/navigation";
 
-export default function CTASection() {
-  const ref = useRef<HTMLElement>(null);
-
-  const inView = useInView(ref, {
-    once: false,
-    margin: "-60px",
-  });
+export default function CTA() {
+  const router = useRouter();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const { ref: btn1Ref, x: x1, y: y1 } = useMagnetic();
+  const { ref: btn2Ref, x: x2, y: y2 } = useMagnetic();
 
   return (
-    <section
-      ref={ref}
-      id="cta"
-      className="py-22"
-      style={{ fontFamily: "var(--font-body, Inter, sans-serif)" }}
-    >
-      <div className="container-page">
-        <m.div
-          initial={{ opacity: 0, y: 32, scale: 0.98 }}
-          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative overflow-hidden rounded-[32px] px-8 py-14 md:px-14 md:py-18"
+    <section id="cta" ref={ref} className="max-w-7xl mx-auto px-6 py-20 pb-28">
+      <m.div
+        initial={{ opacity: 0, y: 40, scale: 0.96 }}
+        animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="relative rounded-3xl px-10 py-20 text-center overflow-hidden bg-[#12141D]"
+      >
+        {/* Top border glow */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-px pointer-events-none"
+          style={{
+            width: "60%",
+            background: "linear-gradient(90deg, transparent, rgba(96,99,238,0.6), transparent)",
+          }}
+        />
+
+        {/* Animated Background */}
+        <div
+          className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(160deg, #181A1D 0%, #20242B 50%, #1A1D23 100%)",
-            boxShadow:
-              "0 32px 80px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.05)",
+              "linear-gradient(135deg, #12141D 0%, #1A1D28 40%, #12141D 70%, #12141D 100%)",
+            backgroundSize: "200% 200%",
           }}
-        >
-          {/* Ambient glows */}
-          <div
-            className="pointer-events-none absolute top-[-20%] left-1/2 h-[340px] w-[520px] -translate-x-1/2"
-            style={{
-              background:
-                "radial-gradient(ellipse, rgba(96,99,238,0.18) 0%, transparent 70%)",
-            }}
-          />
+        />
 
-          <div
-            className="pointer-events-none absolute bottom-[-10%] right-[8%] h-[240px] w-[320px]"
-            style={{
-              background:
-                "radial-gradient(ellipse, rgba(168,85,247,0.10) 0%, transparent 70%)",
-            }}
-          />
+        {/* Ambient glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle at top, rgba(96,99,238,0.14), transparent 55%)",
+          }}
+        />
 
-          {/* Grid */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.035]"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.25) 1px, transparent 1px)",
-              backgroundSize: "48px 48px",
-            }}
-          />
+        {/* Rotating ring */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none animate-spin-slow"
+          style={{ border: "1px solid rgba(96,99,238,0.06)" }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none animate-spin-slow"
+          style={{ border: "1px solid rgba(96,99,238,0.04)", animationDirection: "reverse" }}
+        />
 
-          <div className="relative z-10 max-w-[760px]">
-            {/* Top metadata */}
-            <m.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 }}
-              className="mb-8 flex items-center gap-3"
+        <div className="relative z-10">
+          <m.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="inline-flex items-center relative z-10 gap-2 mb-6 px-4 py-2 rounded-full"
+            style={{ border: "1px solid rgba(255, 255, 255, 1)" }}
+          >
+            <Sparkles className="size-3" style={{ color: "var(--brand-light)" }} />
+            <span className="text-[9px] font-bold font-display uppercase tracking-widest" style={{ color: "white" }}>
+              Every School. One Platform.
+            </span>
+          </m.div>
+
+          <m.h2
+            className="font-display text-white leading-[1.08] tracking-[-0.03em] mb-5 max-w-xl mx-auto"
+            style={{ fontSize: "clamp(1.8rem,4.5vw,3rem)" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            Ready To Modernize{" "}
+            <span className="shimmer-text-dark">Institutional</span>{" "}
+            Communication?
+          </m.h2>
+
+          <m.p
+            className="text-[14px] font-body mb-10 max-w-sm mx-auto"
+            style={{ color: "rgba(255,255,255,0.45)" }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Join forward-thinking schools across India that have unified their operations with HermesWorkspace.
+          </m.p>
+
+          <m.div
+            className="flex flex-wrap items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <m.button
+              ref={btn1Ref as any}
+              style={{ x: x1, y: y1, background: "#fff" }}
+              whileHover={{ scale: 1.04, boxShadow: "0 12px 40px rgba(255,255,255,0.2)" }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => router.push("/contact?scroll=inquiry")}
+              className="px-8 py-3.5 rounded-xl text-[13px] font-bold font-body"
             >
-              <span className="size-1.5 rounded-full bg-brand animate-pulse" />
+              <span style={{ color: "var(--ink)" }}>Schedule Consultation</span>
+            </m.button>
 
-              <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-brand/80">
-                Building Modern Educational Infrastructure
+            <m.button
+              ref={btn2Ref as any}
+              style={{ x: x2, y: y2 }}
+              whileHover={{ scale: 1.04, background: "rgba(255,255,255,0.08)" }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => router.push("/product")}
+              className="px-8 py-3.5 rounded-xl text-[13px] font-bold font-body text-white transition-colors"
+            >
+              <span style={{ border: "1px solid rgba(255,255,255,0.2)", padding: "0", display: "contents" }}>
+                Explore School Communication Platform
               </span>
-            </m.div>
-
-            {/* Heading */}
-            <m.h2
-              initial={{ opacity: 0, y: 18 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.18 }}
-              className="max-w-4xl text-[clamp(2rem,4vw,3.2rem)] font-black leading-[1] tracking-[-0.05em] text-white"
-            >
-              Designed for modern
-              <br />
-              educational operations.
-            </m.h2>
-
-            {/* Description */}
-            <m.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.26 }}
-              className="mt-6 max-w-2xl text-[15px] leading-8 text-white/55"
-            >
-              HermesWorkspace is building modern infrastructure for
-              communication, academic coordination, and institutional
-              operations across educational institutions.
-            </m.p>
-
-            {/* Buttons */}
-            <m.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.34 }}
-              className="mt-10 flex flex-wrap items-center gap-4"
-            >
-              <Button
-                variant="brand"
-                size="xl"
-                className="group gap-2 shadow-[0_10px_34px_rgba(96,99,238,0.42)]"
-              >
-                <Link
-                  href="/contact?scroll=inquiry"
-                  className="flex items-center gap-2"
-                >
-                  Partner With HermesWorkspace
-
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-              </Button>
-
-              <Button
-                asChild
-                variant="ghost"
-                size="xl"
-                className="border border-white/[0.08] bg-white/[0.03] text-white/70 backdrop-blur-xl hover:bg-white/[0.06] hover:text-white"
-              >
-                <a href="mailto:connect@hermesworkspace.com">
-                  <Mail className="mr-2 size-4" />
-                  Contact Leadership
-                </a>
-              </Button>
-            </m.div>
-
-            {/* Bottom metadata */}
-            <m.div
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.45 }}
-              className="mt-12 flex flex-wrap items-center gap-5 border-t border-white/[0.06] pt-7 text-[11px] uppercase tracking-[0.24em] text-white/35"
-            >
-              <span>Institutional Communication</span>
-
-              <span className="size-1 rounded-full bg-white/20" />
-
-              <span>Academic Operations</span>
-
-              <span className="size-1 rounded-full bg-white/20" />
-
-              <span>Scalable Infrastructure</span>
-            </m.div>
-          </div>
-        </m.div>
-      </div>
+            </m.button>
+          </m.div>
+        </div>
+      </m.div>
     </section>
   );
 }

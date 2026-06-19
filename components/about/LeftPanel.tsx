@@ -3,6 +3,7 @@
 import { m, AnimatePresence } from "framer-motion";
 import { Founder } from "@/types/founder";
 import { useRouter } from "next/navigation";
+
 interface LeftPanelProps {
   founder: Founder;
   onLearnMore?: () => void;
@@ -34,7 +35,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
         initial="hidden"
         animate="show"
         exit="exit"
-        className="flex h-full min-h-0 flex-col justify-between py-6 pl-6 lg:pl-9 pr-4"
+        className="flex flex-col justify-center py-8 pl-6 lg:pl-9 pr-4"
       >
         {/* Top meta row */}
         <m.div variants={itemVariants} className="flex shrink-0 items-center gap-3 pt-2">
@@ -47,7 +48,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
           >
             {founder.role}
           </span>
-          <span className="text-[10px] tracking-[2px] uppercase text-[#9896A4] hidden lg:inline">
+          <span className="text-[10px] tracking-[2px] uppercase text-[#7A7A85] hidden lg:inline">
             HermesWorkspace
           </span>
         </m.div>
@@ -56,7 +57,7 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
         <div className={`flex min-h-0 flex-col justify-center ${founder.lastName ? "my-2" : "my-4"}`}>
           <m.p
             variants={itemVariants}
-            className="text-[11px] tracking-[4px] uppercase text-[#9896A4] mb-1"
+            className="text-[11px] tracking-[4px] uppercase text-[#7A7A85] mb-1"
           >
             Meet
           </m.p>
@@ -113,9 +114,10 @@ export function LeftPanel({ founder, onLearnMore }: LeftPanelProps) {
         <div className="shrink-0 space-y-3 pt-2">
           <m.p
             variants={itemVariants}
-            className="text-[12px] leading-[1.7] text-[#555] max-w-[240px]"
+            className="text-[12px] leading-[1.7] text-[#555]"
+            style={{ maxWidth: "clamp(200px, 18vw, 340px)" }}
           >
-            {founder.bio}
+            {founder.summaryBio}
           </m.p>
 
           {/* Focus area pills */}

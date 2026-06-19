@@ -135,7 +135,7 @@ function MobileHero() {
       {/* Lightweight analytics card */}
       <div className="mt-10 bg-white rounded-2xl border border-[#E8E5F0] p-5 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-[10px] tracking-[2px] uppercase text-[#9896A4] font-medium">
+          <span className="text-[10px] tracking-[2px] uppercase text-[#7A7A85] font-medium">
             Live Analytics View
           </span>
           <span className="size-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
@@ -147,7 +147,7 @@ function MobileHero() {
             { label: "Community", value: "Founder-Led" },
           ].map((item) => (
             <div key={item.label} className="bg-[#F8F7FF] rounded-xl p-3">
-              <p className="text-[9px] tracking-[2px] uppercase text-[#9896A4] mb-1">{item.label}</p>
+              <p className="text-[9px] tracking-[2px] uppercase text-[#7A7A85] mb-1">{item.label}</p>
               <p className="text-[15px] font-black text-[#0D0D0F] tracking-tight">{item.value}</p>
             </div>
           ))}
@@ -231,7 +231,7 @@ function MobileStats() {
               <p className="text-[52px] font-black text-white leading-none tracking-tight mb-2">
                 {stat.value}
               </p>
-              <p className="text-[10px] tracking-[2px] uppercase text-[#9896A4] mb-1">
+              <p className="text-[10px] tracking-[2px] uppercase text-[#7A7A85] mb-1">
                 {stat.label}
               </p>
               <p className="text-[12px] text-[#666] leading-relaxed max-w-[220px] mx-auto">
@@ -313,7 +313,7 @@ function MobileEcosystem() {
         <h2 className="text-[28px] font-black text-[#0D0D0F] tracking-tight mb-2">
           Digital Ecosystem
         </h2>
-        <p className="text-[13px] text-[#888] mb-8 leading-relaxed">
+        <p className="text-[13px] text-[#6A6A75] mb-8 leading-relaxed">
           How{" "}
           <span className="font-semibold text-[#0D0D0F]">HermesWorkspace</span>{" "}
           communicates across modern digital platforms.
@@ -346,7 +346,7 @@ function MobileEcosystem() {
                     {ch.tag}
                   </span>
                 </div>
-                <p className="text-[11px] leading-[1.65] text-[#777] flex-1">{ch.description}</p>
+                <p className="text-[11px] leading-[1.65] text-[#6A6A75] flex-1">{ch.description}</p>
                 <span
                   className="flex items-center gap-1 text-[10px] font-semibold"
                   style={{ color: ch.accentColor }}
@@ -417,7 +417,7 @@ function MobileTrust() {
             </div>
             <div>
               <p className="text-[12px] font-semibold text-[#0D0D0F]">Founding Members</p>
-              <p className="text-[11px] text-[#9896A4]">HermesWorkspace</p>
+              <p className="text-[11px] text-[#7A7A85]">HermesWorkspace</p>
             </div>
           </div>
         </div>
@@ -460,7 +460,7 @@ function MobilePulse() {
         <h2 className="text-[28px] font-black text-[#0D0D0F] tracking-tight mb-2">
           Inside HermesWorkspace
         </h2>
-        <p className="text-[13px] text-[#888] mb-8">
+        <p className="text-[13px] text-[#6A6A75] mb-8">
           Stories, product thinking, and operational insights.
         </p>
       </FadeUp>
@@ -501,7 +501,7 @@ function MobilePulse() {
                   <Icon size={14} style={{ color: card.color }} />
                 </div>
                 <div>
-                  <span className="text-[9px] tracking-[1.5px] uppercase text-[#9896A4] font-medium">
+                  <span className="text-[9px] tracking-[1.5px] uppercase text-[#7A7A85] font-medium">
                     {card.label}
                   </span>
                   <p className="text-[13px] font-semibold text-[#0D0D0F] mt-0.5 leading-snug">
@@ -561,7 +561,7 @@ function MobileCta() {
           </Link>
         </div>
 
-        <p className="text-[10px] text-[#9896A4] mt-7 text-center">
+        <p className="text-[10px] text-[#7A7A85] mt-7 text-center">
           HermesWorkspace · support@hermesworkspace.com · connect@hermesworkspace.com
         </p>
       </FadeUp>

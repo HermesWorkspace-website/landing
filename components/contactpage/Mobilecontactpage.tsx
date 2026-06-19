@@ -917,7 +917,7 @@ function MobileRealtime() {
 
       <p
         className="text-[13px] font-body leading-[1.75] mb-8"
-        style={{ color: "rgba(255,255,255,0.5)" }}
+        style={{ color: "rgba(255,255,255,0.65)" }}
       >
         Coordinate communication across admin, teachers, students, and parents
         through a secure and structured institutional platform.

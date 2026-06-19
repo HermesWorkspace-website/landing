@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { scrollToSection } from "@/lib/scroll-to-section";
 
 // ─── FLOATING CARD ───────────────────────────────────────────────────────────
 function FloatingCard({
@@ -308,7 +309,7 @@ function MeetingsVisual() {
   return (
     <div className="h-full grid grid-cols-12 gap-3">
       <div className="col-span-4 rounded-2xl bg-[#F8FAFC] border border-black/[0.05] p-3">
-        <div className="text-[10px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today's Schedule</div>
+        <div className="text-[10px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today&apos;s Schedule</div>
         {MEETINGS_LIST.map((meeting, i) => (
           <m.div
             key={meeting.title}
@@ -351,7 +352,7 @@ function MeetingsVisual() {
           <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent anim-breathe" />
           <div className="size-10 rounded-xl bg-brand/[0.08] flex items-center justify-center"><Monitor className="size-4 text-brand" /></div>
           <div className="text-[11px] text-brand-ink/60 font-semibold">Screen Sharing Active</div>
-          <div className="text-[10px] text-brand-muted italic">"Reviewing Q3 Academic Progress"</div>
+          <div className="text-[10px] text-brand-muted italic">&quot;Reviewing Q3 Academic Progress&quot;</div>
         </m.div>
         <div className="mt-3 flex gap-2">
           <m.div
@@ -537,7 +538,7 @@ function EventsVisual() {
       </div>
       <div className="col-span-5 flex flex-col gap-3">
         <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex-1 rounded-2xl bg-[#F8FAFC] border border-black/[0.05] p-4">
-          <div className="text-[9px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today's Highlight</div>
+          <div className="text-[9px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today&apos;s Highlight</div>
           <m.div whileHover={{ y: -2 }} className="p-3 rounded-2xl bg-white border border-black/[0.04] shadow-sm cursor-pointer">
             <div className="size-7 rounded-xl bg-amber-500/10 flex items-center justify-center mb-2 text-base">🏆</div>
             <div className="text-xs font-bold text-brand-ink mb-1">Annual Sports Meet</div>
@@ -783,6 +784,7 @@ export default function Hero() {
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-[1] pointer-events-none" />
 
       <div
+      
         className="absolute inset-0 pointer-events-none opacity-[0.25] z-[2]"
         style={{
           backgroundImage: `
@@ -796,7 +798,6 @@ export default function Hero() {
           WebkitMaskImage: "radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%)",
         }}
       />
-
       {/* FIX 3: hero-intro-screen gets explicit min-height + centering as a fallback */}
       <div className="hero-intro-screen relative z-10 min-h-screen flex items-center pt-24 pb-16">
         <div className="container-page flex flex-col items-center text-center w-full">
@@ -845,13 +846,7 @@ export default function Hero() {
             </m.div>
             <m.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
               <Button
-                onClick={() => {
-                  const target = document.getElementById("features");
-                  if (target) {
-                    const top = target.getBoundingClientRect().top + window.scrollY - 60;
-                    window.scrollTo({ top, behavior: "smooth" });
-                  }
-                }}
+                onClick={() => scrollToSection("features")}
                 variant="outline" size="lg" className="gap-2"
               >
                 <Video className="size-4 text-brand" /> Explore Platform

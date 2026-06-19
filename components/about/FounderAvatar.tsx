@@ -2,7 +2,7 @@
 
 import { m } from "framer-motion";
 import { Founder } from "@/types/founder";
-import { FounderPhoto } from "./FounderPhoto";
+import { FounderPhoto } from "@/components/founders/FounderPhoto";
 
 interface FounderAvatarProps {
   founder: Founder;
@@ -27,7 +27,13 @@ export function FounderAvatar({ founder }: FounderAvatarProps) {
       transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
       className="absolute inset-0 flex items-center justify-center px-3 py-10"
     >
-      <div className="relative h-[min(68vh,440px)] w-full max-w-[230px] overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.12)]">
+      <div
+        className="relative w-full overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.12)]"
+        style={{
+          height: "clamp(360px, 36vw, 500px)",
+          maxWidth: "clamp(200px, 18vw, 340px)",
+        }}
+      >
         <FounderPhoto
           src={founder.photo}
           alt={`${founder.firstName} ${founder.lastName}`}

@@ -121,7 +121,7 @@ function AnalyticsCard() {
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
-        <span className="text-[10px] tracking-[2px] uppercase text-[#9896A4] font-medium">
+        <span className="text-[10px] tracking-[2px] uppercase text-[#7A7A85] font-medium">
           Live Analytics View
         </span>
         <div
@@ -132,7 +132,7 @@ function AnalyticsCard() {
       {/* Stats row */}
       <div className="grid grid-cols-2 gap-4 mb-5">
   <div className="bg-[#F8F7FF] rounded-xl p-4">
-    <p className="text-[9px] tracking-[2px] uppercase text-[#9896A4] mb-1">
+    <p className="text-[9px] tracking-[2px] uppercase text-[#7A7A85] mb-1">
       Content Focus
     </p>
 
@@ -147,7 +147,7 @@ function AnalyticsCard() {
   </div>
 
   <div className="bg-[#F8F7FF] rounded-xl p-4">
-    <p className="text-[9px] tracking-[2px] uppercase text-[#9896A4] mb-1">
+    <p className="text-[9px] tracking-[2px] uppercase text-[#7A7A85] mb-1">
       Community
     </p>
 

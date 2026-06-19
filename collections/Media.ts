@@ -15,6 +15,15 @@ const makeFilenameUnique: CollectionBeforeOperationHook = ({ req, operation }) =
 
 export const Media: CollectionConfig = {
   slug: 'media',
+<<<<<<< HEAD
+=======
+  access: {
+    read: () => true,
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => !!user,
+  },
+>>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
   hooks: {
     beforeOperation: [makeFilenameUnique],
   },

@@ -57,7 +57,7 @@ export default function Features() {
             </span>
           </div>
           <h2 className="text-[2.2rem] font-black font-display tracking-tight" style={{ color: "var(--ink)" }}>
-            Everything your school needs
+            Request a School Communication Platform Demo
           </h2>
         </m.div>
 

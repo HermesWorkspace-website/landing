@@ -402,7 +402,7 @@ function MobileTrust() {
           <div
             className="text-[48px] leading-none text-[#6063EE] opacity-20 mb-3 select-none font-display"
           >
-            "
+            &quot;
           </div>
           <blockquote
             className="text-[16px] leading-[1.6] font-medium text-[#0D0D0F] mb-6 font-display italic"

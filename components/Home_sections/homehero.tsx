@@ -309,7 +309,7 @@ function MeetingsVisual() {
   return (
     <div className="h-full grid grid-cols-12 gap-3">
       <div className="col-span-4 rounded-2xl bg-[#F8FAFC] border border-black/[0.05] p-3">
-        <div className="text-[10px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today's Schedule</div>
+        <div className="text-[10px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today&apos;s Schedule</div>
         {MEETINGS_LIST.map((meeting, i) => (
           <m.div
             key={meeting.title}
@@ -352,7 +352,7 @@ function MeetingsVisual() {
           <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent anim-breathe" />
           <div className="size-10 rounded-xl bg-brand/[0.08] flex items-center justify-center"><Monitor className="size-4 text-brand" /></div>
           <div className="text-[11px] text-brand-ink/60 font-semibold">Screen Sharing Active</div>
-          <div className="text-[10px] text-brand-muted italic">"Reviewing Q3 Academic Progress"</div>
+          <div className="text-[10px] text-brand-muted italic">&quot;Reviewing Q3 Academic Progress&quot;</div>
         </m.div>
         <div className="mt-3 flex gap-2">
           <m.div
@@ -538,7 +538,7 @@ function EventsVisual() {
       </div>
       <div className="col-span-5 flex flex-col gap-3">
         <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex-1 rounded-2xl bg-[#F8FAFC] border border-black/[0.05] p-4">
-          <div className="text-[9px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today's Highlight</div>
+          <div className="text-[9px] font-bold text-brand-ink/40 uppercase tracking-wider mb-3">Today&apos;s Highlight</div>
           <m.div whileHover={{ y: -2 }} className="p-3 rounded-2xl bg-white border border-black/[0.04] shadow-sm cursor-pointer">
             <div className="size-7 rounded-xl bg-amber-500/10 flex items-center justify-center mb-2 text-base">🏆</div>
             <div className="text-xs font-bold text-brand-ink mb-1">Annual Sports Meet</div>
@@ -782,7 +782,6 @@ export default function Hero() {
     // FIX 4: use bg-brand-bg instead of var(--bg) which may be undefined
     <section ref={sectionRef} className="relative overflow-hidden bg-brand-bg">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-[1] pointer-events-none" />
-
 
       <div
       

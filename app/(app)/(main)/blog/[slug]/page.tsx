@@ -7,6 +7,7 @@ import { getPayloadClient } from "@/lib/payload";
 import config from '@/payload.config'
 import type { Post } from '@/payload-types'
 import { getCachedPost, getCachedRelatedPosts } from '@/lib/payload'
+
 import { ShareBar } from '@/components/blogs/ShareBar'
 import { AuthorHoverCard } from '@/components/blogs/AuthorHoverCard'
 import { IconArrowLeft, IconTag, IconClock, IconCalendar } from '@tabler/icons-react'
@@ -298,8 +299,6 @@ export default async function BlogPostPage({ params }: PageProps) {
               prose-th:text-brand-ink prose-th:font-semibold prose-th:bg-brand-ink/[0.04]
               prose-td:text-brand-muted
               prose-li:marker:text-brand prose-ul:list-disc prose-ol:list-decimal
-              prose-h2:mt-12
-              prose-h2:mb-5
             ">
               <RichText 
                 data={post.content} 
@@ -368,7 +367,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
               {/* Author Info */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg text-slate-600">
-                <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-900 font-semibold">
+                <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-900">
                   Written by
                 </p>
                 <AuthorHoverCard author={author} sidebar />

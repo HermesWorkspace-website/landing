@@ -80,7 +80,7 @@ export default function OurStory() {
             className="border-l-2 border-[#6063EE] pl-5"
           >
             <p className="text-[14px] font-semibold text-[#1A1D26] leading-relaxed">
-              Educational institutions deserve systems built for clarity, reliability, and scale. We didn't just build a dashboard; we built an institutional operating system that respects the complexities of the modern learning environment.
+              Educational institutions deserve systems built for clarity, reliability, and scale. We didn&apos;t just build a dashboard; we built an institutional operating system that respects the complexities of the modern learning environment.
             </p>
           </m.div>
         </div>

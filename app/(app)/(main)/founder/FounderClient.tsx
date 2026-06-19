@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { FounderHero } from "@/components/founders/FounderHero";
+import { FounderHero } from "@/components/founders";
 
 /**
  * FoundersShowcase — desktop only, lazy-loaded (JS code-split, SSR renders HTML).

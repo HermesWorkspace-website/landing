@@ -1,12 +1,7 @@
 "use client";
-<<<<<<< HEAD
-import dynamic from "next/dynamic";
-import HeroSection from "@/components/founders/founderHero";
-import MobilePage from "@/components/founders/Mobile";
-=======
 
 import dynamic from "next/dynamic";
-import { FounderHero } from "@/components/founders/FounderHero";
+import { FounderHero } from "@/components/founders";
 
 /**
  * FoundersShowcase — desktop only, lazy-loaded (JS code-split, SSR renders HTML).
@@ -25,27 +20,10 @@ const FoundersShowcase = dynamic(
 const MobileFoundersShowcase = dynamic(
   () => import("@/components/founders/MobileFoundersShowcase")
 );
->>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
-
-const FoundersShowcase = dynamic(() => import("@/components/founders").then(m => ({ default: m.FoundersShowcase })), { ssr: false });
-const MissionSection = dynamic(() => import("@/components/founders/mission"), { ssr: false });
-const FAQItem = dynamic(() => import("@/components/founders/FAQ"), { ssr: false });
-const CTASection = dynamic(() => import("@/components/founders/CTA"), { ssr: false });
 
 export default function FounderClient() {
   return (
     <>
-<<<<<<< HEAD
-      <div className="md:hidden">
-        <MobilePage />
-      </div>
-      <div className="hidden md:block min-h-screen">
-        <HeroSection />
-        <FoundersShowcase />
-        <MissionSection />
-        <FAQItem />
-        <CTASection />
-=======
       {/* Hero is pure HTML/CSS — safe to SSR, contributes to LCP */}
       <FounderHero />
 
@@ -67,7 +45,6 @@ export default function FounderClient() {
 
       <div className="hidden md:block">
         <FoundersShowcase />
->>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
       </div>
     </>
   );

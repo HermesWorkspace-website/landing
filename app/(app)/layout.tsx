@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import JsonLd from "@/components/shared/JsonLd";
-
-const BASE_URL = "https://hermesworkspace.com";
-
-=======
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { DM_Sans, Inter } from "next/font/google";
@@ -67,7 +61,6 @@ export const metadata: Metadata = {
   publisher: "HermesWorkspace Pvt. Ltd.",
 };
 
->>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -81,13 +74,7 @@ const organizationSchema = {
     width: 512,
     height: 512,
   },
-<<<<<<< HEAD
-
   image: `${BASE_URL}/opengraph-image?v=3`,
-
-=======
-  image: `${BASE_URL}/opengraph-image?v=3`,
->>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
   description:
     "HermesWorkspace is a unified communication and management platform for educational institutions.",
   foundingDate: "2024",
@@ -120,18 +107,11 @@ const websiteSchema = {
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-<<<<<<< HEAD
-    <>
-      <JsonLd data={[organizationSchema, websiteSchema]} />
-      {children}
-    </>
-=======
     <html lang="en-IN" className={cn(dmSans.variable, inter.variable)}>
       <body className="antialiased font-body">
         <JsonLd data={[organizationSchema, websiteSchema]} />
         {children}
       </body>
     </html>
->>>>>>> 23d55c2ba47066dd01e8acf95020645a81280769
   );
 }

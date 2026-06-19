@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef, useReducer } from "react";
-import { m, useInView, AnimatePresence } from "framer-motion";
+import { m, useInView, AnimatePresence } from "motion/react";
 import {
   IconChevronDown,
   IconCircleCheck,

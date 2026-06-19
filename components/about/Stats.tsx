@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { m } from "framer-motion";
+import { m } from "motion/react";
 
 const stats = [
   {
@@ -26,7 +26,7 @@ const stats = [
   },
 ];
 
-import { animate } from "framer-motion";
+import { animate } from "motion/react";
 
 function useCounter(end: number, duration: number) {
   const ref = useRef<HTMLSpanElement>(null);

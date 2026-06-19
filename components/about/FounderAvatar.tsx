@@ -1,6 +1,6 @@
 "use client";
 
-import { m } from "framer-motion";
+import { m } from "motion/react";
 import { Founder } from "@/types/founder";
 import { FounderPhoto } from "@/components/founders/FounderPhoto";
 

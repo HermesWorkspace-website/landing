@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 // gsap + ScrollTrigger dynamically imported inside useEffect
 
 export default function OurStory() {

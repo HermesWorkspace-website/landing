@@ -1,6 +1,6 @@
 "use client";
 
-import { m, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "motion/react";
 import { IconArrowRight, IconArrowLeft, IconBrandLinkedin, IconBrandInstagram, IconBrandX } from "@tabler/icons-react";
 import { Founder } from "@/types/founder";
 

@@ -3,6 +3,7 @@ import "./globals.css";
 import { DM_Sans, Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import JsonLd from "@/components/shared/JsonLd";
+import FloatingContactButton from "@/components/shared/FloatingContactButton";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -111,6 +112,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <body className="antialiased font-body">
         <JsonLd data={[organizationSchema, websiteSchema]} />
         {children}
+        <FloatingContactButton />
       </body>
     </html>
   );

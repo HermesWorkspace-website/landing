@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { m } from 'framer-motion'
+import { m } from "motion/react"
 import { dbg } from '@/lib/debug-log'
 
 interface CategoryBarProps {

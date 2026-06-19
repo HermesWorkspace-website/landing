@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useMotionValue, useSpring } from "framer-motion";
+import { useMotionValue, useSpring } from "motion/react";
 
 export default function useMagnetic(strength = 0.3) {
   const ref = useRef<HTMLButtonElement>(null);

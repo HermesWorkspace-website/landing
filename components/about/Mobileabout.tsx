@@ -20,7 +20,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { FOUNDER_PHOTO_QUALITY, FOUNDER_PHOTO_SIZES } from "@/components/founders/FounderPhoto";
-import { m, AnimatePresence, useInView } from "framer-motion";
+import { m, AnimatePresence, useInView } from "motion/react";
 import {
   Plus,
   Minus,

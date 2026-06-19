@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { staggerContainer, fadeUp } from "@/components/socials/motion-variants";
 import { useCountUp } from "@/components/socials/useCountUp";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { Shield } from "lucide-react";
 
 const stats = [
@@ -27,7 +27,7 @@ const stats = [
   },
 ];
 
-import { animate } from "framer-motion";
+import { animate } from "motion/react";
 
 function useCounter(end: number, duration: number) {
   const ref = useRef<HTMLSpanElement>(null);

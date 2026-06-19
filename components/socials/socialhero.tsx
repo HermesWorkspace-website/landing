@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { m } from "framer-motion";
+import { m } from "motion/react";
 import { fadeUp, staggerContainer, slideRight } from "@/components/socials/motion-variants";
 import { ArrowRight, TrendingUp, Globe } from "lucide-react";
 import Link from "next/link";

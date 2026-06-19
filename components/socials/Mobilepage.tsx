@@ -39,7 +39,7 @@
  */
 
 import { useRef, ReactNode } from "react";
-import { useInView, m } from "framer-motion";
+import { useInView, m } from "motion/react";
 import {
   IconBrandLinkedin,
   IconBrandInstagram,

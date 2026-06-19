@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { m, useInView } from "framer-motion";
+import { m, useInView } from "motion/react";
 import { staggerContainer, fadeUp, slideLeft, slideRight } from "@/components/socials/motion-variants";
 
 // Animated 3D orb background

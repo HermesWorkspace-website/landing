@@ -4,7 +4,7 @@ import { useRef, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { m, useInView, Variants } from 'framer-motion'
+import { m, useInView, Variants } from "motion/react"
 import { IconArrowUpRight, IconSearchOff } from '@tabler/icons-react'
 import type { Article } from '@/components/blogs/types'
 

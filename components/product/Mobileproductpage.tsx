@@ -252,7 +252,6 @@ function HeroVideoPlayer() {
           ref={videoRef}
           className="w-full h-full object-cover"
           playsInline
-          muted
           preload="metadata"
           aria-label="Product demo video showcasing HermesWorkspace platform features"
           onEnded={() => setPlaying(false)}

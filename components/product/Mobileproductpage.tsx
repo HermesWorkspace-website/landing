@@ -258,7 +258,7 @@ function HeroVideoPlayer() {
           onEnded={() => setPlaying(false)}
           onPause={() => setPlaying(false)}
           onPlay={() => setPlaying(true)}
-          src="https://ik.imagekit.io/hermesworkspace/Landing/assets/hermes-launch.mp4"
+          src="https://ik.imagekit.io/hermesworkspace/Landing/assets/product_launch.mp4"
         />
 
         {/* Play overlay */}

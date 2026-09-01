@@ -41,7 +41,7 @@ export function FounderHero() {
             Meet the founders<br />
             behind{" "}
             <span style={{ color: ACCENT }}>HermesWorkspace.</span>
-          </h1>
+          </h1>   
 
           <p
             className="fh-desc text-[14px] leading-[1.85] max-w-[460px] mb-8"

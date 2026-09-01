@@ -4,22 +4,22 @@
 
 A production-grade Next.js 14 landing page for HermesWorkspace — India's unified school management and communication platform.
 
----
+\---
 
 ## Tech Stack
 
-| Layer | Tech |
-|---|---|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript (strict) |
-| Styling | Tailwind CSS v3 + CSS custom properties |
-| Components | shadcn/ui (Radix UI primitives + CVA) |
-| Animations | Framer Motion v11 + GSAP 3 + CSS keyframes |
-| 3D / WebGL | Three.js r166 (hero particle canvas) |
-| Typography | DM Sans (display/headings) + Inter (body/UI) |
-| Icons | Lucide React |
+|Layer|Tech|
+|-|-|
+|Framework|Next.js 14 (App Router)|
+|Language|TypeScript (strict)|
+|Styling|Tailwind CSS v3 + CSS custom properties|
+|Components|shadcn/ui (Radix UI primitives + CVA)|
+|Animations|Framer Motion v11 + GSAP 3 + CSS keyframes|
+|3D / WebGL|Three.js r166 (hero particle canvas)|
+|Typography|Syne (display) + DM Sans (body) + JetBrains Mono|
+|Icons|Lucide React|
 
----
+\---
 
 ## Quick Start
 
@@ -34,14 +34,14 @@ npm run dev
 open http://localhost:3000
 ```
 
----
+\---
 
 ## Project Structure
 
 ```
 hermesworkspace/
 ├── app/
-│   ├── globals.css          # Tailwind + all CSS variables & animations
+│   ├── globals.css          # Tailwind + all CSS variables \\\& animations
 │   ├── layout.tsx           # Root layout with metadata
 │   └── page.tsx             # Page assembly
 ├── components/
@@ -69,7 +69,7 @@ hermesworkspace/
 └── package.json
 ```
 
----
+\---
 
 ## Sections
 
@@ -83,16 +83,16 @@ hermesworkspace/
 8. **CTA** — dark glowing call-to-action
 9. **Footer** — brand, links, social icons
 
----
+\---
 
 ## Customisation
 
-- Colors: edit `--brand`, `--brand-dark`, `--brand-purple` in `globals.css`
-- Typography: swap Syne/DM Sans in `globals.css` Google Fonts import
-- Content: update copy directly in each section component
-- Logo: replace `public/logo.png`
+* Colors: edit `--brand`, `--brand-dark`, `--brand-purple` in `globals.css`
+* Typography: swap Syne/DM Sans in `globals.css` Google Fonts import
+* Content: update copy directly in each section component
+* Logo: replace `public/logo.png`
 
----
+\---
 
 ## Deploy
 
@@ -104,6 +104,7 @@ npx vercel --prod
 npm run build
 ```
 
----
+\---
 
 Built with ♥ by HermesWorkspace · Ranchi, Jharkhand, India
+

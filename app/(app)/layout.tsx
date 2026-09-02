@@ -108,7 +108,7 @@ const websiteSchema = {
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={cn(dmSans.variable, inter.variable)}>
+    <html lang="en-IN" className={cn(dmSans.variable, inter.variable)} suppressHydrationWarning>
       <body className="antialiased font-body">
         <JsonLd data={[organizationSchema, websiteSchema]} />
         {children}
